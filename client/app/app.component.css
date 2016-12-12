@@ -1,0 +1,13 @@
+.main-content {
+    margin: 2em;
+}
+
+.main-menu {
+    background: #333;
+    padding: 1em 1em 1em 0;
+    color: #e0e0e0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+}

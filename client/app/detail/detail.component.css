@@ -1,0 +1,83 @@
+.item-detail {
+    width: 42%;
+    float: right;
+    position: fixed;
+    right: 40px;
+    top: 100px;
+}
+
+.list-inline li {
+    display: inline;
+}
+
+.card-body {
+    padding: 1em 2.5em;
+    min-height: 440px;
+    max-height: 620px;
+    overflow-y: auto;
+    position: relative;
+    height: 100%;
+}
+
+.card-body ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.card-body .thumb-wrapper {
+    float: right;
+    padding: 1em 0 1em 1em;
+}
+
+.card-body .thumb-wrapper img {
+    border: 3px solid #d9d9d9;
+    border-radius: 6px;
+}
+
+.card-body .video-wrapper {
+    margin-top: 2em;
+}
+
+.card-body .video-wrapper .video-list {
+    display: inline-block;
+    height: 100px;
+    margin: 1em 0;
+}
+
+.card-body .video-wrapper .thumb-wrapper {
+    float: left;
+}
+
+.card-body .video-wrapper .thumb-wrapper img.active,
+.card-body .video-wrapper .thumb-wrapper img:hover {
+    border-color: #1976d2;
+}
+
+.card-body .video-wrapper .thumb-wrapper p {
+    float: none;
+    width: 94px;
+    margin: 0;
+    text-align: center;
+    font-size: .7em;
+    line-height: 14px;
+}
+
+.card-body .video-wrapper h4 {
+    margin: 0;
+}
+
+.card-body .video-wrapper img {
+    width: 94px;
+    height: 75px;
+}
+
+.card-body .video-wrapper .active-video {
+    display: none;
+}
+
+.card-body .video-wrapper span.playing-title {
+    font-style: italic;
+    font-size: .9em;
+    color: #666;
+    margin-left: 1em;
+}

@@ -1,0 +1,13 @@
+<span class="loading" *ngIf="!listings">Loading...</span>
+
+<div class="item-list">
+    <ul>
+        <li *ngFor="let listing of listings">
+            <a [routerLink]="['detail', 'release', listing.release.id]">
+              {{listing.release.description}} ({{listing.release.catalog_number}} {{listing.release.year}})
+            </a> - {{listing.price.value}} ({{listing.price.currency}})
+        </li>
+    </ul>
+</div>
+
+<router-outlet></router-outlet>

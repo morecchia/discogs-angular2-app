@@ -1,0 +1,80 @@
+<div class="item-detail" *ngIf="details">
+    <div class="card" *ngIf="details.type === 'error'">
+        <div class="card-header">
+            <p><strong>Error</strong></p>
+        </div>
+        <div class="card-body">
+            {{details.info.message}}
+        </div>
+    </div>
+
+    <div class="card" *ngIf="details.type === 'artist'">
+        <div class="card-header">
+            <p><strong>{{details.info.name}}</strong></p>
+        </div>
+        <div class="card-body">
+            <div *ngIf="details.info.images" class="thumb-wrapper">
+                <img src="{{details.info.images[0].uri150}}" />
+            </div>
+            <p *ngIf="details.info.realname">
+                <strong>Real name:</strong> {{details.info.realname}}
+            </p>
+            <p *ngIf="details.info.members">
+                <strong>Members:</strong> {{details.info.members | activeMembers}}
+            </p>
+            <p>
+                <strong>Profile:</strong> {{details.info.profile}}
+            </p>
+        </div>
+    </div>
+
+    <div class="card" *ngIf="details.type === 'release'">
+        <div class="card-header">
+            <p><strong>{{details.info.artists | joinNames:' / '}} - {{details.info.title}}</strong></p>
+        </div>
+        <div class="card-body">
+            <div *ngIf="details.info.images" class="thumb-wrapper">
+                <img src="{{details.info.images[0].uri150}}" />
+            </div>
+
+            <p *ngIf="!details.info.styles">{{details.info.genres.join(', ')}}</p>
+            <p *ngIf="details.info.styles">{{details.info.styles.join(', ')}}</p>
+
+            Tracklist:
+            <ul>
+                <li *ngFor="let track of details.info.tracklist">
+                    <span *ngIf="track.position">{{track.position}}. </span>{{track.title}}
+                </li>
+            </ul>
+
+            <div class="video-wrapper">
+                <h4 *ngIf="videos.length">{{videos.length}} Videos: <span class="playing-title" *ngIf="activeVideo">Playing '{{activeVideo.info.title}}'</span></h4>
+                <span class="video-list" *ngFor="let video of videos">
+                    <a class="thumb-wrapper" (click)="playVideo(video)" title="{{video.info.title}}">
+                        <img src="{{video.info.thumbnail_url}}" alt="{{video.info.title}}" />
+                        <p>{{video.info.title}}</p>
+                    </a>
+                </span>
+                <span class="active-video">
+                    <span id="player"></span>
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <div class="card" *ngIf="details.type === 'label'">
+        <div class="card-header">
+            <p><strong>{{details.info.name}}</strong></p>
+        </div>
+        <div class="card-body">
+            <div *ngIf="details.info.images" class="thumb-wrapper">
+                <img src="{{details.info.images[0].uri150}}" />
+            </div>
+            <p *ngIf="details.info.parent_label">
+                <strong>Parent label:</strong> {{details.info.parent_label.name}}
+            </p>
+            <p><strong>Profile:</strong> {{details.info.profile}}</p>
+        </div>
+    </div>
+
+</div>

@@ -1,0 +1,17 @@
+a {
+    color: rgba(26, 35, 38, 0.8);
+    text-decoration: none;
+}
+
+ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+li {
+    margin-bottom: 1em;
+}
+
+.item-list {
+    width: 52%;
+}
