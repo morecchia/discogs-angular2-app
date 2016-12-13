@@ -48,16 +48,16 @@
             </ul>
 
             <div class="video-wrapper">
-                <h4 *ngIf="videos.length">{{videos.length}} Videos: <span class="playing-title" *ngIf="activeVideo">Playing '{{activeVideo.info.title}}'</span></h4>
-                <span class="video-list" *ngFor="let video of videos">
-                    <a class="thumb-wrapper" (click)="playVideo(video)" title="{{video.info.title}}">
+                <h4 *ngIf="videos.length">{{videos.length}} Videos</h4>
+                <div class="video-item" *ngFor="let video of videos">
+                    <a class="thumb-wrapper" (click)="selectVideo(video)" title="{{video.info.title}}">
                         <img src="{{video.info.thumbnail_url}}" alt="{{video.info.title}}" />
                         <p>{{video.info.title}}</p>
                     </a>
-                </span>
-                <span class="active-video">
+                </div>
+                <div class="active-video">
                     <span id="player"></span>
-                </span>
+                </div>
             </div>
         </div>
     </div>

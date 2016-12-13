@@ -10,4 +10,14 @@
     top: 0;
     left: 0;
     width: 100%;
+    z-index: 999;
+}
+
+.player-content {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    z-index: 999;
+    background: #dfdfdf;
 }

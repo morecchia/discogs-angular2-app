@@ -1,5 +1,5 @@
 import { Component, OnInit, EventEmitter } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Subscription }   from 'rxjs/Subscription';
 
 import { DiscogsService } from '../../services/discogs.service';
 

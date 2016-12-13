@@ -1,6 +1,6 @@
 <span class="loading" *ngIf="!releases">Loading...</span>
 
-<div class="item-list">
+<div class="item-list" (onActiveVideo)="onVideoChanged($event)">
     <ul>
         <li *ngFor="let release of releases">
             <a [routerLink]="['detail', 'artist', release.basic_information.artists[0].id]">

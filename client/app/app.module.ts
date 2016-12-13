@@ -18,6 +18,7 @@ import { DetailComponent } from './detail/detail.component';
 import { CollectionComponent } from './collection/collection.component';
 import { SalesComponent } from './sales/sales.component';
 import { EmbedPipe } from '../pipes/embed.pipe';
+import { PlayerComponent } from './player/player.component';
 
 const appRoutes: Routes = [
   { path: 'wants', component: WantlistComponent,
@@ -48,7 +49,8 @@ const appRoutes: Routes = [
     JoinNamesPipe,
     CollectionComponent,
     SalesComponent,
-    EmbedPipe
+    EmbedPipe,
+    PlayerComponent
   ],
   imports: [
     BrowserModule,

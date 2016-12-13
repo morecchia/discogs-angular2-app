@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, Input, Inject } from '@angular/core';
+import { Component, OnInit, OnDestroy, Output, Inject, EventEmitter } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 
@@ -8,46 +8,48 @@ import { YoutubeService } from '../../services/youtube.service';
 @Component({
   selector: 'app-detail',
   templateUrl: './detail.component.html',
-  styleUrls: ['./detail.component.css'],
-  providers: [{ provide: Window, useValue: window }]
+  styleUrls: ['./detail.component.css']
 })
 export class DetailComponent implements OnInit, OnDestroy {
   details: any;
   videos: any[];
-  player: any;
-  activeVideo: any;
 
   private _sub: any;
 
   constructor(private discogs: DiscogsService,
-    private youtube: YoutubeService, private route: ActivatedRoute,
-    @Inject(Window) private _window: Window) { }
+    private youtube: YoutubeService, private route: ActivatedRoute) { }
 
   getDetailByType(type: string, id: number) {
     this.videos = [];
     switch (type) {
         case 'release':
           this.discogs.getRelease(id)
+            .catch(err => this.errorHandler(err))
             .flatMap(release => {
               const fullDetails = release.json();
               this.details = {type: 'release', info: fullDetails};
-              return fullDetails.videos.map(v => v.uri);
+              return fullDetails.videos
+                ? fullDetails.videos.map(v => v.uri) : [];
             })
             .subscribe(url => {
-              this.youtube.oEmbed(url).subscribe(video => {
-                this.videos.push({
-                  url: url,
-                  info: video.json()
-                });
+              this.youtube.oEmbed(url)
+                .subscribe(video => {
+                  this.videos.push({
+                    id: this.youtube.getIdFromUrl(url),
+                    info: video.json()
+                  });
+                  this.youtube.publishVideos(this.videos);
               });
             });
           break;
         case 'label':
           this.discogs.getLabel(id)
+            .catch(err => this.errorHandler(err))
             .subscribe(label => this.details = {type: 'label', info: label.json()});
           break;
         default:
           this.discogs.getArtist(id)
+            .catch(err => this.errorHandler(err))
             .subscribe(artist => {
               this.details = {type: 'artist', info: artist.json()};
             });
@@ -55,26 +57,8 @@ export class DetailComponent implements OnInit, OnDestroy {
         }
   }
 
-  playVideo(video) {
-    this._onYouTubeIframeAPIReady(video, this);
-  }
-
-  private _onYouTubeIframeAPIReady(video: any, comp: any) {
-    const playerId = this.youtube.getIdFromUrl(video.url);
-    if (this.player) {
-      this.player.destroy();
-    }
-    this.player =  new comp._window.YT.Player('player', {
-      height: '390',
-      width: '640',
-      videoId: playerId,
-      events: {
-        'onReady': event => {
-          event.target.playVideo();
-          this.activeVideo = video;
-        }
-      }
-    });
+  selectVideo(video) {
+    this.youtube.selectVideo(video);
   }
 
   ngOnInit() {

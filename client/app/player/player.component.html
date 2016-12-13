@@ -1,0 +1,4 @@
+<div class="playing-title" *ngIf="selectedVideo"><span class="title-text">Playing '{{selectedVideo.info.title}}'</span>
+    <a *ngIf="playing" class="player-control" (click)="pauseVideo()"><i class="material-icons">pause_circle_outline</i></a>
+    <a *ngIf="selectedVideo && !playing" class="player-control" (click)="resumeVideo()"><i class="material-icons">play_circle_outline</i></a>
+</div>
