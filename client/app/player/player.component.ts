@@ -12,6 +12,7 @@ import { YoutubeService } from '../../services/youtube.service';
 export class PlayerComponent implements OnInit {
   player: any;
   playing: boolean;
+  volume: number = 65;
   selectedVideo: any;
   videos: any[];
 
@@ -51,6 +52,27 @@ export class PlayerComponent implements OnInit {
       : null;
   }
 
+  changeVolume(value) {
+    this.player.setVolume(value);
+  }
+
+  seekFw(value) {
+
+  }
+
+  seekRw(value) {
+
+  }
+
+  skipNext() {
+    const video = this.getNextVideo(this.selectedVideo);
+    this._launchYoutubePlayer(video, this);
+  }
+
+  skipPrev() {
+
+  }
+
   private _launchYoutubePlayer(video: any, comp: any) {
     if (this.player) {
       this.player.loadVideoById(video.id);
@@ -65,6 +87,7 @@ export class PlayerComponent implements OnInit {
       events: {
         'onReady': event => {
           event.target.playVideo();
+          event.target.setVolume(this.volume);
           this.selectedVideo = video;
           this.playing = true;
         },
