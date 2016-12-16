@@ -66,12 +66,14 @@ export class PlayerComponent implements OnInit {
     this.player.setVolume(value);
   }
 
-  seekFw(value) {
-
+  seekFw() {
+    const current = this.player.getCurrentTime();
+    this.player.seekTo(current + 5);
   }
 
-  seekRw(value) {
-
+  seekRw() {
+    const current = this.player.getCurrentTime();
+    this.player.seekTo(current + 5);
   }
 
   skipNext() {
