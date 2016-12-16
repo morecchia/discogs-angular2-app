@@ -10,13 +10,20 @@ import { DiscogsService } from '../../services/discogs.service';
 })
 export class WantlistComponent implements OnInit {
   releases: any[];
+  currentPage: number = 1;
+  totalItems: number = 0;
+  itemsPerPage: number = 25;
 
   constructor(private discogs: DiscogsService) { }
 
-  getWantlist(): void {
-    this.discogs.getWantlist()
+  getWantlist(page: number = 1): void {
+    this.currentPage = page;
+    this.discogs.getWantlist(page)
       .subscribe(response => {
-        this.releases = response.json().wants;
+        const data = response.json();
+        this.currentPage = data.pagination.page;
+        this.totalItems = data.pagination.items;
+        this.releases = data.wants;
       });
   }
 

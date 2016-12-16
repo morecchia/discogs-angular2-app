@@ -1,7 +1,7 @@
 <div class="playing" *ngIf="selectedVideo">
     <span class="playing-title">Playing '{{selectedVideo.info.title}}'</span>
     <div class="player-controls">
-        <a class="player-control"><i class="material-icons">skip_previous</i></a>
+        <a class="player-control" (click)="skipPrev()"><i class="material-icons">skip_previous</i></a>
         <a class="player-control" (click)="seekFw(currentPos)"><i class="material-icons">fast_rewind</i></a>
         <a *ngIf="playing" class="player-control" (click)="pauseVideo()"><i class="material-icons">pause_circle_outline</i></a>
         <a *ngIf="selectedVideo && !playing" class="player-control" (click)="resumeVideo()"><i class="material-icons">play_circle_outline</i></a>

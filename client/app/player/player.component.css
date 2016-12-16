@@ -1,6 +1,7 @@
 .playing {
-    padding: 0 1em 1em;
-    margin: 20px 0;
+    padding: 0 1em;
+    margin-top: 20px;
+    height: 40px;
 }
 
 .playing a,
@@ -10,15 +11,11 @@
 }
 
 .playing-title {
-    width: 300px;
+    width: 50%;
     margin: 0 1em;
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
-}
-
-.player-controls {
-    margin: 0 2em;
 }
 
 a.player-control {

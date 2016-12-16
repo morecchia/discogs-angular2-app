@@ -1,8 +1,8 @@
-.main-content {
+section.main-content {
     margin: 2em;
 }
 
-.main-menu {
+section.main-menu {
     background: #333;
     padding: 1em 1em 1em 0;
     color: #e0e0e0;
@@ -13,7 +13,7 @@
     z-index: 999;
 }
 
-.player-content {
+section.player-content {
     position: fixed;
     bottom: 0;
     left: 0;

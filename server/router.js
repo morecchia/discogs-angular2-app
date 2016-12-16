@@ -5,9 +5,10 @@ const apiBase = 'https://api.discogs.com';
 
 var Router = function(app) {
     this.start = function() {
-        app.route('/api/wantlist').get((req, res) => {
+        app.route('/api/wantlist/:page').get((req, res) => {
+            const page = req.params.page;
             const options = {
-                url: `${apiBase}/users/${config.username}/wants?sort=added&sort_order=desc&token=${config.token}`,
+                url: `${apiBase}/users/${config.username}/wants?sort=added&sort_order=desc&page=${page}&per_page=25&token=${config.token}`,
                 headers: config.headers
             };
             request.get(options, getCallback(res));
@@ -40,17 +41,19 @@ var Router = function(app) {
             request.get(options, getCallback(res));
         });
 
-        app.route('/api/collection').get((req, res) => {
+        app.route('/api/collection/:page').get((req, res) => {
+            const page = req.params.page;
             const options = {
-                url: `${apiBase}/users/${config.username}/collection/folders/0/releases?sort=added&sort_order=desc&token=${config.token}`,
+                url: `${apiBase}/users/${config.username}/collection/folders/0/releases?sort=added&sort_order=desc&page=${page}&per_page=25&token=${config.token}`,
                 headers: config.headers
             };
             request.get(options, getCallback(res));
         });
 
-        app.route('/api/inventory').get((req, res) => {
+        app.route('/api/inventory/:page').get((req, res) => {
+            const page = req.params.page;
             const options = {
-                url: `${apiBase}/users/${config.username}/inventory?sort=listed&sort_order=desc&token=${config.token}`,
+                url: `${apiBase}/users/${config.username}/inventory?sort=listed&sort_order=desc&page=${page}&per_page=25&token=${config.token}`,
                 headers: config.headers
             };
             request.get(options, getCallback(res));

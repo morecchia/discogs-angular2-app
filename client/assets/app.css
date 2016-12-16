@@ -584,8 +584,11 @@ body {
 .item-list {
     width: 45%;
     float: left;
-    max-height: 800px;
     overflow: auto;
+    margin-bottom: 60px;
+}
+
+.item-list ul {
 }
 
 .item-list::-webkit-scrollbar {
@@ -600,6 +603,7 @@ body {
 .item-list ul {
     list-style: none;
     padding-left: 0;
+    max-height: 800px;
 }
 
 .item-list li {

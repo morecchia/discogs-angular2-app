@@ -42,13 +42,23 @@ export class PlayerComponent implements OnInit {
     this.playing = false;
   }
 
-  getNextVideo(current: any) {
-    if (!current || !current.id) {
+  getNextVideo() {
+    if (!this.selectedVideo) {
       return null;
     }
-    const currentIndex = this.videos.map(v => v.id).indexOf(current.id);
+    const currentIndex = this.videos.map(v => v.id).indexOf(this.selectedVideo.id);
     return this.videos.length && (this.videos.length > 1 || currentIndex !== this.videos.length)
       ? this.videos[currentIndex + 1]
+      : null;
+  }
+
+  getPrevVideo() {
+    if (!this.selectedVideo) {
+      return null;
+    }
+    const currentIndex = this.videos.map(v => v.id).indexOf(this.selectedVideo.id);
+    return this.videos.length && (this.videos.length > 1 || currentIndex !== 0)
+      ? this.videos[currentIndex - 1]
       : null;
   }
 
@@ -65,12 +75,17 @@ export class PlayerComponent implements OnInit {
   }
 
   skipNext() {
-    const video = this.getNextVideo(this.selectedVideo);
-    this._launchYoutubePlayer(video, this);
+    const video = this.getNextVideo();
+    if (video) {
+      this._launchYoutubePlayer(video, this);
+    }
   }
 
   skipPrev() {
-
+    const video = this.getPrevVideo();
+    if (video) {
+      this._launchYoutubePlayer(video, this);
+    }
   }
 
   private _launchYoutubePlayer(video: any, comp: any) {
@@ -92,7 +107,7 @@ export class PlayerComponent implements OnInit {
           this.playing = true;
         },
         'onStateChange': event => {
-          const nextVideo = this.getNextVideo(this.selectedVideo);
+          const nextVideo = this.getNextVideo();
           if (event.data === 0 && nextVideo) {
             this.player.loadVideoById(nextVideo.id);
             this.selectedVideo = nextVideo;

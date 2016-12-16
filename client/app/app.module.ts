@@ -4,6 +4,10 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule, Routes } from '@angular/router';
 
+import {Ng2PaginationModule} from 'ng2-pagination';
+
+import { appRoutes } from '../routes/routes';
+
 import { DiscogsService } from '../services/discogs.service';
 import { YoutubeService } from '../services/youtube.service';
 
@@ -17,26 +21,7 @@ import { MainMenuComponent } from './main-menu/main-menu.component';
 import { DetailComponent } from './detail/detail.component';
 import { CollectionComponent } from './collection/collection.component';
 import { SalesComponent } from './sales/sales.component';
-import { EmbedPipe } from '../pipes/embed.pipe';
 import { PlayerComponent } from './player/player.component';
-
-const appRoutes: Routes = [
-  { path: 'wants', component: WantlistComponent,
-    children: [
-      { path: 'detail/:type/:id', component: DetailComponent}
-    ]
-  },
-  { path: 'collection', component: CollectionComponent,
-    children: [
-      { path: 'detail/:type/:id', component: DetailComponent}
-    ]
-  },
-  { path: 'sales', component: SalesComponent,
-    children: [
-      { path: 'detail/:type/:id', component: DetailComponent}
-    ]
-  }
-];
 
 @NgModule({
   declarations: [
@@ -49,14 +34,14 @@ const appRoutes: Routes = [
     JoinNamesPipe,
     CollectionComponent,
     SalesComponent,
-    EmbedPipe,
     PlayerComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
-    RouterModule.forRoot(appRoutes)
+    RouterModule.forRoot(appRoutes),
+    Ng2PaginationModule
   ],
   providers: [DiscogsService, YoutubeService],
   bootstrap: [AppComponent]

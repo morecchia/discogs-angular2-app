@@ -12,8 +12,8 @@ export class DiscogsService {
 
   constructor(private http: Http) { }
 
-  getWantlist(): Observable<any> {
-    return this.http.get('/api/wantlist');
+  getWantlist(page: number = 1): Observable<any> {
+    return this.http.get(`/api/wantlist/${page}`);
   }
 
   getRelease(id: number): Observable<any> {
@@ -28,12 +28,12 @@ export class DiscogsService {
     return this.http.get(`/api/labels/${id}`);
   }
 
-  getCollection(folderId = 0): Observable<any> {
-    return this.http.get('/api/collection');
+  getCollection(page: number = 1): Observable<any> {
+    return this.http.get(`/api/collection/${page}`);
   }
 
-  getInventory(): Observable<any> {
-    return this.http.get('/api/inventory');
+  getInventory(page: number = 1): Observable<any> {
+    return this.http.get(`/api/inventory/${page}`);
   }
 
   getListing(id: number): Observable<any> {

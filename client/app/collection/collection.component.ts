@@ -8,13 +8,20 @@ import { DiscogsService } from '../../services/discogs.service';
 })
 export class CollectionComponent implements OnInit {
   releases: any[];
+  currentPage: number = 1;
+  totalItems: number = 0;
+  itemsPerPage: number = 25;
 
   constructor(private discogs: DiscogsService) { }
 
-  getCollection(): void {
-    this.discogs.getCollection()
+  getCollection(page: number = 1): void {
+    this.currentPage = page;
+    this.discogs.getCollection(page)
       .subscribe(response => {
-        this.releases = response.json().releases;
+        const data = response.json();
+        this.currentPage = data.pagination.page;
+        this.totalItems = data.pagination.items;
+        this.releases = data.releases;
       });
   }
 
