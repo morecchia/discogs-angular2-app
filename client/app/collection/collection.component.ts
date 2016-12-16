@@ -15,6 +15,7 @@ export class CollectionComponent implements OnInit {
   constructor(private discogs: DiscogsService) { }
 
   getCollection(page: number = 1): void {
+    this.releases = [];
     this.currentPage = page;
     this.discogs.getCollection(page)
       .subscribe(response => {

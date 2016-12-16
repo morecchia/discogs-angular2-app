@@ -17,6 +17,7 @@ export class WantlistComponent implements OnInit {
   constructor(private discogs: DiscogsService) { }
 
   getWantlist(page: number = 1): void {
+    this.releases = [];
     this.currentPage = page;
     this.discogs.getWantlist(page)
       .subscribe(response => {
