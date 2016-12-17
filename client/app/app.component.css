@@ -1,5 +1,6 @@
 section.main-content {
     margin: 2em;
+    position: relative;
 }
 
 section.main-menu {

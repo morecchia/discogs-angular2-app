@@ -8,6 +8,9 @@ export class EmbedPipe implements PipeTransform {
   constructor(private _sanitizer: DomSanitizer) { }
 
   transform(value: any): any {
+    if (!value) {
+      return '';
+    }
     return this._sanitizer.bypassSecurityTrustHtml(value);
   }
 }

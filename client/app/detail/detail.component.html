@@ -23,7 +23,7 @@
                 <strong>Members:</strong> {{details.info.members | activeMembers}}
             </p>
             <p>
-                <strong>Profile:</strong> {{details.info.profile}}
+                <strong>Profile:</strong> <span [innerHtml]="details.info.profile_html | embed"></span>
             </p>
         </div>
     </div>
@@ -70,7 +70,7 @@
             <p *ngIf="details.info.parent_label">
                 <strong>Parent label:</strong> {{details.info.parent_label.name}}
             </p>
-            <p><strong>Profile:</strong> {{details.info.profile}}</p>
+            <p><strong>Profile:</strong> <span [innerHtml]="details.info.profile_html | embed"></span></p>
         </div>
     </div>
 

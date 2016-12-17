@@ -577,7 +577,9 @@ body {
 }
 
 .loading {
-    margin: 4em;
+    position: absolute;
+    top: 180px;
+    left: 180px;
     font-style: italic;
 }
 
@@ -608,4 +610,12 @@ body {
 
 .item-list li {
     margin-bottom: 1em;
+}
+
+.pagination-wrapper {
+    width: 45%;
+}
+
+.pagination-wrapper ul {
+    padding: 0;
 }

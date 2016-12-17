@@ -13,6 +13,7 @@ import { YoutubeService } from '../services/youtube.service';
 
 import { ActiveMembersPipe } from '../pipes/active-members.pipe';
 import { JoinNamesPipe } from '../pipes/join-names.pipe';
+import { EmbedPipe } from '../pipes/embed.pipe';
 
 import { AppComponent } from './app.component';
 import { WantlistComponent } from './wantlist/wantlist.component';
@@ -32,6 +33,7 @@ import { PlayerComponent } from './player/player.component';
     DetailComponent,
     ActiveMembersPipe,
     JoinNamesPipe,
+    EmbedPipe,
     CollectionComponent,
     SalesComponent,
     PlayerComponent

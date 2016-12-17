@@ -1,17 +1,20 @@
+<div class="pagination-wrapper">
+  <pagination-controls (pageChange)="getWantlist($event)"></pagination-controls>
+</div>
+
+<span class="loading" *ngIf="!releases.length">Loading...</span>
 
 <div class="item-list">
-    <pagination-controls (pageChange)="getWantlist($event)"></pagination-controls>
-    <span class="loading" *ngIf="!releases">Loading...</span>
-    <ul>
-        <li *ngFor="let release of releases | paginate: { itemsPerPage: 25, currentPage: currentPage, totalItems: totalItems }">
-            <a [routerLink]="['detail', 'artist', release.basic_information.artists[0].id]">
-              {{release.basic_information.artists | joinNames}}</a> -
-            <a [routerLink]="['detail', 'release', release.id]">
-              {{release.basic_information.title}}</a> (
-            <a [routerLink]="['detail', 'label', release.basic_information.labels[0].id]">
-              {{release.basic_information.labels | joinNames}}</a> {{release.basic_information.year}})
-        </li>
-    </ul>
+  <ul>
+    <li *ngFor="let release of releases | paginate: { itemsPerPage: 25, currentPage: currentPage, totalItems: totalItems }">
+      <a [routerLink]="['detail', 'artist', release.basic_information.artists[0].id]">
+        {{release.basic_information.artists | joinNames}}</a> - 
+      <a [routerLink]="['detail', 'release', release.id]">
+        {{release.basic_information.title}}</a> (
+      <a [routerLink]="['detail', 'label', release.basic_information.labels[0].id]">
+        {{release.basic_information.labels | joinNames}}</a> {{release.basic_information.year}})
+    </li>
+  </ul>
 </div>
 
 <router-outlet></router-outlet>
