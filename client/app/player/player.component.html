@@ -1,12 +1,15 @@
 <div class="playing" *ngIf="selectedVideo">
-    <span class="playing-title">Playing '{{selectedVideo.info.title}}'</span>
+    <span class="playing-title">
+        <img src="{{selectedVideo.info.thumbnail_url}}" alt="{{selectedVideo.info.title}}" /> 
+        <a title="{{selectedVideo.info.title}}" class="video-link">{{selectedVideo.info.title}}</a>
+    </span>
     <div class="player-controls">
-        <a class="player-control" (click)="skipPrev()"><i class="material-icons">skip_previous</i></a>
-        <a class="player-control" (click)="seekFw()"><i class="material-icons">fast_rewind</i></a>
-        <a *ngIf="playing" class="player-control" (click)="pauseVideo()"><i class="material-icons">pause_circle_outline</i></a>
-        <a *ngIf="selectedVideo && !playing" class="player-control" (click)="resumeVideo()"><i class="material-icons">play_circle_outline</i></a>
-        <a class="player-control" (click)="seekRw()"><i class="material-icons">fast_forward</i></a>
-        <a class="player-control" (click)="skipNext()"><i class="material-icons">skip_next</i></a>
+        <a title="Skip Previous" class="player-control" (click)="skipPrev()"><i class="material-icons">skip_previous</i></a>
+        <a title="Rewind" class="player-control" (click)="seekFw()"><i class="material-icons">fast_rewind</i></a>
+        <a title="Pause" *ngIf="playing" class="player-control" (click)="pauseVideo()"><i class="material-icons">pause_circle_outline</i></a>
+        <a title="Play" *ngIf="selectedVideo && !playing" class="player-control" (click)="resumeVideo()"><i class="material-icons">play_circle_outline</i></a>
+        <a title="Fast Forward" class="player-control" (click)="seekRw()"><i class="material-icons">fast_forward</i></a>
+        <a title="Skip Next" class="player-control" (click)="skipNext()"><i class="material-icons">skip_next</i></a>
 
         <div class="player-control volume-slider">
             <input #src (input)="changeVolume(src.value)" [(ngModel)]="volume" type="range" min="0" max="100" step="1" />

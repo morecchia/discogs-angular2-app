@@ -1,11 +1,10 @@
 <div class="pagination-wrapper">
-  <pagination-controls (pageChange)="getWantlist($event)"></pagination-controls>
+  <pagination-controls (pageChange)="getCollection($event)"></pagination-controls>
 </div>
 
 <span class="loading" *ngIf="!releases.length">Loading...</span>
 
 <div class="item-list">
-    <span class="loading" *ngIf="!releases">Loading...</span>
     <ul>
         <li *ngFor="let release of releases | paginate: { itemsPerPage: 25, currentPage: currentPage, totalItems: totalItems }">
             <a [routerLink]="['detail', 'artist', release.basic_information.artists[0].id]">

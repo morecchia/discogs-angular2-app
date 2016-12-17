@@ -12,7 +12,7 @@ import { YoutubeService } from '../../services/youtube.service';
 export class PlayerComponent implements OnInit {
   player: any;
   playing: boolean;
-  volume: number = 65;
+  volume: number = 50;
   selectedVideo: any;
   videos: any[];
 
@@ -22,6 +22,7 @@ export class PlayerComponent implements OnInit {
   constructor(@Inject(Window) private _window: Window, private youtube: YoutubeService) {
     this.videoSubscription = youtube.videoSelected$
       .subscribe(video => {
+        console.log(video);
         this.selectedVideo = video;
         this._launchYoutubePlayer(video, this);
       });
