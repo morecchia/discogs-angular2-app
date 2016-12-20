@@ -1,6 +1,10 @@
 import { Component, OnInit, OnDestroy, Output, Inject, EventEmitter } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+
 import { Observable } from 'rxjs';
+import { Subscription }   from 'rxjs/Subscription';
+
+import { LocalStorageService } from 'angular-2-local-storage';
 
 import { DiscogsService } from '../../services/discogs.service';
 import { YoutubeService } from '../../services/youtube.service';
@@ -13,11 +17,20 @@ import { YoutubeService } from '../../services/youtube.service';
 export class DetailComponent implements OnInit, OnDestroy {
   details: any;
   videos: any[];
+  activeVideoId: number;
+
+  activeVideoSubscription: Subscription;
 
   private _sub: any;
 
-  constructor(private discogs: DiscogsService,
-    private youtube: YoutubeService, private route: ActivatedRoute) { }
+  constructor(private discogs: DiscogsService, private youtube: YoutubeService,
+   private route: ActivatedRoute, private localStorage: LocalStorageService) {
+      this.activeVideoSubscription = youtube.videoActivated$
+        .subscribe(video => {
+          this.activeVideoId = video.id;
+          this.localStorage.set('activeVideo', video);
+        });
+    }
 
   getDetailByType(type: string, id: number) {
     this.videos = [];
@@ -58,7 +71,9 @@ export class DetailComponent implements OnInit, OnDestroy {
   }
 
   selectVideo(video) {
+    this.activeVideoId = video.id;
     this.youtube.selectVideo(video);
+    this.localStorage.set('activeVideo', video);
   }
 
   ngOnInit() {

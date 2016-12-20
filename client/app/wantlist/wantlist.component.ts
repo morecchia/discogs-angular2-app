@@ -1,5 +1,8 @@
 import { Component, OnInit, EventEmitter } from '@angular/core';
+
 import { Subscription }   from 'rxjs/Subscription';
+
+import { LocalStorageService } from 'angular-2-local-storage';
 
 import { DiscogsService } from '../../services/discogs.service';
 
@@ -14,9 +17,13 @@ export class WantlistComponent implements OnInit {
   totalItems: number = 0;
   itemsPerPage: number = 25;
 
-  constructor(private discogs: DiscogsService) { }
+  constructor(private discogs: DiscogsService, private localStorage: LocalStorageService) { }
 
-  getWantlist(page: number = 1): void {
+  getWantlist(page = 1): void {
+    if (page) {
+      this.localStorage.set('wantlistPage', page);
+    }
+
     this.releases = [];
     this.currentPage = page;
     this.discogs.getWantlist(page)
@@ -29,6 +36,7 @@ export class WantlistComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getWantlist();
+    const activePage = this.localStorage.get('wantlistPage') as number;
+    this.getWantlist(activePage);
   }
 }

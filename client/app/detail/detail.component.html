@@ -49,7 +49,7 @@
 
             <div class="video-wrapper">
                 <h4 *ngIf="videos.length">{{videos.length}} Videos</h4>
-                <div class="video-item" *ngFor="let video of videos">
+                <div [ngClass]="{'active': video.id === activeVideoId, 'video-item': true}" *ngFor="let video of videos">
                     <a class="thumb-wrapper" (click)="selectVideo(video)" title="{{video.info.title}}">
                         <img src="{{video.info.thumbnail_url}}" alt="{{video.info.title}}" />
                         <p>{{video.info.title}}</p>

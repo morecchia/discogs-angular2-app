@@ -4,12 +4,14 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule, Routes } from '@angular/router';
 
-import {Ng2PaginationModule} from 'ng2-pagination';
+import { Ng2PaginationModule } from 'ng2-pagination';
+import { LocalStorageModule } from 'angular-2-local-storage';
 
 import { appRoutes } from '../routes/routes';
 
 import { DiscogsService } from '../services/discogs.service';
 import { YoutubeService } from '../services/youtube.service';
+import { WindowRef } from '../services/window.service';
 
 import { ActiveMembersPipe } from '../pipes/active-members.pipe';
 import { JoinNamesPipe } from '../pipes/join-names.pipe';
@@ -43,9 +45,13 @@ import { PlayerComponent } from './player/player.component';
     FormsModule,
     HttpModule,
     RouterModule.forRoot(appRoutes),
-    Ng2PaginationModule
+    Ng2PaginationModule,
+    LocalStorageModule.withConfig({
+      prefix: 'discogs-test-app',
+      storageType: 'localStorage'
+    })
   ],
-  providers: [DiscogsService, YoutubeService],
+  providers: [DiscogsService, YoutubeService, WindowRef],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

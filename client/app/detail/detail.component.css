@@ -40,12 +40,17 @@
     height: 128px;
 }
 
+.card-body .video-wrapper .video-item.active img {
+    border-color: #1976d2;
+}
+
+
 .card-body .video-wrapper .thumb-wrapper {
     float: left;
 }
 
-.card-body .video-wrapper .thumb-wrapper img:hover {
-    border-color: #1976d2;
+.card-body .video-wrapper .thumb-wrapper:hover {
+    color: #1976d2;
 }
 
 .card-body .video-wrapper .thumb-wrapper p {

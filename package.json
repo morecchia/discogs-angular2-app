@@ -1,5 +1,5 @@
 {
-  "name": "test-app",
+  "name": "discogs-test-app",
   "version": "0.0.0",
   "license": "MIT",
   "angular-cli": {},
@@ -21,10 +21,12 @@
     "@angular/platform-browser": "2.2.3",
     "@angular/platform-browser-dynamic": "2.2.3",
     "@angular/router": "3.2.3",
+    "angular-2-local-storage": "^1.0.0",
     "core-js": "^2.4.1",
     "ng2-pagination": "^1.0.1",
     "rxjs": "5.0.0-beta.12",
     "ts-helpers": "^1.1.1",
+    "youtube-player": "^4.0.2",
     "zone.js": "^0.6.23"
   },
   "devDependencies": {

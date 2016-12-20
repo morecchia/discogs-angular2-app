@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+
+import { LocalStorageService } from 'angular-2-local-storage';
+
 import { DiscogsService } from '../../services/discogs.service';
 
 @Component({
@@ -12,16 +15,22 @@ export class SalesComponent implements OnInit {
   totalItems: number = 0;
   itemsPerPage: number = 25;
 
-  constructor(private discogs: DiscogsService) { }
+  constructor(private discogs: DiscogsService, private localStorage: LocalStorageService) { }
 
-  getInventory(page: number = 1): void {
-    this.discogs.getInventory()
+  getInventory(page = 1): void {
+    if (page) {
+      this.localStorage.set('salesPage', page);
+    }
+
+    this.listings = [];
+    this.discogs.getInventory(page)
       .subscribe(response => {
         this.listings = response.json().listings;
       });
   }
 
   ngOnInit() {
-    this.getInventory();
+    const activePage = this.localStorage.get('salesPage') as number;
+    this.getInventory(activePage);
   }
 }

@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
+
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
 
@@ -10,11 +11,13 @@ const YT_REGEXES = [
 
 @Injectable()
 export class YoutubeService {
-  private videoSelectedSource = new Subject<any>();
-  private videoListSource = new Subject<any[]>();
+  private _videoSelectedSource = new Subject<any>();
+  private _videoListSource = new Subject<any[]>();
+  private _videoActivatedSource = new Subject<any>();
 
-  videoSelected$ = this.videoSelectedSource.asObservable();
-  videoList$ = this.videoListSource.asObservable();
+  videoSelected$ = this._videoSelectedSource.asObservable();
+  videoActivated$ = this._videoActivatedSource.asObservable();
+  videoList$ = this._videoListSource.asObservable();
 
   constructor(private http: Http) { }
 
@@ -27,10 +30,14 @@ export class YoutubeService {
   }
 
   selectVideo(video: any) {
-    this.videoSelectedSource.next(video);
+    this._videoSelectedSource.next(video);
   }
 
   publishVideos(videos: any[]) {
-    this.videoListSource.next(videos);
+    this._videoListSource.next(videos);
+  }
+
+  activateVideo(video: any) {
+    this._videoActivatedSource.next(video);
   }
 }

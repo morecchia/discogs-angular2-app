@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+
+import { LocalStorageService } from 'angular-2-local-storage';
+
 import { DiscogsService } from '../../services/discogs.service';
 
 @Component({
@@ -12,9 +15,13 @@ export class CollectionComponent implements OnInit {
   totalItems: number = 0;
   itemsPerPage: number = 25;
 
-  constructor(private discogs: DiscogsService) { }
+  constructor(private discogs: DiscogsService, private localStorage: LocalStorageService) { }
 
-  getCollection(page: number = 1): void {
+  getCollection(page = 1): void {
+    if (page) {
+      this.localStorage.set('collectionPage', page);
+    }
+
     this.releases = [];
     this.currentPage = page;
     this.discogs.getCollection(page)
@@ -27,6 +34,7 @@ export class CollectionComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getCollection();
+    const activePage = this.localStorage.get('collectionPage') as number;
+    this.getCollection(activePage);
   }
 }
