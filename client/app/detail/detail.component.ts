@@ -46,6 +46,7 @@ export class DetailComponent implements OnInit, OnDestroy {
             })
             .subscribe(url => {
               this.youtube.oEmbed(url)
+                .catch(err => Observable.throw(err))
                 .subscribe(video => {
                   this.videos.push({
                     id: this.youtube.getIdFromUrl(url),

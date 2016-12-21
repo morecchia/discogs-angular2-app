@@ -73,10 +73,12 @@ export class PlayerComponent implements OnInit {
   }
 
   inputVolume(value) {
-    this.player.setVolume(value);
+    if (this.player) {
+      this.player.setVolume(value);
+    }
   }
 
-  changeVolume(value) {
+  changeVolume(value: number) {
     this.localStorage.set('playerVolume', value);
   }
 
@@ -143,6 +145,7 @@ export class PlayerComponent implements OnInit {
       if (event.data === 0 && nextVideo) {
         this.player.loadVideoById(nextVideo.id);
         this.selectedVideo = nextVideo;
+        this.localStorage.set('activeVideo', nextVideo);
       }
     });
 
