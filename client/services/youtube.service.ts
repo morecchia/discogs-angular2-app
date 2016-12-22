@@ -21,7 +21,7 @@ export class YoutubeService {
 
   constructor(private http: Http) { }
 
-  oEmbed(ids: string[]): Observable<any> {
+  getListData(ids: string[]): Observable<any> {
     return this.http.post('/api/oEmbed', {ids});
   }
 

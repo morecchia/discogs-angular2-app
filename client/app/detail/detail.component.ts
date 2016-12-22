@@ -43,7 +43,7 @@ export class DetailComponent implements OnInit, OnDestroy {
           ? fullDetails.videos.map(v => this.youtube.getIdFromUrl(v.uri)) : [];
       })
       .subscribe(urls => {
-        this.youtube.oEmbed(urls)
+        this.youtube.getListData(urls)
           .catch(err => Observable.throw(err))
           .subscribe(response => {
             this.videos = response.json().items;

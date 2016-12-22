@@ -41,11 +41,13 @@ export class WantlistComponent implements OnInit {
     this.discogs.getRelease(id)
       .map(release => {
         const videoList = release.json().videos;
-        return videoList ? videoList.map(v => v.uri) : [];
+        return videoList
+          ? videoList.map(v => this.youtube.getIdFromUrl(v.uri)) : [];
       })
       .subscribe((urls: string[]) => {
-        this.youtube.oEmbed(urls)
-          .subscribe(videos => {
+        this.youtube.getListData(urls)
+          .subscribe(response => {
+            const videos = response.json().items;
             this.youtube.publishVideos(videos);
             this.youtube.selectVideo(videos[0]);
           });
