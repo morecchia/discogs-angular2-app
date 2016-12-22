@@ -17,6 +17,7 @@ import { YoutubeService } from '../../services/youtube.service';
 export class DetailComponent implements OnInit, OnDestroy {
   details: any;
   videos: any[];
+  videosLoaded: boolean;
   activeVideoId: number;
 
   activeVideoSubscription: Subscription;
@@ -32,43 +33,22 @@ export class DetailComponent implements OnInit, OnDestroy {
         });
     }
 
-  getDetailByType(type: string, id: number) {
-    this.videos = [];
-    switch (type) {
-        case 'release':
-          this.discogs.getRelease(id)
-            .catch(err => this.errorHandler(err))
-            .flatMap(release => {
-              const fullDetails = release.json();
-              this.details = {type: 'release', info: fullDetails};
-              return fullDetails.videos
-                ? fullDetails.videos.map(v => v.uri) : [];
-            })
-            .subscribe(url => {
-              this.youtube.oEmbed(url)
-                .catch(err => Observable.throw(err))
-                .subscribe(video => {
-                  this.videos.push({
-                    id: this.youtube.getIdFromUrl(url),
-                    info: video.json()
-                  });
-                  this.youtube.publishVideos(this.videos);
-              });
-            });
-          break;
-        case 'label':
-          this.discogs.getLabel(id)
-            .catch(err => this.errorHandler(err))
-            .subscribe(label => this.details = {type: 'label', info: label.json()});
-          break;
-        default:
-          this.discogs.getArtist(id)
-            .catch(err => this.errorHandler(err))
-            .subscribe(artist => {
-              this.details = {type: 'artist', info: artist.json()};
-            });
-          break;
-        }
+  getDetailById(id: number) {
+    this.discogs.getRelease(id)
+      .catch(err => this.errorHandler(err))
+      .map(release => {
+        const fullDetails = release.json();
+        this.details = {type: 'release', info: fullDetails};
+        return fullDetails.videos ? fullDetails.videos.map(v => v.uri) : [];
+      })
+      .subscribe(urls => {
+        this.youtube.oEmbed(urls)
+          .catch(err => Observable.throw(err))
+          .subscribe(videos => {
+            this.youtube.publishVideos(this.videos);
+            this.videosLoaded = true;
+          });
+      });
   }
 
   selectVideo(video) {
@@ -80,10 +60,8 @@ export class DetailComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this._sub = this.route.params.subscribe(params => {
       const id = params['id'];
-      const type = params['type'];
-
-      if (id && type) {
-        this.getDetailByType(type, id);
+      if (id) {
+        this.getDetailById(id);
       }
     });
   }

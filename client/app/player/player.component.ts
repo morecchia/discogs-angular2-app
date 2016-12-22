@@ -35,6 +35,7 @@ export class PlayerComponent implements OnInit {
 
     this.videoListSubscription = youtube.videoList$
       .subscribe(videos => {
+        console.log(videos);
         this.videos = videos;
       });
     }

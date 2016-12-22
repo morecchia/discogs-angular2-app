@@ -1,20 +1,37 @@
-<div class="pagination-wrapper">
-  <pagination-controls (pageChange)="getWantlist($event)"></pagination-controls>
-</div>
+<div class="mdl-grid">
+    <div class="mdl-layout-spacer"></div>
 
-<span class="loading" *ngIf="!releases.length">Loading...</span>
+    <div class="mdl-cell mdl-cell--8-col">
+        <div *ngIf="releases.length" class="pagination-wrapper">
+            <pagination-controls (pageChange)="getWantlist($event)"></pagination-controls>
+        </div>
 
-<div class="item-list">
-  <ul>
-    <li *ngFor="let release of releases | paginate: { itemsPerPage: 25, currentPage: currentPage, totalItems: totalItems }">
-      <a [routerLink]="['detail', 'artist', release.basic_information.artists[0].id]">
-        {{release.basic_information.artists | joinNames}}</a> - 
-      <a [routerLink]="['detail', 'release', release.id]">
-        {{release.basic_information.title}}</a> (
-      <a [routerLink]="['detail', 'label', release.basic_information.labels[0].id]">
-        {{release.basic_information.labels | joinNames}}</a> {{release.basic_information.year}})
-    </li>
-  </ul>
+        <div *ngIf="!releases.length" class="mdl-spinner mdl-js-spinner is-active"></div>
+
+        <ul class="mdl-list">
+            <li class="mdl-list__item mdl-list__item--two-line" *ngFor="let release of releases | paginate: { itemsPerPage: 25, currentPage: currentPage, totalItems: totalItems }">
+                <span class="mdl-list__item-primary-content">
+          <img class="mdl-list__item-avatar" src="{{release.basic_information.thumb}}" />
+          <span>
+              <a class="release-title" [routerLink]="['/detail', release.id]">
+                {{release.basic_information.artists | joinNames}} - {{release.basic_information.title}}
+              </a>
+          </span>
+                <span class="mdl-list__item-sub-title">{{release.basic_information.labels | joinNames}} ({{release.basic_information.year}})</span>
+                </span>
+                <span class="mdl-list__item-secondary-content">
+                  <span class="mdl-list__item-secondary-info">Play All</span>
+                <a (click)="playAll(release.id)" class="mdl-list__item-secondary-action"><i class="material-icons">play_circle_outline</i></a>
+                </span>
+            </li>
+        </ul>
+
+        <div *ngIf="releases.length" class="pagination-wrapper">
+            <pagination-controls (pageChange)="getCollection($event)"></pagination-controls>
+        </div>
+    </div>
+
+    <div class="mdl-layout-spacer"></div>
 </div>
 
 <router-outlet></router-outlet>

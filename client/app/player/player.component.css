@@ -8,6 +8,7 @@
 .playing span,
 .playing div {
     float: left;
+    color: #3e3e3e;
 }
 
 .playing-title {

@@ -20,7 +20,6 @@ import { EmbedPipe } from '../pipes/embed.pipe';
 import { AppComponent } from './app.component';
 import { WantlistComponent } from './wantlist/wantlist.component';
 import { SearchBoxComponent } from './search-box/search-box.component';
-import { MainMenuComponent } from './main-menu/main-menu.component';
 import { DetailComponent } from './detail/detail.component';
 import { CollectionComponent } from './collection/collection.component';
 import { SalesComponent } from './sales/sales.component';
@@ -31,7 +30,6 @@ import { PlayerComponent } from './player/player.component';
     AppComponent,
     WantlistComponent,
     SearchBoxComponent,
-    MainMenuComponent,
     DetailComponent,
     ActiveMembersPipe,
     JoinNamesPipe,

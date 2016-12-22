@@ -1,11 +1,23 @@
-<section class="main-menu">
-    <app-main-menu></app-main-menu>
-</section>
+<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
 
-<section class="main-content">
-    <router-outlet></router-outlet>
-</section>
+    <header class="mdl-layout__header">
+        <div class="mdl-layout__header-row">
+            <span class="mdl-layout-title">{{title}}</span>
+            <div class="mdl-layout-spacer"></div>
+            <nav class="mdl-navigation">
+                <a class="mdl-navigation__link" routerLink="/wants">Wantlist</a>
+                <a class="mdl-navigation__link" routerLink="/collection">Collection</a>
+                <a class="mdl-navigation__link" routerLink="/sales">Sales</a>
+            </nav>
+        </div>
+    </header>
 
-<section class="player-content">
-    <app-player [lastVideo]="activeVideo"></app-player>
-</section>
+    <main class="mdl-layout__content">
+        <router-outlet></router-outlet>
+    </main>
+
+    <section class="player-content">
+        <app-player [lastVideo]="activeVideo"></app-player>
+    </section>
+
+</div>

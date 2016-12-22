@@ -1,17 +1,36 @@
-<div class="pagination-wrapper">
-    <pagination-controls (pageChange)="getInventory($event)"></pagination-controls>
-</div>
+<div class="mdl-grid">
+    <div class="mdl-layout-spacer"></div>
 
-<span class="loading" *ngIf="!listings.length">Loading...</span>
+    <div class="mdl-cell mdl-cell--8-col">
+        <div *ngIf="releases.length" class="pagination-wrapper">
+            <pagination-controls (pageChange)="getWantlist($event)"></pagination-controls>
+        </div>
 
-<div class="item-list">
-    <ul>
-        <li *ngFor="let listing of listings | paginate: { itemsPerPage: 25, currentPage: currentPage, totalItems: totalItems }">
-            <a [routerLink]="['detail', 'release', listing.release.id]">
-              {{listing.release.description}} ({{listing.release.catalog_number}} {{listing.release.year}})
-            </a> - {{listing.price.value}} ({{listing.price.currency}})
-        </li>
-    </ul>
+        <div *ngIf="!listings.length" class="mdl-spinner mdl-js-spinner is-active"></div>
+
+        <ul class="mdl-list">
+            <li class="mdl-list__item mdl-list__item--two-line" *ngFor="let listing of listings | paginate: { itemsPerPage: 25, currentPage: currentPage, totalItems: totalItems }">
+                <span class="mdl-list__item-primary-content">
+                  <span>
+                      <a class="release-title" [routerLink]="['/detail', listing.release.id]">
+                        {{listing.release.description}} - {{listing.release.catalog_number}} {{listing.release.year}}
+                      </a>
+                  </span>
+                <span class="mdl-list__item-sub-title">{{listing.price.value}} ({{listing.price.currency}})</span>
+                </span>
+                <span class="mdl-list__item-secondary-content">
+                  <span class="mdl-list__item-secondary-info">Play All</span>
+                <a class="mdl-list__item-secondary-action"><i class="material-icons">play_circle_outline</i></a>
+                </span>
+            </li>
+        </ul>
+
+        <div *ngIf="releases.length" class="pagination-wrapper">
+            <pagination-controls (pageChange)="getCollection($event)"></pagination-controls>
+        </div>
+    </div>
+
+    <div class="mdl-layout-spacer"></div>
 </div>
 
 <router-outlet></router-outlet>
