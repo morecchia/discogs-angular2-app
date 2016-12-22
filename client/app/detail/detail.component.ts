@@ -39,12 +39,14 @@ export class DetailComponent implements OnInit, OnDestroy {
       .map(release => {
         const fullDetails = release.json();
         this.details = {type: 'release', info: fullDetails};
-        return fullDetails.videos ? fullDetails.videos.map(v => v.uri) : [];
+        return fullDetails.videos
+          ? fullDetails.videos.map(v => this.youtube.getIdFromUrl(v.uri)) : [];
       })
       .subscribe(urls => {
         this.youtube.oEmbed(urls)
           .catch(err => Observable.throw(err))
-          .subscribe(videos => {
+          .subscribe(response => {
+            this.videos = response.json().items;
             this.youtube.publishVideos(this.videos);
             this.videosLoaded = true;
           });

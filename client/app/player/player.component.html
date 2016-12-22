@@ -1,7 +1,7 @@
 <div class="playing" *ngIf="selectedVideo">
     <span class="playing-title">
-        <img src="{{selectedVideo.info.thumbnail_url}}" alt="{{selectedVideo.info.title}}" />
-        <a title="{{selectedVideo.info.title}}" class="video-link">{{selectedVideo.info.title}}</a>
+        <img src="{{selectedVideo.snippet.thumbnails.default.url}}" alt="{{selectedVideo.snippet.title}}" />
+        <a title="{{selectedVideo.snippet.title}}" class="video-link">{{selectedVideo.snippet.title}}</a>
     </span>
     <div class="player-controls">
         <a title="Skip Previous" class="player-control" (click)="skipPrev()"><i class="material-icons">skip_previous</i></a>

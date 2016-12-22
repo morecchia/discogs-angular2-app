@@ -2,7 +2,7 @@
     <div class="mdl-layout-spacer"></div>
 
     <div class="mdl-cell mdl-cell--8-col">
-        <div *ngIf="releases.length" class="pagination-wrapper">
+        <div *ngIf="listings.length" class="pagination-wrapper">
             <pagination-controls (pageChange)="getWantlist($event)"></pagination-controls>
         </div>
 
@@ -25,8 +25,8 @@
             </li>
         </ul>
 
-        <div *ngIf="releases.length" class="pagination-wrapper">
-            <pagination-controls (pageChange)="getCollection($event)"></pagination-controls>
+        <div *ngIf="listings.length" class="pagination-wrapper">
+            <pagination-controls (pageChange)="getInventory($event)"></pagination-controls>
         </div>
     </div>
 

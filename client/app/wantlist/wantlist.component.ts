@@ -43,7 +43,7 @@ export class WantlistComponent implements OnInit {
         const videoList = release.json().videos;
         return videoList ? videoList.map(v => v.uri) : [];
       })
-      .subscribe(urls => {
+      .subscribe((urls: string[]) => {
         this.youtube.oEmbed(urls)
           .subscribe(videos => {
             this.youtube.publishVideos(videos);

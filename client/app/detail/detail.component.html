@@ -13,11 +13,11 @@
 
         <div class="" *ngIf="details.type === 'release'">
             <div class="mdl-grid">
-                <div class="mdl-cell mdl-cell--3-col" *ngIf="details.info.images">
+                <div class="mdl-cell mdl-cell--4-col" *ngIf="details.info.images">
                     <img src="{{details.info.images[0].uri150}}" />
                 </div>
 
-                <div class="mdl-cell mdl-cell--9-col">
+                <div class="mdl-cell mdl-cell--8-col">
                     <h4>{{details.info.artists | joinNames:' / '}} - {{details.info.title}}</h4>
                     <p *ngIf="details.info.genres">{{details.info.genres.join(', ')}}</p>
                     <p *ngIf="details.info.styles">{{details.info.styles.join(', ')}}</p>
@@ -29,10 +29,10 @@
 
                     <div class="video-wrapper">
                         <ul class="mdl-list">
-                            <li [ngClass]="{'active': video.id === activeVideoId, 'mdl-list__item mdl-list__item': true}" *ngFor="let video of videos">
+                            <li *ngFor="let video of videos" [ngClass]="{'active': video.id === activeVideoId, 'mdl-list__item mdl-list__item': true}">
                                 <span class="mdl-list__item-primary-content" (click)="selectVideo(video)">
-                          <img class="mdl-list__item-avatar" src="{{video.info.thumbnail_url}}" alt="{{video.info.title}}" />
-                          {{video.info.title}}
+                          <img class="mdl-list__item-avatar" src="{{video.snippet.thumbnails.default.url}}" alt="{{video.snippet.title}}" />
+                          {{video.snippet.title}}
                         </span>
                             </li>
                         </ul>
