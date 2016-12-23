@@ -24,7 +24,7 @@ export class YoutubeService {
   constructor(private http: Http, private discogs: DiscogsService) { }
 
   getListData(ids: string[]): Observable<any> {
-    return this.http.post('/api/oEmbed', {ids});
+    return this.http.post('/api/videos', {ids});
   }
 
   getIdFromUrl(url) {
