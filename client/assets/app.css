@@ -511,11 +511,15 @@ main {
 
 .mdl-list li a.release-title {
     color: #4a4a4a;
-    text-decoration: none;
 }
 
-.mdl-list li a.release-title:hover {
-    color: rgb(83, 109, 254);
+.mdl-list li .release-title {
+    display: block;
+    text-decoration: none;
+    max-width: 200px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .loading {
@@ -523,6 +527,10 @@ main {
     top: 180px;
     left: 180px;
     font-style: italic;
+}
+
+.release-link {
+    cursor: pointer;
 }
 
 .pagination-wrapper {
@@ -540,4 +548,26 @@ main {
 .ng2-pagination li a {
     color: #3e3e3e !important;
     font-weight: normal !important;
+}
+
+@media (max-width: 600px) {
+    .mdl-layout__header-row .mdl-navigation {
+        display: none;
+    }
+}
+
+@media (min-width: 600px) {
+    .mdl-list li .release-title {
+        max-width: 450px;
+    }
+    .mdl-layout__drawer,
+    .mdl-layout__header .mdl-layout__drawer-button {
+        display: none;
+    }
+}
+
+@media (min-width: 960px) {
+    .mdl-list li .release-title {
+        max-width: 600px;
+    }
 }

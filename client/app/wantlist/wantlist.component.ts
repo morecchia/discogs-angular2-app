@@ -38,20 +38,7 @@ export class WantlistComponent implements OnInit {
   }
 
   playAll(id: number) {
-    this.discogs.getRelease(id)
-      .map(release => {
-        const videoList = release.json().videos;
-        return videoList
-          ? videoList.map(v => this.youtube.getIdFromUrl(v.uri)) : [];
-      })
-      .subscribe((urls: string[]) => {
-        this.youtube.getListData(urls)
-          .subscribe(response => {
-            const videos = response.json().items;
-            this.youtube.publishVideos(videos);
-            this.youtube.selectVideo(videos[0]);
-          });
-      });
+    this.youtube.playAll(id);
   }
 
   ngOnInit() {

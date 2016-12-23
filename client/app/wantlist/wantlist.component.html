@@ -10,18 +10,22 @@
 
         <ul class="mdl-list">
             <li class="mdl-list__item mdl-list__item--two-line" *ngFor="let release of releases | paginate: { itemsPerPage: 25, currentPage: currentPage, totalItems: totalItems }">
-                <span class="mdl-list__item-primary-content">
-          <img class="mdl-list__item-avatar" src="{{release.basic_information.thumb}}" />
-          <span>
-              <a class="release-title" [routerLink]="['/detail', release.id]">
-                {{release.basic_information.artists | joinNames}} - {{release.basic_information.title}}
-              </a>
-          </span>
-                <span class="mdl-list__item-sub-title">{{release.basic_information.labels | joinNames}} ({{release.basic_information.year}})</span>
+                <span class="mdl-list__item-primary-content release-link" [routerLink]="['/detail', release.id]">
+                  <a title="{{release.basic_information.title}}">
+                    <img class="mdl-list__item-avatar" src="{{release.basic_information.thumb}}" />
+                  </a>
+                  <span>
+                      <a class="release-title"  title="{{release.basic_information.title}}">
+                        {{release.basic_information.artists | joinNames}} - {{release.basic_information.title}}
+                      </a>
+                  </span>
+                <span class="mdl-list__item-sub-title release-title">{{release.basic_information.labels | joinNames}} ({{release.basic_information.year}})</span>
                 </span>
                 <span class="mdl-list__item-secondary-content">
                   <span class="mdl-list__item-secondary-info">Play All</span>
-                <a (click)="playAll(release.id)" class="mdl-list__item-secondary-action"><i class="material-icons">play_circle_outline</i></a>
+                <button (click)="playAll(release.id)" class="mdl-list__item-secondary-action mdl-button mdl-js-button mdl-button--icon mdl-button--colored">
+                    <i class="material-icons">play_circle_outline</i>
+                  </button>
                 </span>
             </li>
         </ul>

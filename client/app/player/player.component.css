@@ -1,53 +1,48 @@
 .playing {
-    padding: 0 1em;
-    margin-top: 14px;
-    height: 40px;
+    padding: 0;
 }
 
 .playing a,
 .playing span,
 .playing div {
-    float: left;
     color: #3e3e3e;
 }
 
-.playing-title {
-    width: 50%;
-    margin: 0 1em;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-}
-
-.playing-title img {
+.playing-title-image img {
     width: 60px;
     height: 48px;
     float: left;
-    padding: 0 0 12px;
 }
 
-.playing-title a.video-link {
-    font-size: 1.2em;
+.playing-title-container {
+    font-size: 0.8em;
+}
+
+.playing-title-text a.video-link {
     font-style: italic;
     letter-spacing: .08em;
-    margin: 12px 0 0 12px;
-    max-width: 80%;
+    display: block;
+    max-width: 300px;
+    overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
-    overflow: hidden;
 }
 
-.playing-title a.video-link:hover {
+.playing-title-text a.video-link:hover {
     color: cornflowerblue;
     text-decoration: underline;
 }
 
-.player-controls {
-    margin-top: 12px;
+.playing-title-text .playing-title-placeholder span {
+    color: #6a6a6a;
+    max-width: 300px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 
-a.player-control {
-    margin: 0 6px;
+.player-controls {
+    margin-top: 12px;
 }
 
 .active-video {
@@ -58,11 +53,12 @@ a.player-control {
 /* Volume Slider */
 
 .volume-slider {
-    padding-left: 2em;
+    padding-left: 10px;
 }
 
 .volume-slider label {
     font-size: .8em;
+    margin-left: 6px;
 }
 
 input[type=range] {

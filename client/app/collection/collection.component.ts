@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { LocalStorageService } from 'angular-2-local-storage';
 
 import { DiscogsService } from '../../services/discogs.service';
+import { YoutubeService } from '../../services/youtube.service';
 
 @Component({
   selector: 'app-collection',
@@ -15,7 +16,8 @@ export class CollectionComponent implements OnInit {
   totalItems: number = 0;
   itemsPerPage: number = 25;
 
-  constructor(private discogs: DiscogsService, private localStorage: LocalStorageService) { }
+  constructor(private discogs: DiscogsService, private localStorage: LocalStorageService,
+    private youtube: YoutubeService) { }
 
   getCollection(page = 1): void {
     if (page) {
@@ -31,6 +33,10 @@ export class CollectionComponent implements OnInit {
         this.totalItems = data.pagination.items;
         this.releases = data.releases;
       });
+  }
+
+  playAll(id: number) {
+    this.youtube.playAll(id);
   }
 
   ngOnInit() {

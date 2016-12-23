@@ -3,16 +3,16 @@
 
     <div class="mdl-cell mdl-cell--8-col">
         <div *ngIf="listings.length" class="pagination-wrapper">
-            <pagination-controls (pageChange)="getWantlist($event)"></pagination-controls>
+            <pagination-controls (pageChange)="getInventory($event)"></pagination-controls>
         </div>
 
         <div *ngIf="!listings.length" class="mdl-spinner mdl-js-spinner is-active"></div>
 
         <ul class="mdl-list">
             <li class="mdl-list__item mdl-list__item--two-line" *ngFor="let listing of listings | paginate: { itemsPerPage: 25, currentPage: currentPage, totalItems: totalItems }">
-                <span class="mdl-list__item-primary-content">
+                <span class="mdl-list__item-primary-content release-link" [routerLink]="['/detail', listing.release.id]">
                   <span>
-                      <a class="release-title" [routerLink]="['/detail', listing.release.id]">
+                      <a class="release-title">
                         {{listing.release.description}} - {{listing.release.catalog_number}} {{listing.release.year}}
                       </a>
                   </span>

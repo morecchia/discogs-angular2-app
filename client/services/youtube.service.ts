@@ -4,6 +4,8 @@ import { Http } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
 
+import { DiscogsService } from './discogs.service';
+
 const YT_REGEXES = [
   /https?:\/\/(?:www\.)?youtube\.com\/.*?v=(.*)$/,
   /https?:\/\/youtu\.be\/(.*)/
@@ -19,7 +21,7 @@ export class YoutubeService {
   videoActivated$ = this._videoActivatedSource.asObservable();
   videoList$ = this._videoListSource.asObservable();
 
-  constructor(private http: Http) { }
+  constructor(private http: Http, private discogs: DiscogsService) { }
 
   getListData(ids: string[]): Observable<any> {
     return this.http.post('/api/oEmbed', {ids});
@@ -39,5 +41,22 @@ export class YoutubeService {
 
   activateVideo(video: any) {
     this._videoActivatedSource.next(video);
+  }
+
+  playAll(id: number) {
+    this.discogs.getRelease(id)
+      .map(release => {
+        const videoList = release.json().videos;
+        return videoList
+          ? videoList.map(v => this.getIdFromUrl(v.uri)) : [];
+      })
+      .subscribe((urls: string[]) => {
+        this.getListData(urls)
+          .subscribe(response => {
+            const videos = response.json().items;
+            this.publishVideos(videos);
+            this.selectVideo(videos[0]);
+          });
+      });
   }
 }
