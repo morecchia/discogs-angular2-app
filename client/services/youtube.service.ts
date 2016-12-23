@@ -45,20 +45,18 @@ export class YoutubeService {
 
   playAll(id: number, callback: (video: any) => void) {
     this.discogs.getRelease(id)
-      .map(release => {
+      .mergeMap(release => {
         const videoList = release.json().videos;
-        return videoList
+        const urls = videoList
           ? videoList.map(v => this.getIdFromUrl(v.uri)) : [];
+        return this.getListData(urls)
       })
-      .subscribe((urls: string[]) => {
-        this.getListData(urls)
-          .subscribe(response => {
-            const videos = response.json().items;
-            this.publishVideos(videos);
-            this.selectVideo(videos[0]);
-            this.activateVideo(videos[0]);
-            callback(videos[0]);
-          });
+      .subscribe(response => {
+        const videos = response.json().items;
+        this.publishVideos(videos);
+        this.selectVideo(videos[0]);
+        this.activateVideo(videos[0]);
+        callback(videos[0]);
       });
   }
 }
