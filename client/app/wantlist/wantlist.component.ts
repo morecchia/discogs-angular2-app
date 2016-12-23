@@ -16,7 +16,7 @@ export class WantlistComponent implements OnInit {
   releases: any[];
   currentPage: number = 1;
   totalItems: number = 0;
-  itemsPerPage: number = 25;
+  itemsPerPage: number = 10;
 
   constructor(private discogs: DiscogsService, private localStorage: LocalStorageService,
     private youtube: YoutubeService) { }
@@ -37,8 +37,8 @@ export class WantlistComponent implements OnInit {
       });
   }
 
-  playAll(id: number) {
-    this.youtube.playAll(id, video => {
+  playAll(release: any) {
+    this.youtube.playAll(release, video => {
       this.localStorage.set('activeVideo', video);
     });
   }

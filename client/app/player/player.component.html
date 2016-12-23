@@ -2,13 +2,13 @@
     <div class="playing mdl-cell mdl-cell--6-col mdl-cell--4-col-tablet mdl-cell--1-col-phone">
         <div class="playing playing-title-container mdl-grid">
             <div class="playing-title-image mdl-cell mdl-cell--2-col mdl-cell--hide-tablet">
-                <a title="{{selectedVideo.snippet.title}}">
+                <a title="{{selectedVideo.snippet.title}}" [routerLink]="['/detail', selectedVideo.discogsId]">
                     <img src="{{selectedVideo.snippet.thumbnails.default.url}}" alt="{{selectedVideo.snippet.title}}" />
                 </a>
             </div>
             <div class="playing-title-text mdl-cell mdl-cell--10-col mdl-cell--hide-phone">
                 <div class="playing-title-placeholder">
-                    <span>Playing from Discogs release ...</span>
+                    <span>Playing from Discogs release: <a [routerLink]="['/detail', selectedVideo.discogsId]">{{selectedVideo.discogsTitle || '...'}}</a></span>
                 </div>
                 <div class="playing-title-video">
                     <a title="{{selectedVideo.snippet.title}}" class="video-link">{{selectedVideo.snippet.title}}</a>
@@ -28,7 +28,7 @@
             <button title="Fast Forward" class="player-control mdl-button mdl-js-button mdl-button--icon" (click)="seekFw()"><i class="material-icons">fast_forward</i></button>
             <button title="Skip Next" class="player-control mdl-button mdl-js-button mdl-button--icon" (click)="skipNext()"><i class="material-icons">skip_next</i></button>
         </div>
-        
+
         <div class="player-controls volume-slider">
             <input class="mdl-slider mdl-js-slider" #src (change)="changeVolume(src.value)" (input)="inputVolume(src.value)" [(ngModel)]="volume" type="range" min="0" max="100" step="1" />
             <!--<label>Volume: {{volume}}</label>-->

@@ -13,11 +13,11 @@
 
         <div class="" *ngIf="details.type === 'release'">
             <div class="mdl-grid">
-                <div class="mdl-cell mdl-cell--4-col" *ngIf="details.info.images">
+                <div class="mdl-cell mdl-cell--4-col mdl-cell--2-col-tablet mdl-cell--hide-phone release-thumb" *ngIf="details.info.images">
                     <img src="{{details.info.images[0].uri150}}" />
                 </div>
 
-                <div class="mdl-cell mdl-cell--8-col">
+                <div class="mdl-cell mdl-cell--8-col mdl-cell--6-col-tablet release-info">
                     <div class="release-basic-info">
                         <h5>{{details.info.artists | joinNames:' / '}} - {{details.info.title}}</h5>
                         <span>{{details.info.labels | joinNames}} ({{details.info.year}})</span>
@@ -25,13 +25,13 @@
 
                     <p *ngIf="!details.info.styles" class="style-chips">
                         <span class="mdl-chip" *ngFor="let genre of details.info.genres">
-                            <span class="mdl-chip__text">{{genre}}</span>
+                              <span class="mdl-chip__text">{{genre}}</span>
                         </span>
                     </p>
 
                     <p *ngIf="details.info.styles" class="style-chips">
                         <span class="mdl-chip" *ngFor="let style of details.info.styles">
-                            <span class="mdl-chip__text">{{style}}</span>
+                              <span class="mdl-chip__text">{{style}}</span>
                         </span>
                     </p>
                 </div>
@@ -43,10 +43,10 @@
                     <div class="video-wrapper">
                         <ul class="mdl-list">
                             <li *ngFor="let video of videos" [ngClass]="{'active': video.id === activeVideoId, 'mdl-list__item mdl-list__item': true}">
-                                <span class="mdl-list__item-primary-content" (click)="selectVideo(video)">
-                          <img class="mdl-list__item-avatar" src="{{video.snippet.thumbnails.default.url}}" alt="{{video.snippet.title}}" />
-                          {{video.snippet.title}}
-                        </span>
+                                <span class="mdl-list__item-primary-content" (click)="selectVideo(video, details.info)">
+                                  <img class="mdl-list__item-avatar" src="{{video.snippet.thumbnails.default.url}}" alt="{{video.snippet.title}}" />
+                                  {{video.snippet.title}}
+                                </span>
                             </li>
                         </ul>
                     </div>

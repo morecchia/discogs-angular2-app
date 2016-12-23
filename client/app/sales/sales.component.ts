@@ -14,7 +14,7 @@ export class SalesComponent implements OnInit {
   listings: any[];
   currentPage: number = 1;
   totalItems: number = 0;
-  itemsPerPage: number = 25;
+  itemsPerPage: number = 10;
 
   constructor(private discogs: DiscogsService, private localStorage: LocalStorageService,
     private youtube: YoutubeService) { }

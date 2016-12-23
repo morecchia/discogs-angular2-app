@@ -9,7 +9,7 @@
         <div *ngIf="!listings.length" class="mdl-spinner mdl-js-spinner is-active"></div>
 
         <ul class="mdl-list">
-            <li class="mdl-list__item mdl-list__item--two-line" *ngFor="let listing of listings | paginate: { itemsPerPage: 25, currentPage: currentPage, totalItems: totalItems }">
+            <li class="mdl-list__item mdl-list__item--two-line" *ngFor="let listing of listings | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage, totalItems: totalItems }">
                 <span class="mdl-list__item-primary-content release-link" [routerLink]="['/detail', listing.release.id]">
                   <span>
                       <a class="release-title">

@@ -10,11 +10,11 @@ var Router = function(app) {
     this.start = function() {
         app.route('/api/wantlist/:page?').get(discogs.getWantlist);
 
-        app.route('/api/releases/:id').get(discogs.getRelease);
-
         app.route('/api/collection/:page?').get(discogs.getCollection);
 
         app.route('/api/inventory/:page?').get(discogs.getInventory);
+
+        app.route('/api/releases/:id').get(discogs.getRelease);
 
         app.route('/api/listing/:id').get(discogs.getListing);
 
