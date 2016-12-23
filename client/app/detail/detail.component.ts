@@ -53,7 +53,9 @@ export class DetailComponent implements OnInit, OnDestroy {
       });
   }
 
-  selectVideo(video) {
+  selectVideo(video, releaseInfo: any) {
+    video.discogsId = releaseInfo.id;
+    video.discogsTitle = releaseInfo.title;
     this.activeVideoId = video.id;
     this.youtube.selectVideo(video);
     this.localStorage.set('activeVideo', video);
