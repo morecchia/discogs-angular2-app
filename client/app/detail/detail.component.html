@@ -18,9 +18,22 @@
                 </div>
 
                 <div class="mdl-cell mdl-cell--8-col">
-                    <h4>{{details.info.artists | joinNames:' / '}} - {{details.info.title}}</h4>
-                    <p *ngIf="details.info.genres">{{details.info.genres.join(', ')}}</p>
-                    <p *ngIf="details.info.styles">{{details.info.styles.join(', ')}}</p>
+                    <div class="release-basic-info">
+                        <h5>{{details.info.artists | joinNames:' / '}} - {{details.info.title}}</h5>
+                        <span>{{details.info.labels | joinNames}} ({{details.info.year}})</span>
+                    </div>
+
+                    <p *ngIf="!details.info.styles" class="style-chips">
+                        <span class="mdl-chip" *ngFor="let genre of details.info.genres">
+                            <span class="mdl-chip__text">{{genre}}</span>
+                        </span>
+                    </p>
+
+                    <p *ngIf="details.info.styles" class="style-chips">
+                        <span class="mdl-chip" *ngFor="let style of details.info.styles">
+                            <span class="mdl-chip__text">{{style}}</span>
+                        </span>
+                    </p>
                 </div>
 
                 <div class="mdl-cell mdl-cell--12-col">

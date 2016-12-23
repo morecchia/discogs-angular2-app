@@ -11,7 +11,7 @@ import { YoutubeService } from '../services/youtube.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  title = 'Discogs Test App';
+  title = 'Discogs Player';
   activeVideo: any;
 
   constructor(private router: Router, private youtube: YoutubeService,

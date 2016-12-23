@@ -2,7 +2,7 @@
     <div class="mdl-layout-spacer"></div>
 
     <div class="mdl-cell mdl-cell--8-col">
-        <div *ngIf="releases.length" class="pagination-wrapper">
+        <div class="pagination-wrapper">
             <pagination-controls (pageChange)="getCollection($event)"></pagination-controls>
         </div>
 

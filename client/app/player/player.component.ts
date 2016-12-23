@@ -44,7 +44,6 @@ export class PlayerComponent implements OnInit {
       this._initYouTubePlayer(this.selectedVideo);
       return;
     }
-    console.log(this.selectedVideo);
     this.player.playVideo();
     this.youtube.activateVideo(this.selectedVideo);
     this.playing = true;
