@@ -38,7 +38,9 @@ export class WantlistComponent implements OnInit {
   }
 
   playAll(id: number) {
-    this.youtube.playAll(id);
+    this.youtube.playAll(id, video => {
+      this.localStorage.set('activeVideo', video);
+    });
   }
 
   ngOnInit() {

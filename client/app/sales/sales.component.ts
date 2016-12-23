@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { LocalStorageService } from 'angular-2-local-storage';
 
 import { DiscogsService } from '../../services/discogs.service';
+import { YoutubeService } from '../../services/youtube.service';
 
 @Component({
   selector: 'app-sales',
@@ -15,7 +16,8 @@ export class SalesComponent implements OnInit {
   totalItems: number = 0;
   itemsPerPage: number = 25;
 
-  constructor(private discogs: DiscogsService, private localStorage: LocalStorageService) { }
+  constructor(private discogs: DiscogsService, private localStorage: LocalStorageService,
+    private youtube: YoutubeService) { }
 
   getInventory(page = 1): void {
     if (page) {
@@ -27,6 +29,12 @@ export class SalesComponent implements OnInit {
       .subscribe(response => {
         this.listings = response.json().listings;
       });
+  }
+
+  playAll(id: number) {
+    this.youtube.playAll(id, video => {
+      this.localStorage.set('activeVideo', video);
+    });
   }
 
   ngOnInit() {

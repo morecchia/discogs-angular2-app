@@ -43,7 +43,7 @@ export class YoutubeService {
     this._videoActivatedSource.next(video);
   }
 
-  playAll(id: number) {
+  playAll(id: number, callback: (video: any) => void) {
     this.discogs.getRelease(id)
       .map(release => {
         const videoList = release.json().videos;
@@ -56,6 +56,8 @@ export class YoutubeService {
             const videos = response.json().items;
             this.publishVideos(videos);
             this.selectVideo(videos[0]);
+            this.activateVideo(videos[0]);
+            callback(videos[0]);
           });
       });
   }

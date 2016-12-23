@@ -39,13 +39,14 @@ export class PlayerComponent implements OnInit {
       });
     }
 
-  resumeVideo(video) {
+  resumeVideo() {
     if (!this.player) {
       this._initYouTubePlayer(this.selectedVideo);
       return;
     }
-
+    console.log(this.selectedVideo);
     this.player.playVideo();
+    this.youtube.activateVideo(this.selectedVideo);
     this.playing = true;
   }
 
@@ -55,7 +56,7 @@ export class PlayerComponent implements OnInit {
   }
 
   getNextVideo(skipPrev = false) {
-    if (!this.selectedVideo) {
+    if (!this.selectedVideo || !this.videos) {
       return null;
     }
 
@@ -151,6 +152,7 @@ export class PlayerComponent implements OnInit {
 
     this.player.loadVideoById(video.id);
     this.selectedVideo = video;
+    this.youtube.activateVideo(video);
     this.playing = true;
   }
 

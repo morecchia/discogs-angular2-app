@@ -66,6 +66,9 @@ export class DetailComponent implements OnInit, OnDestroy {
         this.getDetailById(id);
       }
     });
+
+    const activeVideo = this.localStorage.get('activeVideo') as any;
+    this.activeVideoId = activeVideo.id;
   }
 
   ngOnDestroy() {

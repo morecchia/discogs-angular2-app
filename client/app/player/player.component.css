@@ -43,6 +43,7 @@
 
 .player-controls {
     margin-top: 12px;
+    padding-left: 20px;
 }
 
 .active-video {
@@ -157,4 +158,22 @@ input[type=range]:focus::-ms-fill-lower {
 
 input[type=range]:focus::-ms-fill-upper {
     background: #ccc;
+}
+
+@media (min-width: 600px) {
+    .playing-title-text a.video-link {
+        max-width: 450px;
+    }
+    .playing-title-text .playing-title-placeholder span {
+        max-width: 450px;
+    }
+}
+
+@media (min-width: 960px) {
+    .playing-title-text a.video-link {
+        max-width: 600px;
+    }
+    .playing-title-text .playing-title-placeholder span {
+        max-width: 600px;
+    }
 }
