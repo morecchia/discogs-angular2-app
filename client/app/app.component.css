@@ -11,3 +11,7 @@ section.player-content {
     color: rgb(255, 255, 255);
     text-decoration: none;
 }
+
+main.active-video {
+    margin-bottom: 60px;
+}
