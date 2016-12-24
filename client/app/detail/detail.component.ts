@@ -36,24 +36,22 @@ export class DetailComponent implements OnInit, OnDestroy {
   getDetailById(id: number) {
     this.discogs.getRelease(id)
       .catch(err => this.errorHandler(err))
-      .map(release => {
+      .mergeMap(release => {
         const fullDetails = release.json();
         this.details = {type: 'release', info: fullDetails};
-        return fullDetails.videos
+        const urls =  fullDetails.videos
           ? fullDetails.videos.map(v => this.youtube.getIdFromUrl(v.uri)) : [];
+        return this.youtube.getListData(urls);
       })
-      .subscribe(urls => {
-        this.youtube.getListData(urls)
-          .catch(err => Observable.throw(err))
-          .subscribe(response => {
-            this.videos = response.json().items;
-            this.youtube.publishVideos(this.videos);
-            this.videosLoaded = true;
-          });
+      .catch(err => Observable.throw(err))
+      .subscribe(response => {
+        this.videos = response.json().items;
+        this.youtube.publishVideos({releaseInfo: this.details.info, items: this.videos});
+        this.videosLoaded = true;
       });
   }
 
-  selectVideo(video, releaseInfo: any) {
+  selectVideo(video: any, releaseInfo: any) {
     video.discogsId = releaseInfo.id;
     video.discogsTitle = releaseInfo.title;
     this.activeVideoId = video.id;

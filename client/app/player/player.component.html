@@ -8,7 +8,11 @@
             </div>
             <div class="playing-title-text mdl-cell mdl-cell--10-col mdl-cell--hide-phone">
                 <div class="playing-title-placeholder">
-                    <span>Playing from Discogs release: <a [routerLink]="['/detail', selectedVideo.discogsId]">{{selectedVideo.discogsTitle || '...'}}</a></span>
+                    <span>Playing from Discogs release:
+                      <a title="{{selectedVideo.discogsTitle || '...'}}" [routerLink]="['/detail', selectedVideo.discogsId]">
+                        {{selectedVideo.discogsTitle || '...'}}
+                      </a>
+                    </span>
                 </div>
                 <div class="playing-title-video">
                     <a title="{{selectedVideo.snippet.title}}" class="video-link">{{selectedVideo.snippet.title}}</a>
@@ -29,7 +33,7 @@
             <button title="Skip Next" class="player-control mdl-button mdl-js-button mdl-button--icon" (click)="skipNext()"><i class="material-icons">skip_next</i></button>
         </div>
 
-        <div class="player-controls volume-slider">
+        <div id="volume-container" class="player-controls volume-slider">
             <input class="mdl-slider mdl-js-slider" #src (change)="changeVolume(src.value)" (input)="inputVolume(src.value)" [(ngModel)]="volume" type="range" min="0" max="100" step="1" />
             <!--<label>Volume: {{volume}}</label>-->
         </div>

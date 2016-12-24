@@ -1,4 +1,5 @@
 import { Component, OnInit, Inject, Input } from '@angular/core';
+import { Title }     from '@angular/platform-browser';
 
 import { Subscription }   from 'rxjs/Subscription';
 import { LocalStorageService } from 'angular-2-local-storage';
@@ -15,7 +16,7 @@ export class PlayerComponent implements OnInit {
   player: any;
   playing: boolean;
   selectedVideo: any;
-  videos: any[];
+  videos: any;
   volume: number;
 
   @Input()
@@ -24,20 +25,21 @@ export class PlayerComponent implements OnInit {
   videoSubscription: Subscription;
   videoListSubscription: Subscription;
 
-  constructor(private youtube: YoutubeService, private localStorage: LocalStorageService) {
-    this.volume = this.localStorage.get('playerVolume') as number || 50;
+  constructor(private youtube: YoutubeService, private localStorage: LocalStorageService,
+    private title: Title) {
+      this.volume = this.localStorage.get('playerVolume') as number || 50;
 
-    this.videoSubscription = youtube.videoSelected$
-      .subscribe(video => {
-        this.selectedVideo = video;
-        this._launchYoutubePlayer(video);
-      });
+      this.videoSubscription = youtube.videoSelected$
+        .subscribe(video => {
+          this.selectedVideo = video;
+          this._launchYoutubePlayer(video);
+        });
 
-    this.videoListSubscription = youtube.videoList$
-      .subscribe(videos => {
-        this.videos = videos;
-      });
-    }
+      this.videoListSubscription = youtube.videoList$
+        .subscribe(videos => {
+          this.videos = videos;
+        });
+      }
 
   resumeVideo() {
     if (!this.player) {
@@ -46,6 +48,7 @@ export class PlayerComponent implements OnInit {
     }
     this.player.playVideo();
     this.youtube.activateVideo(this.selectedVideo);
+    this.title.setTitle(this.selectedVideo.snippet.title);
     this.playing = true;
   }
 
@@ -59,16 +62,16 @@ export class PlayerComponent implements OnInit {
       return null;
     }
 
-    const currentIndex = this.videos.map(v => v.id).indexOf(this.selectedVideo.id);
+    const currentIndex = this.videos.items.map(v => v.id).indexOf(this.selectedVideo.id);
 
     if (skipPrev) {
-      return this.videos.length && (this.videos.length > 1 || currentIndex !== 0)
-        ? this.videos[currentIndex - 1]
+      return this.videos.items.length && (this.videos.items.length > 1 || currentIndex !== 0)
+        ? this.videos.items[currentIndex - 1]
         : null;
     }
 
-    return this.videos.length && (this.videos.length > 1 || currentIndex !== this.videos.length)
-      ? this.videos[currentIndex + 1]
+    return this.videos.items.length && (this.videos.items.length > 1 || currentIndex !== this.videos.items.length)
+      ? this.videos.items[currentIndex + 1]
       : null;
   }
 
@@ -97,17 +100,19 @@ export class PlayerComponent implements OnInit {
   }
 
   skipNext() {
-    const video = this.getNextVideo();
-    if (video) {
-      this._launchYoutubePlayer(video);
-      this.youtube.activateVideo(video);
-      this.localStorage.set('activeVideo', video);
-    }
+    this.skipVideo(false);
   }
 
   skipPrev() {
-    const video = this.getNextVideo(true);
+    this.skipVideo(true);
+  }
+
+  skipVideo(prev = false) {
+    const video = this.getNextVideo(prev);
     if (video) {
+      video.discogsId = this.videos.releaseInfo.id;
+      video.discogsTitle = this.videos.releaseInfo.title;
+
       this._launchYoutubePlayer(video);
       this.youtube.activateVideo(video);
       this.localStorage.set('activeVideo', video);
@@ -118,6 +123,8 @@ export class PlayerComponent implements OnInit {
     if (!video) {
       return;
     }
+
+    this.title.setTitle(video.snippet.title);
 
     if (this.player) {
       this.player.loadVideoById(video.id);
@@ -144,7 +151,11 @@ export class PlayerComponent implements OnInit {
       const nextVideo = this.getNextVideo();
       if (event.data === 0 && nextVideo) {
         this.player.loadVideoById(nextVideo.id);
+
         this.selectedVideo = nextVideo;
+        this.selectedVideo.discogsId = this.videos.releaseInfo.id;
+        this.selectedVideo.discogsTitle = this.videos.releaseInfo.title;
+
         this.localStorage.set('activeVideo', nextVideo);
       }
     });

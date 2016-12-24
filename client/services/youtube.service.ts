@@ -14,7 +14,7 @@ const YT_REGEXES = [
 @Injectable()
 export class YoutubeService {
   private _videoSelectedSource = new Subject<any>();
-  private _videoListSource = new Subject<any[]>();
+  private _videoListSource = new Subject<any>();
   private _videoActivatedSource = new Subject<any>();
 
   videoSelected$ = this._videoSelectedSource.asObservable();
@@ -35,7 +35,7 @@ export class YoutubeService {
     this._videoSelectedSource.next(video);
   }
 
-  publishVideos(videos: any[]) {
+  publishVideos(videos: any) {
     this._videoListSource.next(videos);
   }
 
@@ -53,16 +53,19 @@ export class YoutubeService {
       })
       .subscribe(response => {
         const videos = response.json().items;
-        this.publishVideos(videos);
+        this.publishVideos({releaseInfo: release, items: videos});
 
         const video = videos[0];
-        video.discogsId = release.id;
-        video.discogsTitle = release.basic_information.title;
 
-        this.selectVideo(video);
-        this.activateVideo(video);
+        if (video) {
+          video.discogsId = release.id;
+          video.discogsTitle = release.basic_information.title;
 
-        callback(video);
+          this.selectVideo(video);
+          this.activateVideo(video);
+
+          callback(video);
+        }
       });
   }
 }
