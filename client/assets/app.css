@@ -10,10 +10,6 @@ body {
     background: #FAFAFA;
 }
 
-main {
-    margin-bottom: 60px;
-}
-
 .mdl-list li a.release-title {
     color: #4a4a4a;
 }
@@ -39,11 +35,15 @@ main {
 }
 
 .pagination-wrapper {
-    width: 100%;
+    width: 364px;
 }
 
 .pagination-wrapper ul {
     padding: 0;
+}
+
+.pagination-wrapper li {
+    cursor: pointer;
 }
 
 .ng2-pagination .current {

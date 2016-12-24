@@ -9,7 +9,7 @@
         <div *ngIf="!releases.length" class="mdl-spinner mdl-js-spinner is-active"></div>
 
         <ul class="mdl-list">
-            <li class="mdl-list__item mdl-list__item--two-line" *ngFor="let release of releases | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage, totalItems: totalItems }">
+            <li class="mdl-list__item mdl-list__item--two-line" *ngFor="let release of releases | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage, totalItems: totalItems, autoHide: true }">
                 <span class="mdl-list__item-primary-content release-link" [routerLink]="['/detail', release.id]">
                   <a title="{{release.basic_information.title}}">
                     <img class="mdl-list__item-avatar" src="{{release.basic_information.thumb}}" />

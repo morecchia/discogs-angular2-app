@@ -1,4 +1,4 @@
-import { BrowserModule } from '@angular/platform-browser';
+import { BrowserModule, Title } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
@@ -49,7 +49,7 @@ import { PlayerComponent } from './player/player.component';
       storageType: 'localStorage'
     })
   ],
-  providers: [DiscogsService, YoutubeService, WindowRef],
+  providers: [DiscogsService, YoutubeService, WindowRef, Title],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

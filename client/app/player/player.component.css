@@ -34,6 +34,7 @@
 }
 
 .playing-title-text .playing-title-placeholder span {
+    display: block;
     color: #6a6a6a;
     max-width: 300px;
     overflow: hidden;
@@ -45,7 +46,7 @@
     padding-left: 20px;
 }
 
-.player-controls .player-transport{
+.player-controls .player-transport {
     padding-top: 8px;
 }
 
