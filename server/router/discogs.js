@@ -2,8 +2,7 @@
 
 const request = require('request');
 
-const util = require('./util');
-const config = require('../config');
+const { getCallback, generatePageStr } = require('./util');
 const { tokens, username, headers } = require('../config');
 
 const apiBase = 'https://api.discogs.com';
@@ -22,7 +21,7 @@ module.exports = {
         request.get({
             url: `${apiBase}/users/${username}/collection/folders/0/releases?sort=added&sort_order=desc${pageStr}&token=${tokens.discogs}`,
             headers: headers
-        }, util.getCallback(res));
+        }, getCallback(res));
     },
 
     getInventory: (req, res) => {
@@ -30,7 +29,7 @@ module.exports = {
         request.get({
             url: `${apiBase}/users/${username}/inventory?sort=listed&sort_order=desc${pageStr}&token=${tokens.discogs}`,
             headers: headers
-        }, util.getCallback(res));
+        }, getCallback(res));
     },
 
     getRelease: (req, res) => {
@@ -38,7 +37,7 @@ module.exports = {
         request.get({
             url: `${apiBase}/releases/${id}?token=${tokens.discogs}`,
             headers: headers
-        }, util.getCallback(res));
+        }, getCallback(res));
     },
 
     getListing: (req, res) => {
@@ -46,12 +45,6 @@ module.exports = {
         request.get({
             url: `${apiBase}/marketplace/listings/${id}?curr_abbr=USD&token=${tokens.discogs}`,
             headers: headers
-        }, util.getCallback(res));
+        }, getCallback(res));
     }
 };
-
-function generatePageStr(req) {
-    const page = isNaN(req.params.page) ? `` : `&page=${req.params.page}`;
-    const perPage = isNaN(parseInt(req.query.per_page)) ? `&per_page=10` : `&per_page=${req.query.per_page}`;
-    return `${page}${perPage}`;
-}

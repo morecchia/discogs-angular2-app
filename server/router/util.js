@@ -31,5 +31,11 @@ module.exports = {
                 }
             });
         }
+    },
+    
+    generatePageStr: req => {
+        const page = isNaN(req.params.page) ? `` : `&page=${req.params.page}`;
+        const perPage = isNaN(parseInt(req.query.per_page)) ? `&per_page=10` : `&per_page=${req.query.per_page}`;
+        return `${page}${perPage}`;
     }
 };
