@@ -13,7 +13,7 @@ module.exports = {
         request.get({
             url: `${apiBase}/users/${username}/wants?sort=added&sort_order=desc${pageStr}&token=${tokens.discogs}`,
             headers: headers
-        }, util.getCallback(res));
+        }, getCallback(res));
     },
 
     getCollection: (req, res) => {
