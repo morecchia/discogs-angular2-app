@@ -19,7 +19,7 @@
 
                 <div class="mdl-cell mdl-cell--8-col mdl-cell--6-col-tablet release-info">
                     <div class="release-basic-info">
-                        <h5>{{details.info.artists | joinNames:' / '}} - {{details.info.title}}</h5>
+                        <h5>{{details.info.artists | joinNames}} - {{details.info.title}}</h5>
                         <span>{{details.info.labels | joinNames}} ({{details.info.year}})</span>
                     </div>
 
@@ -46,6 +46,9 @@
                                 <span class="mdl-list__item-primary-content" (click)="selectVideo(video, details.info)">
                                   <img class="mdl-list__item-avatar" src="{{video.snippet.thumbnails.default.url}}" alt="{{video.snippet.title}}" />
                                   {{video.snippet.title}}
+                                </span>
+                                <span class="mdl-list__item-secondary-content video-duration">
+                                    <span>{{video.contentDetails.duration | formatDuration}}</span>
                                 </span>
                             </li>
                         </ul>

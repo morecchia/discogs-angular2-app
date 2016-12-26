@@ -16,6 +16,7 @@ import { WindowRef } from '../services/window.service';
 import { ActiveMembersPipe } from '../pipes/active-members.pipe';
 import { JoinNamesPipe } from '../pipes/join-names.pipe';
 import { EmbedPipe } from '../pipes/embed.pipe';
+import { FormatDurationPipe } from '../pipes/format-duration.pipe';
 
 import { AppComponent } from './app.component';
 import { WantlistComponent } from './wantlist/wantlist.component';
@@ -34,6 +35,7 @@ import { PlayerComponent } from './player/player.component';
     ActiveMembersPipe,
     JoinNamesPipe,
     EmbedPipe,
+    FormatDurationPipe,
     CollectionComponent,
     SalesComponent,
     PlayerComponent

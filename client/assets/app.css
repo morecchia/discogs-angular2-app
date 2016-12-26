@@ -35,7 +35,8 @@ body {
 }
 
 .pagination-wrapper {
-    width: 364px;
+    width: 600px;
+    margin-left: 60px;
 }
 
 .pagination-wrapper ul {

@@ -4,13 +4,20 @@ import { Pipe, PipeTransform } from '@angular/core';
   name: 'joinNames'
 })
 export class JoinNamesPipe implements PipeTransform {
-  transform(value: any, join = ', '): string {
-    if (!value) {
+  transform(values: any): string {
+    if (!values) {
       return '';
     }
 
-    return value
-      .map(item => item.name)
-      .join(join);
+    if (values.length && values.length === 1) {
+      return values[0].name;
+    }
+
+    let output = '';
+    values.forEach(item => {
+      output += `${item.name} ${item.join || ''} `;
+    });
+
+    return output.trim();
   }
 }
