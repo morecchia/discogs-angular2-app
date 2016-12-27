@@ -1,3 +1,7 @@
+.progress.progress-detail {
+    margin: 3em auto;
+}
+
 .video-wrapper li:hover {
     cursor: pointer;
 }

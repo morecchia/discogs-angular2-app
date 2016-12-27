@@ -6,6 +6,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { Ng2PaginationModule } from 'ng2-pagination';
 import { LocalStorageModule } from 'angular-2-local-storage';
+import { MdlModule } from 'angular2-mdl';
 
 import { appRoutes } from '../routes/routes';
 
@@ -19,25 +20,19 @@ import { EmbedPipe } from '../pipes/embed.pipe';
 import { FormatDurationPipe } from '../pipes/format-duration.pipe';
 
 import { AppComponent } from './app.component';
-import { WantlistComponent } from './wantlist/wantlist.component';
-import { SearchBoxComponent } from './search-box/search-box.component';
+import { ListComponent } from './list/list.component';
 import { DetailComponent } from './detail/detail.component';
-import { CollectionComponent } from './collection/collection.component';
-import { SalesComponent } from './sales/sales.component';
 import { PlayerComponent } from './player/player.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    WantlistComponent,
-    SearchBoxComponent,
+    ListComponent,
     DetailComponent,
     ActiveMembersPipe,
     JoinNamesPipe,
     EmbedPipe,
     FormatDurationPipe,
-    CollectionComponent,
-    SalesComponent,
     PlayerComponent
   ],
   imports: [
@@ -46,6 +41,7 @@ import { PlayerComponent } from './player/player.component';
     HttpModule,
     RouterModule.forRoot(appRoutes),
     Ng2PaginationModule,
+    MdlModule,
     LocalStorageModule.withConfig({
       prefix: 'discogs-test-app',
       storageType: 'localStorage'

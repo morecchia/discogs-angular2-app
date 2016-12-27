@@ -34,7 +34,7 @@
         </div>
 
         <div id="volume-container" class="player-controls volume-slider">
-            <input class="mdl-slider mdl-js-slider" #src (change)="changeVolume(src.value)" (input)="inputVolume(src.value)" [(ngModel)]="volume" type="range" min="0" max="100" step="1" />
+            <mdl-slider [min]="0" [max]="100" [step]="1" #src (change)="changeVolume(src.value)" (input)="inputVolume(src.value)" [(ngModel)]="volume"></mdl-slider>
             <!--<label>Volume: {{volume}}</label>-->
         </div>
     </div>
