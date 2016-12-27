@@ -18,7 +18,7 @@ Generated with [angular-cli](https://github.com/angular/angular-cli) version 1.0
        },
        headers: {
            'Accept': 'application/vnd.discogs.v2.html+json',
-           'User-Agent': 'MyDiscogsClient/1.0 +http://mydiscogsclient.org' // your custom User Agent string here
+           'User-Agent': 'MyDiscogsClient/1.0 +http://mydiscogsclient.org' // your User-Agent string here
        },
        username: 'discogsUser' // your discogs username here
    };
