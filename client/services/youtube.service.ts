@@ -4,6 +4,8 @@ import { Http } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
 
+import { LocalStorageService } from 'angular-2-local-storage';
+
 import { DiscogsService } from './discogs.service';
 
 const YT_REGEXES = [
@@ -21,7 +23,8 @@ export class YoutubeService {
   videoActivated$ = this._videoActivatedSource.asObservable();
   videoList$ = this._videoListSource.asObservable();
 
-  constructor(private http: Http, private discogs: DiscogsService) { }
+  constructor(private http: Http, private discogs: DiscogsService,
+    private localStorage: LocalStorageService) { }
 
   getListData(ids: string[]): Observable<any> {
     return this.http.post('/api/videos', {ids});
@@ -32,6 +35,7 @@ export class YoutubeService {
   }
 
   selectVideo(video: any) {
+    this.localStorage.set('activeVideo', video);
     this._videoSelectedSource.next(video);
   }
 
@@ -40,6 +44,7 @@ export class YoutubeService {
   }
 
   activateVideo(video: any) {
+    this.localStorage.set('activeVideo', video);
     this._videoActivatedSource.next(video);
   }
 
