@@ -37,10 +37,10 @@
                 </div>
 
                 <div class="mdl-cell mdl-cell--12-col">
-                    <div *ngIf="!videosLoaded" class="progress progress-detail">
+                    <div *ngIf="details.info.videos && !videosLoaded" class="progress progress-detail">
                         <mdl-spinner single-color [active]="!videosLoaded"></mdl-spinner>
-                    </div>                   
-                    
+                    </div>
+
                     <h4 *ngIf="videosLoaded">{{videos.length || 'No'}} Videos</h4>
 
                     <div class="video-wrapper">

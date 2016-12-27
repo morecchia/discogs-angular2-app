@@ -68,7 +68,7 @@ body {
 
 @media (min-width: 600px) {
     .mdl-layout__drawer,
-    .mdl-layout__header .mdl-layout__drawer-button {
+    .mdl-layout__drawer-button {
         display: none;
     }
     .mdl-layout__header-row {

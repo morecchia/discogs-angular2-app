@@ -12,6 +12,6 @@ section.player-content {
     text-decoration: none;
 }
 
-main.active-video {
+.active-video {
     margin-bottom: 60px;
 }
