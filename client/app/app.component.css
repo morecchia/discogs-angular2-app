@@ -12,6 +12,16 @@ section.player-content {
     text-decoration: none;
 }
 
+.search-container {
+    position: absolute;
+    top: -8px;
+    right: 52px;
+}
+
+.spacer-horz {
+    padding: 0 12px;
+}
+
 .active-video {
     margin-bottom: 60px;
 }

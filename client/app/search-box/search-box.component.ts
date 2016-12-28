@@ -1,5 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 
+import { DiscogsService } from '../../services/discogs.service';
+
 @Component({
   selector: 'app-search-box',
   templateUrl: './search-box.component.html',
@@ -7,15 +9,23 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class SearchBoxComponent implements OnInit {
   @Input()
-  placeholder: string = 'Search';
-  text = 'Nothing';
-  constructor() { }
+  placeholder: string = 'Type the name of a release...';
+  constructor(private discogs: DiscogsService) { }
 
   clear(input) {
     input.value = '';
   }
 
-  ngOnInit() {
+  onFocus(value) {
   }
 
+  onBlur(value) {
+  }
+
+  onInput(q: string) {
+      this.discogs.searchReleases(q);
+  }
+
+  ngOnInit() {
+  }
 }

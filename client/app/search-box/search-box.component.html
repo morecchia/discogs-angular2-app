@@ -1,2 +1,1 @@
-<input placeholder="Search" #input />
-<button class="btn-clear" (click)="clear(input)">Clear</button>
+<mdl-textfield #input type="text" label="Search" (keyup)="onInput(input.value)" placeholder="{{placeholder}}" autofocus (blur)="onBlur($event)" (focus)="onFocus($event)"></mdl-textfield>

@@ -26,8 +26,7 @@ export class PlayerComponent implements OnInit {
   @Input() currentTime: Observable<string>;
   currentTimeSeconds: number;
 
-  @Input()
-  lastVideo: any;
+  @Input() lastVideo: any;
 
   videoSubscription: Subscription;
   videoListSubscription: Subscription;
@@ -201,6 +200,7 @@ export class PlayerComponent implements OnInit {
   }
 
   private _timer(duration, startTime = 0) {
+    const startWithTime = formatDuration(moment.duration(startTime, 'seconds'));
     const trackDuration = moment.duration(duration).asMilliseconds() + 1000;
     return Observable.timer(0, 1000)
       .takeUntil(Observable.timer(trackDuration))
@@ -208,7 +208,8 @@ export class PlayerComponent implements OnInit {
         const span = moment.duration(startTime + t, 'seconds');
         this.currentTimeSeconds = span.asSeconds();
         return formatDuration(span);
-      });
+      })
+      .startWith(startWithTime);
   }
 
   ngOnInit() {

@@ -10,14 +10,11 @@ export class JoinNamesPipe implements PipeTransform {
     }
 
     if (values.length && values.length === 1) {
-      return values[0].name;
+      return values[0].name || values[0];
     }
 
-    let output = '';
-    values.forEach(item => {
-      output += `${item.name} ${item.join || ''} `;
-    });
-
-    return output.trim();
+    return values.map(v => v.name || v)
+      .join(` ${values[0].join || ''} `)
+      .trim();
   }
 }

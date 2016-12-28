@@ -14,6 +14,8 @@ var Router = function(app) {
 
         app.route('/api/inventory/:page?').get(discogs.getInventory);
 
+        app.route('/api/search/releases/:q/:page?').get(discogs.searchReleases);
+
         app.route('/api/releases/:id').get(discogs.getRelease);
 
         app.route('/api/listing/:id').get(discogs.getListing);

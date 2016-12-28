@@ -23,17 +23,19 @@ import { AppComponent } from './app.component';
 import { ListComponent } from './list/list.component';
 import { DetailComponent } from './detail/detail.component';
 import { PlayerComponent } from './player/player.component';
+import { SearchBoxComponent } from './search-box/search-box.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ListComponent,
     DetailComponent,
+    PlayerComponent,
+    SearchBoxComponent,
     ActiveMembersPipe,
     JoinNamesPipe,
     EmbedPipe,
     FormatDurationPipe,
-    PlayerComponent
   ],
   imports: [
     BrowserModule,

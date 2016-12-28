@@ -60,6 +60,10 @@ body {
     font-weight: normal !important;
 }
 
+.mdl-textfield__input {
+    border-bottom: 1px solid #aaa;
+}
+
 @media (max-width: 600px) {
     .mdl-layout__header-row .mdl-navigation {
         display: none;

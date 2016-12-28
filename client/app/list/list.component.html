@@ -6,13 +6,13 @@
             <pagination-controls (pageChange)="getPage($event)"></pagination-controls>
         </div>
 
-         <div *ngIf="!items.length" class="progress progress-list">
+        <div *ngIf="!items.length" class="progress progress-list">
             <mdl-spinner single-color [active]="!items.length"></mdl-spinner>
-         </div>
+        </div>
 
         <ul class="mdl-list">
             <li class="mdl-list__item mdl-list__item--two-line" *ngFor="let item of items | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage, totalItems: totalItems, autoHide: true }">
-                <span *ngIf="listType !== 'inventory'" class="mdl-list__item-primary-content release-link" [routerLink]="['/detail', item.id]">
+                <span *ngIf="listType !== 'inventory' && listType !== 'searchResult'" class="mdl-list__item-primary-content release-link" [routerLink]="['/detail', item.id]">
                     <a title="{{item.basic_information.title}}">
                         <img class="mdl-list__item-avatar" src="{{item.basic_information.thumb}}" />
                     </a>
@@ -21,7 +21,7 @@
                             {{item.basic_information.artists | joinNames}} - {{item.basic_information.title}}
                         </a>
                     </span>
-                    <span class="mdl-list__item-sub-title release-title">{{item.basic_information.labels | joinNames}} ({{item.basic_information.year}})</span>
+                <span class="mdl-list__item-sub-title release-title">{{item.basic_information.labels | joinNames}} ({{item.basic_information.year}})</span>
                 </span>
 
                 <span *ngIf="listType === 'inventory'" class="mdl-list__item-primary-content release-link" [routerLink]="['/detail', item.release.id]">
@@ -30,14 +30,26 @@
                         {{item.release.description}} - {{item.release.catalog_number}} {{item.release.year}}
                       </a>
                     </span>
-                    <span class="mdl-list__item-sub-title">{{item.price.value}} ({{item.price.currency}})</span>
+                <span class="mdl-list__item-sub-title">{{item.price.value}} ({{item.price.currency}})</span>
                 </span>
-                
+
+                <span *ngIf="listType === 'searchResult'" class="mdl-list__item-primary-content release-link" [routerLink]="['/detail', item.id]">
+                    <a title="{{item.title}}">
+                      <img class="mdl-list__item-avatar" src="{{item.thumb}}" />
+                    </a>
+                    <span>
+                      <a class="release-title">
+                        {{item.title}}
+                      </a>
+                    </span>
+                <span class="mdl-list__item-sub-title">{{item.label | joinNames}} ({{item.year}})</span>
+                </span>
+
                 <span class="mdl-list__item-secondary-content">
                   <span class="mdl-list__item-secondary-info">Play All</span>
-                    <button (click)="playAll(item)" class="mdl-list__item-secondary-action mdl-button mdl-js-button mdl-button--icon mdl-button--colored">
-                        <i class="material-icons">play_circle_outline</i>
-                    </button>
+                <button (click)="playAll(item)" class="mdl-list__item-secondary-action mdl-button mdl-js-button mdl-button--icon mdl-button--colored">
+                    <i class="material-icons">play_circle_outline</i>
+                  </button>
                 </span>
             </li>
         </ul>

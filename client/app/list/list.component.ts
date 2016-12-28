@@ -1,4 +1,4 @@
-import { Component, OnInit, EventEmitter } from '@angular/core';
+import { Component, OnInit, EventEmitter, Input } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { Subscription }   from 'rxjs/Subscription';
@@ -14,25 +14,43 @@ import { YoutubeService } from '../../services/youtube.service';
   styleUrls: ['./list.component.css']
 })
 export class ListComponent implements OnInit {
-  items: any[];
+  items = [];
   listType: string;
 
   currentPage: number = 1;
   totalItems: number = 0;
   itemsPerPage: number = 10;
 
-  private _sub: any;
+  private _sub: Subscription;
+  private _searchSubscription: Subscription;
 
   constructor(private discogs: DiscogsService, private localStorage: LocalStorageService,
-    private youtube: YoutubeService, private route: ActivatedRoute) { }
+    private youtube: YoutubeService, private route: ActivatedRoute) {
+      this._searchSubscription = discogs.search$
+        .subscribe(response => {
+          this.listType = 'searchResult';
+          const data = response.json();
+
+          this.currentPage = data.pagination.page;
+          this.totalItems = data.pagination.items;
+          this.items = data.results;
+        });
+    }
 
   getList(type: string, page = 1): void {
+    console.log(type, this.discogs.searchTerm);
     if (page) {
       this.localStorage.set(`${type}-page`, page);
     }
 
     this.items = [];
     this.currentPage = page;
+
+    if (this.discogs.searchTerm) {
+      this.discogs.searchReleases(this.discogs.searchTerm, page);
+      return;
+    }
+
     this.discogs.getListByType(type, page)
       .subscribe(response => {
         const data = response.json();
@@ -54,7 +72,8 @@ export class ListComponent implements OnInit {
 
   ngOnInit() {
     this._sub = this.route.params.subscribe(params => {
-      this.listType = params['type'] || 'wantlist';
+      this.listType = this.discogs.searchTerm
+        ? 'searchResult': params['type'] || 'wantlist';
       const activePage = this.localStorage.get(`${this.listType}-page`) as number;
       this.getList(this.listType, activePage);
     });

@@ -32,6 +32,14 @@ module.exports = {
         }, getCallback(res));
     },
 
+    searchReleases: (req, res) => {
+        const pageStr = generatePageStr(req);
+        request.get({
+            url: `${apiBase}/database/search?q=${req.params.q}&type=release${pageStr}&token=${tokens.discogs}`,
+            headers: headers
+        }, getCallback(res));
+    },
+
     getRelease: (req, res) => {
         const id = req.params.id;
         request.get({

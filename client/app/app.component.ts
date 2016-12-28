@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router  } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 
@@ -15,8 +15,11 @@ import { YoutubeService } from '../services/youtube.service';
 })
 export class AppComponent implements OnInit {
   title = 'Discogs Player';
+
   activeVideo: any;
   activeVideoSubscription: Subscription;
+
+  searchVisible: boolean;
 
   constructor(private router: Router, private youtube: YoutubeService,
     private localStorage: LocalStorageService, private browserTitle: Title) {
@@ -30,6 +33,15 @@ export class AppComponent implements OnInit {
       this.activeVideo = lastVideo;
 
       browserTitle.setTitle(this.activeVideo.snippet.title);
+  }
+
+  toggleSearch() {
+    this.searchVisible = !this.searchVisible;
+  }
+
+  detailLoaded(hide: boolean) {
+    console.log('fired');
+    this.searchVisible = !hide;
   }
 
   ngOnInit() {

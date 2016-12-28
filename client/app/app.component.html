@@ -9,10 +9,20 @@
             <mdl-layout-spacer></mdl-layout-spacer>
 
             <nav class="mdl-navigation">
-                <a class="mdl-navigation__link" routerLink="/discogs/wantlist">Wantlist</a>
-                <a class="mdl-navigation__link" routerLink="/discogs/collection">Collection</a>
-                <a class="mdl-navigation__link" routerLink="/discogs/inventory">Sales</a>
+                <a *ngIf="!searchVisible" class="mdl-navigation__link" routerLink="/discogs/wantlist">Wantlist</a>
+                <a *ngIf="!searchVisible" class="mdl-navigation__link" routerLink="/discogs/collection">Collection</a>
+                <a *ngIf="!searchVisible" class="mdl-navigation__link" routerLink="/discogs/inventory">Sales</a>
+
+                <span class="spacer-horz"></span>
+
+                <button (click)="toggleSearch()" class="mdl-navigation__link toggle-search" mdl-button mdl-button-type="icon">
+                  <i class="material-icons">search</i>
+                </button>
             </nav>
+
+            <div *ngIf="searchVisible" class="search-container">
+                <app-search-box (detailLoaded)="detailLoaded($event)"></app-search-box>
+            </div>
         </mdl-layout-header-row>
     </mdl-layout-header>
 
@@ -27,6 +37,7 @@
 
     <mdl-layout-content [ngClass]="{'active-video': activeVideo}">
         <router-outlet></router-outlet>
+
         <section class="player-content">
             <app-player [lastVideo]="activeVideo"></app-player>
         </section>
