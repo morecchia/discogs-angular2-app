@@ -1,5 +1,7 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
+import { formatDuration } from '../services/youtube.service';
+
 import * as moment from 'moment';
 
 @Pipe({
@@ -11,10 +13,6 @@ export class FormatDurationPipe implements PipeTransform {
       return '';
     }
 
-    const span = moment.duration(value);
-    const spanSeconds = span.seconds();
-    const seconds = spanSeconds < 10 ? `0${spanSeconds}` : spanSeconds;
-
-    return `${span.minutes()}:${seconds}`;
+    return formatDuration(moment.duration(value));
   }
 }

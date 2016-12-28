@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, EventEmitter } from '@angular/core';
+import { Component, OnInit, EventEmitter } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { Subscription }   from 'rxjs/Subscription';
@@ -13,7 +13,7 @@ import { YoutubeService } from '../../services/youtube.service';
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.css']
 })
-export class ListComponent implements OnInit, OnDestroy {
+export class ListComponent implements OnInit {
   items: any[];
   listType: string;
 
@@ -58,9 +58,5 @@ export class ListComponent implements OnInit, OnDestroy {
       const activePage = this.localStorage.get(`${this.listType}-page`) as number;
       this.getList(this.listType, activePage);
     });
-  }
-
-  ngOnDestroy() {
-    this._sub.unsubscribe();
   }
 }

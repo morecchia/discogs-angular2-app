@@ -18,25 +18,20 @@
     font-size: 0.8em;
 }
 
-.playing-title-text a.video-link {
+.playing-title-video {
     font-style: italic;
     letter-spacing: .08em;
     display: block;
-    max-width: 300px;
+    max-width: 360px;
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
 }
 
-.playing-title-text a.video-link:hover {
-    color: cornflowerblue;
-    text-decoration: underline;
-}
-
 .playing-title-text .playing-title-placeholder span {
     display: block;
     color: #6a6a6a;
-    max-width: 300px;
+    max-width: 360px;
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
@@ -66,7 +61,7 @@
 }
 
 @media (min-width: 600px) {
-    .playing-title-text a.video-link {
+    .playing-title-video {
         max-width: 450px;
     }
     .playing-title-text .playing-title-placeholder span {
@@ -75,7 +70,7 @@
 }
 
 @media (min-width: 960px) {
-    .playing-title-text a.video-link {
+    .playing-title-video {
         max-width: 600px;
     }
     .playing-title-text .playing-title-placeholder span {

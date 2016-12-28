@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, Output, Inject, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, Inject, EventEmitter } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { Observable } from 'rxjs';
@@ -14,7 +14,7 @@ import { YoutubeService } from '../../services/youtube.service';
   templateUrl: './detail.component.html',
   styleUrls: ['./detail.component.css']
 })
-export class DetailComponent implements OnInit, OnDestroy {
+export class DetailComponent implements OnInit {
   details: any;
   videos: any[];
   videosLoaded: boolean;
@@ -69,10 +69,6 @@ export class DetailComponent implements OnInit, OnDestroy {
 
     const activeVideo = this.localStorage.get('activeVideo') as any;
     this.activeVideoId = activeVideo && activeVideo.id;
-  }
-
-  ngOnDestroy() {
-    this._sub.unsubscribe();
   }
 
   errorHandler(err): Observable<any> {

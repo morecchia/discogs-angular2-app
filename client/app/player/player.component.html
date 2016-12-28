@@ -15,7 +15,9 @@
                     </span>
                 </div>
                 <div class="playing-title-video">
-                    <a title="{{selectedVideo.snippet.title}}" class="video-link">{{selectedVideo.snippet.title}}</a>
+                    <a title="{{selectedVideo.snippet.title}}" class="video-link">{{selectedVideo.snippet.title}}</a> -
+                    <span class="video-duration" *ngIf="!currentTime">0:00 / {{selectedVideo.contentDetails.duration | formatDuration}}</span>
+                    <span class="video-duration" *ngIf="currentTime">{{currentTime | async}} / {{selectedVideo.contentDetails.duration | formatDuration}}</span>
                 </div>
             </div>
         </div>

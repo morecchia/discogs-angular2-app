@@ -1,11 +1,15 @@
 import { Component, OnInit, Inject, Input } from '@angular/core';
 
 import { Subscription }   from 'rxjs/Subscription';
+import { Observable } from 'rxjs/Observable';
+
 import { LocalStorageService } from 'angular-2-local-storage';
 import * as YouTubePlayer from 'youtube-player';
 
-import { YoutubeService } from '../../services/youtube.service';
+import { YoutubeService, formatDuration } from '../../services/youtube.service';
 import { DiscogsService } from '../../services/discogs.service';
+
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-player',
@@ -18,6 +22,9 @@ export class PlayerComponent implements OnInit {
   selectedVideo: any;
   videos: any = {};
   volume: number;
+
+  @Input() currentTime: Observable<string>;
+  currentTimeSeconds: number;
 
   @Input()
   lastVideo: any;
@@ -46,13 +53,22 @@ export class PlayerComponent implements OnInit {
       this._initYouTubePlayer(this.selectedVideo);
       return;
     }
+
     this.player.playVideo();
+
+    this.currentTime = this._timer(
+      this.selectedVideo.contentDetails.duration, this.currentTimeSeconds);
+
     this.playing = true;
   }
 
   pauseVideo() {
     this.player.pauseVideo();
     this.playing = false;
+
+    this.currentTime = Observable.of(
+      formatDuration(moment.duration(this.currentTimeSeconds, 'seconds'))
+    );
   }
 
   inputVolume(value) {
@@ -68,14 +84,30 @@ export class PlayerComponent implements OnInit {
   seekFw() {
     if (this.player && this.playing) {
       this.player.getCurrentTime()
-        .then(current => this.player.seekTo(current + 5));
+        .then(current => {
+          const remaining = moment.duration(this.selectedVideo.contentDetails.duration).asSeconds() - current;
+          const seekVal = remaining < 5 ? current + remaining : current + 5;
+
+          this.player.seekTo(seekVal);
+          this.currentTime = this._timer(
+            this.selectedVideo.contentDetails.duration, seekVal);
+        });
     }
   }
 
   seekRw() {
     if (this.player && this.playing) {
       this.player.getCurrentTime()
-        .then(current => this.player.seekTo(current - 5));
+        .then(current => {
+          const fromStart = current - moment.duration(this.currentTimeSeconds).asSeconds();
+          const seekVal = fromStart < 5 ? current - fromStart : current - 5;
+
+          if (current > 0) {
+            this.player.seekTo(seekVal);
+            this.currentTime = this._timer(
+              this.selectedVideo.contentDetails.duration, seekVal);
+          }
+        });
     }
   }
 
@@ -126,6 +158,7 @@ export class PlayerComponent implements OnInit {
       this.youtube.activateVideo(video);
 
       this.selectedVideo = video;
+      this.currentTime = this._timer(video.contentDetails.duration);
       this.playing = true;
 
       return;
@@ -143,6 +176,7 @@ export class PlayerComponent implements OnInit {
 
     this.player.on('ready', event => {
       event.target.setVolume(this.volume);
+      this.currentTime = this._timer(video.contentDetails.duration);
     });
 
     this.player.on('stateChange', event => {
@@ -155,6 +189,7 @@ export class PlayerComponent implements OnInit {
         this.selectedVideo.discogsId = this.videos.releaseInfo.id;
         this.selectedVideo.discogsTitle = this.videos.releaseInfo.title;
 
+        this.currentTime = this._timer(video.contentDetails.duration);
       }
     });
 
@@ -163,6 +198,17 @@ export class PlayerComponent implements OnInit {
 
     this.selectedVideo = video;
     this.playing = true;
+  }
+
+  private _timer(duration, startTime = 0) {
+    const trackDuration = moment.duration(duration).asMilliseconds() + 1000;
+    return Observable.timer(0, 1000)
+      .takeUntil(Observable.timer(trackDuration))
+      .map(t => {
+        const span = moment.duration(startTime + t, 'seconds');
+        this.currentTimeSeconds = span.asSeconds();
+        return formatDuration(span);
+      });
   }
 
   ngOnInit() {

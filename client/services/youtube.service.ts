@@ -8,10 +8,18 @@ import { LocalStorageService } from 'angular-2-local-storage';
 
 import { DiscogsService } from './discogs.service';
 
+import * as moment from 'moment';
+
 const YT_REGEXES = [
   /https?:\/\/(?:www\.)?youtube\.com\/.*?v=(.*)$/,
   /https?:\/\/youtu\.be\/(.*)/
 ];
+
+export function formatDuration(span: any) {
+  const spanSeconds = span.seconds();
+  const seconds = spanSeconds < 10 ? `0${spanSeconds}` : spanSeconds;
+  return `${span.minutes()}:${seconds}`;
+}
 
 @Injectable()
 export class YoutubeService {
