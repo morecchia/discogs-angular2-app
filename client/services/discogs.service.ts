@@ -8,9 +8,6 @@ import { LocalStorageService } from 'angular-2-local-storage';
 
 @Injectable()
 export class DiscogsService {
-  get searchTerm(): string { return this._activeTerm; }
-  set activeSearch(term: string) { this._activeTerm = term; }
-
   private _activeTerm: string;
 
   private _searchSource = new Subject<any>();
@@ -22,16 +19,20 @@ export class DiscogsService {
   constructor(private http: Http, private localStorage: LocalStorageService) { }
 
   deactivateSearch() {
-    this.activeSearch = null;
     const page = this.localStorage.get('wantlist-page') as number;
-
-    this.getListByType('wantlist', page)
-      .subscribe(respsonse => {
-        this._listSource.next(respsonse);
-      });
+    if (this._activeTerm) {
+      console.log('???');
+      this._activeTerm = null;
+      this.getListByType('wantlist', page)
+        .subscribe(respsonse => {
+          this._listSource.next(respsonse);
+        });
+    }
   }
 
   searchReleases(term: string, page = 1) {
+    this._activeTerm = term;
+
     Observable.of(term)
       .filter(t => t.length > 2)
       .debounceTime(300)

@@ -14,7 +14,6 @@ export class SearchBoxComponent implements OnInit, OnDestroy {
   constructor(private discogs: DiscogsService) { }
 
   onInput(q: string) {
-    this.discogs.activeSearch = q;
     this.discogs.searchReleases(q);
   }
 
