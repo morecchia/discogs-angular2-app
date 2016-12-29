@@ -13,8 +13,9 @@ export class JoinNamesPipe implements PipeTransform {
       return values[0].name || values[0];
     }
 
+    const separator =  values[0].join || ',';
     return values.map(v => v.name || v)
-      .join(` ${values[0].join || ''} `)
+      .join(`${separator} `)
       .trim();
   }
 }
