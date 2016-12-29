@@ -8,6 +8,7 @@ import { Subject } from 'rxjs/Subject';
 @Injectable()
 export class DiscogsService {
   get searchTerm(): string { return this._activeTerm; }
+  set activeSearch(term: string) { this._activeTerm = term; }
 
   private _activeTerm: string;
   private _searchSource = new Subject<any>();
@@ -17,7 +18,6 @@ export class DiscogsService {
   constructor(private http: Http) { }
 
   searchReleases(term: string, page = 1) {
-    this._activeTerm = term;
     Observable.of(term)
       .filter(t => t.length > 2)
       .debounceTime(300)

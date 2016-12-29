@@ -38,7 +38,6 @@ export class ListComponent implements OnInit {
     }
 
   getList(type: string, page = 1): void {
-    console.log(type, this.discogs.searchTerm);
     if (page) {
       this.localStorage.set(`${type}-page`, page);
     }
@@ -73,7 +72,7 @@ export class ListComponent implements OnInit {
   ngOnInit() {
     this._sub = this.route.params.subscribe(params => {
       this.listType = this.discogs.searchTerm
-        ? 'searchResult': params['type'] || 'wantlist';
+        ? 'searchResult' : params['type'] || 'wantlist';
       const activePage = this.localStorage.get(`${this.listType}-page`) as number;
       this.getList(this.listType, activePage);
     });

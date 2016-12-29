@@ -39,11 +39,6 @@ export class AppComponent implements OnInit {
     this.searchVisible = !this.searchVisible;
   }
 
-  detailLoaded(hide: boolean) {
-    console.log('fired');
-    this.searchVisible = !hide;
-  }
-
   ngOnInit() {
   }
 }
