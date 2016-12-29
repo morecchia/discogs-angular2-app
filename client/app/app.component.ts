@@ -26,13 +26,13 @@ export class AppComponent implements OnInit {
       this.activeVideoSubscription = youtube.videoActivated$
         .subscribe(video => {
           this.activeVideo = video;
-          browserTitle.setTitle(this.activeVideo.snippet.title);
+          browserTitle.setTitle(video && video.snippet.title);
         });
 
       const lastVideo = this.localStorage.get('activeVideo');
       this.activeVideo = lastVideo;
 
-      browserTitle.setTitle(this.activeVideo.snippet.title);
+      browserTitle.setTitle(this.activeVideo && this.activeVideo.snippet.title);
   }
 
   toggleSearch() {

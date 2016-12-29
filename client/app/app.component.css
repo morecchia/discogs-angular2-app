@@ -14,8 +14,12 @@ section.player-content {
 
 .search-container {
     position: absolute;
-    top: -8px;
+    top: -4px;
     right: 52px;
+}
+
+.drawer-search-container {
+    margin: 16px;
 }
 
 .spacer-horz {

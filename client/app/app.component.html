@@ -32,6 +32,10 @@
             <a class="mdl-navigation__link" routerLink="/discogs/wantlist" (click)="mainLayout.closeDrawer()">Wantlist</a>
             <a class="mdl-navigation__link" routerLink="/discogs/collection" (click)="mainLayout.closeDrawer()">Collection</a>
             <a class="mdl-navigation__link" routerLink="/discogs/inventory" (click)="mainLayout.closeDrawer()">Sales</a>
+
+            <span class="drawer-search-container">
+                <app-search-box></app-search-box>
+            </span>
         </nav>
     </mdl-layout-drawer>
 
