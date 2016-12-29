@@ -179,17 +179,25 @@ export class PlayerComponent implements OnInit {
     });
 
     this.player.on('stateChange', event => {
-      const nextVideo = this._getNextVideo();
-      if (event.data === 0 && nextVideo) {
-        this.player.loadVideoById(nextVideo.id);
-        this.youtube.activateVideo(nextVideo);
-
-        this.selectedVideo = nextVideo;
-        this.selectedVideo.discogsId = this.videos.releaseInfo.id;
-        this.selectedVideo.discogsTitle = this.videos.releaseInfo.title;
-
-        this.currentTime = this._timer(video.contentDetails.duration);
+      if (event.data !== 0) {
+        return;
       }
+
+      const nextVideo = this._getNextVideo();
+
+      if (!nextVideo) {
+        this.currentTime = null;
+        return;
+      }
+
+      this.player.loadVideoById(nextVideo.id);
+      this.youtube.activateVideo(nextVideo);
+
+      this.selectedVideo = nextVideo;
+      this.selectedVideo.discogsId = this.videos.releaseInfo.id;
+      this.selectedVideo.discogsTitle = this.videos.releaseInfo.title;
+
+      this.currentTime = this._timer(video.contentDetails.duration);
     });
 
     this.player.loadVideoById(video.id);
@@ -214,6 +222,10 @@ export class PlayerComponent implements OnInit {
 
   ngOnInit() {
     this.selectedVideo = this.lastVideo;
+
+    if (!this.selectedVideo) {
+      return;
+    }
 
     let releaseInfo;
     this.discogs.getRelease(this.selectedVideo.discogsId)
