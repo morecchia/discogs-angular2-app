@@ -40,7 +40,6 @@ body {
 
 .pagination-wrapper {
     width: 600px;
-    margin-left: 60px;
 }
 
 .pagination-wrapper ul {
@@ -52,7 +51,7 @@ body {
 }
 
 .ng2-pagination .current {
-    background: rgb(96, 125, 139) !important;
+    background: rgb(63,81,181) !important;
 }
 
 .ng2-pagination li a {

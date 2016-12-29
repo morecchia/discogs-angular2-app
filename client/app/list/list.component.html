@@ -5,6 +5,7 @@
         <div class="pagination-wrapper">
             <pagination-controls (pageChange)="getPage($event)"></pagination-controls>
         </div>
+        <hr>
 
         <div *ngIf="!items.length" class="progress progress-list">
             <mdl-spinner single-color [active]="!items.length"></mdl-spinner>
@@ -53,7 +54,8 @@
                 </span>
             </li>
         </ul>
-
+        
+        <hr *ngIf="items.length">
         <div *ngIf="items.length" class="pagination-wrapper">
             <pagination-controls (pageChange)="getPage($event)"></pagination-controls>
         </div>
