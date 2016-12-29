@@ -22,6 +22,6 @@ export class SearchBoxComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.discogs.activeSearch = null;
+    this.discogs.deactivateSearch();
   }
 }

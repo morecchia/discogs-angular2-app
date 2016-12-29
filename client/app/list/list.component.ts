@@ -23,6 +23,7 @@ export class ListComponent implements OnInit {
 
   private _sub: Subscription;
   private _searchSubscription: Subscription;
+  private _listSubscription: Subscription;
 
   constructor(private discogs: DiscogsService, private localStorage: LocalStorageService,
     private youtube: YoutubeService, private route: ActivatedRoute) {
@@ -34,6 +35,16 @@ export class ListComponent implements OnInit {
           this.currentPage = data.pagination.page;
           this.totalItems = data.pagination.items;
           this.items = data.results;
+        });
+
+      this._listSubscription = discogs.list$
+        .subscribe(response => {
+          this.listType = 'wantlist';
+          const data = response.json();
+
+          this.currentPage = data.pagination.page;
+          this.totalItems = data.pagination.items;
+          this.items = data.wants;
         });
     }
 
