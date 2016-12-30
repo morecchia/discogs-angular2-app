@@ -8,6 +8,8 @@ import { LocalStorageService } from 'angular-2-local-storage';
 
 @Injectable()
 export class DiscogsService {
+  get searchTerm() { return this._activeTerm; }
+
   private _activeTerm: string;
 
   private _searchSource = new Subject<any>();
