@@ -8,10 +8,11 @@
 
 .video-wrapper li.active {
     border-left: 2px solid orange;
+    background: #efefef;
 }
 
-.video-duration  {
-    color: rgba(0,0,0,.54);
+.video-duration {
+    color: rgba(0, 0, 0, .54);
 }
 
 .style-chips span.mdl-chip {

@@ -2,3 +2,84 @@
     padding: 8em 0;
     margin: auto;
 }
+
+.mdl-list li a.release-title {
+    color: #4a4a4a;
+}
+
+.mdl-list li .release-title {
+    display: block;
+    text-decoration: none;
+    max-width: 200px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.list-actions span {
+    font-size: 0.9em;
+}
+
+.list-actions .material-icons.md-resized {
+    font-size: 18px;
+}
+
+.pagination-wrapper {
+    width: 600px;
+}
+
+.pagination-wrapper ul {
+    padding: 0;
+}
+
+.pagination-wrapper li {
+    cursor: pointer;
+}
+
+@media (min-width: 360px) {
+    .pagination-wrapper {
+        width: 360px;
+    }
+    .list-actions span {
+        display: none;
+    }
+    .list-actions .material-icons.md-resized {
+        font-size: 24px;
+    }
+}
+
+@media (min-width: 600px) {
+    .mdl-list li .release-title {
+        max-width: 300px;
+    }
+}
+
+@media (min-width: 600px) {
+    .mdl-list li .release-title {
+        max-width: 300px;
+    }
+}
+
+@media (min-width: 960px) {
+    .mdl-list li .release-title {
+        max-width: 400px;
+    }
+}
+
+@media (min-width: 1024px) {
+    .mdl-list li .release-title {
+        max-width: 480px;
+    }
+}
+
+@media (min-width: 1280px) {
+    .mdl-list li .release-title {
+        max-width: 600px;
+    }
+}
+
+@media (min-width: 1440px) {
+    .mdl-list li .release-title {
+        max-width: 720px;
+    }
+}

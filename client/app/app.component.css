@@ -14,7 +14,7 @@ section.player-content {
 
 .search-container {
     position: absolute;
-    top: -4px;
+    top: -2px;
     right: 52px;
 }
 
@@ -28,4 +28,17 @@ section.player-content {
 
 .active-video {
     margin-bottom: 60px;
+}
+
+.mdl-badge.mdl-badge--no-background:after {
+    color: rgb(255, 255, 255);
+    background: transparent;
+    font-size: 0.8em;
+    box-shadow: none;
+}
+
+@media (max-width: 600px) {
+    .search-container {
+        display: none;
+    }
 }
