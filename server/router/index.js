@@ -8,6 +8,8 @@ const discogs = require('./discogs');
 
 var Router = function(app) {
     this.start = function() {
+        app.route('/api/user').get(discogs.getUser);
+
         app.route('/api/wantlist/:page?').get(discogs.getWantlist);
 
         app.route('/api/collection/:page?').get(discogs.getCollection);
