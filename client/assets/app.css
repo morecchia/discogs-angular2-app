@@ -10,19 +10,6 @@ body {
     background: #FAFAFA;
 }
 
-.mdl-list li a.release-title {
-    color: #4a4a4a;
-}
-
-.mdl-list li .release-title {
-    display: block;
-    text-decoration: none;
-    max-width: 200px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
 .loading {
     position: absolute;
     top: 180px;
@@ -38,29 +25,17 @@ body {
     width: 100px;
 }
 
-.pagination-wrapper {
-    width: 600px;
-}
-
-.pagination-wrapper ul {
-    padding: 0;
-}
-
-.pagination-wrapper li {
-    cursor: pointer;
+.mdl-textfield__input {
+    border-bottom: 1px solid #aaa;
 }
 
 .ng2-pagination .current {
-    background: rgb(63,81,181) !important;
+    background: rgb(96, 125, 139) !important;
 }
 
 .ng2-pagination li a {
     color: #3e3e3e !important;
     font-weight: normal !important;
-}
-
-.mdl-textfield__input {
-    border-bottom: 1px solid #aaa;
 }
 
 @media (max-width: 600px) {
@@ -76,14 +51,5 @@ body {
     }
     .mdl-layout__header-row {
         padding: 0 16px 0 24px;
-    }
-    .mdl-list li .release-title {
-        max-width: 450px;
-    }
-}
-
-@media (min-width: 960px) {
-    .mdl-list li .release-title {
-        max-width: 600px;
     }
 }
