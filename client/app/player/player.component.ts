@@ -19,10 +19,12 @@ import * as moment from 'moment';
 export class PlayerComponent implements OnInit {
   player: any;
   playing: boolean;
-  playerFrameVisible: boolean;
   selectedVideo: any;
   videos: any = {};
   volume: number;
+
+  playerFrameVisible: boolean;
+  volumeVisible: boolean;
 
   currentTime: Observable<string>;
   currentTimeSeconds: number;
@@ -47,10 +49,6 @@ export class PlayerComponent implements OnInit {
           this.videos = videos;
         });
     }
-
-  togglePlayerFrame() {
-    this.playerFrameVisible = !this.playerFrameVisible;
-  }
 
   resumeVideo() {
     if (!this.player) {
@@ -125,6 +123,25 @@ export class PlayerComponent implements OnInit {
 
   skipPrev() {
     this._skipVideo(true);
+  }
+
+  togglePlayerFrame() {
+    this.playerFrameVisible = !this.playerFrameVisible;
+  }
+
+  toggleVolumeVisibility(hidden = false) {
+    setTimeout(() => {
+      this.volumeVisible = !hidden;
+    }, 200);
+  }
+
+  toggleVolume() {
+    const storedVolume = this.localStorage.get('playerVolume') as number || 50;
+    this.volume = this.volume === 0 ? storedVolume : 0;
+
+    if (this.player) {
+      this.player.setVolume(this.volume);
+    }
   }
 
   private _skipVideo(prev = false) {

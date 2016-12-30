@@ -1,4 +1,6 @@
 <div class="playing mdl-grid" *ngIf="selectedVideo">
+    <div class="mdl-layout-spacer"></div>
+
     <div class="playing mdl-cell mdl-cell--6-col mdl-cell--4-col-tablet mdl-cell--1-col-phone">
         <div class="playing playing-title-container mdl-grid">
             <div class="playing-title-image mdl-cell mdl-cell--2-col mdl-cell--hide-tablet">
@@ -25,21 +27,35 @@
 
     <div class="mdl-layout-spacer"></div>
 
-    <div class="player-controls mdl-cell mdl-cell--4-col mdl-cell--3-col-phone">
-        <div class="player-controls player-transport">
-            <button title="Skip Previous" class="player-control mdl-button mdl-js-button mdl-button--icon" (click)="skipPrev()"><i class="material-icons">skip_previous</i></button>
-            <button title="Rewind" class="player-control mdl-button mdl-js-button mdl-button--icon" (click)="seekRw()"><i class="material-icons">fast_rewind</i></button>
-            <button title="Pause" *ngIf="playing" class="player-control mdl-button mdl-js-button mdl-button--icon" (click)="pauseVideo()"><i class="material-icons">pause_circle_outline</i></button>
-            <button title="Play" *ngIf="selectedVideo && !playing" class="player-control mdl-button mdl-js-button mdl-button--icon" (click)="resumeVideo()"><i class="material-icons">play_circle_outline</i></button>
-            <button title="Fast Forward" class="player-control mdl-button mdl-js-button mdl-button--icon" (click)="seekFw()"><i class="material-icons">fast_forward</i></button>
-            <button title="Skip Next" class="player-control mdl-button mdl-js-button mdl-button--icon" (click)="skipNext()"><i class="material-icons">skip_next</i></button>
-        </div>
+    <div class="mdl-cell mdl-cell--3-col">
+        <div class="mdl-grid">
+            <div class="mdl-layout-spacer"></div>
 
-        <div id="volume-container" class="player-controls volume-slider">
-            <mdl-slider [min]="0" [max]="100" [step]="1" #src (change)="changeVolume(src.value)" (input)="inputVolume(src.value)" [(ngModel)]="volume"></mdl-slider>
-            <!--<label>Volume: {{volume}}</label>-->
+            <div class="mdl-cell mdl-cell--10-col mdl-cell--6-col-tablet mdl-cell--3-col-phone">
+                <div class="player-transport">
+                    <button title="Skip Previous" class="player-control mdl-button mdl-js-button mdl-button--icon" (click)="skipPrev()"><i class="material-icons">skip_previous</i></button>
+                    <button title="Pause" *ngIf="playing" class="player-control mdl-button mdl-js-button mdl-button--icon" (click)="pauseVideo()"><i class="material-icons">pause_circle_outline</i></button>
+                    <button title="Play" *ngIf="selectedVideo && !playing" class="player-control mdl-button mdl-js-button mdl-button--icon" (click)="resumeVideo()"><i class="material-icons">play_circle_outline</i></button>
+                    <button title="Skip Next" class="player-control mdl-button mdl-js-button mdl-button--icon" (click)="skipNext()"><i class="material-icons">skip_next</i></button>
+                    <span class="volume-wrapper">
+                        <span class="volume-icon-wrapper">
+                            <button title="Volume" class="player-control mdl-button mdl-js-button mdl-button--icon" (click)="toggleVolume()" (mouseenter)="toggleVolumeVisibility()" (mouseleave)="toggleVolumeVisibility(true)">
+                                <i *ngIf="volume !== 0" class="material-icons md-18">volume_up</i>
+                                <i *ngIf="volume === 0" class="material-icons md-18">volume_off</i>
+                            </button>
+                        </span>
+                    
+                        <span [ngClass]="{'visible': volumeVisible, 'volume-slider': true}" (mouseenter)="toggleVolumeVisibility()" (mouseleave)="toggleVolumeVisibility(true)">
+                            <mdl-slider [min]="0" [max]="100" [step]="1" #src (change)="changeVolume(src.value)" (input)="inputVolume(src.value)" [(ngModel)]="volume"></mdl-slider>
+                        </span>
+                    </span>
+                </div>
+            </div>
         </div>
     </div>
+
+    <div class="mdl-layout-spacer"></div>
+
 </div>
 
 <div [ngClass]="{'visible': playerFrameVisible, 'player-frame': true}">
