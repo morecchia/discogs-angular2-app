@@ -19,11 +19,12 @@ import * as moment from 'moment';
 export class PlayerComponent implements OnInit {
   player: any;
   playing: boolean;
+  playerFrameVisible: boolean;
   selectedVideo: any;
   videos: any = {};
   volume: number;
 
-  @Input() currentTime: Observable<string>;
+  currentTime: Observable<string>;
   currentTimeSeconds: number;
 
   @Input() lastVideo: any;
@@ -46,6 +47,10 @@ export class PlayerComponent implements OnInit {
           this.videos = videos;
         });
     }
+
+  togglePlayerFrame() {
+    this.playerFrameVisible = !this.playerFrameVisible;
+  }
 
   resumeVideo() {
     if (!this.player) {
@@ -81,33 +86,37 @@ export class PlayerComponent implements OnInit {
   }
 
   seekFw() {
-    if (this.player && this.playing) {
-      this.player.getCurrentTime()
-        .then(current => {
-          const remaining = moment.duration(this.selectedVideo.contentDetails.duration).asSeconds() - current;
-          const seekVal = remaining < 5 ? current + remaining : current + 5;
-
-          this.player.seekTo(seekVal);
-          this.currentTime = this._timer(
-            this.selectedVideo.contentDetails.duration, seekVal);
-        });
+    if (!this.player || !this.playing) {
+      return;
     }
+
+    this.player.getCurrentTime()
+      .then(current => {
+        const remaining = moment.duration(this.selectedVideo.contentDetails.duration).asSeconds() - current;
+        const seekVal = remaining < 5 ? current + remaining : current + 5;
+
+        this.player.seekTo(seekVal);
+        this.currentTime = this._timer(
+          this.selectedVideo.contentDetails.duration, seekVal);
+      });
   }
 
   seekRw() {
-    if (this.player && this.playing) {
-      this.player.getCurrentTime()
-        .then(current => {
-          const fromStart = current - moment.duration(this.currentTimeSeconds).asSeconds();
-          const seekVal = fromStart < 5 ? current - fromStart : current - 5;
-
-          if (current > 0) {
-            this.player.seekTo(seekVal);
-            this.currentTime = this._timer(
-              this.selectedVideo.contentDetails.duration, seekVal);
-          }
-        });
+    if (!this.player || !this.playing) {
+      return;
     }
+
+    this.player.getCurrentTime()
+      .then(current => {
+        const fromStart = current - moment.duration(this.currentTimeSeconds).asSeconds();
+        const seekVal = fromStart < 5 ? current - fromStart : current - 5;
+
+        if (current > 0) {
+          this.player.seekTo(seekVal);
+          this.currentTime = this._timer(
+            this.selectedVideo.contentDetails.duration, seekVal);
+        }
+      });
   }
 
   skipNext() {
@@ -173,9 +182,22 @@ export class PlayerComponent implements OnInit {
 
     this.player = YouTubePlayer('player');
 
+    this._attachPlayerEvents();
+    this._selectVideo(video);
+  }
+
+  private _selectVideo(video: any) {
+    this.player.loadVideoById(video.id);
+    this.youtube.activateVideo(video);
+
+    this.selectedVideo = video;
+    this.playing = true;
+  }
+
+  private _attachPlayerEvents() {
     this.player.on('ready', event => {
       event.target.setVolume(this.volume);
-      this.currentTime = this._timer(video.contentDetails.duration);
+      this.currentTime = this._timer(this.selectedVideo.contentDetails.duration);
     });
 
     this.player.on('stateChange', event => {
@@ -187,24 +209,17 @@ export class PlayerComponent implements OnInit {
 
       if (!nextVideo) {
         this.currentTime = null;
+        this.playing = false;
         return;
       }
 
-      this.player.loadVideoById(nextVideo.id);
-      this.youtube.activateVideo(nextVideo);
+      this._selectVideo(nextVideo);
 
-      this.selectedVideo = nextVideo;
       this.selectedVideo.discogsId = this.videos.releaseInfo.id;
       this.selectedVideo.discogsTitle = this.videos.releaseInfo.title;
 
-      this.currentTime = this._timer(video.contentDetails.duration);
+      this.currentTime = this._timer(this.selectedVideo.contentDetails.duration);
     });
-
-    this.player.loadVideoById(video.id);
-    this.youtube.activateVideo(video);
-
-    this.selectedVideo = video;
-    this.playing = true;
   }
 
   private _timer(duration, startTime = 0) {

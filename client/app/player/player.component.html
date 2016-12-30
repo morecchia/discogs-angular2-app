@@ -2,7 +2,7 @@
     <div class="playing mdl-cell mdl-cell--6-col mdl-cell--4-col-tablet mdl-cell--1-col-phone">
         <div class="playing playing-title-container mdl-grid">
             <div class="playing-title-image mdl-cell mdl-cell--2-col mdl-cell--hide-tablet">
-                <a title="{{selectedVideo.snippet.title}}" [routerLink]="['/detail', selectedVideo.discogsId]">
+                <a title="Toggle video ({{selectedVideo.snippet.title}})" (click)="togglePlayerFrame()">
                     <img src="{{selectedVideo.snippet.thumbnails.default.url}}" alt="{{selectedVideo.snippet.title}}" />
                 </a>
             </div>
@@ -42,6 +42,6 @@
     </div>
 </div>
 
-<div class="active-video">
+<div [ngClass]="{'visible': playerFrameVisible, 'player-frame': true}">
     <span id="player"></span>
 </div>
