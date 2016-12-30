@@ -9,9 +9,9 @@
             <mdl-layout-spacer></mdl-layout-spacer>
 
             <nav class="mdl-navigation">
-                <a *ngIf="!searchVisible" class="mdl-navigation__link" routerLink="/discogs/wantlist">Wantlist</a>
-                <a *ngIf="!searchVisible" class="mdl-navigation__link" routerLink="/discogs/collection">Collection</a>
-                <a *ngIf="!searchVisible" class="mdl-navigation__link" routerLink="/discogs/inventory">Sales</a>
+                <a *ngIf="!searchVisible" class="mdl-navigation__link" routerLink="/discogs/wantlist"><span mdl-badge-no-background mdl-badge="{{user.num_wantlist}}">Wantlist</span></a>
+                <a *ngIf="!searchVisible" class="mdl-navigation__link" routerLink="/discogs/collection"><span mdl-badge-no-background mdl-badge="{{user.num_collection}}">Collection</span></a>
+                <a *ngIf="!searchVisible" class="mdl-navigation__link" routerLink="/discogs/inventory"><span mdl-badge-no-background mdl-badge="{{user.num_for_sale}}">Sales</span></a>
 
                 <span class="spacer-horz"></span>
 

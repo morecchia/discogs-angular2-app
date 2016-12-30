@@ -7,6 +7,7 @@ import { Subscription }   from 'rxjs/Subscription';
 import { LocalStorageService } from 'angular-2-local-storage';
 
 import { YoutubeService } from '../services/youtube.service';
+import { DiscogsService } from '../services/discogs.service';
 
 @Component({
   selector: 'app-root',
@@ -15,13 +16,14 @@ import { YoutubeService } from '../services/youtube.service';
 })
 export class AppComponent implements OnInit {
   title = 'Discogs Player';
+  user = {};
 
   activeVideo: any;
   activeVideoSubscription: Subscription;
 
   searchVisible: boolean;
 
-  constructor(private router: Router, private youtube: YoutubeService,
+  constructor(private router: Router, private youtube: YoutubeService, private discogs: DiscogsService,
     private localStorage: LocalStorageService, private browserTitle: Title) {
       this.activeVideoSubscription = youtube.videoActivated$
         .subscribe(video => {
@@ -40,5 +42,9 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.discogs.getUserData()
+      .subscribe(response => {
+        this.user = response.json();
+      });
   }
 }
