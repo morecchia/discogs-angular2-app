@@ -21,7 +21,6 @@ export class DiscogsService {
   deactivateSearch() {
     const page = this.localStorage.get('wantlist-page') as number;
     if (this._activeTerm) {
-      console.log('???');
       this._activeTerm = null;
       this.getListByType('wantlist', page)
         .subscribe(respsonse => {
@@ -41,6 +40,10 @@ export class DiscogsService {
       .subscribe(response => {
         this._searchSource.next(response);
       });
+  }
+
+  getUserData() {
+    return this.http.get(`/api/user`);
   }
 
   getListByType(type: string, page = 1): Observable<any> {
