@@ -17,6 +17,8 @@ import * as moment from 'moment';
   styleUrls: ['./player.component.css']
 })
 export class PlayerComponent implements OnInit {
+  private get _currentDuration() { return this.selectedVideo.contentDetails.duration; }
+
   player: any;
   playing: boolean;
   selectedVideo: any;
@@ -25,6 +27,7 @@ export class PlayerComponent implements OnInit {
 
   playerFrameVisible: boolean;
   volumeVisible: boolean;
+  imageIconVisible: boolean;
 
   currentTime: Observable<string>;
   currentTimeSeconds: number;
@@ -58,9 +61,7 @@ export class PlayerComponent implements OnInit {
 
     this.player.playVideo();
 
-    this.currentTime = this._timer(
-      this.selectedVideo.contentDetails.duration, this.currentTimeSeconds);
-
+    this.currentTime = this._timer(this._currentDuration, this.currentTimeSeconds);
     this.playing = true;
   }
 
@@ -90,12 +91,11 @@ export class PlayerComponent implements OnInit {
 
     this.player.getCurrentTime()
       .then(current => {
-        const remaining = moment.duration(this.selectedVideo.contentDetails.duration).asSeconds() - current;
+        const remaining = moment.duration(this._currentDuration).asSeconds() - current;
         const seekVal = remaining < 5 ? current + remaining : current + 5;
 
         this.player.seekTo(seekVal);
-        this.currentTime = this._timer(
-          this.selectedVideo.contentDetails.duration, seekVal);
+        this.currentTime = this._timer(this._currentDuration, seekVal);
       });
   }
 
@@ -111,8 +111,7 @@ export class PlayerComponent implements OnInit {
 
         if (current > 0) {
           this.player.seekTo(seekVal);
-          this.currentTime = this._timer(
-            this.selectedVideo.contentDetails.duration, seekVal);
+          this.currentTime = this._timer(this._currentDuration, seekVal);
         }
       });
   }
@@ -127,6 +126,11 @@ export class PlayerComponent implements OnInit {
 
   togglePlayerFrame() {
     this.playerFrameVisible = !this.playerFrameVisible;
+    console.log(this.playerFrameVisible);
+  }
+
+  toggleImgIcon(hidden = false) {
+    this.imageIconVisible = !hidden;
   }
 
   toggleVolumeVisibility(hidden = false) {
@@ -214,10 +218,18 @@ export class PlayerComponent implements OnInit {
   private _attachPlayerEvents() {
     this.player.on('ready', event => {
       event.target.setVolume(this.volume);
-      this.currentTime = this._timer(this.selectedVideo.contentDetails.duration);
+      this.currentTime = this._timer(this._currentDuration);
     });
 
     this.player.on('stateChange', event => {
+      if (event.data === 3) {
+        this.player.getCurrentTime()
+          .then(time => {
+            this.currentTime = this._timer(this._currentDuration, time);
+          });
+        return;
+      }
+
       if (event.data !== 0) {
         return;
       }
@@ -234,8 +246,7 @@ export class PlayerComponent implements OnInit {
 
       this.selectedVideo.discogsId = this.videos.releaseInfo.id;
       this.selectedVideo.discogsTitle = this.videos.releaseInfo.title;
-
-      this.currentTime = this._timer(this.selectedVideo.contentDetails.duration);
+      this.currentTime = this._timer(this._currentDuration);
     });
   }
 

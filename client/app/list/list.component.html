@@ -14,11 +14,11 @@
         <ul class="mdl-list">
             <li class="mdl-list__item mdl-list__item--two-line" *ngFor="let item of items | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage, totalItems: totalItems, autoHide: true }">
                 <span *ngIf="listType !== 'inventory' && listType !== 'searchResult'" class="mdl-list__item-primary-content release-link" [routerLink]="['/detail', item.id]">
-                    <a title="{{item.basic_information.title}}">
+                    <a [mdl-tooltip]="item.basic_information.title" mdl-tooltip-position="bottom">
                         <img class="mdl-list__item-avatar" src="{{item.basic_information.thumb}}" />
                     </a>
                     <span>
-                        <a class="release-title"  title="{{item.basic_information.title}}">
+                        <a class="release-title" title="{{item.basic_information.title}}">
                             {{item.basic_information.artists | joinNames}} - {{item.basic_information.title}}
                         </a>
                     </span>
@@ -27,7 +27,7 @@
 
                 <span *ngIf="listType === 'inventory'" class="mdl-list__item-primary-content release-link" [routerLink]="['/detail', item.release.id]">
                     <span>
-                      <a class="release-title">
+                      <a title="{{item.release.description}}" class="release-title">
                         {{item.release.description}} - {{item.release.catalog_number}} {{item.release.year}}
                       </a>
                     </span>
@@ -35,11 +35,11 @@
                 </span>
 
                 <span *ngIf="listType === 'searchResult'" class="mdl-list__item-primary-content release-link" [routerLink]="['/detail', item.id]">
-                    <a title="{{item.title}}">
+                    <a [mdl-tooltip]="item.title" mdl-tooltip-position="bottom">
                       <img class="mdl-list__item-avatar" src="{{item.thumb}}" />
                     </a>
                     <span>
-                      <a class="release-title">
+                      <a title="{{item.title}}" class="release-title">
                         {{item.title}}
                       </a>
                     </span>

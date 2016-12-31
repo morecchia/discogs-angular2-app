@@ -3,15 +3,25 @@
 
     <div class="playing mdl-cell mdl-cell--6-col mdl-cell--4-col-tablet mdl-cell--1-col-phone">
         <div class="playing playing-title-container mdl-grid">
-            <div class="playing-title-image mdl-cell mdl-cell--2-col mdl-cell--hide-tablet">
-                <a title="Toggle video ({{selectedVideo.snippet.title}})" (click)="togglePlayerFrame()">
+            <div [mdl-tooltip]="selectedVideo.snippet.title" mdl-tooltip-position="top" class="playing-title-image mdl-cell mdl-cell--2-col" (mouseenter)="toggleImgIcon()" (mouseleave)="toggleImgIcon(true)">
+                <a *ngIf="player" (click)="togglePlayerFrame()">
                     <img src="{{selectedVideo.snippet.thumbnails.default.url}}" alt="{{selectedVideo.snippet.title}}" />
+                    <span [ngClass]="{'visible': imageIconVisible, 'player-image-icon': true}">
+                        <i class="material-icons md-36 md-light">featured_video</i>
+                    </span>
+                </a>
+                <a *ngIf="!player" (click)="resumeVideo()">
+                    <img src="{{selectedVideo.snippet.thumbnails.default.url}}" alt="{{selectedVideo.snippet.title}}" />
+                    <span [ngClass]="{'visible': imageIconVisible, 'player-image-icon': true}">
+                        <i class="material-icons md-36 md-light">play_arrow</i>
+                    </span>
                 </a>
             </div>
+
             <div class="playing-title-text mdl-cell mdl-cell--10-col mdl-cell--hide-phone">
                 <div class="playing-title-placeholder">
                     <span>Playing from Discogs release:
-                      <a title="{{selectedVideo.discogsTitle || '...'}}" [routerLink]="['/detail', selectedVideo.discogsId]">
+                      <a title="Go to: {{selectedVideo.discogsTitle || '...'}}" [routerLink]="['/detail', selectedVideo.discogsId]">
                         {{selectedVideo.discogsTitle || '...'}}
                       </a>
                     </span>
@@ -44,10 +54,11 @@
                                 <i *ngIf="volume === 0" class="material-icons md-18">volume_off</i>
                             </button>
                         </span>
-                    
-                        <span [ngClass]="{'visible': volumeVisible, 'volume-slider': true}" (mouseenter)="toggleVolumeVisibility()" (mouseleave)="toggleVolumeVisibility(true)">
+
+                    <span [ngClass]="{'visible': volumeVisible, 'volume-slider': true}" (mouseenter)="toggleVolumeVisibility()" (mouseleave)="toggleVolumeVisibility(true)">
                             <mdl-slider [min]="0" [max]="100" [step]="1" #src (change)="changeVolume(src.value)" (input)="inputVolume(src.value)" [(ngModel)]="volume"></mdl-slider>
-                        </span>
+                            <span class="volume-label">{{volume}}</span>
+                    </span>
                     </span>
                 </div>
             </div>

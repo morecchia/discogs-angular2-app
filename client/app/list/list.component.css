@@ -16,6 +16,10 @@
     text-overflow: ellipsis;
 }
 
+.mdl-list li .release-link {
+  cursor: pointer;
+}
+
 .list-actions span {
     font-size: 0.9em;
 }

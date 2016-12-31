@@ -10,21 +10,12 @@ body {
     background: #FAFAFA;
 }
 
-.loading {
-    position: absolute;
-    top: 180px;
-    left: 180px;
-    font-style: italic;
-}
-
-.release-link {
-    cursor: pointer;
-}
-
 .progress {
     width: 100px;
 }
 
+
+/* material design lite overwrites */
 .mdl-textfield__input {
     border-bottom: 1px solid #aaa;
 }
@@ -37,6 +28,17 @@ body {
     color: #3e3e3e !important;
     font-weight: normal !important;
 }
+
+.material-icons.md-18 { font-size: 18px; }
+.material-icons.md-24 { font-size: 24px; }
+.material-icons.md-36 { font-size: 36px; }
+.material-icons.md-48 { font-size: 48px; }
+
+.material-icons.md-dark { color: rgba(0, 0, 0, 0.54); }
+.material-icons.md-dark.md-inactive { color: rgba(0, 0, 0, 0.26); }
+
+.material-icons.md-light { color: rgba(255, 255, 255, 1); }
+.material-icons.md-light.md-inactive { color: rgba(255, 255, 255, 0.3); }
 
 @media (max-width: 600px) {
     .mdl-layout__header-row .mdl-navigation {
