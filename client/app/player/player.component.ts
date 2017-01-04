@@ -224,18 +224,7 @@ export class PlayerComponent implements OnInit {
     this.player.on('stateChange', event => {
       switch (event.data) {
         case 0:
-          const nextVideo = this._getNextVideo();
-
-          if (!nextVideo) {
-            this._playNextRelease();
-            return;
-          }
-
-          this._selectVideo(nextVideo);
-
-          this.selectedVideo.discogsId = this.videos.releaseInfo.id;
-          this.selectedVideo.discogsTitle = this.videos.releaseInfo.title;
-          this.currentTime = this._timer(this._currentDuration);
+          this._tryNextVideo();
           break;
         case 1:
           this.player.getCurrentTime()
@@ -250,6 +239,25 @@ export class PlayerComponent implements OnInit {
           break;
       }
     });
+
+    this.player.on('error', event => {
+      this._tryNextVideo();
+    });
+  }
+
+  private _tryNextVideo() {
+    const nextVideo = this._getNextVideo();
+
+    if (!nextVideo) {
+      this._playNextRelease();
+      return;
+    }
+
+    this._selectVideo(nextVideo);
+
+    this.selectedVideo.discogsId = this.videos.releaseInfo.id;
+    this.selectedVideo.discogsTitle = this.videos.releaseInfo.title;
+    this.currentTime = this._timer(this._currentDuration);
   }
 
   private _playNextRelease() {
