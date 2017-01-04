@@ -39,6 +39,7 @@ export class DiscogsService {
 
     Observable.of(term)
       .filter(t => t.length > 2)
+      .map(t => encodeURIComponent(t))
       .debounceTime(300)
       .distinctUntilChanged()
       .switchMap(q => this.http.get(`/api/search/releases/${q}/${page}`))
