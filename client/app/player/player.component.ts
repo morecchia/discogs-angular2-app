@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject, Input } from '@angular/core';
 
-import { Subscription }   from 'rxjs/Subscription';
+import { Subscription } from 'rxjs/Subscription';
 import { Observable } from 'rxjs/Observable';
 
 import { LocalStorageService } from 'angular-2-local-storage';
@@ -39,19 +39,19 @@ export class PlayerComponent implements OnInit {
 
   constructor(private youtube: YoutubeService, private localStorage: LocalStorageService,
     private discogs: DiscogsService) {
-      this.volume = this.localStorage.get('playerVolume') as number || 50;
+    this.volume = this.localStorage.get('playerVolume') as number || 50;
 
-      this.videoSubscription = youtube.videoSelected$
-        .subscribe(video => {
-          this.selectedVideo = video;
-          this._launchYoutubePlayer(video);
-        });
+    this.videoSubscription = youtube.videoSelected$
+      .subscribe(video => {
+        this.selectedVideo = video;
+        this._launchYoutubePlayer(video);
+      });
 
-      this.videoListSubscription = youtube.videoList$
-        .subscribe(videos => {
-          this.videos = videos;
-        });
-    }
+    this.videoListSubscription = youtube.videoList$
+      .subscribe(videos => {
+        this.videos = videos;
+      });
+  }
 
   resumeVideo() {
     if (!this.player) {
@@ -120,7 +120,6 @@ export class PlayerComponent implements OnInit {
     const nextVideo = this._skipVideo();
 
     if (!nextVideo) {
-      this.currentTime = null;
       this._playNextRelease();
       return;
     }
@@ -223,31 +222,33 @@ export class PlayerComponent implements OnInit {
     });
 
     this.player.on('stateChange', event => {
-      if (event.data === 3) {
-        this.player.getCurrentTime()
-          .then(time => {
-            this.currentTime = this._timer(this._currentDuration, time);
-          });
-        return;
+      switch (event.data) {
+        case 0:
+          const nextVideo = this._getNextVideo();
+
+          if (!nextVideo) {
+            this._playNextRelease();
+            return;
+          }
+
+          this._selectVideo(nextVideo);
+
+          this.selectedVideo.discogsId = this.videos.releaseInfo.id;
+          this.selectedVideo.discogsTitle = this.videos.releaseInfo.title;
+          this.currentTime = this._timer(this._currentDuration);
+          break;
+        case 1:
+          this.player.getCurrentTime()
+            .then(time => {
+              this.currentTime = this._timer(this._currentDuration, time);
+            });
+          break;
+        case 3:
+          this.currentTime = Observable.of(
+            formatDuration(moment.duration(this.currentTimeSeconds, 'seconds'))
+          );
+          break;
       }
-
-      if (event.data !== 0) {
-        return;
-      }
-
-      const nextVideo = this._getNextVideo();
-
-      if (!nextVideo) {
-        this.currentTime = null;
-        this._playNextRelease();
-        return;
-      }
-
-      this._selectVideo(nextVideo);
-
-      this.selectedVideo.discogsId = this.videos.releaseInfo.id;
-      this.selectedVideo.discogsTitle = this.videos.releaseInfo.title;
-      this.currentTime = this._timer(this._currentDuration);
     });
   }
 
@@ -256,6 +257,7 @@ export class PlayerComponent implements OnInit {
     this.youtube.playAll(nextRelease, video => {
       if (!video) {
         this._playNextRelease();
+        this.currentTime = null;
       }
     });
   }
