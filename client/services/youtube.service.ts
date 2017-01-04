@@ -57,6 +57,10 @@ export class YoutubeService {
   }
 
   playAll(release: any, callback: (video: any) => void) {
+    if (!release) {
+      return;
+    }
+
     this.discogs.getRelease(release.id)
       .mergeMap(response => {
         const videoList = response.json().videos;
@@ -76,9 +80,9 @@ export class YoutubeService {
 
           this.selectVideo(video);
           this.activateVideo(video);
-
-          callback(video);
         }
+
+        callback(video);
       });
   }
 }

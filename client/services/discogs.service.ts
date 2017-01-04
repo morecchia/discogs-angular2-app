@@ -10,7 +10,10 @@ import { LocalStorageService } from 'angular-2-local-storage';
 export class DiscogsService {
   get searchTerm() { return this._activeTerm; }
 
+  set releaseList(releases) { this._releaseList = releases; }
+
   private _activeTerm: string;
+  private _releaseList: any[];
 
   private _searchSource = new Subject<any>();
   private _listSource = new Subject<any>();
@@ -66,5 +69,17 @@ export class DiscogsService {
 
   getListing(id: number): Observable<any> {
     return this.http.get(`/api/listing/${id}`);
+  }
+
+  getNextRelease(currentId: number) {
+    if (!this._releaseList) {
+      return null;
+    }
+
+    const currentIndex = this._releaseList.map(r => r.id).indexOf(currentId);
+
+    return this._releaseList.length && currentIndex > -1
+        ? this._releaseList[currentIndex + 1]
+        : null;
   }
 }

@@ -30,21 +30,13 @@ export class ListComponent implements OnInit {
       this._searchSubscription = discogs.search$
         .subscribe(response => {
           this.listType = 'searchResult';
-          const data = response.json();
-
-          this.currentPage = data.pagination.page;
-          this.totalItems = data.pagination.items;
-          this.items = data.results;
+          this._setListdata(response.json());
         });
 
       this._listSubscription = discogs.list$
         .subscribe(response => {
           this.listType = 'wantlist';
-          const data = response.json();
-
-          this.currentPage = data.pagination.page;
-          this.totalItems = data.pagination.items;
-          this.items = data.wants;
+          this._setListdata(response.json());
         });
     }
 
@@ -63,10 +55,7 @@ export class ListComponent implements OnInit {
 
     this.discogs.getListByType(type, page)
       .subscribe(response => {
-        const data = response.json();
-        this.currentPage = data.pagination.page;
-        this.totalItems = data.pagination.items;
-        this.items = data.wants || data.releases || data.listings;
+        this._setListdata(response.json());
       });
   }
 
@@ -78,6 +67,13 @@ export class ListComponent implements OnInit {
     this.youtube.playAll(release, video => {
       this.localStorage.set('activeVideo', video);
     });
+  }
+
+  private _setListdata(data: any) {
+    this.currentPage = data.pagination.page;
+    this.totalItems = data.pagination.items;
+    this.items = data.wants || data.releases || data.listings || data.results;
+    this.discogs.releaseList = this.items;
   }
 
   ngOnInit() {

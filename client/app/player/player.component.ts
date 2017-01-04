@@ -117,7 +117,13 @@ export class PlayerComponent implements OnInit {
   }
 
   skipNext() {
-    this._skipVideo(false);
+    const nextVideo = this._skipVideo();
+
+    if (!nextVideo) {
+      this.currentTime = null;
+      this._playNextRelease();
+      return;
+    }
   }
 
   skipPrev() {
@@ -126,7 +132,6 @@ export class PlayerComponent implements OnInit {
 
   togglePlayerFrame() {
     this.playerFrameVisible = !this.playerFrameVisible;
-    console.log(this.playerFrameVisible);
   }
 
   toggleImgIcon(hidden = false) {
@@ -150,13 +155,17 @@ export class PlayerComponent implements OnInit {
 
   private _skipVideo(prev = false) {
     const video = this._getNextVideo(prev);
-    if (video) {
-      video.discogsId = this.videos.releaseInfo.id;
-      video.discogsTitle = this.videos.releaseInfo.title
-        || this.videos.releaseInfo.basic_information.title;
 
-      this._launchYoutubePlayer(video);
+    if (!video) {
+      return null;
     }
+
+    video.discogsId = this.videos.releaseInfo.id;
+    video.discogsTitle = this.videos.releaseInfo.title
+      || this.videos.releaseInfo.basic_information.title;
+
+    this._launchYoutubePlayer(video);
+    return video;
   }
 
   private _getNextVideo(skipPrev = false) {
@@ -207,14 +216,6 @@ export class PlayerComponent implements OnInit {
     this._selectVideo(video);
   }
 
-  private _selectVideo(video: any) {
-    this.player.loadVideoById(video.id);
-    this.youtube.activateVideo(video);
-
-    this.selectedVideo = video;
-    this.playing = true;
-  }
-
   private _attachPlayerEvents() {
     this.player.on('ready', event => {
       event.target.setVolume(this.volume);
@@ -238,7 +239,7 @@ export class PlayerComponent implements OnInit {
 
       if (!nextVideo) {
         this.currentTime = null;
-        this.playing = false;
+        this._playNextRelease();
         return;
       }
 
@@ -248,6 +249,23 @@ export class PlayerComponent implements OnInit {
       this.selectedVideo.discogsTitle = this.videos.releaseInfo.title;
       this.currentTime = this._timer(this._currentDuration);
     });
+  }
+
+  private _playNextRelease() {
+    const nextRelease = this.discogs.getNextRelease(this.videos.releaseInfo.id);
+    this.youtube.playAll(nextRelease, video => {
+      if (!video) {
+        this._playNextRelease();
+      }
+    });
+  }
+
+  private _selectVideo(video: any) {
+    this.player.loadVideoById(video.id);
+    this.youtube.activateVideo(video);
+
+    this.selectedVideo = video;
+    this.playing = true;
   }
 
   private _timer(duration, startTime = 0) {
