@@ -1,6 +1,6 @@
 <div class="playing mdl-grid" *ngIf="selectedVideo">
 
-    <div class="playing mdl-cell mdl-cell--6-col mdl-cell--2-col-phone">
+    <div class="playing mdl-cell mdl-cell--4-col mdl-cell--2-col-phone">
         <div class="playing playing-title-container">
             <a [mdl-tooltip]="selectedVideo.snippet.title" mdl-tooltip-position="top" class="playing-title-image" (mouseenter)="toggleImgIcon()" (mouseleave)="toggleImgIcon(true)">
                 <div *ngIf="player" (click)="togglePlayerFrame()">
@@ -30,15 +30,23 @@
                     <a title="{{selectedVideo.snippet.title}}" class="video-link">{{selectedVideo.snippet.title}}</a>
                 </div>
             </div>
-
-            <div class="playing-title-text video-duration">
-                <span class="video-duration" *ngIf="!currentTime">0:00 / {{selectedVideo.contentDetails.duration | formatDuration}}</span>
-                <span class="video-duration" *ngIf="currentTime">{{currentTime | async}} / {{selectedVideo.contentDetails.duration | formatDuration}}</span>
-            </div>
         </div>
     </div>
     
     <div class="mdl-layout-spacer"></div>
+
+    <div class="mdl-cell mdl-cell--6-col mdl-cell--hide-phone">
+        <div class="mdl-grid video-duration-wrapper">
+            <div class="mdl-cell--1-col video-duration" *ngIf="!currentTime">0:00</div>
+            <div class="mdl-cell--1-col video-duration" *ngIf="currentTime">{{currentTime | async}}</div>
+
+            <div class="mdl-cell--10-col video-duration mdl-cell--hide-phone">
+                <mdl-slider [min]="0" [max]="currentDurationSeconds" [step]="1" #time (change)="seekTo(time.value)" [(ngModel)]="currentTimeSeconds"></mdl-slider>
+            </div>
+
+            <div class="mdl-cell--1-col video-duration">{{selectedVideo.contentDetails.duration | formatDuration}}</div>
+        </div>
+    </div>
 
     <div class="mdl-cell mdl-cell--2-col">
         <div class="player-transport">

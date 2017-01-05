@@ -17,7 +17,8 @@ import * as moment from 'moment';
   styleUrls: ['./player.component.css']
 })
 export class PlayerComponent implements OnInit {
-  private get _currentDuration() { return this.selectedVideo.contentDetails.duration; }
+  private get _currentDuration(): string { return this.selectedVideo.contentDetails.duration; }
+  get currentDurationSeconds(): number { return moment.duration(this._currentDuration).asSeconds(); }
 
   player: any;
   playing: boolean;
@@ -30,7 +31,7 @@ export class PlayerComponent implements OnInit {
   imageIconVisible: boolean;
 
   currentTime: Observable<string>;
-  currentTimeSeconds: number;
+  currentTimeSeconds: number = 0;
 
   @Input() lastVideo: any;
 
@@ -84,6 +85,11 @@ export class PlayerComponent implements OnInit {
     this.localStorage.set('playerVolume', value);
   }
 
+  seekTo(time: number) {
+    console.log(time);
+    this.player.seekTo(time);
+  }
+
   seekFw() {
     if (!this.player || !this.playing) {
       return;
@@ -91,7 +97,7 @@ export class PlayerComponent implements OnInit {
 
     this.player.getCurrentTime()
       .then(current => {
-        const remaining = moment.duration(this._currentDuration).asSeconds() - current;
+        const remaining = this.currentDurationSeconds - current;
         const seekVal = remaining < 5 ? current + remaining : current + 5;
 
         this.player.seekTo(seekVal);
@@ -278,7 +284,7 @@ export class PlayerComponent implements OnInit {
     this.playing = true;
   }
 
-  private _timer(duration, startTime = 0) {
+  private _timer(duration: string, startTime = 0) {
     const startWithTime = formatDuration(moment.duration(startTime, 'seconds'));
     const trackDuration = moment.duration(duration).asMilliseconds() + 1000;
     return Observable.timer(0, 1000)
