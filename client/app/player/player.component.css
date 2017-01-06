@@ -1,5 +1,5 @@
 .playing {
-    padding: 0;
+    padding: 2px 0 0 0;
 }
 
 .playing a,
@@ -8,6 +8,10 @@
     color: #3e3e3e;
 }
 
+/******************************************/
+/*************Playing title****************/
+/******************************************/
+
 .playing-title-container {
     margin-left: 8px;
 }
@@ -15,7 +19,7 @@
 .playing-title-image {
     position: relative;
     float: left;
-    margin: 8px 8px 0 0;
+    margin: 4px 8px 0 0;
     cursor: pointer;
 }
 
@@ -40,7 +44,6 @@
     line-height: 1.8em;
     margin-top: 4px;
     padding-left: 8px;
-    float: left;
 }
 
 .playing-title-text .playing-title-video {
@@ -62,25 +65,20 @@
     text-overflow: ellipsis;
 }
 
-.video-duration-wrapper {
-    width: 100%;
-}
+/******************************************/
+/*************Player controls**************/
+/******************************************/
 
-.video-duration {
-    font-size: 14px;
-    float: left;
+.player-controls {
+  margin: 0 8px;
 }
 
 .player-transport {
     width: 140px;
-    float: right;
-    margin: 4px 12px 0 0;
+    margin: 0 auto;
 }
 
-.volume-wrapper {
-    position: relative;
-}
-
+.volume-wrapper,
 .volume-icon-wrapper {
     position: relative;
 }
@@ -114,6 +112,23 @@
     -webkit-transform-origin: right, top;
 }
 
+.video-duration-wrapper {
+    width: 100%;
+}
+
+.video-duration {
+    font-size: 11px;
+    float: left;
+}
+
+.video-duration mdl-slider {
+    margin-top: 2px;
+}
+
+/******************************************/
+/**********Toggle visibility***************/
+/******************************************/
+
 .player-frame.visible,
 .volume-slider.visible,
 .playing-title-image .player-image-icon.visible {
@@ -122,4 +137,28 @@
 
 .player-frame {
     display: none;
+}
+
+@media (min-width: 840px) {
+  .video-duration-wrapper.mdl-grid {
+      padding: 0 8px;
+  }
+}
+
+@media (max-width: 839px) {
+    .video-duration-wrapper.mdl-grid {
+        padding: 0 8px;
+    }
+}
+
+@media (min-width: 480px) {
+    .video-duration-wrapper.mdl-grid {
+        padding: 0 8px;
+    }
+}
+
+@media (max-width: 480px) {
+    .player-transport {
+        margin: 1em auto;
+    }
 }

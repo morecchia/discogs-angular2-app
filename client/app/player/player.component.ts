@@ -86,7 +86,10 @@ export class PlayerComponent implements OnInit {
   }
 
   seekTo(time: number) {
-    console.log(time);
+    if (!this.playing) {
+      this._launchYoutubePlayer(this.selectedVideo);
+    }
+
     this.player.seekTo(time);
   }
 
