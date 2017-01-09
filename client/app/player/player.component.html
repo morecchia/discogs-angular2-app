@@ -3,7 +3,7 @@
 
     <div class="playing mdl-cell mdl-cell--4-col mdl-cell--2-col-phone">
         <div class="playing playing-title-container">
-            <a [mdl-tooltip]="selectedVideo.snippet.title" mdl-tooltip-position="top" class="playing-title-image" (mouseenter)="toggleImgIcon()" (mouseleave)="toggleImgIcon(true)">
+            <a class="playing-title-image" (mouseenter)="toggleImgIcon()" (mouseleave)="toggleImgIcon(true)">
                 <div *ngIf="player" (click)="togglePlayerFrame()">
                     <img src="{{selectedVideo.snippet.thumbnails.default.url}}" alt="{{selectedVideo.snippet.title}}" />
                     <span [ngClass]="{'visible': imageIconVisible, 'player-image-icon': true}">
@@ -21,7 +21,7 @@
             <div class="playing-title-text">
                 <div class="playing-title-placeholder mdl-cell--hide-phone">
                     <span>Discogs release:
-                      <a [mdl-tooltip]="'Go to: ' + selectedVideo.discogsTitle" mdl-tooltip-position="top" [routerLink]="['/detail', selectedVideo.discogsId]">
+                      <a [routerLink]="['/detail', selectedVideo.discogsId]">
                         {{selectedVideo.discogsTitle || '...'}}
                       </a>
                     </span>
