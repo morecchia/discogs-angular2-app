@@ -38,6 +38,7 @@ export class DetailComponent implements OnInit {
       .catch(err => this.errorHandler(err))
       .mergeMap(release => {
         const fullDetails = release.json();
+        console.log(fullDetails);
         this.details = {type: 'release', info: fullDetails};
         const urls =  fullDetails.videos
           ? fullDetails.videos.map(v => this.youtube.getIdFromUrl(v.uri)) : [];
