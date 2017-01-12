@@ -24,7 +24,7 @@ module.exports = {
 
     getInventory: (req, res) => {
         const pageStr = discogsPageStr(req);
-        getRequest(`${apiBase}/users/${username}/inventory?sort=listed&sort_order=desc${pageStr}&token=${tokens.discogs}`, res);
+        getRequest(`${apiBase}/users/${username}/inventory?status=${encodeURIComponent('For Sale')}&sort=listed&sort_order=desc${pageStr}&token=${tokens.discogs}`, res);
     },
 
     searchReleases: (req, res) => {
