@@ -12,6 +12,8 @@ var Router = function(app) {
 
         app.route('/api/wantlist/:page?').get(discogs.getWantlist);
 
+        app.route('/api/wantlistids').get(discogs.getWantlistIds);
+
         app.route('/api/collection/:page?').get(discogs.getCollection);
 
         app.route('/api/inventory/:page?').get(discogs.getInventory);
