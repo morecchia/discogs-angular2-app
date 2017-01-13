@@ -40,6 +40,25 @@ module.exports = {
     getListing: (req, res) => {
         const id = req.params.id;
         getRequest(`${apiBase}/marketplace/listings/${id}?curr_abbr=USD&token=${tokens.discogs}`, res);
+    },
+
+    putWantlist: (req, res) => {
+        const id = req.params.id;
+        request.put(`${apiBase}/users/${username}/wants/${id}?token=${tokens.discogs}`, {headers: headers}, 
+            (error, response, body) => {
+                if (error) {
+                    res.status(500).send(error);
+                    return;
+                }
+
+                const statusCode = response.statusCode;
+                if (statusCode !== 201) {
+                    res.status(statusCode).send(response);
+                    return;
+                }
+
+                res.status(201).send(body);
+            });
     }
 };
 

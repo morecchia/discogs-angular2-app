@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { Subscription }   from 'rxjs/Subscription';
 
 import { LocalStorageService } from 'angular-2-local-storage';
+import { MdlSnackbarService } from 'angular2-mdl';
 
 import { DiscogsService } from '../../services/discogs.service';
 import { YoutubeService } from '../../services/youtube.service';
@@ -25,7 +26,8 @@ export class DetailComponent implements OnInit {
   private _sub: any;
 
   constructor(private discogs: DiscogsService, private youtube: YoutubeService,
-   private route: ActivatedRoute, private localStorage: LocalStorageService) {
+   private route: ActivatedRoute, private localStorage: LocalStorageService,
+   private mdlSnackbarService: MdlSnackbarService) {
       this.activeVideoSubscription = youtube.videoActivated$
         .subscribe(video => {
           this.activeVideoId = video.id;
@@ -38,7 +40,6 @@ export class DetailComponent implements OnInit {
       .catch(err => this.errorHandler(err))
       .mergeMap(release => {
         const fullDetails = release.json();
-        console.log(fullDetails);
         this.details = {type: 'release', info: fullDetails};
         const urls =  fullDetails.videos
           ? fullDetails.videos.map(v => this.youtube.getIdFromUrl(v.uri)) : [];
@@ -59,6 +60,20 @@ export class DetailComponent implements OnInit {
     this.youtube.selectVideo(video);
     this.localStorage.set('activeVideo', video);
   }
+
+  addToWantlist(id: number) {
+    this.discogs.putWantlist(id)
+      .subscribe(result => {
+        this.showAddWantlistMsg(result.json().basic_information.title);
+      });
+  }
+
+  showAddWantlistMsg(title: string) {
+      this.mdlSnackbarService.showSnackbar({
+        message: `Added "${title}" to wantlist.`,
+        timeout: 2000
+      });
+    }
 
   ngOnInit() {
     this._sub = this.route.params.subscribe(params => {
