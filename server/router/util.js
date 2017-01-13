@@ -1,5 +1,5 @@
 'use strict';
-
+const { headers } = require('../config');
 const request = require('request');
 
 module.exports = {
@@ -20,17 +20,27 @@ module.exports = {
         };
     },
 
-    handleMultiple: (urls, res) => {
-        const resArray = [];
+    handleMultiple: (urls, callback) => {
+        const responseData = [];
         const len = urls.length;
-        for (let i = 0; i < len; i++) {
-            request.get(urls[i], (error, response, body) => {
-                resArray.push(JSON.parse(body));
-                if (i + 1 === len) {
-                    res.send(resArray);
-                }
-            });
-        }
+
+        let completed_requests = 0;
+        urls.forEach(url => {
+            setTimeout(() => {
+                request.get({ url: url, headers: headers }, (error, response, body) => {
+                    if (error) {
+                        callback(error);
+                        return;
+                    }
+                    responseData.push(JSON.parse(body));
+                    completed_requests++;
+                    if (completed_requests === len) {
+                        console.log(`completed: ${completed_requests} out of ${len}`);
+                        callback(responseData);
+                    }
+                });
+            }, 200);
+        });
     },
 
     discogsPageStr: req => {

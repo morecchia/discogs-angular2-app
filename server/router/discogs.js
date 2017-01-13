@@ -2,7 +2,7 @@
 
 const request = require('request');
 
-const { getCallback, discogsPageStr } = require('./util');
+const { getCallback, discogsPageStr, handleMultiple } = require('./util');
 const { tokens, username, headers } = require('../config');
 
 const apiBase = 'https://api.discogs.com';
@@ -10,6 +10,29 @@ const apiBase = 'https://api.discogs.com';
 module.exports = {
     getUser: (req, res) => {
         getRequest(`${apiBase}/users/${username}`, res);
+    },
+
+    getWantlistIds: (req, res) => {
+        const wantCount = 1780; // req.query.want_count;
+        const pages = Math.ceil(wantCount / 100);
+        const urls = [];
+
+        for (let i = 0; i < pages; i++) {
+            let page = i + 1;
+            urls.push(`${apiBase}/users/${username}/wants?sort=added&sort_order=desc&page=${page}&per_page=100`);
+        }
+
+        handleMultiple(urls, response => {
+            // grab the date from the latest added wantlist item
+            const lastUpdated = Date.now();
+            // transform the response to an array of ids
+            const ids = response
+                .map(d => d.wants)
+                .reduce((a, b) => a.concat(b))
+                .map(w => w.id);
+
+            res.send({ lastUpdated, count: ids.length, ids });
+        });
     },
 
     getWantlist: (req, res) => {
