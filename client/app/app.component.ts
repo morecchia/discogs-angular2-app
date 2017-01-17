@@ -8,6 +8,7 @@ import { LocalStorageService } from 'angular-2-local-storage';
 
 import { YoutubeService } from '../services/youtube.service';
 import { DiscogsService } from '../services/discogs.service';
+import { User } from '../models/user';
 
 @Component({
   selector: 'app-root',
@@ -16,10 +17,11 @@ import { DiscogsService } from '../services/discogs.service';
 })
 export class AppComponent implements OnInit {
   title = 'Discogs Player';
-  user = {};
+  user: User = new User();
 
   activeVideo: any;
   activeVideoSubscription: Subscription;
+  wantDeletedSubscription: Subscription;
 
   searchVisible: boolean;
 
@@ -29,6 +31,11 @@ export class AppComponent implements OnInit {
         .subscribe(video => {
           this.activeVideo = video;
           browserTitle.setTitle(video && video.snippet.title);
+        });
+
+      this.wantDeletedSubscription = this.discogs.wantDeleted$
+        .subscribe(() => {
+          this.user.num_wantlist--;
         });
 
       const lastVideo = this.localStorage.get('activeVideo');
@@ -45,6 +52,14 @@ export class AppComponent implements OnInit {
     this.discogs.getUserData()
       .subscribe(response => {
         this.user = response.json();
+        const wantlistIds = this.discogs.wantlistItems;
+
+        if (wantlistIds && wantlistIds.length) {
+          this.discogs.wantlistItemsSource.next(wantlistIds);
+          return;
+        }
+
+        this.discogs.updateWantlistIds(this.user.num_wantlist);
       });
   }
 }

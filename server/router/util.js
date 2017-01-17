@@ -35,7 +35,6 @@ module.exports = {
                     responseData.push(JSON.parse(body));
                     completed_requests++;
                     if (completed_requests === len) {
-                        console.log(`completed: ${completed_requests} out of ${len}`);
                         callback(responseData);
                     }
                 });

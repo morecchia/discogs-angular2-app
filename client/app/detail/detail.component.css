@@ -41,6 +41,10 @@
     margin-right: 4px;
 }
 
+.wantlist-remove {
+    color: tomato;
+}
+
 @media (max-width: 700px) {
     .release-info h5 {
         margin: 0 0 6px 0;

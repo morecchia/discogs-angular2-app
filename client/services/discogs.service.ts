@@ -9,7 +9,9 @@ import { LocalStorageService } from 'angular-2-local-storage';
 @Injectable()
 export class DiscogsService {
   get searchTerm() { return this._activeTerm; }
+  get wantlistItems() { return this.localStorage.get('wantlist_ids') as number[]; }
 
+  set wantlistItems(items) { this.wantlistItems = items; }
   set releaseList(releases) { this._releaseList = releases; }
 
   private _activeTerm: string;
@@ -17,7 +19,12 @@ export class DiscogsService {
 
   private _searchSource = new Subject<any>();
   private _listSource = new Subject<any>();
+  private _wantDeletedSource = new Subject<any>();
 
+  wantlistItemsSource = new Subject<number[]>();
+
+  wantDeleted$ = this._wantDeletedSource.asObservable();
+  wantlistItems$ = this.wantlistItemsSource.asObservable();
   search$ = this._searchSource.asObservable();
   list$ = this._listSource.asObservable();
 
@@ -32,6 +39,19 @@ export class DiscogsService {
           this._listSource.next(respsonse);
         });
     }
+  }
+
+  updateWantlistIds(wantlistLength: number) {
+    this.getWantlistIds(wantlistLength)
+      .subscribe(data => {
+        const ids = data.json().ids;
+        const updatedIds = this.localStorage.set('wantlist_ids', ids);
+        this.wantlistItemsSource.next(ids);
+      });
+  }
+
+  getWantlistIds(length: number): Observable<any> {
+    return this.http.get(`/api/wantlistids?want_count=${length}`);
   }
 
   searchReleases(term: string, page = 1) {
@@ -87,5 +107,10 @@ export class DiscogsService {
 
   putWantlist(id: number): Observable<any> {
     return this.http.put(`api/wantlist/${id}`, {});
+  }
+
+  deleteWantlist(id: number): Observable<any> {
+    return this.http.delete(`api/wantlist/${id}`)
+      .map(() => this._wantDeletedSource.next());
   }
 }

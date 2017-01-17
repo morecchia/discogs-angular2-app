@@ -12,11 +12,11 @@ var Router = function(app) {
 
         app.route('/api/wantlist/:page?').get(discogs.getWantlist);
 
-<<<<<<< HEAD
-        app.route('/api/wantlist/:id').put(discogs.putWantlist);
-=======
         app.route('/api/wantlistids').get(discogs.getWantlistIds);
->>>>>>> 814778ed31cc142570ca51978bc8f4f8e752e8cc
+
+        app.route('/api/wantlist/:id').put(discogs.putWantlist);
+
+        app.route('/api/wantlist/:id').delete(discogs.deleteWantlist);
 
         app.route('/api/collection/:page?').get(discogs.getCollection);
 

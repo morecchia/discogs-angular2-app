@@ -17,11 +17,15 @@ import { YoutubeService } from '../../services/youtube.service';
 })
 export class DetailComponent implements OnInit {
   details: any;
+  currentId: number;
   videos: any[];
   videosLoaded: boolean;
   activeVideoId: number;
+  wantlistItems: number[];
+  itemInWantlist: boolean;
 
   activeVideoSubscription: Subscription;
+  wantlistItemsSubscription: Subscription;
 
   private _sub: any;
 
@@ -32,6 +36,11 @@ export class DetailComponent implements OnInit {
         .subscribe(video => {
           this.activeVideoId = video.id;
           this.localStorage.set('activeVideo', video);
+        });
+
+      this.wantlistItemsSubscription = this.discogs.wantlistItems$
+        .subscribe(ids => {
+          this.wantlistItems = ids;
         });
     }
 
@@ -63,22 +72,38 @@ export class DetailComponent implements OnInit {
 
   addToWantlist(id: number) {
     this.discogs.putWantlist(id)
+      .catch(err => Observable.throw(err))
       .subscribe(result => {
-        this.showAddWantlistMsg(result.json().basic_information.title);
+        this.discogs.wantlistItems.push(id);
+        this.localStorage.set('wantlist_ids', this.discogs.wantlistItems);
+        this.itemInWantlist = true;
+        const title = result.json().basic_information.title;
+        this.showActionMsg(`Added "${title}" to wantlist.`);
       });
   }
 
-  showAddWantlistMsg(title: string) {
-      this.mdlSnackbarService.showSnackbar({
-        message: `Added "${title}" to wantlist.`,
-        timeout: 2000
+  removeFromWantlist(id: number, title: string) {
+    this.discogs.deleteWantlist(id)
+      .catch(err => Observable.throw(err))
+      .subscribe(() => {
+        const items = this.discogs.wantlistItems;
+        const index = items.findIndex(i => i == id);
+        const deletedId = items.splice(index, 1);
+        this.localStorage.set('wantlist_ids', items);
+        this.itemInWantlist = false;
+        this.showActionMsg(`Removed "${title}" from wantlist.`)
       });
-    }
+  }
+
+  showActionMsg(message: string, timeout = 2000 ) {
+    this.mdlSnackbarService.showSnackbar({ message, timeout });
+  }
 
   ngOnInit() {
     this._sub = this.route.params.subscribe(params => {
       const id = params['id'];
       if (id) {
+        this.itemInWantlist = this.discogs.wantlistItems.findIndex(i => i == id) > -1;
         this.getDetailById(id);
       }
     });

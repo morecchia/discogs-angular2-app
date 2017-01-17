@@ -13,7 +13,7 @@ module.exports = {
     },
 
     getWantlistIds: (req, res) => {
-        const wantCount = 1780; // req.query.want_count;
+        const wantCount = req.query.want_count;
         const pages = Math.ceil(wantCount / 100);
         const urls = [];
 
@@ -22,11 +22,11 @@ module.exports = {
             urls.push(`${apiBase}/users/${username}/wants?sort=added&sort_order=desc&page=${page}&per_page=100`);
         }
 
-        handleMultiple(urls, response => {
-            // grab the date from the latest added wantlist item
+        handleMultiple(urls, data => {
+            // mark the response with the current timestamp
             const lastUpdated = Date.now();
             // transform the response to an array of ids
-            const ids = response
+            const ids = data
                 .map(d => d.wants)
                 .reduce((a, b) => a.concat(b))
                 .map(w => w.id);
@@ -81,6 +81,25 @@ module.exports = {
                 }
 
                 res.status(201).send(body);
+            });
+    },
+
+    deleteWantlist: (req, res) => {
+        const id = req.params.id;
+        request.delete(`${apiBase}/users/${username}/wants/${id}?token=${tokens.discogs}`, {headers: headers},
+            (error, response, body) => {
+                if (error) {
+                    res.status(500).send(error);
+                    return;
+                }
+
+                const statusCode = response.statusCode;
+                if (statusCode !== 204) {
+                    res.status(statusCode).send(response);
+                    return;
+                }
+
+                res.status(204).send(body);
             });
     }
 };

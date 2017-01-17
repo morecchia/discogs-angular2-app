@@ -24,7 +24,8 @@
                     </div>
 
                     <div class="detail-actions">
-                        <a (click)="addToWantlist(details.info.id)">+Add To Wantlist</a>
+                        <a *ngIf="!itemInWantlist" (click)="addToWantlist(details.info.id)">+ Add To Wantlist</a>
+                        <a *ngIf="itemInWantlist" class="wantlist-remove" (click)="removeFromWantlist(details.info.id, details.info.title)">- Remove From Wantlist</a>
                     </div>
 
                     <p *ngIf="!details.info.styles" class="style-chips">
