@@ -13,7 +13,7 @@ module.exports = {
         Rx.Observable.interval(300)
             .take(urls.length)
             .map(i => urls[i])
-            .mergeMap(url => getJSON$({ url, headers }))
+            .mergeMap(url => get$({ url, headers }))
             .subscribe(response => {
                 responses.push(response);
                 completed_requests++;
