@@ -2,7 +2,8 @@
     margin: 3em auto;
 }
 
-.video-wrapper li:hover {
+.video-wrapper li:hover,
+.detail-actions a {
     cursor: pointer;
 }
 
@@ -20,7 +21,7 @@
 }
 
 .release-basic-info {
-    margin-bottom: 24px;
+    margin-bottom: 12px;
 }
 
 .release-basic-info h5 {

@@ -23,6 +23,10 @@
                         <span>{{details.info.labels | joinNames}} ({{details.info.year}})</span>
                     </div>
 
+                    <div class="detail-actions">
+                        <a (click)="addToWantlist(details.info.id)">+Add To Wantlist</a>
+                    </div>
+
                     <p *ngIf="!details.info.styles" class="style-chips">
                         <span class="mdl-chip" *ngFor="let genre of details.info.genres">
                               <span class="mdl-chip__text">{{genre}}</span>

@@ -76,7 +76,7 @@ export class YoutubeService {
 
         if (video) {
           video.discogsId = release.id;
-          video.discogsTitle = release.basic_information.title;
+          video.discogsTitle = release.title || release.basic_information.title;
 
           this.selectVideo(video);
           this.activateVideo(video);

@@ -77,10 +77,15 @@ export class DiscogsService {
       return null;
     }
 
-    const currentIndex = this._releaseList.map(r => r.id).indexOf(currentId);
+    const currentIndex = this._releaseList
+      .map(r => r.id).indexOf(currentId);
 
     return this._releaseList.length && currentIndex > -1
         ? this._releaseList[currentIndex + 1]
         : null;
+  }
+
+  putWantlist(id: number): Observable<any> {
+    return this.http.put(`api/wantlist/${id}`, {});
   }
 }
