@@ -2,6 +2,7 @@
 
 const request = require('request');
 
+const { getJSON$ } = require('../lib/request');
 const { getCallback, discogsPageStr, handleMultiple } = require('./util');
 const { tokens, username, headers } = require('../config');
 
@@ -13,7 +14,7 @@ module.exports = {
     },
 
     getWantlistIds: (req, res) => {
-        const wantCount = 1780; // req.query.want_count;
+        const wantCount = req.query.want_count;
         const pages = Math.ceil(wantCount / 100);
         const urls = [];
 
@@ -67,5 +68,8 @@ module.exports = {
 };
 
 function getRequest(url, res) {
-    request.get({ url: url, headers: headers }, getCallback(res));
+    getJSON$({ url: url, headers: headers })
+        .subscribe(response => {
+            res.send(response);
+        });
 }
