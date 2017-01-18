@@ -1,45 +1,26 @@
 'use strict';
+
+const Rx = require('rxjs/Rx');
+
 const { headers } = require('../config');
-const request = require('request');
+const { getJSON$ } = require('../lib/request');
 
 module.exports = {
-    getCallback: res => {
-        return (error, response, body) => {
-            if (error) {
-                res.status(500).send(error);
-                return;
-            }
-
-            const statusCode = response.statusCode;
-            if (statusCode !== 200) {
-                res.status(statusCode).send(response);
-                return;
-            }
-
-            res.send(body);
-        };
-    },
-
     handleMultiple: (urls, callback) => {
-        const responseData = [];
-        const len = urls.length;
-
+        const responses = [];
         let completed_requests = 0;
-        urls.forEach(url => {
-            setTimeout(() => {
-                request.get({ url: url, headers: headers }, (error, response, body) => {
-                    if (error) {
-                        callback(error);
-                        return;
-                    }
-                    responseData.push(JSON.parse(body));
-                    completed_requests++;
-                    if (completed_requests === len) {
-                        callback(responseData);
-                    }
-                });
-            }, 200);
-        });
+        Rx.Observable.interval(300)
+            .take(urls.length)
+            .map(i => urls[i])
+            .mergeMap(url => get$({ url, headers }))
+            .subscribe(response => {
+                responses.push(response);
+                completed_requests++;
+
+                if (completed_requests === urls.length) {
+                    callback(responses);
+                }
+            });
     },
 
     discogsPageStr: req => {

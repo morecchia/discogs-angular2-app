@@ -2,6 +2,7 @@
 
 const request = require('request');
 
+const { get$, put$ } = require('../lib/request');
 const { getCallback, discogsPageStr, handleMultiple } = require('./util');
 const { tokens, username, headers } = require('../config');
 
@@ -22,8 +23,8 @@ module.exports = {
             urls.push(`${apiBase}/users/${username}/wants?sort=added&sort_order=desc&page=${page}&per_page=100`);
         }
 
-        handleMultiple(urls, data => {
-            // mark the response with the current timestamp
+        handleMultiple(urls, response => {
+            // add the current timestamp to the response
             const lastUpdated = Date.now();
             // transform the response to an array of ids
             const ids = data
@@ -67,20 +68,11 @@ module.exports = {
 
     putWantlist: (req, res) => {
         const id = req.params.id;
-        request.put(`${apiBase}/users/${username}/wants/${id}?token=${tokens.discogs}`, {headers: headers}, 
-            (error, response, body) => {
-                if (error) {
-                    res.status(500).send(error);
-                    return;
-                }
+        const url = `${apiBase}/users/${username}/wants/${id}?token=${tokens.discogs}`;
 
-                const statusCode = response.statusCode;
-                if (statusCode !== 201) {
-                    res.status(statusCode).send(response);
-                    return;
-                }
-
-                res.status(201).send(body);
+        put$({ url, headers })
+            .subscribe(response => {
+                res.send(response);
             });
     },
 
@@ -105,5 +97,8 @@ module.exports = {
 };
 
 function getRequest(url, res) {
-    request.get({ url: url, headers: headers }, getCallback(res));
+    get$({ url, headers })
+        .subscribe(response => {
+            res.send(response);
+        });
 }
