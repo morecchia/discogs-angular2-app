@@ -78,7 +78,7 @@ module.exports = {
 };
 
 function getRequest(url, res) {
-    get$({ url: url, headers: headers })
+    get$({ url, headers })
         .subscribe(response => {
             res.send(response);
         });
