@@ -43,9 +43,13 @@ export class DiscogsService {
 
   updateWantlistIds(wantlistLength: number) {
     this.getWantlistIds(wantlistLength)
-      .subscribe(data => {
-        const ids = data.json().ids;
-        const updatedIds = this.localStorage.set('wantlist_ids', ids);
+      .subscribe(response => {
+        const data = response.json();
+        const ids = data.ids;
+        const timestamp = data.lastUpdated;
+
+        this.localStorage.set('wantlist_ids', ids);
+        this.localStorage.set('wantlist_lastUpdated', timestamp);
         this.wantlistItemsSource.next(ids);
       });
   }
