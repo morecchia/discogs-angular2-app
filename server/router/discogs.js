@@ -27,7 +27,7 @@ module.exports = {
             // add the current timestamp to the response
             const lastUpdated = Date.now();
             // transform the response to an array of ids
-            const ids = data
+            const ids = response
                 .map(d => d.wants)
                 .reduce((a, b) => a.concat(b))
                 .map(w => w.id);
@@ -78,7 +78,7 @@ module.exports = {
 
     deleteWantlist: (req, res) => {
         const id = req.params.id;
-        request.delete(`${apiBase}/users/${username}/wants/${id}?token=${tokens.discogs}`, {headers: headers},
+        request.delete(`${apiBase}/users/${username}/wants/${id}?token=${tokens.discogs}`, { headers: headers },
             (error, response, body) => {
                 if (error) {
                     res.status(500).send(error);

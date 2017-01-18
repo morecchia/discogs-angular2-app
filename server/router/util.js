@@ -3,7 +3,7 @@
 const Rx = require('rxjs/Rx');
 
 const { headers } = require('../config');
-const { getJSON$ } = require('../lib/request');
+const { get$ } = require('../lib/request');
 
 module.exports = {
     handleMultiple: (urls, callback) => {
