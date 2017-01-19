@@ -1,10 +1,10 @@
 'use strict';
 
-const request = require('request');
+const Rx = require('rxjs/Rx');
 
-const { get$, put$ } = require('../lib/request');
-const { getCallback, discogsPageStr, handleMultiple } = require('./util');
+const { get$, put$, delete$ } = require('../lib/request');
 const { tokens, username, headers } = require('../config');
+const { discogsPageStr, handleMultiple } = require('./util');
 
 const apiBase = 'https://api.discogs.com';
 
@@ -71,34 +71,27 @@ module.exports = {
         const url = `${apiBase}/users/${username}/wants/${id}?token=${tokens.discogs}`;
 
         put$({ url, headers })
+            .catch(err => Rx.Observable.throw(err))
             .subscribe(response => {
-                res.send(response);
+                res.status(response.statusCode).send(response.body);
             });
     },
 
     deleteWantlist: (req, res) => {
         const id = req.params.id;
-        request.delete(`${apiBase}/users/${username}/wants/${id}?token=${tokens.discogs}`, {headers: headers},
-            (error, response, body) => {
-                if (error) {
-                    res.status(500).send(error);
-                    return;
-                }
-
-                const statusCode = response.statusCode;
-                if (statusCode !== 204) {
-                    res.status(statusCode).send(response);
-                    return;
-                }
-
-                res.status(204).send(body);
+        const url = `${apiBase}/users/${username}/wants/${id}?token=${tokens.discogs}`;
+        delete$({url, headers})
+            .catch(err => Rx.Observable.throw(err))
+            .subscribe(reponse => {
+                res.status(response.statusCode).send(response.body);
             });
     }
 };
 
 function getRequest(url, res) {
     get$({ url, headers })
+        .catch(err => Rx.Observable.throw(err))
         .subscribe(response => {
-            res.send(response);
+            res.send(response.body);
         });
 }

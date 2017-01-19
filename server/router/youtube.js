@@ -1,7 +1,8 @@
 'use strict';
 
-const { get$ } = require('../lib/request');
+const Rx = require('rxjs/Rx');
 
+const { get$ } = require('../lib/request');
 const { tokens } = require('../config');
 
 const apiBase = 'https://www.googleapis.com/youtube/v3';
@@ -12,8 +13,9 @@ module.exports = {
         const url = `${apiBase}/videos?part=snippet,contentDetails&id=${ids}&key=${tokens.youtube}`;
 
         get$({ url })
+            .catch(err => Rx.Observable.throw(err))
             .subscribe(response => {
-                res.send(response);
+                res.send(response.body);
             });
     }
 };
