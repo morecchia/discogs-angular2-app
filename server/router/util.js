@@ -14,7 +14,7 @@ module.exports = {
             .map(i => urls[i])
             .mergeMap(url => get$({ url, headers }))
             .subscribe(response => {
-                responses.push(response);
+                responses.push(response.body);
                 completed_requests++;
 
                 if (completed_requests === urls.length) {

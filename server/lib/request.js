@@ -4,43 +4,41 @@ const Rx = require('rxjs/Rx');
 module.exports = {
     get$: options => {
         return new Rx.Observable(observer => {
-            request.get(options, (error, response, body) => {
-                if (error) {
-                    observer.error(error);
-                }
-
-                const statusCode = response.statusCode;
-                if (statusCode !== 200) {
-                    observer.next({ statusCode, body: JSON.parse(body) });
-                    observer.complete();
-                    return;
-                }
-
-                observer.next(JSON.parse(body));
-                observer.complete();
-            });
+            request.get({url: options.url, headers: options.headers },
+                _obvservableCallback(observer));
         });
     },
 
     put$: options => {
         return new Rx.Observable(observer => {
-            request.put(options.url, { headers: options.headers },
-                (error, response, body) => {
-                    if (error) {
-                        observer.error(error);
-                        return;
-                    }
+            request.put(option.url, {headers: headers},
+                _obvservableCallback(observer, 201));
+        });
+    },
 
-                    const statusCode = response.statusCode;
-                    if (statusCode !== 201) {
-                        observer.next({ statusCode, body: JSON.parse(body) });
-                        observer.complete();
-                        return;
-                    }
-
-                    observer.next(JSON.parse(body));
-                    observer.complete();
-                });
+    delete$: options => {
+        return new Rx.Observable(observer => {
+            request.delete(option.url, {headers: headers},
+                _obvservableCallback(observer, 204));
         });
     }
 };
+
+function _obvservableCallback(observer, status = 200) {
+    return (error, response, body) => {
+        if (error) {
+            observer.error(error);
+            return;
+        }
+
+        const statusCode = response.statusCode;
+        if (statusCode !== status) {
+            observer.next({ statusCode, body: JSON.parse(body) });
+            observer.complete();
+            return;
+        }
+
+        observer.next({ statusCode: status, body: JSON.parse(body) });
+        observer.complete();
+    };
+}
