@@ -4,21 +4,21 @@ const Rx = require('rxjs/Rx');
 module.exports = {
     get$: options => {
         return new Rx.Observable(observer => {
-            request.get({url: options.url, headers: options.headers },
+            request.get({ url: options.url, headers: options.headers },
                 _obvservableCallback(observer));
         });
     },
 
     put$: options => {
         return new Rx.Observable(observer => {
-            request.put(option.url, {headers: headers},
+            request.put(options.url, { headers: options.headers },
                 _obvservableCallback(observer, 201));
         });
     },
 
     delete$: options => {
         return new Rx.Observable(observer => {
-            request.delete(option.url, {headers: headers},
+            request.delete(options.url, { headers: options.headers },
                 _obvservableCallback(observer, 204));
         });
     }
@@ -38,7 +38,9 @@ function _obvservableCallback(observer, status = 200) {
             return;
         }
 
-        observer.next({ statusCode: status, body: JSON.parse(body) });
+        const responseBody = body ? JSON.parse(body) : null;
+
+        observer.next({ statusCode: status, body: responseBody });
         observer.complete();
     };
 }

@@ -82,7 +82,7 @@ module.exports = {
         const url = `${apiBase}/users/${username}/wants/${id}?token=${tokens.discogs}`;
         delete$({ url, headers })
             .catch(err => Rx.Observable.throw(err))
-            .subscribe(reponse => {
+            .subscribe(response => {
                 res.status(response.statusCode).send(response.body);
             });
     }
