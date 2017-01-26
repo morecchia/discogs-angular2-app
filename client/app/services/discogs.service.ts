@@ -6,6 +6,8 @@ import { Subject } from 'rxjs/Subject';
 
 import { LocalStorageService } from 'angular-2-local-storage';
 
+import { DiscogsSales, DiscogsWants, DiscogsCollection, DiscogsRelease } from '../models';
+
 @Injectable()
 export class DiscogsService {
   get searchTerm() { return this._activeTerm; }
@@ -20,10 +22,12 @@ export class DiscogsService {
   private _searchSource = new Subject<any>();
   private _listSource = new Subject<any>();
   private _wantDeletedSource = new Subject<any>();
+  private _wantAddedSource = new Subject<any>();
 
   wantlistItemsSource = new Subject<number[]>();
 
   wantDeleted$ = this._wantDeletedSource.asObservable();
+  wantAdded$ = this._wantAddedSource.asObservable();
   wantlistItems$ = this.wantlistItemsSource.asObservable();
   search$ = this._searchSource.asObservable();
   list$ = this._listSource.asObservable();
@@ -78,10 +82,22 @@ export class DiscogsService {
 
   getListByType(type: string, page = 1): Observable<any> {
     return this.http.get(`/api/${type}/${page}`);
+    // switch (type) {
+    //     case 'wantlist':
+    //       // ask the store for the wantlist
+    //       break;
+    //     case 'collection':
+    //       // ask the store for the wantlist
+    //       break;
+    //     case 'sales':
+    //       // ask the store for the inventory
+    //       break;
+    //   }
   }
 
-  getRelease(id: number): Observable<any> {
-    return this.http.get(`/api/releases/${id}`);
+  getRelease(id: number): Observable<DiscogsRelease> {
+    return this.http.get(`/api/releases/${id}`)
+      .map(response => response.json());
   }
 
   getArtist(id: number): Observable<any> {
@@ -110,7 +126,11 @@ export class DiscogsService {
   }
 
   putWantlist(id: number): Observable<any> {
-    return this.http.put(`api/wantlist/${id}`, {});
+    return this.http.put(`api/wantlist/${id}`, {})
+      .map(response => {
+        this._wantAddedSource.next();
+        return response.json();
+      });
   }
 
   deleteWantlist(id: number): Observable<any> {

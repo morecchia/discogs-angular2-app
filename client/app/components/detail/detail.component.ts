@@ -48,10 +48,9 @@ export class DetailComponent implements OnInit {
     this.discogs.getRelease(id)
       .catch(err => this.errorHandler(err))
       .mergeMap(release => {
-        const fullDetails = release.json();
-        this.details = {type: 'release', info: fullDetails};
-        const urls =  fullDetails.videos
-          ? fullDetails.videos.map(v => this.youtube.getIdFromUrl(v.uri)) : [];
+        this.details = {type: 'release', info: release};
+        const urls =  release.videos
+          ? release.videos.map(v => this.youtube.getIdFromUrl(v.uri)) : [];
         return this.youtube.getListData(urls);
       })
       .catch(err => Observable.throw(err))
@@ -77,8 +76,7 @@ export class DetailComponent implements OnInit {
         this.discogs.wantlistItems.push(id);
         this.localStorage.set('wantlist_ids', this.discogs.wantlistItems);
         this.itemInWantlist = true;
-        const title = result.json().basic_information.title;
-        this.showActionMsg(`Added "${title}" to wantlist.`);
+        this.showActionMsg(`Added "${result.basic_information.title}" to wantlist.`);
       });
   }
 

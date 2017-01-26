@@ -6,9 +6,9 @@ import { Subscription }   from 'rxjs/Subscription';
 
 import { LocalStorageService } from 'angular-2-local-storage';
 
-import { YoutubeService } from '../services/youtube.service';
-import { DiscogsService } from '../services/discogs.service';
-import { User } from '../models/user';
+import { YoutubeService } from '../../services/youtube.service';
+import { DiscogsService } from '../../services/discogs.service';
+import { User } from '../../models/user';
 
 @Component({
   selector: 'app-root',
@@ -22,6 +22,7 @@ export class AppComponent implements OnInit {
   activeVideo: any;
   activeVideoSubscription: Subscription;
   wantDeletedSubscription: Subscription;
+  wantAddedSubscription: Subscription;
 
   searchVisible: boolean;
 
@@ -36,6 +37,11 @@ export class AppComponent implements OnInit {
       this.wantDeletedSubscription = this.discogs.wantDeleted$
         .subscribe(() => {
           this.user.num_wantlist--;
+        });
+
+      this.wantAddedSubscription = this.discogs.wantAdded$
+        .subscribe(() => {
+          this.user.num_wantlist++;
         });
 
       const lastVideo = this.localStorage.get('activeVideo');
