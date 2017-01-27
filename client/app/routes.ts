@@ -2,11 +2,11 @@
 
 import { Routes } from '@angular/router';
 
-import { ListComponent } from '../app/list/list.component';
-import { DetailComponent } from '../app/detail/detail.component';
+import { CollectionComponent } from './containers';
+import { DetailComponent } from './components/detail/detail.component';
 
 export const appRoutes: Routes = [
-  { path: '', component: ListComponent },
-  { path: 'discogs/:type', component: ListComponent },
+  { path: '', component: CollectionComponent },
+  { path: 'discogs/collection', component: CollectionComponent },
   { path: 'detail/:id', component: DetailComponent }
 ];

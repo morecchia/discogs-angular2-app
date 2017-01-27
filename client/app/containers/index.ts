@@ -1,2 +1,2 @@
 export * from './app/app.component';
-export * from './list/list.component';
+export * from './collection/collection.component';

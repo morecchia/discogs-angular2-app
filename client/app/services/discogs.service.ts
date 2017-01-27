@@ -1,12 +1,16 @@
 import { Injectable } from '@angular/core';
 import { Http, RequestOptions, Headers } from '@angular/http';
+import { Store } from '@ngrx/store';
 
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
 
 import { LocalStorageService } from 'angular-2-local-storage';
 
-import { DiscogsSales, DiscogsWants, DiscogsCollection, DiscogsRelease } from '../models';
+import { DiscogsSales, DiscogsWants, DiscogsCollection, DiscogsRelease, DiscogsSearch } from '../models';
+
+import * as collection from '../actions/collection';
+import * as fromRoot from '../reducers';
 
 @Injectable()
 export class DiscogsService {
@@ -38,10 +42,10 @@ export class DiscogsService {
     const page = this.localStorage.get('wantlist-page') as number;
     if (this._activeTerm) {
       this._activeTerm = null;
-      this.getListByType('wantlist', page)
-        .subscribe(respsonse => {
-          this._listSource.next(respsonse);
-        });
+      // this.getListByType('wantlist', page)
+      //   .subscribe(respsonse => {
+      //     this._listSource.next(respsonse);
+      //   });
     }
   }
 
@@ -62,42 +66,30 @@ export class DiscogsService {
     return this.http.get(`/api/wantlistids?want_count=${length}`);
   }
 
-  searchReleases(term: string, page = 1) {
+  searchReleases(term: string, page = 1): Observable<DiscogsSearch> {
     this._activeTerm = term;
-
-    Observable.of(term)
-      .filter(t => t.length > 2)
-      .map(t => encodeURIComponent(t.trim()))
-      .debounceTime(300)
-      .distinctUntilChanged()
-      .switchMap(q => this.http.get(`/api/search/releases/${q}/${page}`))
-      .subscribe(response => {
-        this._searchSource.next(response);
-      });
+    return this.http.get(`/api/search/releases/${term}/${page}`)
+      .map(response => response.json());
   }
 
   getUserData() {
     return this.http.get(`/api/user`);
   }
 
-  getListByType(type: string, page = 1): Observable<any> {
-    return this.http.get(`/api/${type}/${page}`);
-    // switch (type) {
-    //     case 'wantlist':
-    //       // ask the store for the wantlist
-    //       break;
-    //     case 'collection':
-    //       // ask the store for the wantlist
-    //       break;
-    //     case 'sales':
-    //       // ask the store for the inventory
-    //       break;
-    //   }
+  getListByType(type: string, page = 1): Observable<DiscogsRelease[]> {
+    const source = this.http.get(`/api/${type}/${page}`);
+    switch (type) {
+        case 'wantlist':
+          return source.map(response => response.json().wants);
+        case 'collection':
+          return source.map(response => response.json().releases);
+        case 'sales':
+          return source.map(response => response.json().listings);
+      }
   }
 
-  getRelease(id: number): Observable<DiscogsRelease> {
-    return this.http.get(`/api/releases/${id}`)
-      .map(response => response.json());
+  getRelease(id: number) {
+    return this.http.get(`/api/releases/${id}`);
   }
 
   getArtist(id: number): Observable<any> {

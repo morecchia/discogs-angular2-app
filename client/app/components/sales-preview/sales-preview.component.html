@@ -1,0 +1,20 @@
+<ul class="mdl-list">
+    <li class="mdl-list__item mdl-list__item--two-line" *ngFor="let item of items | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage, totalItems: totalItems, autoHide: true }">
+        <span class="mdl-list__item-primary-content release-link" [routerLink]="['/detail', item.release.id]">
+            <span>
+                <a title="{{item.release.description}}" class="release-title">
+                    {{item.release.description}} - {{item.release.catalog_number}} {{item.release.year}}
+                </a>
+            </span>
+        <span class="mdl-list__item-sub-title">{{item.price.value}} ({{item.price.currency}})</span>
+        </span>
+
+        <span class="mdl-list__item-secondary-content">
+            <span class="list-actions">
+                <button (click)="playAll(item)" class="mdl-list__item-secondary-action" mdl-button mdl-js-button mdl-ripple mdl-colored="primary">
+                    <span>Play All</span> <i class="material-icons md-resized">play_arrow</i>
+        </button>
+        </span>
+        </span>
+    </li>
+</ul>

@@ -5,3 +5,4 @@ export * from './listing';
 export * from './wants';
 export * from './collection';
 export * from './sales';
+export * from './search';

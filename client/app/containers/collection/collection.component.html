@@ -1,0 +1,25 @@
+<div class="mdl-grid">
+    <div class="mdl-layout-spacer"></div>
+
+    <div class="mdl-cell mdl-cell--8-col">
+        <div class="pagination-wrapper">
+            <pagination-controls (pageChange)="getPage($event)"></pagination-controls>
+        </div>
+        <hr>
+
+        <div *ngIf="!items.length" class="progress progress-list">
+            <mdl-spinner single-color [active]="!items.length"></mdl-spinner>
+        </div>
+
+        <app-release-preview [releases]="releases$ | async"></app-release-preview>
+
+        <hr *ngIf="items.length ">
+        <div *ngIf="items.length " class="pagination-wrapper ">
+            <pagination-controls (pageChange)="getPage($event) "></pagination-controls>
+        </div>
+    </div>
+
+    <div class="mdl-layout-spacer "></div>
+</div>
+
+<router-outlet></router-outlet>
