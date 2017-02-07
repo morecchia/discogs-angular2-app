@@ -1,5 +1,5 @@
 import { createSelector } from 'reselect';
-import { DiscogsRelease } from '../models/release';
+import { DiscogsRelease } from '../models';
 import * as release from '../actions/release';
 import * as collection from '../actions/collection';
 
@@ -19,11 +19,11 @@ export function reducer(state = initialState, action: release.Actions | collecti
   switch (action.type) {
     case release.ActionTypes.SEARCH_COMPLETE:
     case collection.ActionTypes.LOAD_SUCCESS: {
-      const releases = action.payload;
+      const releases = action.payload.releases;
       const newreleases = releases.filter(release => !state.entities[release.id]);
 
       const newreleaseIds = newreleases.map(release => release.id);
-      const newReleaseEntities = newreleases.reduce((entities: { [id: string]: DiscogsRelease }, release: DiscogsRelease) => {
+      const newReleaseEntities = newreleases.reduce((entities: { [id: number]: DiscogsRelease }, release: DiscogsRelease) => {
         return Object.assign(entities, {
           [release.id]: release
         });

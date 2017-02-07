@@ -1,6 +1,6 @@
 import { DiscogsRelease } from './release';
 
-export class DiscogsItem {
+export interface DiscogsItem {
     id: number;
     rating: number;
     basic_information: DiscogsRelease;

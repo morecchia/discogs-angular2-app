@@ -7,7 +7,7 @@ import { of } from 'rxjs/observable/of';
 
 import * as collection from '../actions/collection';
 import { DiscogsService } from '../services';
-import { DiscogsRelease } from '../models';
+import { DiscogsItem, DiscogsCollection } from '../models';
 
 @Injectable()
 export class CollectionEffects {
@@ -20,11 +20,11 @@ export class CollectionEffects {
   loadCollection$: Observable<Action> = this.actions$
     .ofType(collection.ActionTypes.LOAD)
     .startWith(new collection.LoadAction())
-    .switchMap(() =>
-      this.discogs.getListByType('collection')
-        .map((releases: DiscogsRelease[]) => new collection.LoadSuccessAction(releases))
+    .mergeMap(action =>
+      this.discogs.getListByType('collection', action.payload)
+        .map((releases: DiscogsCollection) => new collection.LoadSuccessAction(releases))
         .catch(error => of(new collection.LoadFailAction(error)))
-    );
+      );
 
   @Effect()
   addReleaseToCollection$: Observable<Action> = this.actions$

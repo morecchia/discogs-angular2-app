@@ -1,0 +1,85 @@
+.progress.progress-detail {
+    margin: 3em auto;
+}
+
+.video-wrapper li:hover,
+.detail-actions a {
+    cursor: pointer;
+}
+
+.video-wrapper li.active {
+    border-left: 2px solid orange;
+    background: #efefef;
+}
+
+.video-duration {
+    color: rgba(0, 0, 0, .54);
+}
+
+.style-chips span.mdl-chip {
+    margin: 6px 8px 0 0;
+}
+
+.release-basic-info {
+    margin-bottom: 12px;
+}
+
+.release-basic-info h5 {
+    margin: 24px 0 6px 0;
+}
+
+.release-basic-info span {
+    color: rgba(0, 0, 0, .54);
+}
+
+.tracklist-position {
+    margin-right: 8px;
+}
+
+.tracklist-artist::after {
+    content: "-";
+    margin-right: 4px;
+}
+
+.wantlist-remove {
+    color: tomato;
+}
+
+@media (max-width: 700px) {
+    .release-info h5 {
+        margin: 0 0 6px 0;
+    }
+    .release-thumb {
+        display: none;
+    }
+}
+
+@media (min-width: 960px) {
+    .release-info {
+        margin-left: -24px;
+    }
+}
+
+@media (min-width: 1024px) {
+    .release-info {
+        margin-left: -36px;
+    }
+}
+
+@media (min-width: 1248px) {
+    .release-info {
+        margin-left: -60px;
+    }
+}
+
+@media (min-width: 1340px) {
+    .release-info {
+        margin-left: -84px;
+    }
+}
+
+@media (min-width: 1440px) {
+    .release-info {
+        margin-left: -120px;
+    }
+}

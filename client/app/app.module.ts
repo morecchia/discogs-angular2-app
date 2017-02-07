@@ -8,38 +8,31 @@ import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 
 // external
-import { Ng2PaginationModule } from 'ng2-pagination';
 import { LocalStorageModule } from 'angular-2-local-storage';
 import { MdlModule } from 'angular2-mdl';
 
 // app
 import { appRoutes } from './routes';
 import { reducer } from './reducers';
+import { ComponentsModule } from './components';
 import { ReleaseEffects, CollectionEffects } from './effects';
 import { DiscogsService, YoutubeService, WindowRef } from './services';
-import { ActiveMembersPipe, JoinNamesPipe, EmbedPipe, FormatDurationPipe } from './pipes';
-import { AppComponent, CollectionComponent } from './containers';
-import { DetailComponent, PlayerComponent, SearchBoxComponent } from './components';
+import { AppComponent, CollectionComponent, DetailComponent } from './containers';
+import { PipesModule } from './pipes';
 
 @NgModule({
   declarations: [
     AppComponent,
     CollectionComponent,
-    DetailComponent,
-    PlayerComponent,
-    SearchBoxComponent,
-    ActiveMembersPipe,
-    JoinNamesPipe,
-    EmbedPipe,
-    FormatDurationPipe,
+    DetailComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
     RouterModule.forRoot(appRoutes),
-    Ng2PaginationModule,
     MdlModule,
+    PipesModule,
     LocalStorageModule.withConfig({
       prefix: 'discogs-test-app',
       storageType: 'localStorage'
@@ -47,6 +40,7 @@ import { DetailComponent, PlayerComponent, SearchBoxComponent } from './componen
     StoreModule.provideStore(reducer),
     EffectsModule.run(ReleaseEffects),
     EffectsModule.run(CollectionEffects),
+    ComponentsModule
   ],
   providers: [DiscogsService, YoutubeService, WindowRef, Title],
   bootstrap: [AppComponent]

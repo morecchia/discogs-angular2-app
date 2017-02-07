@@ -1,4 +1,4 @@
-export class User {
+export class DiscogsUser {
   id: number;
   username: string;
   name: string;

@@ -8,5 +8,5 @@ import { DiscogsRelease } from '../../models';
   styleUrls: ['./release-preview.component.css']
 })
 export class ReleasePreviewComponent {
-  @Input() releases: DiscogsRelease[];
+  @Input() release: DiscogsRelease;
 }

@@ -1,48 +1,45 @@
-<div class="mdl-grid" *ngIf="details">
-    <div class="mdl-layout-spacer"></div>
-
     <div class="mdl-cell mdl-cell--8-col">
-        <div *ngIf="details.type === 'error'">
+        <div *ngIf="release.type === 'error'">
             <div>
                 <h4>Error</h4>
             </div>
             <div>
-                <p>{{details.info.message}}</p>
+                <p>{{release.info.message}}</p>
             </div>
         </div>
 
-        <div class="" *ngIf="details.type === 'release'">
+        <div *ngIf="release.type === 'release'">
             <div class="mdl-grid">
-                <div class="mdl-cell mdl-cell--4-col mdl-cell--2-col-tablet mdl-cell--hide-phone release-thumb" *ngIf="details.info.images">
-                    <img src="{{details.info.images[0].uri150}}" />
+                <div class="mdl-cell mdl-cell--4-col mdl-cell--2-col-tablet mdl-cell--hide-phone release-thumb" *ngIf="release.info.images">
+                    <img src="{{release.info.images[0].uri150}}" />
                 </div>
 
                 <div class="mdl-cell mdl-cell--8-col mdl-cell--6-col-tablet release-info">
                     <div class="release-basic-info">
-                        <h5>{{details.info.artists | joinNames}} - {{details.info.title}}</h5>
-                        <span>{{details.info.labels | joinNames}} ({{details.info.year}})</span>
+                        <h5>{{release.info.artists | joinNames}} - {{release.info.title}}</h5>
+                        <span>{{release.info.labels | joinNames}} ({{release.info.year}})</span>
                     </div>
 
                     <div class="detail-actions">
-                        <a *ngIf="!itemInWantlist" (click)="addToWantlist(details.info.id)">+ Add To Wantlist</a>
-                        <a *ngIf="itemInWantlist" class="wantlist-remove" (click)="removeFromWantlist(details.info.id, details.info.title)">- Remove From Wantlist</a>
+                        <a *ngIf="!itemInWantlist" (click)="addToWantlist(release.info.id)">+ Add To Wantlist</a>
+                        <a *ngIf="itemInWantlist" class="wantlist-remove" (click)="removeFromWantlist(release.info.id, release.info.title)">- Remove From Wantlist</a>
                     </div>
 
-                    <p *ngIf="!details.info.styles" class="style-chips">
-                        <span class="mdl-chip" *ngFor="let genre of details.info.genres">
+                    <p *ngIf="!release.info.styles" class="style-chips">
+                        <span class="mdl-chip" *ngFor="let genre of release.info.genres">
                               <span class="mdl-chip__text">{{genre}}</span>
                         </span>
                     </p>
 
-                    <p *ngIf="details.info.styles" class="style-chips">
-                        <span class="mdl-chip" *ngFor="let style of details.info.styles">
+                    <p *ngIf="release.info.styles" class="style-chips">
+                        <span class="mdl-chip" *ngFor="let style of release.info.styles">
                               <span class="mdl-chip__text">{{style}}</span>
                         </span>
                     </p>
                 </div>
 
                 <div class="mdl-cell mdl-cell--12-col">
-                    <div *ngIf="details.info.videos && !videosLoaded" class="progress progress-detail">
+                    <div *ngIf="release.info.videos && !videosLoaded" class="progress progress-detail">
                         <mdl-spinner single-color [active]="!videosLoaded"></mdl-spinner>
                     </div>
                     
@@ -58,12 +55,12 @@
                                     <div class="video-wrapper">
                                         <ul class="mdl-list">
                                             <li *ngFor="let video of videos" [ngClass]="{'active': video.id === activeVideoId, 'mdl-list__item mdl-list__item': true}">
-                                                <span class="mdl-list__item-primary-content" (click)="selectVideo(video, details.info)">
+                                                <span class="mdl-list__item-primary-content" (click)="selectVideo(video, release.info)">
                                                 <img class="mdl-list__item-avatar" src="{{video.snippet.thumbnails.default.url}}" alt="{{video.snippet.title}}" />
                                                 {{video.snippet.title}}
                                                 </span>
                                                 <span class="mdl-list__item-secondary-content video-duration">
-                                                    <span>{{video.contentDetails.duration | formatDuration}}</span>
+                                                    <span>{{video.contentrelease.duration | formatDuration}}</span>
                                                 </span>
                                             </li>
                                         </ul>
@@ -73,12 +70,12 @@
 
                             <mdl-tab-panel>
                                 <mdl-tab-panel-title>
-                                    <span mdl-badge="{{details.info.tracklist.length}}">Tracklist</span>
+                                    <span mdl-badge="{{release.info.tracklist.length}}">Tracklist</span>
                                 </mdl-tab-panel-title>
                                 
                                 <mdl-tab-panel-content>
                                     <ul class="mdl-list">
-                                        <li class="mdl-list__item" *ngFor="let track of details.info.tracklist">
+                                        <li class="mdl-list__item" *ngFor="let track of release.info.tracklist">
                                             <span class="tracklist-position" *ngIf="track.position">{{track.position}}.</span> 
                                             <span *ngIf="track.artists" class="tracklist-artist">
                                                 <a href="https://discogs.com/artist/{{track.artists[0].id}}" target="_blank">
@@ -91,22 +88,22 @@
                                 </mdl-tab-panel-content>
                             </mdl-tab-panel>
 
-                            <mdl-tab-panel [disabled]="!details.info.extraartists.length && !details.info.notes">
+                            <mdl-tab-panel [disabled]="!release.info.extraartists.length && !release.info.notes">
                                 <mdl-tab-panel-title>
                                     <span>Info</span>
                                 </mdl-tab-panel-title>
 
                                 <mdl-tab-panel-content>
-                                    <h5 *ngIf="details.info.extraartists.length">Credits</h5>
+                                    <h5 *ngIf="release.info.extraartists.length">Credits</h5>
                                     <ul class="mdl-list">
-                                        <li class="mdl-list__item" *ngFor="let credit of details.info.extraartists">
+                                        <li class="mdl-list__item" *ngFor="let credit of release.info.extraartists">
                                             <span>{{credit.role}} - 
                                                 <a href="https://discogs.com/artist/{{credit.id}}" target="_blank">{{credit.name}}</a>
                                             </span>
                                         </li>
                                     </ul>
-                                    <h5 *ngIf="details.info.notes">Notes</h5>
-                                    <p [innerHtml]="details.info.notes_html | embed"></p>
+                                    <h5 *ngIf="release.info.notes">Notes</h5>
+                                    <p [innerHtml]="release.info.notes_html | embed"></p>
                                 </mdl-tab-panel-content>
                             </mdl-tab-panel>
                         </mdl-tabs>
@@ -118,7 +115,3 @@
 
         </div>
     </div>
-
-    <div class="mdl-layout-spacer"></div>
-
-</div>

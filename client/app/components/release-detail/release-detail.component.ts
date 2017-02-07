@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { Observable } from 'rxjs';
@@ -10,13 +10,17 @@ import { MdlSnackbarService } from 'angular2-mdl';
 import { DiscogsService } from '../../services/discogs.service';
 import { YoutubeService } from '../../services/youtube.service';
 
+import { DiscogsRelease } from '../../models';
+
 @Component({
-  selector: 'app-detail',
-  templateUrl: './detail.component.html',
-  styleUrls: ['./detail.component.css']
+  selector: 'app-release-detail',
+  templateUrl: './release-detail.component.html',
+  styleUrls: ['./release-detail.component.css']
 })
-export class DetailComponent implements OnInit {
-  details: any;
+export class ReleaseDetailComponent implements OnInit {
+  @Input()
+  release: DiscogsRelease;
+
   currentId: number;
   videos: any[];
   videosLoaded: boolean;
@@ -47,8 +51,9 @@ export class DetailComponent implements OnInit {
   getDetailById(id: number) {
     this.discogs.getRelease(id)
       .catch(err => this.errorHandler(err))
-      .mergeMap(release => {
-        this.details = {type: 'release', info: release};
+      .mergeMap(response => {
+        const release = response.json();
+        //this.details = {type: 'release', info: release};
         const urls =  release.videos
           ? release.videos.map(v => this.youtube.getIdFromUrl(v.uri)) : [];
         return this.youtube.getListData(urls);
@@ -56,7 +61,7 @@ export class DetailComponent implements OnInit {
       .catch(err => Observable.throw(err))
       .subscribe(response => {
         this.videos = response.json().items;
-        this.youtube.publishVideos({releaseInfo: this.details.info, items: this.videos});
+        //this.youtube.publishVideos({releaseInfo: this.details.info, items: this.videos});
         this.videosLoaded = true;
       });
   }
@@ -98,20 +103,20 @@ export class DetailComponent implements OnInit {
   }
 
   ngOnInit() {
-    this._sub = this.route.params.subscribe(params => {
-      const id = params['id'];
-      if (id) {
-        this.itemInWantlist = this.discogs.wantlistItems.findIndex(i => i == id) > -1;
-        this.getDetailById(id);
-      }
-    });
+    // this._sub = this.route.params.subscribe(params => {
+    //   const id = params['id'];
+    //   if (id) {
+    //     this.itemInWantlist = this.discogs.wantlistItems.findIndex(i => i == id) > -1;
+    //     this.getDetailById(id);
+    //   }
+    // });
 
     const activeVideo = this.localStorage.get('activeVideo') as any;
     this.activeVideoId = activeVideo && activeVideo.id;
   }
 
   errorHandler(err): Observable<any> {
-    this.details = {type: 'error', info: {message: 'There was an error.  Try again later.'}};
+    //this.details = {type: 'error', info: {message: 'There was an error.  Try again later.'}};
     return Observable.throw(err);
   }
 }

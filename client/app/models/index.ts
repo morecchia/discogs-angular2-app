@@ -4,5 +4,6 @@ export * from './release';
 export * from './listing';
 export * from './wants';
 export * from './collection';
+export * from './pagination';
 export * from './sales';
 export * from './search';

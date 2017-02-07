@@ -1,0 +1,7 @@
+<mdl-layout-content [ngClass]="{'active-video': activeVideo}">
+    <router-outlet></router-outlet>
+
+    <section class="player-content">
+        <app-player [lastVideo]="activeVideo"></app-player>
+    </section>
+</mdl-layout-content>

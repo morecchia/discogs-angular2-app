@@ -7,7 +7,7 @@ import { Subject } from 'rxjs/Subject';
 
 import { LocalStorageService } from 'angular-2-local-storage';
 
-import { DiscogsSales, DiscogsWants, DiscogsCollection, DiscogsRelease, DiscogsSearch } from '../models';
+import * as models from '../models';
 
 import * as collection from '../actions/collection';
 import * as fromRoot from '../reducers';
@@ -66,26 +66,20 @@ export class DiscogsService {
     return this.http.get(`/api/wantlistids?want_count=${length}`);
   }
 
-  searchReleases(term: string, page = 1): Observable<DiscogsSearch> {
+  searchReleases(term: string, page = 1): Observable<models.DiscogsSearch> {
     this._activeTerm = term;
     return this.http.get(`/api/search/releases/${term}/${page}`)
       .map(response => response.json());
   }
 
-  getUserData() {
-    return this.http.get(`/api/user`);
+  getUser(): Observable<models.DiscogsUser> {
+    return this.http.get(`/api/user`)
+      .map(response => response.json());
   }
 
-  getListByType(type: string, page = 1): Observable<DiscogsRelease[]> {
-    const source = this.http.get(`/api/${type}/${page}`);
-    switch (type) {
-        case 'wantlist':
-          return source.map(response => response.json().wants);
-        case 'collection':
-          return source.map(response => response.json().releases);
-        case 'sales':
-          return source.map(response => response.json().listings);
-      }
+  getListByType(type: string, page = 1): Observable<models.DiscogsCollection> {
+    return this.http.get(`/api/${type}/${page}`)
+      .map(response => response.json());
   }
 
   getRelease(id: number) {

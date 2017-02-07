@@ -1,5 +1,5 @@
 import { Action } from '@ngrx/store';
-import { DiscogsRelease, DiscogsSearchResult } from '../models/release';
+import { DiscogsRelease, DiscogsSearchResult } from '../models';
 import { type } from '../util';
 
 /**

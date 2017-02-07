@@ -1,7 +1,7 @@
 import { DiscogsItem } from './item';
 import { DiscogsPagination } from './pagination';
 
-export class DiscogsCollection {
+export interface DiscogsCollection {
   pagination: DiscogsPagination;
   releases: DiscogsItem[];
 }

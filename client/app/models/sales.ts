@@ -1,7 +1,7 @@
 import { DiscogsListing } from './listing';
 import { DiscogsPagination } from './pagination';
 
-export class DiscogsSales {
+export interface DiscogsSales {
   pagination: DiscogsPagination;
   listings: DiscogsListing[];
 }

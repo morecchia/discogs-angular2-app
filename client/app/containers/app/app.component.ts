@@ -1,14 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Router  } from '@angular/router';
 import { Title } from '@angular/platform-browser';
+import { Store } from '@ngrx/store';
 
-import { Subscription }   from 'rxjs/Subscription';
+import { Observable }   from 'rxjs/Observable';
 
-import { LocalStorageService } from 'angular-2-local-storage';
-
-import { YoutubeService } from '../../services/youtube.service';
-import { DiscogsService } from '../../services/discogs.service';
-import { User } from '../../models/user';
+import * as fromRoot from '../../reducers';
+import { DiscogsService } from '../../services';
+import { DiscogsUser } from '../../models';
 
 @Component({
   selector: 'app-root',
@@ -16,48 +15,42 @@ import { User } from '../../models/user';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  title = 'Discogs Player';
-  user: User = new User();
+  // user$: Observable<DiscogsUser>;
+  user: DiscogsUser = new DiscogsUser();
 
-  activeVideo: any;
-  activeVideoSubscription: Subscription;
-  wantDeletedSubscription: Subscription;
-  wantAddedSubscription: Subscription;
+  constructor(private store: Store<fromRoot.State>, private discogs: DiscogsService) {
+    // this.user$ = store.select(fromRoot.getUser);
+      // this.activeVideoSubscription = youtube.videoActivated$
+      //   .subscribe(video => {
+      //     this.activeVideo = video;
+      //     browserTitle.setTitle(video && video.snippet.title);
+      //   });
 
-  searchVisible: boolean;
+      // this.wantDeletedSubscription = this.discogs.wantDeleted$
+      //   .subscribe(() => {
+      //     this.user.num_wantlist--;
+      //   });
 
-  constructor(private router: Router, private youtube: YoutubeService, private discogs: DiscogsService,
-    private localStorage: LocalStorageService, private browserTitle: Title) {
-      this.activeVideoSubscription = youtube.videoActivated$
-        .subscribe(video => {
-          this.activeVideo = video;
-          browserTitle.setTitle(video && video.snippet.title);
-        });
+      // this.wantAddedSubscription = this.discogs.wantAdded$
+      //   .subscribe(() => {
+      //     this.user.num_wantlist++;
+      //   });
 
-      this.wantDeletedSubscription = this.discogs.wantDeleted$
-        .subscribe(() => {
-          this.user.num_wantlist--;
-        });
+      // const lastVideo = this.localStorage.get('activeVideo');
+      // this.activeVideo = lastVideo;
 
-      this.wantAddedSubscription = this.discogs.wantAdded$
-        .subscribe(() => {
-          this.user.num_wantlist++;
-        });
+      // browserTitle.setTitle(this.activeVideo && this.activeVideo.snippet.title || this.title);
 
-      const lastVideo = this.localStorage.get('activeVideo');
-      this.activeVideo = lastVideo;
-
-      browserTitle.setTitle(this.activeVideo && this.activeVideo.snippet.title);
   }
 
-  toggleSearch() {
-    this.searchVisible = !this.searchVisible;
-  }
+  // toggleSearch() {
+  //   this.searchVisible = !this.searchVisible;
+  // }
 
   ngOnInit() {
-    this.discogs.getUserData()
+    this.discogs.getUser()
       .subscribe(response => {
-        this.user = response.json();
+        this.user = response;
         const wantlistIds = this.discogs.wantlistItems;
 
         if (wantlistIds && wantlistIds.length) {

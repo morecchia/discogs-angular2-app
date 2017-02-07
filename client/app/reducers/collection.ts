@@ -1,14 +1,18 @@
 import * as collection from '../actions/collection';
-
+import { DiscogsPagination, DiscogsItem } from '../models';
 export interface State {
   loaded: boolean;
   loading: boolean;
+  pagination: DiscogsPagination;
+  releases: DiscogsItem[];
   ids: number[];
 };
 
 const initialState: State = {
   loaded: false,
   loading: false,
+  pagination: { per_page: 10, items: 0, pages: 0, page: 1 },
+  releases: [],
   ids: []
 };
 
@@ -21,12 +25,14 @@ export function reducer(state = initialState, action: collection.Actions): State
     }
 
     case collection.ActionTypes.LOAD_SUCCESS: {
-      const releases = action.payload;
+      const discogsCollection = action.payload;
 
       return {
         loaded: true,
         loading: false,
-        ids: releases.map(book => book.id)
+        pagination: discogsCollection.pagination,
+        releases: discogsCollection.releases,
+        ids: discogsCollection.releases.map(release => release.id)
       };
     }
 
@@ -63,4 +69,6 @@ export const getLoaded = (state: State) => state.loaded;
 
 export const getLoading = (state: State) => state.loading;
 
-export const getIds = (state: State) => state.ids;
+export const getReleases = (state: State) => {
+  return {pagination: state.pagination, releases: state.releases }
+};

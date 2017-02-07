@@ -40,6 +40,7 @@ import { combineReducers } from '@ngrx/store';
 // import * as fromSearch from './search';
 import * as fromReleases from './releases';
 import * as fromCollection from './collection';
+import * as fromUser from './user';
 // import * as fromLayout from './layout';
 
 
@@ -52,6 +53,7 @@ export interface State {
   releases: fromReleases.State;
   collection: fromCollection.State;
   // layout: fromLayout.State;
+  user: fromUser.State;
   router: fromRouter.RouterState;
 }
 
@@ -67,6 +69,7 @@ const reducers = {
   // search: fromSearch.reducer,
   releases: fromReleases.reducer,
   collection: fromCollection.reducer,
+  user: fromUser.reducer,
   // layout: fromLayout.reducer,
   router: fromRouter.routerReducer,
 };
@@ -141,16 +144,25 @@ export const getCollectionState = (state: State) => state.collection;
 
 export const getCollectionLoaded = createSelector(getCollectionState, fromCollection.getLoaded);
 export const getCollectionLoading = createSelector(getCollectionState, fromCollection.getLoading);
-export const getCollectionReleaseIds = createSelector(getCollectionState, fromCollection.getIds);
+export const getCollectionReleaseIds = createSelector(getCollectionState, fromCollection.getReleases);
 
-export const getCollection = createSelector(getReleaseEntities, getCollectionReleaseIds, (entities, ids) => {
-  return ids.map(id => entities[id]);
+export const getCollection = createSelector(getReleaseEntities, getCollectionReleaseIds, (entities, discogsCollection) => {
+  return {
+    releases: discogsCollection.releases.map(item => entities[item.id]),
+    pagination: discogsCollection.pagination};
 });
 
-export const isSelectedReleaseInCollection = createSelector(getCollectionReleaseIds,
-  getSelectedReleaseId, (ids: number[], selected: number) => {
-  return ids.indexOf(selected) > -1;
-});
+
+export const getUserState = (state: State) => state.user;
+
+export const getUserLoaded = createSelector(getUserState, fromUser.getLoaded);
+export const getUserLoading = createSelector(getUserState, fromUser.getLoading);
+export const getUser = createSelector(getUserState, fromUser.getUser);
+
+// export const isSelectedReleaseInCollection = createSelector(getCollectionReleaseIds,
+//   getSelectedReleaseId, (ids: number[], selected: number) => {
+//   return ids.indexOf(selected) > -1;
+// });
 
 /**
  * Layout Reducers

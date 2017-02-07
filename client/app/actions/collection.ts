@@ -1,5 +1,5 @@
 import { Action } from '@ngrx/store';
-import { DiscogsRelease } from '../models';
+import { DiscogsItem, DiscogsCollection } from '../models';
 import { type } from '../util';
 
 export const ActionTypes = {
@@ -14,28 +14,26 @@ export const ActionTypes = {
   LOAD_FAIL:            type('[Collection] Load Fail'),
 };
 
-
 /**
  * Add Release to Collection Actions
  */
 export class AddReleaseAction implements Action {
   type = ActionTypes.ADD_RELEASE;
 
-  constructor(public payload: DiscogsRelease) { }
+  constructor(public payload: DiscogsItem) { }
 }
 
 export class AddReleaseSuccessAction implements Action {
   type = ActionTypes.ADD_RELEASE_SUCCESS;
 
-  constructor(public payload: DiscogsRelease) { }
+  constructor(public payload: DiscogsItem) { }
 }
 
 export class AddReleaseFailAction implements Action {
   type = ActionTypes.ADD_RELEASE_FAIL;
 
-  constructor(public payload: DiscogsRelease) { }
+  constructor(public payload: DiscogsItem) { }
 }
-
 
 /**
  * Remove Release from Collection Actions
@@ -43,35 +41,34 @@ export class AddReleaseFailAction implements Action {
 export class RemoveReleaseAction implements Action {
   type = ActionTypes.REMOVE_RELEASE;
 
-  constructor(public payload: DiscogsRelease) { }
+  constructor(public payload: DiscogsItem) { }
 }
 
 export class RemoveReleaseSuccessAction implements Action {
   type = ActionTypes.REMOVE_RELEASE_SUCCESS;
 
-  constructor(public payload: DiscogsRelease) { }
+  constructor(public payload: DiscogsItem) { }
 }
 
 export class RemoveReleaseFailAction implements Action {
   type = ActionTypes.REMOVE_RELEASE_FAIL;
 
-  constructor(public payload: DiscogsRelease) { }
+  constructor(public payload: DiscogsItem) { }
 }
 
 /**
  * Load Collection Actions
  */
 export class LoadAction implements Action {
-  public payload: any;
   type = ActionTypes.LOAD;
 
-  constructor() { }
+  constructor(public payload = 1) { }
 }
 
 export class LoadSuccessAction implements Action {
   type = ActionTypes.LOAD_SUCCESS;
 
-  constructor(public payload: DiscogsRelease[]) { }
+  constructor(public payload: DiscogsCollection) { }
 }
 
 export class LoadFailAction implements Action {

@@ -51,7 +51,7 @@
                 </span>
 
             <span [ngClass]="{'visible': volumeVisible, 'volume-slider': true}" (mouseenter)="toggleVolumeVisibility()" (mouseleave)="toggleVolumeVisibility(true)">
-                    <mdl-slider [min]="0" [max]="100" [step]="1" #src (change)="changeVolume(src.value)" (input)="inputVolume(src.value)" [(ngModel)]="volume"></mdl-slider>
+                    <mdl-slider [min]="0" [max]="100" [step]="1" #src (change)="changeVolume(src.value)" (input)="inputVolume(src.value)"></mdl-slider>
                     <span class="volume-label">{{volume}}</span>
             </span>
             </span>
@@ -62,7 +62,7 @@
             <div class="mdl-cell--1-col mdl-cell--hide-tablet video-duration" *ngIf="currentTime">{{currentTime | async}}</div>
 
             <div class="mdl-cell--10-col video-duration mdl-cell--hide-phone">
-                <mdl-slider [min]="0" [max]="currentDurationSeconds" [step]="1" #time (change)="seekTo(time.value)" [(ngModel)]="currentTimeSeconds"></mdl-slider>
+                <mdl-slider [min]="0" [max]="currentDurationSeconds" [step]="1" #time (change)="seekTo(time.value)"></mdl-slider>
             </div>
 
             <div class="mdl-cell--1-col mdl-cell--hide-tablet video-duration">{{selectedVideo.contentDetails.duration | formatDuration}}</div>
