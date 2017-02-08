@@ -128,10 +128,10 @@ export class PlayerComponent implements OnInit {
   skipNext() {
     const nextVideo = this._skipVideo();
 
-    if (!nextVideo) {
-      this._playNextRelease();
-      return;
-    }
+    // if (!nextVideo) {
+    //   this._playNextRelease();
+    //   return;
+    // }
   }
 
   skipPrev() {
@@ -257,10 +257,10 @@ export class PlayerComponent implements OnInit {
   private _tryNextVideo() {
     const nextVideo = this._getNextVideo();
 
-    if (!nextVideo) {
-      this._playNextRelease();
-      return;
-    }
+    // if (!nextVideo) {
+    //   this._playNextRelease();
+    //   return;
+    // }
 
     this._selectVideo(nextVideo);
 
@@ -269,15 +269,15 @@ export class PlayerComponent implements OnInit {
     this.currentTime = this._timer(this._currentDuration);
   }
 
-  private _playNextRelease() {
-    const nextRelease = this.discogs.getNextRelease(this.videos.releaseInfo.id);
-    this.youtube.playAll(nextRelease, video => {
-      if (!video) {
-        this._playNextRelease();
-        this.currentTime = null;
-      }
-    });
-  }
+  // private _playNextRelease() {
+  //   const nextRelease = this.discogs.getNextRelease(this.videos.releaseInfo.id);
+  //   this.youtube.playAll(nextRelease, video => {
+  //     if (!video) {
+  //       this._playNextRelease();
+  //       this.currentTime = null;
+  //     }
+  //   });
+  // }
 
   private _selectVideo(video: any) {
     this.player.loadVideoById(video.id);

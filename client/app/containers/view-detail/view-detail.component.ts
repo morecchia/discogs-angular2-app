@@ -11,26 +11,25 @@ import { Subscription } from 'rxjs/Subscription';
 import * as fromRoot from '../../reducers';
 import * as release from '../../actions/release';
 import { DiscogsRelease } from '../../models';
+import { DiscogsService } from '../../services';
 
 @Component({
-  selector: 'app-detail',
+  selector: 'app-view-detail',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  templateUrl: './detail.component.html',
-  styleUrls: ['./detail.component.css']
+  templateUrl: './view-detail.component.html',
+  styleUrls: ['./view-detail.component.css']
 })
-export class DetailComponent implements OnDestroy {
-  release$: Observable<DiscogsRelease>;
+export class ViewDetailComponent implements OnDestroy {
+  actionsSubscription: Subscription;
 
-  _sub: Subscription;
-
-  constructor(private store: Store<fromRoot.State>, private route: ActivatedRoute) {
-    this._sub = route.params
+  constructor(store: Store<fromRoot.State>, private route: ActivatedRoute) {
+    this.actionsSubscription = route.params
       .select<string>('id')
-      .map(id => new release.SelectAction(id))
+      .map(id => new release.LoadAction(id))
       .subscribe(store);
   }
 
   ngOnDestroy() {
-    this._sub.unsubscribe();
+    this.actionsSubscription.unsubscribe();
   }
 }

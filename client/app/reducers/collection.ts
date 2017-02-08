@@ -70,5 +70,8 @@ export const getLoaded = (state: State) => state.loaded;
 export const getLoading = (state: State) => state.loading;
 
 export const getReleases = (state: State) => {
-  return {pagination: state.pagination, releases: state.releases }
+  return {
+    pagination: state.pagination,
+    releases: state.releases
+  };
 };

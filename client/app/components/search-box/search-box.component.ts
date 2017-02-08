@@ -14,13 +14,13 @@ export class SearchBoxComponent implements OnInit, OnDestroy {
   constructor(private discogs: DiscogsService) { }
 
   onInput(q: string) {
-    this.discogs.searchReleases(q);
+    // this.discogs.searchReleases(q);
   }
 
   ngOnInit() {
   }
 
   ngOnDestroy() {
-    this.discogs.deactivateSearch();
+    // this.discogs.deactivateSearch();
   }
 }

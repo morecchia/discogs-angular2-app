@@ -11,10 +11,9 @@ import { type } from '../util';
  * action types in the application are unique. 
  */
 export const ActionTypes = {
-  SEARCH:           type('[Release] Search'),
-  SEARCH_COMPLETE:  type('[Release] Search Complete'),
-  LOAD:             type('[Release] Load'),
-  SELECT:           type('[Release] Select'),
+  LOAD_COMPLETE:  type('[Release] Load Complete'),
+  LOAD_FAIL:      type('[Release] Load Fail'),
+  LOAD:         type('[Release] Load')
 };
 
 
@@ -25,28 +24,23 @@ export const ActionTypes = {
  * 
  * See Discriminated Unions: https://www.typescriptlang.org/docs/handbook/advanced-types.html#discriminated-unions
  */
-export class SearchAction implements Action {
-  type = ActionTypes.SEARCH;
-
-  constructor(public payload: string) { }
-}
-
-export class SearchCompleteAction implements Action {
-  type = ActionTypes.SEARCH_COMPLETE;
-
-  constructor(public payload: DiscogsSearchResult[]) { }
-}
 
 export class LoadAction implements Action {
   type = ActionTypes.LOAD;
 
-  constructor(public payload: number) { }
+  constructor(public payload: string) { }
 }
 
-export class SelectAction implements Action {
-  type = ActionTypes.SELECT;
+export class LoadCompleteAction implements Action {
+  type = ActionTypes.LOAD_COMPLETE;
 
-  constructor(public payload: string) { }
+  constructor(public payload: DiscogsRelease) { }
+}
+
+export class LoadFailAction implements Action {
+  type = ActionTypes.LOAD_FAIL;
+
+  constructor(public payload: any) { }
 }
 
 /**
@@ -54,7 +48,6 @@ export class SelectAction implements Action {
  * so that reducers can easily compose action types
  */
 export type Actions
-  = SearchAction
-  | SearchCompleteAction
-  | LoadAction
-  | SelectAction;
+  = LoadAction
+  | LoadCompleteAction
+  | LoadFailAction;

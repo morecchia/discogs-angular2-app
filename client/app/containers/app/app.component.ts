@@ -51,14 +51,14 @@ export class AppComponent implements OnInit {
     this.discogs.getUser()
       .subscribe(response => {
         this.user = response;
-        const wantlistIds = this.discogs.wantlistItems;
+        // const wantlistIds = this.discogs.wantlistItems;
 
-        if (wantlistIds && wantlistIds.length) {
-          this.discogs.wantlistItemsSource.next(wantlistIds);
-          return;
-        }
+        // if (wantlistIds && wantlistIds.length) {
+        //   this.discogs.wantlistItemsSource.next(wantlistIds);
+        //   return;
+        // }
 
-        this.discogs.updateWantlistIds(this.user.num_wantlist);
+        // this.discogs.updateWantlistIds(this.user.num_wantlist);
       });
   }
 }

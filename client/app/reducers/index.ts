@@ -3,6 +3,8 @@ import { ActionReducer } from '@ngrx/store';
 import * as fromRouter from '@ngrx/router-store';
 import { environment } from '../../environments/environment';
 
+import { DiscogsRelease } from '../models';
+
 /**
  * The compose function is one of our most handy tools. In basic terms, you give
  * it any number of functions and it returns a function. This new function
@@ -38,7 +40,7 @@ import { combineReducers } from '@ngrx/store';
  * notation packages up all of the exports into a single object.
  */
 // import * as fromSearch from './search';
-import * as fromReleases from './releases';
+import * as fromRelease from './release';
 import * as fromCollection from './collection';
 import * as fromUser from './user';
 // import * as fromLayout from './layout';
@@ -50,7 +52,7 @@ import * as fromUser from './user';
  */
 export interface State {
   // search: fromSearch.State;
-  releases: fromReleases.State;
+  release: fromRelease.State;
   collection: fromCollection.State;
   // layout: fromLayout.State;
   user: fromUser.State;
@@ -67,7 +69,7 @@ export interface State {
  */
 const reducers = {
   // search: fromSearch.reducer,
-  releases: fromReleases.reducer,
+  release: fromRelease.reducer,
   collection: fromCollection.reducer,
   user: fromUser.reducer,
   // layout: fromLayout.reducer,
@@ -78,11 +80,11 @@ const developmentReducer: ActionReducer<State> = compose(storeFreeze, combineRed
 const productionReducer: ActionReducer<State> = combineReducers(reducers);
 
 export function reducer(state: any, action: any) {
-  if (environment.production) {
-    return productionReducer(state, action);
+  if (!environment.production) {
+    return developmentReducer(state, action);
   }
 
-  return developmentReducer(state, action);
+  return productionReducer(state, action);
 }
 
 
@@ -101,7 +103,7 @@ export function reducer(state: any, action: any) {
  * }
  * ```
  */
-export const getReleasesState = (state: State) => state.releases;
+export const getReleaseState = (state: State) => state.release;
 
 /**
  * Every reducer module exports selector functions, however child reducers
@@ -113,11 +115,9 @@ export const getReleasesState = (state: State) => state.releases;
  * The created selectors can also be composed together to select different
  * pieces of state.
  */
-export const getReleaseEntities = createSelector(getReleasesState, fromReleases.getEntities);
-export const getReleaseIds = createSelector(getReleasesState, fromReleases.getIds);
-export const getSelectedReleaseId = createSelector(getReleasesState, fromReleases.getSelectedId);
-export const getSelectedRelease = createSelector(getReleasesState, fromReleases.getSelected);
-
+export const getSelecteReleaseId = createSelector(getReleaseState, fromRelease.getReleaseId);
+export const getSelectedRelease = createSelector(getReleaseState, fromRelease.getReleaseEntity);
+export const getRelease = createSelector(getSelectedRelease, discogsRelease => discogsRelease);
 
 /**
  * Just like with the books selectors, we also have to compose the search
@@ -144,12 +144,13 @@ export const getCollectionState = (state: State) => state.collection;
 
 export const getCollectionLoaded = createSelector(getCollectionState, fromCollection.getLoaded);
 export const getCollectionLoading = createSelector(getCollectionState, fromCollection.getLoading);
-export const getCollectionReleaseIds = createSelector(getCollectionState, fromCollection.getReleases);
+export const getCollectionReleases = createSelector(getCollectionState, fromCollection.getReleases);
 
-export const getCollection = createSelector(getReleaseEntities, getCollectionReleaseIds, (entities, discogsCollection) => {
+export const getCollection = createSelector(getCollectionReleases, discogsCollection => {
   return {
-    releases: discogsCollection.releases.map(item => entities[item.id]),
-    pagination: discogsCollection.pagination};
+    releases: discogsCollection.releases,
+    pagination: discogsCollection.pagination
+  };
 });
 
 

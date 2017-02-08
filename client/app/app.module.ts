@@ -17,14 +17,15 @@ import { reducer } from './reducers';
 import { ComponentsModule } from './components';
 import { ReleaseEffects, CollectionEffects } from './effects';
 import { DiscogsService, YoutubeService, WindowRef } from './services';
-import { AppComponent, CollectionComponent, DetailComponent } from './containers';
+import { AppComponent, CollectionComponent, ViewDetailComponent, SelectedDetailComponent } from './containers';
 import { PipesModule } from './pipes';
 
 @NgModule({
   declarations: [
     AppComponent,
     CollectionComponent,
-    DetailComponent
+    SelectedDetailComponent,
+    ViewDetailComponent
   ],
   imports: [
     BrowserModule,
