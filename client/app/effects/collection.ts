@@ -7,6 +7,7 @@ import { defer } from 'rxjs/observable/defer';
 import { of } from 'rxjs/observable/of';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/startWith';
+import 'rxjs/add/operator/mergeMap';
 
 import * as collection from '../actions/collection';
 import { DiscogsService } from '../services';

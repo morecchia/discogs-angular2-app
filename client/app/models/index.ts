@@ -7,3 +7,5 @@ export * from './collection';
 export * from './pagination';
 export * from './sales';
 export * from './search';
+export * from './video';
+export * from './youtube';

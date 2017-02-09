@@ -3,8 +3,6 @@ import { ActionReducer } from '@ngrx/store';
 import * as fromRouter from '@ngrx/router-store';
 import { environment } from '../../environments/environment';
 
-import { DiscogsRelease } from '../models';
-
 /**
  * The compose function is one of our most handy tools. In basic terms, you give
  * it any number of functions and it returns a function. This new function
@@ -39,26 +37,26 @@ import { combineReducers } from '@ngrx/store';
  * the state of the reducer plus any selector functions. The `* as`
  * notation packages up all of the exports into a single object.
  */
-// import * as fromSearch from './search';
 import * as fromRelease from './release';
+import * as fromVideos from './videos';
 import * as fromCollection from './collection';
 import * as fromUser from './user';
 // import * as fromLayout from './layout';
-
+// import * as fromSearch from './search';
 
 /**
  * As mentioned, we treat each reducer like a table in a database. This means
  * our top level state interface is just a map of keys to inner state types.
  */
 export interface State {
-  // search: fromSearch.State;
   release: fromRelease.State;
+  videos: fromVideos.State;
   collection: fromCollection.State;
-  // layout: fromLayout.State;
   user: fromUser.State;
   router: fromRouter.RouterState;
+  // layout: fromLayout.State;
+  // search: fromSearch.State;
 }
-
 
 /**
  * Because metareducers take a reducer function and return a new reducer,
@@ -68,12 +66,13 @@ export interface State {
  * the result from right to left.
  */
 const reducers = {
-  // search: fromSearch.reducer,
   release: fromRelease.reducer,
+  videos: fromVideos.reducer,
   collection: fromCollection.reducer,
   user: fromUser.reducer,
-  // layout: fromLayout.reducer,
-  router: fromRouter.routerReducer,
+  router: fromRouter.routerReducer
+  // search: fromSearch.reducer,
+  // layout: fromLayout.reducer
 };
 
 const developmentReducer: ActionReducer<State> = compose(storeFreeze, combineReducers)(reducers);
@@ -117,7 +116,9 @@ export const getReleaseState = (state: State) => state.release;
  */
 export const getSelecteReleaseId = createSelector(getReleaseState, fromRelease.getReleaseId);
 export const getSelectedRelease = createSelector(getReleaseState, fromRelease.getReleaseEntity);
-export const getRelease = createSelector(getSelectedRelease, discogsRelease => discogsRelease);
+
+export const getVideosState = (state: State) => state.videos;
+export const getVideos = createSelector(getVideosState, fromVideos.getVideoEntities);
 
 /**
  * Just like with the books selectors, we also have to compose the search

@@ -1,9 +1,15 @@
 import { Component, Input } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Store } from '@ngrx/store';
 
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 
-import { DiscogsRelease } from '../../models';
+import * as fromRoot from '../../reducers';
+import * as videos from '../../actions/videos';
+
+import { YoutubeService} from '../../services';
+
+import { DiscogsRelease, YoutubeVideo } from '../../models';
 
 @Component({
   selector: 'app-release-detail',
@@ -13,6 +19,9 @@ import { DiscogsRelease } from '../../models';
 export class ReleaseDetailComponent {
   @Input()
   release: DiscogsRelease;
+
+  @Input()
+  releaseVideos: YoutubeVideo[];
 
   get currentId(): number { return this.release.id; }
 }

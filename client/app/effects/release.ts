@@ -4,8 +4,9 @@ import { Action } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/mergeMap';
 
-import { DiscogsService } from '../services';
+import { DiscogsService, YoutubeService } from '../services';
 import * as release from '../actions/release';
+import * as videos from '../actions/videos';
 
 
 /**
@@ -24,8 +25,20 @@ export class ReleaseEffects {
     .ofType(release.ActionTypes.LOAD)
     .mergeMap(action =>
       this.discogs.getRelease(action.payload)
-        .map(response => new release.LoadCompleteAction(response.json()))
-    );
+        .map(response =>
+          new release.LoadCompleteAction(response.json())
+    ));
+
+  @Effect()
+  loaded$: Observable<Action> = this.actions$
+    .ofType(release.ActionTypes.LOAD_COMPLETE)
+    .map(action => new videos.LoadAction(action.payload.videos &&
+      action.payload.videos.map(v => this.youtube.getIdFromUrl(v.uri)))
+    )
+    .mergeMap(action => {
+      return this.youtube.getListData(action.payload)
+        .map(response => new videos.LoadCompleteAction(response));
+    });
 
   // @Effect()
   // search$: Observable<Action> = this.actions$
@@ -45,5 +58,6 @@ export class ReleaseEffects {
   //       .catch(() => of(new release.SearchCompleteAction([])));
   //   });
 
-    constructor(private actions$: Actions, private discogs: DiscogsService) { }
+    constructor(private actions$: Actions, private discogs: DiscogsService,
+      private youtube: YoutubeService) { }
 }

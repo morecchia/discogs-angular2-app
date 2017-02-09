@@ -1,8 +1,1 @@
-<div class="mdl-grid">
-    <div class="mdl-layout-spacer"></div>
-
-    <app-release-detail [release]="release$ | async"></app-release-detail>
-
-    <div class="mdl-layout-spacer"></div>
-
-</div>
+<app-release-detail [release]="release$ | async" [releaseVideos]="videos$ | async"></app-release-detail>

@@ -1,0 +1,13 @@
+<div class="video-wrapper">
+    <ul class="mdl-list">
+        <li *ngFor="let video of videos" [ngClass]="{'active': video.id === activeVideoId, 'mdl-list__item mdl-list__item': true}">
+            <span class="mdl-list__item-primary-content" (click)="selectVideo(video, release)">
+              <img class="mdl-list__item-avatar" src="{{video.snippet.thumbnails.default.url}}" alt="{{video.snippet.title}}" />
+              {{video.snippet.title}}
+            </span>
+            <span class="mdl-list__item-secondary-content video-duration">
+                <span>{{video.contentDetails.duration | formatDuration}}</span>
+            </span>
+        </li>
+    </ul>
+</div>

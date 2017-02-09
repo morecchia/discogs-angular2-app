@@ -33,7 +33,7 @@ export interface DiscogsRelease {
   data_quality: string;
 }
 
-interface Video {
+export interface Video {
   duration: number;
   embed: boolean;
   title: string;
