@@ -3,19 +3,19 @@ import { Store } from '@ngrx/store';
 
 import * as collection from '../../actions/collection';
 import * as fromRoot from '../../reducers';
-import { DiscogsCollection, DiscogsItem } from '../../models';
+import { DiscogsCollection } from '../../models';
 
 @Component({
   selector: 'app-release-preview-list',
-  templateUrl: './release-preview-list.component.html',
-  styleUrls: ['./release-preview-list.component.css']
+  templateUrl: './release-preview-list.component.html'
 })
 export class ReleasePreviewListComponent {
-  @Input() collection: DiscogsCollection;
+  @Input()
+  collection: DiscogsCollection;
 
   currentPage = 1;
-  itemsPerPage = 10;
 
+  get itemsPerPage() { return this.collection.pagination.per_page || 0; };
   get totalItems() { return this.collection.pagination.items || 0; };
 
   getPage(page: number) {
@@ -24,5 +24,5 @@ export class ReleasePreviewListComponent {
     this.store.dispatch(new collection.LoadAction(page));
   }
 
-  constructor(private store: Store<fromRoot.State>) {}
+  constructor(private store: Store<fromRoot.State>) { }
 }

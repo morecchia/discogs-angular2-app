@@ -26,7 +26,7 @@ export class ReleaseEffects {
     .mergeMap(action =>
       this.discogs.getRelease(action.payload)
         .map(response =>
-          new release.LoadCompleteAction(response.json())
+          new release.LoadCompleteAction(response)
     ));
 
   @Effect()

@@ -40,6 +40,7 @@ import { combineReducers } from '@ngrx/store';
 import * as fromRelease from './release';
 import * as fromVideos from './videos';
 import * as fromCollection from './collection';
+import * as fromWantlist from './wantlist';
 import * as fromUser from './user';
 // import * as fromLayout from './layout';
 // import * as fromSearch from './search';
@@ -52,6 +53,7 @@ export interface State {
   release: fromRelease.State;
   videos: fromVideos.State;
   collection: fromCollection.State;
+  wantlist: fromWantlist.State;
   user: fromUser.State;
   router: fromRouter.RouterState;
   // layout: fromLayout.State;
@@ -69,6 +71,7 @@ const reducers = {
   release: fromRelease.reducer,
   videos: fromVideos.reducer,
   collection: fromCollection.reducer,
+  wantlist: fromWantlist.reducer,
   user: fromUser.reducer,
   router: fromRouter.routerReducer
   // search: fromSearch.reducer,
@@ -102,6 +105,7 @@ export function reducer(state: any, action: any) {
  * }
  * ```
  */
+// Discogs Release
 export const getReleaseState = (state: State) => state.release;
 
 /**
@@ -139,22 +143,21 @@ export const getVideos = createSelector(getVideosState, fromVideos.getVideoEntit
 //   return searchIds.map(id => books[id]);
 // });
 
-
-
+// Discogs Collection
 export const getCollectionState = (state: State) => state.collection;
 
 export const getCollectionLoaded = createSelector(getCollectionState, fromCollection.getLoaded);
 export const getCollectionLoading = createSelector(getCollectionState, fromCollection.getLoading);
-export const getCollectionReleases = createSelector(getCollectionState, fromCollection.getReleases);
+export const getCollection = createSelector(getCollectionState, fromCollection.getReleases);
 
-export const getCollection = createSelector(getCollectionReleases, discogsCollection => {
-  return {
-    releases: discogsCollection.releases,
-    pagination: discogsCollection.pagination
-  };
-});
+// Discogs Wantlist
+export const getWantlistState = (state: State) => state.wantlist;
 
+export const getWantlistLoaded = createSelector(getWantlistState, fromWantlist.getLoaded);
+export const getWantlistLoading = createSelector(getWantlistState, fromWantlist.getLoading);
+export const getWantlist = createSelector(getWantlistState, fromWantlist.getReleases);
 
+// Discogs User
 export const getUserState = (state: State) => state.user;
 
 export const getUserLoaded = createSelector(getUserState, fromUser.getLoaded);

@@ -9,6 +9,7 @@ import { PlayerComponent } from './player/player.component';
 import { ReleasePreviewComponent } from './release-preview/release-preview.component';
 import { SalesPreviewComponent } from './sales-preview/sales-preview.component';
 import { ReleasePreviewListComponent } from './release-preview-list/release-preview-list.component';
+import { WantPreviewListComponent } from './want-preview-list/want-preview-list.component';
 import { SearchBoxComponent } from './search-box/search-box.component';
 import { SearchResultComponent } from './search-result/search-result.component';
 import { ReleaseDetailComponent } from './release-detail/release-detail.component';
@@ -22,6 +23,7 @@ export const COMPONENTS = [
   PlayerComponent,
   ReleasePreviewComponent,
   ReleasePreviewListComponent,
+  WantPreviewListComponent,
   SearchBoxComponent,
   SearchResultComponent,
   SalesPreviewComponent,

@@ -1,0 +1,18 @@
+<div class="pagination-wrapper">
+    <pagination-controls (pageChange)="getPage($event)"></pagination-controls>
+</div>
+<hr>
+
+<ul class="mdl-list">
+    <div *ngIf="!wantlist.wants.length" class="progress progress-list">
+        <mdl-spinner single-color [active]="!wantlist.wants.length"></mdl-spinner>
+    </div>
+
+    <app-release-preview *ngFor="let release of wantlist.wants | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage, totalItems: totalItems }"
+        [release]="release"></app-release-preview>
+</ul>
+
+<hr *ngIf="wantlist.wants.length ">
+<div *ngIf="wantlist.wants.length " class="pagination-wrapper ">
+    <pagination-controls (pageChange)="getPage($event) "></pagination-controls>
+</div>

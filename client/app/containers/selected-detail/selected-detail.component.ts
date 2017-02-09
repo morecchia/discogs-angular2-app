@@ -11,8 +11,7 @@ import { DiscogsRelease, YoutubeVideo } from '../../models';
 
 @Component({
   selector: 'app-selected-detail',
-  templateUrl: './selected-detail.component.html',
-  styleUrls: ['./selected-detail.component.css']
+  templateUrl: './selected-detail.component.html'
 })
 export class SelectedDetailComponent {
   release$: Observable<DiscogsRelease>;

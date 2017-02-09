@@ -11,7 +11,7 @@
             <nav class="mdl-navigation">
                 <a class="mdl-navigation__link" routerLink="/discogs/wantlist"><span mdl-badge-no-background mdl-badge="{{user.num_wantlist}}">Wantlist</span></a>
                 <a class="mdl-navigation__link" routerLink="/discogs/collection"><span mdl-badge-no-background mdl-badge="{{user.num_collection}}">Collection</span></a>
-                <a class="mdl-navigation__link" routerLink="/discogs/inventory"><span mdl-badge-no-background mdl-badge="{{user.num_for_sale}}">Sales</span></a>
+                <a class="mdl-navigation__link" routerLink="/discogs/sales"><span mdl-badge-no-background mdl-badge="{{user.num_for_sale}}">Sales</span></a>
 
                 <span class="spacer-horz"></span>
 
@@ -31,7 +31,7 @@
         <nav class="mdl-navigation">
             <a class="mdl-navigation__link" routerLink="/discogs/wantlist" (click)="mainLayout.closeDrawer()">Wantlist</a>
             <a class="mdl-navigation__link" routerLink="/discogs/collection" (click)="mainLayout.closeDrawer()">Collection</a>
-            <a class="mdl-navigation__link" routerLink="/discogs/inventory" (click)="mainLayout.closeDrawer()">Sales</a>
+            <a class="mdl-navigation__link" routerLink="/discogs/sales" (click)="mainLayout.closeDrawer()">Sales</a>
 
             <span class="drawer-search-container">
             <app-search-box></app-search-box>

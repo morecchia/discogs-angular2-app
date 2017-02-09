@@ -1,0 +1,11 @@
+<div class="mdl-grid">
+    <div class="mdl-layout-spacer"></div>
+
+    <div class="mdl-cell mdl-cell--8-col">
+        <app-want-preview-list [wantlist]="wantlist$ | async"></app-want-preview-list>
+    </div>
+
+    <div class="mdl-layout-spacer"></div>
+</div>
+
+<router-outlet></router-outlet>

@@ -77,13 +77,14 @@ export class DiscogsService {
       .map(response => response.json());
   }
 
-  getListByType(type: string, page = 1): Observable<models.DiscogsCollection> {
+  getListByType(type: string, page = 1): Observable<models.DiscogsCollection | models.DiscogsWants> {
     return this.http.get(`/api/${type}/${page}`)
       .map(response => response.json());
   }
 
   getRelease(id: string) {
-    return this.http.get(`/api/releases/${id}`);
+    return this.http.get(`/api/releases/${id}`)
+      .map(response => response.json());;
   }
 
   getArtist(id: number): Observable<any> {

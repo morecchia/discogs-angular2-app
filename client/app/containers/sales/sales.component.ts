@@ -4,17 +4,18 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 
 import * as fromRoot from '../../reducers';
-import { DiscogsCollection } from '../../models';
+import { DiscogsSales } from '../../models';
 
 @Component({
-  selector: 'app-collection',
+  selector: 'app-sales',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  templateUrl: './collection.component.html'
+  templateUrl: './sales.component.html',
+  styleUrls: ['./sales.component.css']
 })
-export class CollectionComponent{
-  collection$: Observable<DiscogsCollection>;
+export class SalesComponent {
+  salesList$: Observable<DiscogsSales>;
 
   constructor(private store: Store<fromRoot.State>) {
-    this.collection$ = store.select(fromRoot.getCollection);
+    // this.salesList$ = store.select(fromRoot.getSalesList);
   }
 }

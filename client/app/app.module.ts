@@ -12,26 +12,28 @@ import { LocalStorageModule } from 'angular-2-local-storage';
 import { MdlModule } from 'angular2-mdl';
 
 // app
-import { appRoutes } from './routes';
+import { AppRoutes } from './routes';
 import { reducer } from './reducers';
 import { ComponentsModule } from './components';
-import { ReleaseEffects, CollectionEffects } from './effects';
+import * as effects from './effects';
 import { DiscogsService, YoutubeService, WindowRef } from './services';
-import { AppComponent, CollectionComponent, ViewDetailComponent, SelectedDetailComponent } from './containers';
+import * as containers from './containers';
 import { PipesModule } from './pipes';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    CollectionComponent,
-    SelectedDetailComponent,
-    ViewDetailComponent
+    containers.AppComponent,
+    containers.WantlistComponent,
+    containers.CollectionComponent,
+    containers.SalesComponent,
+    containers.SelectedDetailComponent,
+    containers.ViewDetailComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
-    RouterModule.forRoot(appRoutes),
+    RouterModule.forRoot(AppRoutes),
     MdlModule,
     PipesModule,
     LocalStorageModule.withConfig({
@@ -39,11 +41,13 @@ import { PipesModule } from './pipes';
       storageType: 'localStorage'
     }),
     StoreModule.provideStore(reducer),
-    EffectsModule.run(ReleaseEffects),
-    EffectsModule.run(CollectionEffects),
+    EffectsModule.run(effects.ReleaseEffects),
+    EffectsModule.run(effects.CollectionEffects),
+    EffectsModule.run(effects.WantlistEffects),
+    EffectsModule.run(effects.UserEffects),
     ComponentsModule
   ],
   providers: [DiscogsService, YoutubeService, WindowRef, Title],
-  bootstrap: [AppComponent]
+  bootstrap: [containers.AppComponent]
 })
 export class AppModule { }
