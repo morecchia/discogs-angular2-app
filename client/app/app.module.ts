@@ -44,6 +44,7 @@ import { PipesModule } from './pipes';
     EffectsModule.run(effects.ReleaseEffects),
     EffectsModule.run(effects.CollectionEffects),
     EffectsModule.run(effects.WantlistEffects),
+    EffectsModule.run(effects.SalesEffects),
     EffectsModule.run(effects.UserEffects),
     ComponentsModule
   ],

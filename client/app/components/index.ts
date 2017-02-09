@@ -6,8 +6,9 @@ import { MdlModule } from 'angular2-mdl';
 import { Ng2PaginationModule } from 'ng2-pagination';
 
 import { PlayerComponent } from './player/player.component';
-import { ReleasePreviewComponent } from './release-preview/release-preview.component';
 import { SalesPreviewComponent } from './sales-preview/sales-preview.component';
+import { SalesPreviewListComponent } from './sales-preview-list/sales-preview-list.component';
+import { ReleasePreviewComponent } from './release-preview/release-preview.component';
 import { ReleasePreviewListComponent } from './release-preview-list/release-preview-list.component';
 import { WantPreviewListComponent } from './want-preview-list/want-preview-list.component';
 import { SearchBoxComponent } from './search-box/search-box.component';
@@ -27,6 +28,7 @@ export const COMPONENTS = [
   SearchBoxComponent,
   SearchResultComponent,
   SalesPreviewComponent,
+  SalesPreviewListComponent,
   ReleaseDetailComponent,
   VideoListComponent
   // LayoutHeaderComponent,

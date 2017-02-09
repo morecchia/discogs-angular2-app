@@ -40,6 +40,7 @@ import { combineReducers } from '@ngrx/store';
 import * as fromRelease from './release';
 import * as fromVideos from './videos';
 import * as fromCollection from './collection';
+import * as fromSales from './sales';
 import * as fromWantlist from './wantlist';
 import * as fromUser from './user';
 // import * as fromLayout from './layout';
@@ -54,6 +55,7 @@ export interface State {
   videos: fromVideos.State;
   collection: fromCollection.State;
   wantlist: fromWantlist.State;
+  sales: fromSales.State;
   user: fromUser.State;
   router: fromRouter.RouterState;
   // layout: fromLayout.State;
@@ -72,6 +74,7 @@ const reducers = {
   videos: fromVideos.reducer,
   collection: fromCollection.reducer,
   wantlist: fromWantlist.reducer,
+  sales: fromSales.reducer,
   user: fromUser.reducer,
   router: fromRouter.routerReducer
   // search: fromSearch.reducer,
@@ -156,6 +159,13 @@ export const getWantlistState = (state: State) => state.wantlist;
 export const getWantlistLoaded = createSelector(getWantlistState, fromWantlist.getLoaded);
 export const getWantlistLoading = createSelector(getWantlistState, fromWantlist.getLoading);
 export const getWantlist = createSelector(getWantlistState, fromWantlist.getReleases);
+
+// Discogs Sales
+export const getSalesState = (state: State) => state.sales;
+
+export const getSalesLoaded = createSelector(getSalesState, fromSales.getLoaded);
+export const getSalesLoading = createSelector(getSalesState, fromSales.getLoading);
+export const getSales = createSelector(getSalesState, fromSales.getListings);
 
 // Discogs User
 export const getUserState = (state: State) => state.user;

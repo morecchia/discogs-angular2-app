@@ -13,9 +13,9 @@ import { DiscogsSales } from '../../models';
   styleUrls: ['./sales.component.css']
 })
 export class SalesComponent {
-  salesList$: Observable<DiscogsSales>;
+  sales$: Observable<DiscogsSales>;
 
   constructor(private store: Store<fromRoot.State>) {
-    // this.salesList$ = store.select(fromRoot.getSalesList);
+    this.sales$ = store.select(fromRoot.getSales);
   }
 }

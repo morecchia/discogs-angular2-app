@@ -36,7 +36,7 @@ export class AddReleaseFailAction implements Action {
 }
 
 /**
- * Remove Release from Collection Actions
+ * Remove Release from Wantlist Actions
  */
 export class RemoveReleaseAction implements Action {
   type = ActionTypes.REMOVE_RELEASE;
@@ -57,7 +57,7 @@ export class RemoveReleaseFailAction implements Action {
 }
 
 /**
- * Load Collection Actions
+ * Load Wantlist Actions
  */
 export class LoadAction implements Action {
   type = ActionTypes.LOAD;

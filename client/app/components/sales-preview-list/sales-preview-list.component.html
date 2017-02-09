@@ -1,0 +1,17 @@
+<div class="pagination-wrapper">
+    <pagination-controls (pageChange)="getPage($event)"></pagination-controls>
+</div>
+<hr>
+
+<ul class="mdl-list">
+    <div *ngIf="!sales.listings.length" class="progress progress-list">
+        <mdl-spinner single-color [active]="!sales.listings.length"></mdl-spinner>
+    </div>
+
+    <app-sales-preview *ngFor="let listing of sales.listings | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage, totalItems: totalItems }" [listing]="listing"></app-sales-preview>
+</ul>
+
+<hr *ngIf="sales.listings.length ">
+<div *ngIf="sales.listings.length " class="pagination-wrapper ">
+    <pagination-controls (pageChange)="getPage($event) "></pagination-controls>
+</div>
