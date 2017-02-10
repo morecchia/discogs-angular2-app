@@ -39,6 +39,7 @@ import { combineReducers } from '@ngrx/store';
  */
 import * as fromRelease from './release';
 import * as fromVideos from './videos';
+import * as fromPlayer from './player';
 import * as fromCollection from './collection';
 import * as fromSales from './sales';
 import * as fromWantlist from './wantlist';
@@ -53,6 +54,7 @@ import * as fromUser from './user';
 export interface State {
   release: fromRelease.State;
   videos: fromVideos.State;
+  player: fromPlayer.State;
   collection: fromCollection.State;
   wantlist: fromWantlist.State;
   sales: fromSales.State;
@@ -72,6 +74,7 @@ export interface State {
 const reducers = {
   release: fromRelease.reducer,
   videos: fromVideos.reducer,
+  player: fromPlayer.reducer,
   collection: fromCollection.reducer,
   wantlist: fromWantlist.reducer,
   sales: fromSales.reducer,
@@ -124,8 +127,17 @@ export const getReleaseState = (state: State) => state.release;
 export const getSelecteReleaseId = createSelector(getReleaseState, fromRelease.getReleaseId);
 export const getSelectedRelease = createSelector(getReleaseState, fromRelease.getReleaseEntity);
 
+// Release Videos
 export const getVideosState = (state: State) => state.videos;
+
 export const getVideos = createSelector(getVideosState, fromVideos.getVideoEntities);
+export const getSelectedVideo = createSelector(getVideosState, fromVideos.getSelectedVideo);
+
+// Youtube Player
+export const getPlayerState = (state: State) => state.player;
+
+export const getPlayerVideo = createSelector(getPlayerState, fromPlayer.getPlayerVideo);
+export const getPlayerPlaying = createSelector(getPlayerState, fromPlayer.getPlaying);
 
 /**
  * Just like with the books selectors, we also have to compose the search

@@ -14,11 +14,11 @@ import { MdlModule } from 'angular2-mdl';
 // app
 import { AppRoutes } from './routes';
 import { reducer } from './reducers';
-import { ComponentsModule } from './components';
 import * as effects from './effects';
-import { DiscogsService, YoutubeService, WindowRef } from './services';
 import * as containers from './containers';
+import { ComponentsModule } from './components';
 import { PipesModule } from './pipes';
+import { DiscogsService, YoutubeService, WindowRef } from './services';
 
 @NgModule({
   declarations: [
@@ -27,7 +27,8 @@ import { PipesModule } from './pipes';
     containers.CollectionComponent,
     containers.SalesComponent,
     containers.SelectedDetailComponent,
-    containers.ViewDetailComponent
+    containers.ViewDetailComponent,
+    containers.PlayerComponent
   ],
   imports: [
     BrowserModule,
@@ -46,6 +47,8 @@ import { PipesModule } from './pipes';
     EffectsModule.run(effects.WantlistEffects),
     EffectsModule.run(effects.SalesEffects),
     EffectsModule.run(effects.UserEffects),
+    EffectsModule.run(effects.PlayerEffects),
+    EffectsModule.run(effects.VideoEffects),
     ComponentsModule
   ],
   providers: [DiscogsService, YoutubeService, WindowRef, Title],

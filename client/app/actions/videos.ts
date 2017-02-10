@@ -1,5 +1,5 @@
 import { Action } from '@ngrx/store';
-import { YoutubeResponse } from '../models';
+import { YoutubeResponse, YoutubeVideo } from '../models';
 import { type } from '../util';
 
 /**
@@ -13,7 +13,8 @@ import { type } from '../util';
 export const ActionTypes = {
   LOAD_COMPLETE: type('[Videos] Load Complete'),
   LOAD_FAIL:     type('[Videos] Load Fail'),
-  LOAD:          type('[Videos] Load')
+  LOAD:          type('[Videos] Load'),
+  SELECTED:      type('[Video] Selected')
 };
 
 /**
@@ -42,6 +43,12 @@ export class LoadFailAction implements Action {
   constructor(public payload: any) { }
 }
 
+export class SelectedAction implements Action {
+  type = ActionTypes.SELECTED;
+
+  constructor(public payload: YoutubeVideo) { }
+}
+
 /**
  * Export a type alias of all actions in this action group
  * so that reducers can easily compose action types
@@ -49,4 +56,5 @@ export class LoadFailAction implements Action {
 export type Actions
   = LoadAction
   | LoadCompleteAction
-  | LoadFailAction;
+  | LoadFailAction
+  | SelectedAction;

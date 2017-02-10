@@ -6,7 +6,6 @@ import { Observable } from 'rxjs/Observable';
 import * as fromRoot from '../../reducers';
 import * as videos from '../../actions/videos';
 
-import { YoutubeService } from '../../services';
 import { DiscogsRelease, YoutubeVideo } from '../../models';
 
 @Component({
@@ -19,7 +18,7 @@ export class SelectedDetailComponent {
 
   isSelectedReleaseInCollection$: Observable<boolean>;
 
-  constructor(private store: Store<fromRoot.State>, private youtube: YoutubeService) {
+  constructor(private store: Store<fromRoot.State>) {
     this.release$ = store.select(fromRoot.getSelectedRelease);
     this.videos$ = store.select(fromRoot.getVideos);
     // this.isSelectedReleaseInCollection$ = store.select(fromRoot.isSelectedReleaseInCollection);

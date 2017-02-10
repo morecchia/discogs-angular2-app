@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 
-import { Observable } from 'rxjs/Observable';
-import { Subject } from 'rxjs/Subject';
+import { Observable, Subject } from 'rxjs';
 
 import { LocalStorageService } from 'angular-2-local-storage';
+
+import * as YouTubePlayer from 'youtube-player';
 
 import { DiscogsService } from './discogs.service';
 import { YoutubeResponse, Video } from '../models';
@@ -24,18 +25,11 @@ export function formatDuration(span: any) {
 
 @Injectable()
 export class YoutubeService {
-  private _videoSelectedSource = new Subject<any>();
-  private _videoListSource = new Subject<any>();
-  private _videoActivatedSource = new Subject<any>();
-  private _loadVideosSource = new Subject<Video[]>();
+  currentDuration: string;
 
-  videoSelected$ = this._videoSelectedSource.asObservable();
-  videoActivated$ = this._videoActivatedSource.asObservable();
-  videoList$ = this._videoListSource.asObservable();
-  loadVideos$ = this._loadVideosSource.asObservable();
-
-  constructor(private http: Http, private discogs: DiscogsService,
-    private localStorage: LocalStorageService) { }
+  player = YouTubePlayer('player');
+  currentTimeSeconds: number = 0;
+  currentTime: Observable<string>;
 
   getListData(ids: string[]): Observable<any> {
     return this.http.post('/api/videos', {ids})
@@ -46,18 +40,11 @@ export class YoutubeService {
     return url.match(YT_REGEXES[0])[1] || url.match(YT_REGEXES[1])[1];
   }
 
-  selectVideo(video: any) {
-    this.localStorage.set('activeVideo', video);
-    this._videoSelectedSource.next(video);
-  }
-
   publishVideos(videos: any) {
-    this._videoListSource.next(videos);
   }
 
-  activateVideo(video: any) {
+  setActiveVideo(video: any) {
     this.localStorage.set('activeVideo', video);
-    this._videoActivatedSource.next(video);
   }
 
   playAll(release: any, callback: (video: any) => void) {
@@ -82,15 +69,35 @@ export class YoutubeService {
           video.discogsId = release.id;
           video.discogsTitle = release.title || release.basic_information.title;
 
-          this.selectVideo(video);
-          this.activateVideo(video);
+          this.setActiveVideo(video);
         }
 
         callback(video);
       });
   }
 
-  loadVideos(videos: Video[]) {
-    this._loadVideosSource.next(videos);
+  timer(duration: string, startTime = 0) {
+    const startWithTime = formatDuration(moment.duration(startTime, 'seconds'));
+    const trackDuration = moment.duration(duration).asMilliseconds() + 1000;
+    return Observable.timer(0, 1000)
+      .takeUntil(Observable.timer(trackDuration))
+      .map(t => {
+        const span = moment.duration(startTime + t, 'seconds');
+        this.currentTimeSeconds = span.asSeconds();
+        return formatDuration(span);
+      })
+      .startWith(startWithTime);
   }
+
+  tryNextVideo() {
+    this.currentTime = this.timer(this.currentDuration);
+  }
+
+  private _selectVideo(video: any) {
+    this.player.loadVideoById(video.id);
+    this.setActiveVideo(video);
+  }
+
+  constructor(private http: Http, private discogs: DiscogsService,
+    private localStorage: LocalStorageService) { }
 }

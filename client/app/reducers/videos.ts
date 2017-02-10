@@ -4,12 +4,14 @@ export interface State {
   loaded: boolean;
   loading: boolean;
   videos: YoutubeVideo[];
+  selected: YoutubeVideo;
 };
 
 const initialState: State = {
   loaded: false,
   loading: false,
-  videos: []
+  videos: [],
+  selected: null
 };
 
 export function reducer(state = initialState, action: videos.Actions): State {
@@ -22,11 +24,17 @@ export function reducer(state = initialState, action: videos.Actions): State {
 
     case videos.ActionTypes.LOAD_COMPLETE: {
       const youtubeResponse = action.payload;
-      return {
+      return Object.assign({}, state, {
         loaded: true,
         loading: false,
         videos: youtubeResponse.items,
-      };
+      });
+    }
+
+    case videos.ActionTypes.SELECTED: {
+      return Object.assign({}, state, {
+        selected: action.payload
+      });
     }
 
     default: {
@@ -41,3 +49,5 @@ export const getLoaded = (state: State) => state.loaded;
 export const getLoading = (state: State) => state.loading;
 
 export const getVideoEntities = (state: State) => state.videos;
+
+export const getSelectedVideo = (state: State) => state.selected;

@@ -17,6 +17,7 @@ import { DiscogsUser } from '../../models';
 export class AppComponent implements OnInit {
   // user$: Observable<DiscogsUser>;
   user: DiscogsUser = new DiscogsUser();
+  title = 'Discogs Player';
 
   constructor(private store: Store<fromRoot.State>, private discogs: DiscogsService) {
     // this.user$ = store.select(fromRoot.getUser);

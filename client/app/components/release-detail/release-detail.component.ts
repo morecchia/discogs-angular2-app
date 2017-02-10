@@ -6,6 +6,7 @@ import { Observable, Subscription } from 'rxjs';
 
 import * as fromRoot from '../../reducers';
 import * as videos from '../../actions/videos';
+import * as player from '../../actions/player';
 
 import { YoutubeService} from '../../services';
 
@@ -23,5 +24,9 @@ export class ReleaseDetailComponent {
   @Input()
   releaseVideos: YoutubeVideo[];
 
-  get currentId(): number { return this.release.id; }
+  constructor(private store: Store<fromRoot.State>) { }
+
+  onSelectedVideo(video: YoutubeVideo) {
+    this.store.dispatch(new videos.SelectedAction(video));
+  }
 }

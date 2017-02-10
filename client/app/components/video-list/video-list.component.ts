@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 
 import { YoutubeVideo } from '../../models';
 
@@ -10,4 +10,11 @@ import { YoutubeVideo } from '../../models';
 export class VideoListComponent {
   @Input()
   videos: YoutubeVideo[];
+
+  @Output()
+  onVideoSelected = new EventEmitter<YoutubeVideo>();
+
+  selectVideo(video: YoutubeVideo) {
+    this.onVideoSelected.emit(video);
+  }
 }
