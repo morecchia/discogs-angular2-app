@@ -1,5 +1,5 @@
 import { Action } from '@ngrx/store';
-import { YoutubeResponse, YoutubeVideo } from '../models';
+import { YoutubeResponse, YoutubeVideo, DiscogsRelease } from '../models';
 import { type } from '../util';
 
 /**
@@ -46,7 +46,7 @@ export class LoadFailAction implements Action {
 export class SelectedAction implements Action {
   type = ActionTypes.SELECTED;
 
-  constructor(public payload: YoutubeVideo) { }
+  constructor(public payload: { video: YoutubeVideo, release: DiscogsRelease }) { }
 }
 
 /**

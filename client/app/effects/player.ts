@@ -22,17 +22,13 @@ export class PlayerEffects {
       this._initPlayer(action.payload);
       return new player.InitSuccessAction(action.payload);
     });
-  //   .map(action => {
-  //     this.youtube.player.loadVideoById(action.payload.id);
-  //     return new player.PlayingAction(action.payload);
-  //   });
 
   @Effect()
   resumeVideo$: Observable<Action> = this.actions$
     .ofType(player.ActionTypes.PLAY)
     .map(action => {
-      this.youtube.player.loadVideoById(action.payload.id);
-      return new player.PlayingAction(action.payload);
+      this.youtube.player.loadVideoById(action.payload.video.id);
+      return new player.PlayingAction(action.payload.video);
     });
 
   private _initPlayer(video: YoutubeVideo) {

@@ -33,7 +33,7 @@ export function reducer(state = initialState, action: videos.Actions): State {
 
     case videos.ActionTypes.SELECTED: {
       return Object.assign({}, state, {
-        selected: action.payload
+        selected: action.payload.video
       });
     }
 

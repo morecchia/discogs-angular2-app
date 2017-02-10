@@ -29,51 +29,41 @@ export function reducer(state = initialState, action: player.Actions): State {
   switch (action.type) {
     case player.ActionTypes.INIT: {
       const ids = action.payload.map(v => v.id);
-      return {
-        initialized: false,
-        playing: false,
-        ids: ids,
-        video: null,
-        release: null,
-        nextId: null,
-        prevId: null,
-        volume: state.volume,
-        currentTime: state.currentTime
-      };
+      return Object.assign({}, state, {
+        ids: ids
+      });
+    }
+
+    case player.ActionTypes.PLAY: {
+      return Object.assign({}, state, {
+        initialized: true,
+        video: action.payload.video,
+        release: action.payload.release
+      });
     }
 
     case player.ActionTypes.PLAYING: {
       const prevNextIds = _getPrevNextIds(state.ids, action.payload);
-      return {
+      return Object.assign({}, state, {
         initialized: true,
         playing: true,
-        ids: state.ids,
         video: action.payload,
-        release: null,
         nextId: prevNextIds.next,
-        prevId: prevNextIds.prev,
-        volume: state.volume,
-        currentTime: state.currentTime
-      };
+        prevId: prevNextIds.prev
+      });
     }
 
     case player.ActionTypes.SKIP_NEXT: {
       const prevNextIds = _getPrevNextIds(state.ids, state.video);
-      return {
-        initialized: true,
-        playing: true,
-        ids: state.ids,
+      return Object.assign({}, state, {
         video: action.payload,
-        release: null,
         nextId: prevNextIds.next,
-        prevId: prevNextIds.prev,
-        volume: state.volume,
-        currentTime: state.currentTime
-      };
+        prevId: prevNextIds.prev
+      });
     }
 
     case player.ActionTypes.STOP: {
-      return Object.assign(state, {
+      return Object.assign({}, state, {
         playing: false
       });
     }
@@ -103,6 +93,8 @@ function _getPrevNextIds(ids: string[], selectedVideo: YoutubeVideo) {
  */
 
 export const getPlaying = (state: State) => state.playing;
+
+export const getPlayingRelease = (state: State) => state.release;
 
 export const getPlayerVideo = (state: State) => state.video;
 

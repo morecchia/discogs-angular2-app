@@ -13,11 +13,10 @@ import { YoutubeVideo, DiscogsRelease } from '../../models';
 })
 export class PlayerComponent {
   selectedVideo$: Observable<YoutubeVideo>;
-  playingRelease$: Observable<DiscogsRelease>;
+  playerRelease$: Observable<DiscogsRelease>;
 
   constructor(private store: Store<fromRoot.State>) {
     this.selectedVideo$ = store.select(fromRoot.getSelectedVideo);
-    this.playingRelease$ = store.select(fromRoot.getSelectedRelease)
-    // this.playingRelease$ = store.select(fromRoot.getPlayerRelease);
+    this.playerRelease$ = store.select(fromRoot.getPlayerRelease);
   }
 }

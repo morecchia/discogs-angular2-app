@@ -12,7 +12,7 @@ export class SelectedVideoComponent {
   selectedVideo: YoutubeVideo;
 
   @Input()
-  currentRelease: DiscogsRelease;
+  playerRelease: DiscogsRelease;
 
   playing: boolean;
   volumeVisible: boolean;

@@ -1,5 +1,5 @@
 import { Action } from '@ngrx/store';
-import { YoutubeVideo } from '../models';
+import { YoutubeVideo, DiscogsRelease } from '../models';
 import { type } from '../util';
 
 export const ActionTypes = {
@@ -40,7 +40,7 @@ export class InitFailAction implements Action {
 export class PlayAction implements Action {
   type = ActionTypes.PLAY;
 
-  constructor(public payload: string) { }
+  constructor(public payload: { video: YoutubeVideo, release: DiscogsRelease }) { }
 }
 
 export class PlayingAction implements Action {
