@@ -138,6 +138,7 @@ export const getPlayerState = (state: State) => state.player;
 
 export const getPlayerVideo = createSelector(getPlayerState, fromPlayer.getPlayerVideo);
 export const getPlayerPlaying = createSelector(getPlayerState, fromPlayer.getPlaying);
+// export const getPlayerRelease = createSelector(getPlayerState, fromRelease.getReleaseEntity);
 
 /**
  * Just like with the books selectors, we also have to compose the search

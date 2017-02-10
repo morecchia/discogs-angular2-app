@@ -15,6 +15,7 @@ import { SearchResultComponent } from './search-result/search-result.component';
 import { ReleaseDetailComponent } from './release-detail/release-detail.component';
 import { VideoListComponent } from './video-list/video-list.component';
 import { SelectedVideoComponent } from './selected-video/selected-video.component';
+import { PlayerControlsComponent } from './player-controls/player-controls.component';
 // import { LayoutHeaderComponent } from './layout-header/layout-header.component';
 // import { LayoutContentComponent } from './layout-content/layout-content.component';
 
@@ -30,7 +31,8 @@ export const COMPONENTS = [
   SalesPreviewListComponent,
   ReleaseDetailComponent,
   VideoListComponent,
-  SelectedVideoComponent
+  SelectedVideoComponent,
+  PlayerControlsComponent
   // LayoutHeaderComponent,
   // LayoutContentComponent
 ];

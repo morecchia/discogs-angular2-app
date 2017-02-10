@@ -14,15 +14,18 @@ import { YoutubeVideo  } from '../models';
 @Injectable()
 export class VideoEffects {
 
-  /**
-   * This effect makes use of the `startWith` operator to trigger
-   * the effect immediately on startup.
-   */
   @Effect()
   selectVideo$: Observable<Action> = this.actions$
     .ofType(videos.ActionTypes.SELECTED)
     .map(action => {
-      return new player.InitAction(action.payload);
+      return new player.PlayAction(action.payload);
+    });
+
+  @Effect()
+  loadCompleted$: Observable<Action> = this.actions$
+    .ofType(videos.ActionTypes.LOAD_COMPLETE)
+    .map(action => {
+      return new player.InitAction(action.payload.items);
     });
 
   constructor(private actions$: Actions) { }

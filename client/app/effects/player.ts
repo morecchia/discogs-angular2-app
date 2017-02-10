@@ -15,29 +15,24 @@ import { YoutubeVideo  } from '../models';
 
 @Injectable()
 export class PlayerEffects {
-
-  /**
-   * This effect makes use of the `startWith` operator to trigger
-   * the effect immediately on startup.
-   */
   @Effect()
   initPlayer$: Observable<Action> = this.actions$
     .ofType(player.ActionTypes.INIT)
     .map(action => {
       this._initPlayer(action.payload);
       return new player.InitSuccessAction(action.payload);
-    })
-    .map(action => {
-      this.youtube.player.loadVideoById(action.payload.id);
-      return new player.PlayingAction(action.payload);
     });
+  //   .map(action => {
+  //     this.youtube.player.loadVideoById(action.payload.id);
+  //     return new player.PlayingAction(action.payload);
+  //   });
 
   @Effect()
   resumeVideo$: Observable<Action> = this.actions$
-    .ofType(player.ActionTypes.RESUME)
+    .ofType(player.ActionTypes.PLAY)
     .map(action => {
-      this.youtube.player.playVideo();
-      return new player.ResumeAction();
+      this.youtube.player.loadVideoById(action.payload.id);
+      return new player.PlayingAction(action.payload);
     });
 
   private _initPlayer(video: YoutubeVideo) {

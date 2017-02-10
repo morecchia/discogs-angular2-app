@@ -1,5 +1,4 @@
 import { Component, Input } from '@angular/core';
-import { Store } from '@ngrx/store';
 
 import { DiscogsRelease, YoutubeVideo } from '../../models';
 

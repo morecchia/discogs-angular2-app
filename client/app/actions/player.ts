@@ -22,13 +22,13 @@ export const ActionTypes = {
 export class InitAction implements Action {
   type = ActionTypes.INIT;
 
-  constructor(public payload: YoutubeVideo) { }
+  constructor(public payload: YoutubeVideo[]) { }
 }
 
 export class InitSuccessAction implements Action {
   type = ActionTypes.INIT_SUCCESS;
 
-  constructor(public payload: YoutubeVideo) { }
+  constructor(public payload: string) { }
 }
 
 export class InitFailAction implements Action {
