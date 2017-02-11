@@ -140,6 +140,12 @@ export const getPlayerVideo = createSelector(getPlayerState, fromPlayer.getPlaye
 export const getPlayerPlaying = createSelector(getPlayerState, fromPlayer.getPlaying);
 export const getPlayerRelease = createSelector(getPlayerState, fromPlayer.getPlayingRelease);
 
+export const getNextPreviousVideos = createSelector(getPlayerState, getVideos, (playerState, videos) => {
+  const next = videos.find(v => v.id === playerState.nextId);
+  const prev = videos.find(v => v.id === playerState.prevId);
+  return {next, prev};
+});
+
 /**
  * Just like with the books selectors, we also have to compose the search
  * reducer's and collection reducer's selectors.

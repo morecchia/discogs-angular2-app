@@ -2,7 +2,8 @@ import { Injectable } from '@angular/core';
 import { Action } from '@ngrx/store';
 import { Effect, Actions } from '@ngrx/effects';
 
-import { Observable } from 'rxjs';
+import { Observable } from 'rxjs/Observable';
+import { of } from 'rxjs/observable/of';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/startWith';
 import 'rxjs/add/operator/mergeMap';
@@ -24,11 +25,34 @@ export class PlayerEffects {
     });
 
   @Effect()
-  resumeVideo$: Observable<Action> = this.actions$
+  playVideo$: Observable<Action> = this.actions$
     .ofType(player.ActionTypes.PLAY)
     .map(action => {
       this.youtube.player.loadVideoById(action.payload.video.id);
       return new player.PlayingAction(action.payload.video);
+    });
+
+  @Effect()
+  stopVideo$ = this.actions$
+    .ofType(player.ActionTypes.STOP)
+    .map(action => {
+      this.youtube.player.pauseVideo();
+      return of({});
+    });
+
+  @Effect()
+  resumeVideo$ = this.actions$
+    .ofType(player.ActionTypes.RESUME)
+    .map(action => {
+      this.youtube.player.playVideo();
+      return of({});
+    });
+
+  @Effect()
+  skip$: Observable<Action> = this.actions$
+    .ofType(player.ActionTypes.SKIP)
+    .map(action => {
+      return new player.PlayAction(action.payload);
     });
 
   private _initPlayer(video: YoutubeVideo) {

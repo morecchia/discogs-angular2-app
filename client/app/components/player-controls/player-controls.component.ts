@@ -1,5 +1,8 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Store } from '@ngrx/store';
 
+import * as fromRoot from '../../reducers';
+import * as player from '../../actions/player';
 import { YoutubeVideo } from '../../models';
 
 @Component({
@@ -10,4 +13,34 @@ import { YoutubeVideo } from '../../models';
 export class PlayerControlsComponent {
   @Input()
   video: YoutubeVideo;
+
+  @Input()
+  nextVideo: YoutubeVideo;
+
+  @Input()
+  prevVideo: YoutubeVideo;
+
+  @Input()
+  playing: boolean;
+
+  @Output()
+  onVideoSkipped = new EventEmitter<YoutubeVideo>();
+
+  constructor(private store: Store<fromRoot.State>) { }
+
+  pauseVideo() {
+    this.store.dispatch(new player.StopAction());
+  }
+
+  resumeVideo() {
+    this.store.dispatch(new player.ResumeAction());
+  }
+
+  skipNext() {
+    this.onVideoSkipped.emit(this.nextVideo);
+  }
+
+  skipPrev() {
+    this.onVideoSkipped.emit(this.prevVideo);
+  }
 }

@@ -12,8 +12,7 @@ export const ActionTypes = {
   RESUME:       type('[Player] Resume'),
   SEEK_FW:      type('[Player] Seek Forward'),
   SEEK_RW:      type('[Player] Seek Backward'),
-  SKIP_NEXT:    type('[Player] Skip Next'),
-  SKIP_PREV:    type('[Player] Skip Previous')
+  SKIP:    type('[Player] Skip'),
 };
 
 /**
@@ -52,7 +51,7 @@ export class PlayingAction implements Action {
 export class StopAction implements Action {
   type = ActionTypes.STOP;
 
-  constructor(public payload: any) { }
+  constructor(public payload: any = null) { }
 }
 
 export class ResumeAction implements Action {
@@ -73,16 +72,10 @@ export class SeekRwdAction implements Action {
   constructor(public payload = null) { }
 }
 
-export class SkipNextAction implements Action {
-  type = ActionTypes.SKIP_NEXT;
+export class SkipAction implements Action {
+  type = ActionTypes.SKIP;
 
-  constructor(public payload: YoutubeVideo) { }
-}
-
-export class SkipPrevAction implements Action {
-  type = ActionTypes.SKIP_PREV;
-
-  constructor(public payload: YoutubeVideo) { }
+  constructor(public payload:  { video: YoutubeVideo, release: DiscogsRelease }) { }
 }
 
 export type Actions
@@ -94,5 +87,4 @@ export type Actions
   | ResumeAction
   | SeekFwdAction
   | SeekRwdAction
-  | SkipNextAction
-  | SkipPrevAction;
+  | SkipAction;

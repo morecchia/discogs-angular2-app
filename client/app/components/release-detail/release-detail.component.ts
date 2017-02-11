@@ -6,7 +6,6 @@ import { Observable, Subscription } from 'rxjs';
 
 import * as fromRoot from '../../reducers';
 import * as videos from '../../actions/videos';
-import * as player from '../../actions/player';
 
 import { YoutubeService} from '../../services';
 

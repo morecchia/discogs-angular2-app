@@ -36,7 +36,8 @@
 
     <div class="mdl-layout-spacer"></div>
 
-    <app-player-controls [video]="selectedVideo"></app-player-controls>
+    <app-player-controls [video]="selectedVideo" [nextVideo]="nextPrevVideos.next" [prevVideo]="nextPrevVideos.prev" 
+        [playing]="playing" (onVideoSkipped)="onVideoSkipped($event)"></app-player-controls>
 
     <div class="mdl-layout-spacer"></div>
 </div>

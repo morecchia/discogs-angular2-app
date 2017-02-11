@@ -45,17 +45,7 @@ export function reducer(state = initialState, action: player.Actions): State {
     case player.ActionTypes.PLAYING: {
       const prevNextIds = _getPrevNextIds(state.ids, action.payload);
       return Object.assign({}, state, {
-        initialized: true,
         playing: true,
-        video: action.payload,
-        nextId: prevNextIds.next,
-        prevId: prevNextIds.prev
-      });
-    }
-
-    case player.ActionTypes.SKIP_NEXT: {
-      const prevNextIds = _getPrevNextIds(state.ids, state.video);
-      return Object.assign({}, state, {
         video: action.payload,
         nextId: prevNextIds.next,
         prevId: prevNextIds.prev
@@ -65,6 +55,12 @@ export function reducer(state = initialState, action: player.Actions): State {
     case player.ActionTypes.STOP: {
       return Object.assign({}, state, {
         playing: false
+      });
+    }
+
+    case player.ActionTypes.RESUME: {
+      return Object.assign({}, state, {
+        playing: true
       });
     }
 
