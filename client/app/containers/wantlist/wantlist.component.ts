@@ -13,8 +13,10 @@ import { DiscogsWants } from '../../models';
 })
 export class WantlistComponent {
   wantlist$: Observable<DiscogsWants>;
+  loading$: Observable<boolean>;
 
   constructor(private store: Store<fromRoot.State>) {
     this.wantlist$ = store.select(fromRoot.getWantlist);
+    this.loading$ = store.select(fromRoot.getWantlistLoading);
   }
 }

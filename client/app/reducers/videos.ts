@@ -18,7 +18,8 @@ export function reducer(state = initialState, action: videos.Actions): State {
   switch (action.type) {
     case videos.ActionTypes.LOAD: {
       return Object.assign({}, state, {
-        loading: true
+        loading: true,
+        videos: []
       });
     }
 
@@ -34,6 +35,14 @@ export function reducer(state = initialState, action: videos.Actions): State {
     case videos.ActionTypes.SELECTED: {
       return Object.assign({}, state, {
         selected: action.payload.video
+      });
+    }
+
+    case videos.ActionTypes.CLEAR: {
+      return Object.assign({}, state, {
+        videos: [],
+        loading: false,
+        loaded: false
       });
     }
 

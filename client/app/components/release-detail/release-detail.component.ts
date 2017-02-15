@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 
@@ -16,16 +16,23 @@ import { DiscogsRelease, YoutubeVideo } from '../../models';
   templateUrl: './release-detail.component.html',
   styleUrls: ['./release-detail.component.css']
 })
-export class ReleaseDetailComponent {
+export class ReleaseDetailComponent implements OnDestroy {
   @Input()
   release: DiscogsRelease;
 
   @Input()
   releaseVideos: YoutubeVideo[];
 
+  @Input()
+  videosLoading: boolean;
+
   constructor(private store: Store<fromRoot.State>) { }
 
   onSelectedVideo(video: YoutubeVideo) {
     this.store.dispatch(new videos.SelectedAction({video, release: this.release}));
+  }
+
+  ngOnDestroy() {
+    this.store.dispatch(new videos.ClearAction());
   }
 }

@@ -11,6 +11,9 @@ export class VideoListComponent {
   @Input()
   videos: YoutubeVideo[];
 
+  @Input()
+  loading: boolean;
+
   @Output()
   onVideoSelected = new EventEmitter<YoutubeVideo>();
 

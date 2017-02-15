@@ -13,13 +13,15 @@ export class ReleasePreviewListComponent {
   @Input()
   collection: DiscogsCollection;
 
+  @Input()
+  loading: boolean;
+
   currentPage = 1;
 
   get itemsPerPage() { return this.collection.pagination.per_page || 0; };
   get totalItems() { return this.collection.pagination.items || 0; };
 
   getPage(page: number) {
-    this.collection.releases = [];
     this.currentPage = page;
     this.store.dispatch(new collection.LoadAction(page));
   }

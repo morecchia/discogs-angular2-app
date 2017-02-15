@@ -15,12 +15,14 @@ import { DiscogsRelease, YoutubeVideo } from '../../models';
 export class SelectedDetailComponent {
   release$: Observable<DiscogsRelease>;
   videos$: Observable<YoutubeVideo[]>;
+  videosLoading$: Observable<boolean>;
 
-  isSelectedReleaseInCollection$: Observable<boolean>;
+  // isSelectedReleaseInCollection$: Observable<boolean>;
 
   constructor(private store: Store<fromRoot.State>) {
     this.release$ = store.select(fromRoot.getSelectedRelease);
     this.videos$ = store.select(fromRoot.getVideos);
+    this.videosLoading$ = store.select(fromRoot.getVideosLoading);
     // this.isSelectedReleaseInCollection$ = store.select(fromRoot.isSelectedReleaseInCollection);
     // this.isSelectedReleaseInWantlist$ = store.select(fromRoot.isSelectedReleaseInWantlist);
   }

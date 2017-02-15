@@ -13,13 +13,15 @@ export class WantPreviewListComponent {
   @Input()
   wantlist: DiscogsWants;
 
+  @Input()
+  loading: boolean;
+
   currentPage = 1;
 
   get itemsPerPage() { return this.wantlist.pagination.per_page || 0; };
   get totalItems() { return this.wantlist.pagination.items || 0; };
 
   getPage(page: number) {
-    this.wantlist.wants = [];
     this.currentPage = page;
     this.store.dispatch(new wantlist.LoadAction(page));
   }

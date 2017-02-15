@@ -23,11 +23,8 @@ export class ReleaseEffects {
   @Effect()
   get$: Observable<Action> = this.actions$
     .ofType(release.ActionTypes.LOAD)
-    .mergeMap(action =>
-      this.discogs.getRelease(action.payload)
-        .map(response =>
-          new release.LoadCompleteAction(response)
-    ));
+    .mergeMap(action => this.discogs.getRelease(action.payload)
+      .map(response => new release.LoadCompleteAction(response)));
 
   @Effect()
   loaded$: Observable<Action> = this.actions$
@@ -35,10 +32,8 @@ export class ReleaseEffects {
     .map(action => new videos.LoadAction(action.payload.videos &&
       action.payload.videos.map(v => this.youtube.getIdFromUrl(v.uri)))
     )
-    .mergeMap(action => {
-      return this.youtube.getListData(action.payload)
-        .map(response => new videos.LoadCompleteAction(response));
-    });
+    .mergeMap(action => this.youtube.getListData(action.payload)
+      .map(response => new videos.LoadCompleteAction(response)));
 
   // @Effect()
   // search$: Observable<Action> = this.actions$

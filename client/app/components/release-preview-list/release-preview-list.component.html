@@ -4,15 +4,15 @@
 <hr>
 
 <ul class="mdl-list">
-    <div *ngIf="!collection.releases.length" class="progress progress-list">
-        <mdl-spinner single-color [active]="!collection.releases.length"></mdl-spinner>
+    <div *ngIf="loading" class="progress progress-list">
+        <mdl-spinner single-color [active]="loading"></mdl-spinner>
     </div>
 
     <app-release-preview *ngFor="let release of collection.releases | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage, totalItems: totalItems }"
         [release]="release"></app-release-preview>
 </ul>
 
-<hr *ngIf="collection.releases.length ">
-<div *ngIf="collection.releases.length " class="pagination-wrapper ">
-    <pagination-controls (pageChange)="getPage($event) "></pagination-controls>
+<hr *ngIf="!loading">
+<div *ngIf="!loading" class="pagination-wrapper">
+    <pagination-controls (pageChange)="getPage($event)"></pagination-controls>
 </div>

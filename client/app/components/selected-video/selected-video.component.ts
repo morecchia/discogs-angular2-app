@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { Store } from '@ngrx/store';
 
 import * as fromRoot from '../../reducers';
-import * as player from '../../actions/player';
+import * as videos from '../../actions/videos';
 import { DiscogsRelease, YoutubeVideo } from '../../models';
 
 @Component({
@@ -26,6 +26,6 @@ export class SelectedVideoComponent {
   constructor(private store: Store<fromRoot.State>) { }
 
   onVideoSkipped(video: YoutubeVideo) {
-    this.store.dispatch(new player.SkipAction({video, release: this.playerRelease}));
+    this.store.dispatch(new videos.SelectedAction({video, release: this.playerRelease}));
   }
 }

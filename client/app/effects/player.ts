@@ -48,18 +48,10 @@ export class PlayerEffects {
       return of({});
     });
 
-  @Effect()
-  skip$: Observable<Action> = this.actions$
-    .ofType(player.ActionTypes.SKIP)
-    .map(action => {
-      return new player.PlayAction(action.payload);
-    });
-
   private _initPlayer(video: YoutubeVideo) {
     this.youtube.player.on('ready', event => {
         event.target.setVolume(50);
         // this.currentTime = this._timer(this._currentDuration);
-        console.log('player ready');
       });
 
       this.youtube.player.on('stateChange', event => {

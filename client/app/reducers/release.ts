@@ -18,6 +18,15 @@ const initialState: State = {
 
 export function reducer(state = initialState, action: release.Actions): State {
   switch (action.type) {
+    case release.ActionTypes.LOAD: {
+      return {
+        loaded: false,
+        loading: true,
+        id: action.payload,
+        entity: null,
+      };
+    }
+
     case release.ActionTypes.LOAD_COMPLETE: {
       const release = action.payload;
 
@@ -26,15 +35,6 @@ export function reducer(state = initialState, action: release.Actions): State {
         loading: false,
         id: release.id,
         entity: release,
-      };
-    }
-
-    case release.ActionTypes.LOAD: {
-      return {
-        loaded: false,
-        loading: true,
-        id: action.payload,
-        entity: state.entity,
       };
     }
 

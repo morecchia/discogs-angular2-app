@@ -20,6 +20,7 @@ export function reducer(state = initialState, action: wantlist.Actions): State {
   switch (action.type) {
     case wantlist.ActionTypes.LOAD: {
       return Object.assign({}, state, {
+        wants: [],
         loading: true
       });
     }

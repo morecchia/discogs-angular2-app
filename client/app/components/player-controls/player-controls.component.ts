@@ -26,6 +26,8 @@ export class PlayerControlsComponent {
   @Output()
   onVideoSkipped = new EventEmitter<YoutubeVideo>();
 
+  volumeVisible = false;
+
   constructor(private store: Store<fromRoot.State>) { }
 
   pauseVideo() {
@@ -42,5 +44,21 @@ export class PlayerControlsComponent {
 
   skipPrev() {
     this.onVideoSkipped.emit(this.prevVideo);
+  }
+
+  toggleVolumeVisibility(hidden = false) {
+    setTimeout(() => {
+      this.volumeVisible = !hidden;
+    }, 200);
+  }
+
+  inputVolume(value) {
+    // if (this.player) {
+    //   this.player.setVolume(value);
+    // }
+  }
+
+  changeVolume(value: number) {
+    // this.localStorage.set('playerVolume', value);
   }
 }

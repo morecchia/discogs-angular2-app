@@ -14,7 +14,8 @@ export const ActionTypes = {
   LOAD_COMPLETE: type('[Videos] Load Complete'),
   LOAD_FAIL:     type('[Videos] Load Fail'),
   LOAD:          type('[Videos] Load'),
-  SELECTED:      type('[Video] Selected')
+  SELECTED:      type('[Video] Selected'),
+  CLEAR:         type('[Videos] Cleared')
 };
 
 /**
@@ -49,6 +50,11 @@ export class SelectedAction implements Action {
   constructor(public payload: { video: YoutubeVideo, release: DiscogsRelease }) { }
 }
 
+export class ClearAction implements Action {
+  type = ActionTypes.CLEAR;
+    constructor(public payload = null) { }
+}
+
 /**
  * Export a type alias of all actions in this action group
  * so that reducers can easily compose action types
@@ -57,4 +63,5 @@ export type Actions
   = LoadAction
   | LoadCompleteAction
   | LoadFailAction
-  | SelectedAction;
+  | SelectedAction
+  | ClearAction;

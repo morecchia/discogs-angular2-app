@@ -72,12 +72,6 @@ export class SeekRwdAction implements Action {
   constructor(public payload = null) { }
 }
 
-export class SkipAction implements Action {
-  type = ActionTypes.SKIP;
-
-  constructor(public payload:  { video: YoutubeVideo, release: DiscogsRelease }) { }
-}
-
 export type Actions
   = InitAction
   | InitSuccessAction
@@ -86,5 +80,4 @@ export type Actions
   | StopAction
   | ResumeAction
   | SeekFwdAction
-  | SeekRwdAction
-  | SkipAction;
+  | SeekRwdAction;

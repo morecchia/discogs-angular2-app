@@ -46,7 +46,7 @@
                             </mdl-tab-panel-title>
 
                             <mdl-tab-panel-content>
-                                <app-video-list [videos]="releaseVideos" (onVideoSelected)="onSelectedVideo($event)"></app-video-list>
+                                <app-video-list [loading]="videosLoading" [videos]="releaseVideos" (onVideoSelected)="onSelectedVideo($event)"></app-video-list>
                             </mdl-tab-panel-content>
                         </mdl-tab-panel>
 

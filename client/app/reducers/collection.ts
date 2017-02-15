@@ -20,6 +20,7 @@ export function reducer(state = initialState, action: collection.Actions): State
   switch (action.type) {
     case collection.ActionTypes.LOAD: {
       return Object.assign({}, state, {
+        releases: [],
         loading: true
       });
     }

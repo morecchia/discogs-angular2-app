@@ -23,28 +23,22 @@ export class WantlistEffects {
   loadWantlist$: Observable<Action> = this.actions$
     .ofType(wantlist.ActionTypes.LOAD)
     .startWith(new wantlist.LoadAction())
-    .mergeMap(action => {
-      return this.discogs.getListByType('wantlist', action.payload)
+    .mergeMap(action => this.discogs.getListByType('wantlist', action.payload)
         .map((wants: DiscogsWants) => new wantlist.LoadSuccessAction(wants))
-        .catch(error => of(new wantlist.LoadFailAction(error)));
-      });
+        .catch(error => of(new wantlist.LoadFailAction(error))));
 
   @Effect()
   addReleaseToWantlist$: Observable<Action> = this.actions$
     .ofType(wantlist.ActionTypes.ADD_RELEASE)
     .map((action: wantlist.AddReleaseAction) => action.payload)
-    .mergeMap(release => {
-      return Observable.empty();
-    });
+    .mergeMap(release => Observable.empty());
 
 
   @Effect()
   removeReleaseFromWantlist$: Observable<Action> = this.actions$
     .ofType(wantlist.ActionTypes.REMOVE_RELEASE)
     .map((action: wantlist.RemoveReleaseAction) => action.payload)
-    .mergeMap(release => {
-      return Observable.empty();
-    });
+    .mergeMap(release => Observable.empty());
 
   constructor(private actions$: Actions, private discogs: DiscogsService) { }
 }

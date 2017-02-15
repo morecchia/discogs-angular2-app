@@ -28,9 +28,8 @@ const initialState: State = {
 export function reducer(state = initialState, action: player.Actions): State {
   switch (action.type) {
     case player.ActionTypes.INIT: {
-      const ids = action.payload.map(v => v.id);
       return Object.assign({}, state, {
-        ids: ids
+        ids: action.payload.map(v => v.id)
       });
     }
 
