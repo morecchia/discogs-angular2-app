@@ -10,9 +10,9 @@ export const ActionTypes = {
   PLAYING:      type('[Player] Playing'),
   STOP:         type('[Player] Stop'),
   RESUME:       type('[Player] Resume'),
-  SEEK_FW:      type('[Player] Seek Forward'),
-  SEEK_RW:      type('[Player] Seek Backward'),
-  SKIP:    type('[Player] Skip'),
+  SEEK:         type('[Player] Seek'),
+  SET_VOL:      type('[Player] Set Volume'),
+  INPUT_VOL:    type('[Player] Input Volume'),
 };
 
 /**
@@ -60,16 +60,22 @@ export class ResumeAction implements Action {
   constructor(public payload = null) { }
 }
 
-export class SeekFwdAction implements Action {
-  type = ActionTypes.SEEK_FW;
+export class SeekAction implements Action {
+  type = ActionTypes.SEEK;
 
   constructor(public payload = null) { }
 }
 
-export class SeekRwdAction implements Action {
-  type = ActionTypes.SEEK_RW;
+export class VolumeInputAction implements Action {
+  type = ActionTypes.INPUT_VOL;
 
-  constructor(public payload = null) { }
+  constructor(public payload: number) { }
+}
+
+export class VolumeSetAction implements Action {
+  type = ActionTypes.SET_VOL;
+
+  constructor(public payload: number) { }
 }
 
 export type Actions
@@ -79,5 +85,4 @@ export type Actions
   | PlayAction
   | StopAction
   | ResumeAction
-  | SeekFwdAction
-  | SeekRwdAction;
+  | SeekAction;

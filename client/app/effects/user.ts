@@ -14,7 +14,7 @@ export class UserEffects {
   @Effect()
   loadUser$: Observable<Action> = this.actions$
     .ofType(user.ActionTypes.LOAD)
-    .startWith(new user.LoadAction(''))
+    .startWith(new user.LoadAction())
     .mergeMap(() =>
       this.discogs.getUser()
         .map((identity: DiscogsUser) => new user.LoadSuccessAction(identity))

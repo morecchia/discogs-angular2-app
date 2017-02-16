@@ -9,8 +9,7 @@ import { DiscogsSales } from '../../models';
 @Component({
   selector: 'app-sales',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  templateUrl: './sales.component.html',
-  styleUrls: ['./sales.component.css']
+  templateUrl: './sales.component.html'
 })
 export class SalesComponent {
   sales$: Observable<DiscogsSales>;

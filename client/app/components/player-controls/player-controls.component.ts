@@ -23,8 +23,17 @@ export class PlayerControlsComponent {
   @Input()
   playing: boolean;
 
+  @Input()
+  volume = 50;
+
   @Output()
   onVideoSkipped = new EventEmitter<YoutubeVideo>();
+
+  @Output()
+  onVolumeChanged = new EventEmitter<number>();
+
+  @Output()
+  onVolumeSet = new EventEmitter<number>();
 
   volumeVisible = false;
 
@@ -52,13 +61,15 @@ export class PlayerControlsComponent {
     }, 200);
   }
 
-  inputVolume(value) {
-    // if (this.player) {
-    //   this.player.setVolume(value);
-    // }
+  toggleVolume() {
+    this.store.dispatch(new player.VolumeInputAction(0));
   }
 
-  changeVolume(value: number) {
-    // this.localStorage.set('playerVolume', value);
+  inputVolume(value: number) {
+    this.store.dispatch(new player.VolumeInputAction(value));
+  }
+
+  setVolume(value: number) {
+    this.store.dispatch(new player.VolumeSetAction(value));
   }
 }

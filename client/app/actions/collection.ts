@@ -9,9 +9,9 @@ export const ActionTypes = {
   REMOVE_RELEASE:          type('[Collection] Remove Release'),
   REMOVE_RELEASE_SUCCESS:  type('[Collection] Remove Release Success'),
   REMOVE_RELEASE_FAIL:     type('[Collection] Remove Release Fail'),
-  LOAD:                 type('[Collection] Load'),
-  LOAD_SUCCESS:         type('[Collection] Load Success'),
-  LOAD_FAIL:            type('[Collection] Load Fail'),
+  LOAD:                    type('[Collection] Load'),
+  LOAD_SUCCESS:            type('[Collection] Load Success'),
+  LOAD_FAIL:               type('[Collection] Load Fail'),
 };
 
 /**

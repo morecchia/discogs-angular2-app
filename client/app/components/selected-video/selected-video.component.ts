@@ -26,6 +26,8 @@ export class SelectedVideoComponent {
   constructor(private store: Store<fromRoot.State>) { }
 
   onVideoSkipped(video: YoutubeVideo) {
-    this.store.dispatch(new videos.SelectedAction({video, release: this.playerRelease}));
+    if (video) {
+      this.store.dispatch(new videos.SelectedAction({video, release: this.playerRelease}));
+    }
   }
 }

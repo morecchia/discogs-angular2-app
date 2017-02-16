@@ -16,8 +16,7 @@ import { DiscogsService } from '../../services';
 @Component({
   selector: 'app-view-detail',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  templateUrl: './view-detail.component.html',
-  styleUrls: ['./view-detail.component.css']
+  templateUrl: './view-detail.component.html'
 })
 export class ViewDetailComponent implements OnDestroy {
   actionsSubscription: Subscription;

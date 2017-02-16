@@ -16,8 +16,7 @@ import { ReleaseDetailComponent } from './release-detail/release-detail.componen
 import { VideoListComponent } from './video-list/video-list.component';
 import { SelectedVideoComponent } from './selected-video/selected-video.component';
 import { PlayerControlsComponent } from './player-controls/player-controls.component';
-// import { LayoutHeaderComponent } from './layout-header/layout-header.component';
-// import { LayoutContentComponent } from './layout-content/layout-content.component';
+import { MainLayoutComponent } from './main-layout/main-layout.component';
 
 import { PipesModule } from '../pipes';
 
@@ -32,9 +31,8 @@ export const COMPONENTS = [
   ReleaseDetailComponent,
   VideoListComponent,
   SelectedVideoComponent,
-  PlayerControlsComponent
-  // LayoutHeaderComponent,
-  // LayoutContentComponent
+  PlayerControlsComponent,
+  MainLayoutComponent
 ];
 
 

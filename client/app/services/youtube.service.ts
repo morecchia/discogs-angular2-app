@@ -27,7 +27,7 @@ export function formatDuration(span: any) {
 export class YoutubeService {
   currentDuration: string;
 
-  player = YouTubePlayer('player');
+  player = YouTubePlayer('youtube-player');
   currentTimeSeconds: number = 0;
   currentTime: Observable<string>;
 

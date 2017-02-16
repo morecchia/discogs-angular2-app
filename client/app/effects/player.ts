@@ -5,8 +5,9 @@ import { Effect, Actions } from '@ngrx/effects';
 import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';
 import 'rxjs/add/operator/catch';
-import 'rxjs/add/operator/startWith';
 import 'rxjs/add/operator/mergeMap';
+
+import { LocalStorageService } from 'angular-2-local-storage';
 
 import * as moment from 'moment';
 
@@ -48,6 +49,22 @@ export class PlayerEffects {
       return of({});
     });
 
+  @Effect()
+  inputVolume$ = this.actions$
+    .ofType(player.ActionTypes.INPUT_VOL)
+    .map(action => {
+      this.youtube.player.setVolume(action.payload);
+      return of({});
+    });
+
+  @Effect()
+  setVolume$ = this.actions$
+    .ofType(player.ActionTypes.SET_VOL)
+    .map(action => {
+      this.localStorage.set('playerVolume', action.payload);
+      return of({});
+    });
+
   private _initPlayer(video: YoutubeVideo) {
     this.youtube.player.on('ready', event => {
         event.target.setVolume(50);
@@ -74,5 +91,5 @@ export class PlayerEffects {
       });
   }
 
-  constructor(private actions$: Actions, private youtube: YoutubeService) { }
+  constructor(private actions$: Actions, private youtube: YoutubeService, private localStorage: LocalStorageService) { }
 }

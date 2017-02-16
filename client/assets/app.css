@@ -104,11 +104,11 @@ body {
     cursor: pointer;
 }
 
-.player-frame {
+.youtube-frame {
     display: none;
 }
 
-.player-frame.visible {
+.youtube-frame.visible {
     display: block;
 }
 

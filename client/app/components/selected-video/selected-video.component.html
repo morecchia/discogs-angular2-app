@@ -1,43 +1,50 @@
-<div class="playing mdl-grid" *ngIf="selectedVideo">
-    <div class="mdl-layout-spacer"></div>
+<section class="player-content">
+    <div class="playing mdl-grid" *ngIf="selectedVideo">
+        <div class="mdl-layout-spacer"></div>
 
-    <div class="playing mdl-cell mdl-cell--4-col mdl-cell--2-col-phone">
-        <div class="playing playing-title-container">
-            <a class="playing-title-image" (mouseenter)="toggleImgIcon()" (mouseleave)="toggleImgIcon(true)">
-                <div *ngIf="player" (click)="togglePlayerFrame()">
-                    <img src="{{selectedVideo.snippet.thumbnails.default.url}}" alt="{{selectedVideo.snippet.title}}" />
-                    <span [ngClass]="{'visible': imageIconVisible, 'player-image-icon': true}">
-                        <i class="material-icons md-light">featured_video</i>
-                    </span>
-                </div>
-                <div *ngIf="!player" (click)="resumeVideo()">
-                    <img src="{{selectedVideo.snippet.thumbnails.default.url}}" alt="{{selectedVideo.snippet.title}}" />
-                    <span [ngClass]="{'visible': imageIconVisible, 'player-image-icon': true}">
-                        <i class="material-icons md-light">play_arrow</i>
-                    </span>
-                </div>
-            </a>
+        <div class="playing mdl-cell mdl-cell--4-col mdl-cell--2-col-phone">
+            <div class="playing playing-title-container">
+                <a class="playing-title-image" (mouseenter)="toggleImgIcon()" (mouseleave)="toggleImgIcon(true)">
+                    <div *ngIf="player" (click)="togglePlayerFrame()">
+                        <img src="{{selectedVideo.snippet.thumbnails.default.url}}" alt="{{selectedVideo.snippet.title}}" />
+                        <span [ngClass]="{'visible': imageIconVisible, 'player-image-icon': true}">
+                            <i class="material-icons md-light">featured_video</i>
+                        </span>
+                    </div>
+                    <div *ngIf="!player" (click)="resumeVideo()">
+                        <img src="{{selectedVideo.snippet.thumbnails.default.url}}" alt="{{selectedVideo.snippet.title}}" />
+                        <span [ngClass]="{'visible': imageIconVisible, 'player-image-icon': true}">
+                            <i class="material-icons md-light">play_arrow</i>
+                        </span>
+                    </div>
+                </a>
 
-            <div class="playing-title-text">
-                <div class="playing-title-placeholder mdl-cell--hide-phone">
-                    <span>Discogs release:
-                      <a [routerLink]="['/detail', playerRelease.id]">
-                        {{playerRelease.title || '...'}}
-                      </a>
-                    </span>
-                </div>
+                <div class="playing-title-text">
+                    <div class="playing-title-placeholder mdl-cell--hide-phone">
+                        <span>Discogs release:
+                            <a [routerLink]="['/detail', playerRelease.id]">
+                                {{playerRelease.title || '...'}}
+                            </a>
+                        </span>
+                    </div>
 
-                <div class="playing-title-video mdl-cell--hide-phone">
-                    <a title="{{selectedVideo.snippet.title}}" class="video-link">{{selectedVideo.snippet.title}}</a>
+                    <div class="playing-title-video mdl-cell--hide-phone">
+                        <a title="{{selectedVideo.snippet.title}}" class="video-link">{{selectedVideo.snippet.title}}</a>
+                    </div>
                 </div>
             </div>
         </div>
+
+        <div class="mdl-layout-spacer"></div>
+
+        <app-player-controls 
+            [video]="selectedVideo"
+            [nextVideo]="nextPrevVideos.next"
+            [prevVideo]="nextPrevVideos.prev"
+            [playing]="playing"
+            (onVideoSkipped)="onVideoSkipped($event)">
+        </app-player-controls>
+
+        <div class="mdl-layout-spacer"></div>
     </div>
-
-    <div class="mdl-layout-spacer"></div>
-
-    <app-player-controls [video]="selectedVideo" [nextVideo]="nextPrevVideos.next" [prevVideo]="nextPrevVideos.prev" 
-        [playing]="playing" (onVideoSkipped)="onVideoSkipped($event)"></app-player-controls>
-
-    <div class="mdl-layout-spacer"></div>
-</div>
+</section>

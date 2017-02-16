@@ -14,7 +14,7 @@ export const ActionTypes = {
 export class LoadAction implements Action {
   type = ActionTypes.LOAD;
 
-  constructor(public payload: string) { }
+  constructor(public payload = null) { }
 }
 
 export class LoadSuccessAction implements Action {
