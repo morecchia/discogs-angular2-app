@@ -5,6 +5,8 @@ import { Observable } from 'rxjs';
 
 import * as fromRoot from '../../reducers';
 import * as videos from '../../actions/videos';
+import * as player from '../../actions/player';
+
 import { DiscogsRelease, YoutubeVideo } from '../../models';
 
 @Component({
@@ -20,18 +22,18 @@ export class SelectedVideoComponent {
   playerRelease: DiscogsRelease;
 
   @Input()
+  playerTime: {formatted: string, seconds: number};
+
+  @Input()
   playing: boolean;
 
   @Input()
   nextPrevVideos: {next: YoutubeVideo, prev: YoutubeVideo};
 
-  playerTime$: Observable<{formatted: string, seconds: number}>;
-
   onVideoSkipped(video: YoutubeVideo) {
     this.store.dispatch(video && new videos.SelectedAction({video, release: this.playerRelease}));
+    this.store.dispatch(video && new player.SetTimeAction(video));
   }
 
-  constructor(private store: Store<fromRoot.State>) {
-    this.playerTime$ = this.store.select(fromRoot.getPlayerTime);
-  }
+  constructor(private store: Store<fromRoot.State>) { }
 }

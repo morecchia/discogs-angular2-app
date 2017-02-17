@@ -16,11 +16,13 @@ export class PlayerComponent {
   nextPrevVideos$: Observable<{next: YoutubeVideo, prev: YoutubeVideo}>;
   playerRelease$: Observable<DiscogsRelease>;
   playerPlaying$: Observable<boolean>;
+  playerTime$: Observable<{formatted: string, seconds: number}>;
 
   constructor(private store: Store<fromRoot.State>) {
     this.selectedVideo$ = store.select(fromRoot.getSelectedVideo);
     this.nextPrevVideos$ = store.select(fromRoot.getNextPreviousVideos);
     this.playerRelease$ = store.select(fromRoot.getPlayerRelease);
     this.playerPlaying$ = store.select(fromRoot.getPlayerPlaying);
+    this.playerTime$ = store.select(fromRoot.getPlayerTime);
   }
 }

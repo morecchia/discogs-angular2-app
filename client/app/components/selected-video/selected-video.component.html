@@ -43,7 +43,7 @@
                 [nextVideo]="nextPrevVideos.next"
                 [prevVideo]="nextPrevVideos.prev"
                 [playing]="playing"
-                [playerTime] = "playerTime$ | async"
+                [playerTime] = "playerTime"
                 (onVideoSkipped)="onVideoSkipped($event)">
             </app-player-controls>
         </div>

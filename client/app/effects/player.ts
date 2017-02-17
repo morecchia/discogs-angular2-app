@@ -31,9 +31,14 @@ export class PlayerEffects {
     .map(action => {
       this.youtube.player.loadVideoById(action.payload.video.id);
       return new player.PlayingAction(action.payload.video);
-    })
-    .mergeMap(action => this.youtube.playerTime(action.payload)
-      .map(time => new player.SetTimeAction(time))
+    });
+
+  @Effect()
+  setTime$: Observable<Action> = this.actions$
+    .ofType(player.ActionTypes.SET_TIME)
+    .mergeMap(action =>
+      this.youtube.playerTime(action.payload)
+        .map(time => new player.GetTimeAction(time))
     );
 
   @Effect()

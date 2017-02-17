@@ -25,11 +25,8 @@ export function formatDuration(span: any) {
 
 @Injectable()
 export class YoutubeService {
-  currentDuration: string;
 
   player = YouTubePlayer('youtube-player');
-  currentTimeSeconds = 0;
-  currentTime: Observable<string>;
 
   getListData(ids: string[]): Observable<any> {
     return this.http.post('/api/videos', {ids})
@@ -62,9 +59,9 @@ export class YoutubeService {
               });
             break;
           case 3:
-            this.currentTime = Observable.of(
-              formatDuration(moment.duration(this.currentTimeSeconds, 'seconds'))
-            );
+            // this.currentTime = Observable.of(
+            //   formatDuration(moment.duration(this.currentTimeSeconds, 'seconds'))
+            // );
             break;
         }
       });

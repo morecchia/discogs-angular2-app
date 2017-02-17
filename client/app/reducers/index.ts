@@ -138,16 +138,11 @@ export const getSelectedVideo = createSelector(getVideosState, fromVideos.getSel
 export const getPlayerState = (state: State) => state.player;
 
 export const getPlayerVideo = createSelector(getPlayerState, fromPlayer.getPlayerVideo);
+export const getPlayerVideos = createSelector(getPlayerState, fromPlayer.getPlayerVideos);
 export const getPlayerPlaying = createSelector(getPlayerState, fromPlayer.getPlaying);
 export const getPlayerRelease = createSelector(getPlayerState, fromPlayer.getPlayingRelease);
 export const getPlayerTime = createSelector(getPlayerState, fromPlayer.getPlayerTime);
-export const getPlayerNextId = createSelector(getPlayerState, fromPlayer.getNextVideoId);
-
-export const getNextPreviousVideos = createSelector(getPlayerState, getVideos, (playerState, videos) => {
-  const next = videos.find(v => v.id === playerState.nextId);
-  const prev = videos.find(v => v.id === playerState.prevId);
-  return {next, prev};
-});
+export const getNextPreviousVideos = createSelector(getPlayerState, fromPlayer.getPrevNextVideos);
 
 /**
  * Just like with the books selectors, we also have to compose the search

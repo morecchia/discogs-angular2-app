@@ -17,16 +17,12 @@ export class VideoEffects {
   @Effect()
   selectVideo$: Observable<Action> = this.actions$
     .ofType(videos.ActionTypes.SELECTED)
-    .map(action => {
-      return new player.PlayAction(action.payload);
-    });
+    .map(action => new player.PlayAction(action.payload));
 
   @Effect()
   loadCompleted$: Observable<Action> = this.actions$
     .ofType(videos.ActionTypes.LOAD_COMPLETE)
-    .map(action => {
-      return new player.InitAction(action.payload.items);
-    });
+    .map(action => new player.InitAction(action.payload.items));
 
   constructor(private actions$: Actions) { }
 }

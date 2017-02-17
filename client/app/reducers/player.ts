@@ -4,9 +4,8 @@ import * as player from '../actions/player';
 export interface State {
   initialized: boolean;
   playing: boolean;
-  ids: string[];
-  nextId: string | null;
-  prevId: string | null;
+  next: YoutubeVideo | null;
+  prev: YoutubeVideo | null;
   video: YoutubeVideo;
   videos: YoutubeVideo[];
   volume: number;
@@ -18,12 +17,11 @@ export interface State {
 const initialState: State = {
   initialized: false,
   playing: false,
-  ids: [],
   video: null,
   videos: [],
   release: null,
-  nextId: null,
-  prevId: null,
+  next: null,
+  prev: null,
   volume: 50,
   timeFormatted: '0:00',
   timeSeconds: 0
@@ -35,7 +33,6 @@ export function reducer(state = initialState, action: player.Actions): State {
       const videos = action.payload;
       return Object.assign({}, state, {
         videos: videos,
-        ids: videos.map(v => v.id)
       });
     }
 
@@ -48,12 +45,12 @@ export function reducer(state = initialState, action: player.Actions): State {
     }
 
     case player.ActionTypes.PLAYING: {
-      const prevNextIds = _getPrevNextIds(state.ids, action.payload);
+      const prevNextVideos = _getPrevNextVideos(state.videos, action.payload);
       return Object.assign({}, state, {
         playing: true,
         video: action.payload,
-        nextId: prevNextIds.next,
-        prevId: prevNextIds.prev
+        next: prevNextVideos.next,
+        prev: prevNextVideos.prev
       });
     }
 
@@ -69,7 +66,7 @@ export function reducer(state = initialState, action: player.Actions): State {
       });
     }
 
-    case player.ActionTypes.SET_TIME: {
+    case player.ActionTypes.GET_TIME: {
       return Object.assign({}, state, {
         timeFormatted: action.payload.formatted,
         timeSeconds: action.payload.seconds
@@ -82,12 +79,11 @@ export function reducer(state = initialState, action: player.Actions): State {
   }
 }
 
-function _getPrevNextIds(ids: string[], selectedVideo: YoutubeVideo) {
-  const currentIndex = ids.indexOf(selectedVideo.id);
-
+function _getPrevNextVideos(videos: YoutubeVideo[], selectedVideo: YoutubeVideo) {
+  const currentIndex = videos.map(v => v.id).indexOf(selectedVideo.id);
   return {
-    prev: ids[currentIndex - 1] || null,
-    next: ids[currentIndex + 1] || null
+    prev: videos[currentIndex - 1] || null,
+    next: videos[currentIndex + 1] || null
   };
 }
 
@@ -100,6 +96,8 @@ function _getPrevNextIds(ids: string[], selectedVideo: YoutubeVideo) {
  * use-case.
  */
 
+export const getPlayerInitialized = (state: State) => state.initialized;
+
 export const getPlaying = (state: State) => state.playing;
 
 export const getPlayingRelease = (state: State) => state.release;
@@ -108,8 +106,6 @@ export const getPlayerVideo = (state: State) => state.video;
 
 export const getPlayerVideos = (state: State) => state.videos;
 
-export const getPlayerIds = (state: State) => state.ids;
-
 export const getPlayerTime = (state: State) => {
   return {
     formatted: state.timeFormatted,
@@ -117,6 +113,9 @@ export const getPlayerTime = (state: State) => {
   };
 };
 
-export const getNextVideoId = (state: State) => state.nextId;
-
-export const getPlayerInitialized = (state: State) => state.initialized;
+export const getPrevNextVideos = (state: State) => {
+  return {
+    prev: state.prev,
+    next: state.next
+  };
+};
