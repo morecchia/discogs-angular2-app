@@ -6,6 +6,7 @@ import { Observable, Subscription } from 'rxjs';
 
 import * as fromRoot from '../../reducers';
 import * as videos from '../../actions/videos';
+import * as player from '../../actions/player';
 
 import { YoutubeService} from '../../services';
 
@@ -26,7 +27,9 @@ export class ReleaseDetailComponent implements OnDestroy {
   @Input()
   videosLoading: boolean;
 
-  constructor(private store: Store<fromRoot.State>) { }
+  currentTime$: Observable<string>;
+
+  constructor(private store: Store<fromRoot.State>, private youtube: YoutubeService) { }
 
   onSelectedVideo(video: YoutubeVideo) {
     this.store.dispatch(new videos.SelectedAction({video, release: this.release}));

@@ -13,7 +13,7 @@ import * as moment from 'moment';
 
 import * as player from '../actions/player';
 import { YoutubeService, formatDuration } from '../services/youtube.service';
-import { YoutubeVideo  } from '../models';
+import { YoutubeVideo } from '../models';
 
 @Injectable()
 export class PlayerEffects {
@@ -21,7 +21,7 @@ export class PlayerEffects {
   initPlayer$: Observable<Action> = this.actions$
     .ofType(player.ActionTypes.INIT)
     .map(action => {
-      this._initPlayer(action.payload);
+      this.youtube.initPlayer(action.payload);
       return new player.InitSuccessAction(action.payload);
     });
 
@@ -31,7 +31,10 @@ export class PlayerEffects {
     .map(action => {
       this.youtube.player.loadVideoById(action.payload.video.id);
       return new player.PlayingAction(action.payload.video);
-    });
+    })
+    .mergeMap(action => this.youtube.playerTime(action.payload)
+      .map(time => new player.SetTimeAction(time))
+    );
 
   @Effect()
   stopVideo$ = this.actions$
@@ -64,32 +67,6 @@ export class PlayerEffects {
       this.localStorage.set('playerVolume', action.payload);
       return of({});
     });
-
-  private _initPlayer(video: YoutubeVideo) {
-    this.youtube.player.on('ready', event => {
-        event.target.setVolume(50);
-        // this.currentTime = this._timer(this._currentDuration);
-      });
-
-      this.youtube.player.on('stateChange', event => {
-        switch (event.data) {
-          case 0:
-            this.youtube.tryNextVideo();
-            break;
-          case 1:
-            this.youtube.player.getCurrentTime()
-              .then(time => {
-                this.youtube.currentTime = this.youtube.timer(this.youtube.currentDuration, time);
-              });
-            break;
-          case 3:
-            this.youtube.currentTime = Observable.of(
-              formatDuration(moment.duration(this.youtube.currentTimeSeconds, 'seconds'))
-            );
-            break;
-        }
-      });
-  }
 
   constructor(private actions$: Actions, private youtube: YoutubeService, private localStorage: LocalStorageService) { }
 }

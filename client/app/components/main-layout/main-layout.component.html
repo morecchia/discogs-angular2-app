@@ -39,7 +39,7 @@
         </nav>
     </mdl-layout-drawer>
 
-    <mdl-layout-content [ngClass]="{'active-video': activeVideo}">
+    <mdl-layout-content [ngClass]="{'video-selected': videoSelected}">
         <router-outlet></router-outlet>
 
         <section class="player-content">

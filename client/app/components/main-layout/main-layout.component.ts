@@ -10,6 +10,10 @@ import { DiscogsUser } from '../../models';
 export class MainLayoutComponent {
     @Input()
     user: DiscogsUser;
+
+    @Input()
+    videoSelected: boolean;
+
     title = 'Discogs Player';
 
 }

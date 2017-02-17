@@ -140,6 +140,8 @@ export const getPlayerState = (state: State) => state.player;
 export const getPlayerVideo = createSelector(getPlayerState, fromPlayer.getPlayerVideo);
 export const getPlayerPlaying = createSelector(getPlayerState, fromPlayer.getPlaying);
 export const getPlayerRelease = createSelector(getPlayerState, fromPlayer.getPlayingRelease);
+export const getPlayerTime = createSelector(getPlayerState, fromPlayer.getPlayerTime);
+export const getPlayerNextId = createSelector(getPlayerState, fromPlayer.getNextVideoId);
 
 export const getNextPreviousVideos = createSelector(getPlayerState, getVideos, (playerState, videos) => {
   const next = videos.find(v => v.id === playerState.nextId);

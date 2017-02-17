@@ -13,6 +13,7 @@ export const ActionTypes = {
   SEEK:         type('[Player] Seek'),
   SET_VOL:      type('[Player] Set Volume'),
   INPUT_VOL:    type('[Player] Input Volume'),
+  SET_TIME:     type('[Player] Set Time')
 };
 
 /**
@@ -78,6 +79,12 @@ export class VolumeSetAction implements Action {
   constructor(public payload: number) { }
 }
 
+export class SetTimeAction implements Action {
+  type = ActionTypes.SET_TIME;
+
+  constructor(public payload: {formatted: string, seconds: number}) { }
+}
+
 export type Actions
   = InitAction
   | InitSuccessAction
@@ -85,4 +92,5 @@ export type Actions
   | PlayAction
   | StopAction
   | ResumeAction
-  | SeekAction;
+  | SeekAction
+  | SetTimeAction;

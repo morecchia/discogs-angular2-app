@@ -31,11 +31,6 @@
     position: absolute;
 }
 
-
-.player-controls {
-    margin: 0 8px;
-}
-
 .player-transport {
     width: 140px;
     margin: 0 auto;
@@ -59,15 +54,11 @@
 }
 
 .volume-slider.visible,
-.playing-title-image .player-image-icon.visible,
-.playing-title-text .playing-title-video,
-.playing-title-text .playing-title-placeholder span,
 .volume-slider .volume-label {
     display: block;
 }
 
-.volume-slider,
-.playing-title-image .player-image-icon {
+.volume-slider {
     display: none;
 }
 

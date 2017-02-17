@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-
+import { FormsModule } from '@angular/forms';
 import { MdlModule } from 'angular2-mdl';
 import { Ng2PaginationModule } from 'ng2-pagination';
 
@@ -40,6 +40,7 @@ export const COMPONENTS = [
   imports: [
     CommonModule,
     RouterModule,
+    FormsModule,
     PipesModule,
     MdlModule,
     Ng2PaginationModule

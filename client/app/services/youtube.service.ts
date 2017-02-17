@@ -8,7 +8,7 @@ import { LocalStorageService } from 'angular-2-local-storage';
 import * as YouTubePlayer from 'youtube-player';
 
 import { DiscogsService } from './discogs.service';
-import { YoutubeResponse, Video } from '../models';
+import { YoutubeResponse, YoutubeVideo, Video } from '../models';
 
 import * as moment from 'moment';
 
@@ -28,7 +28,7 @@ export class YoutubeService {
   currentDuration: string;
 
   player = YouTubePlayer('youtube-player');
-  currentTimeSeconds: number = 0;
+  currentTimeSeconds = 0;
   currentTime: Observable<string>;
 
   getListData(ids: string[]): Observable<any> {
@@ -40,57 +40,59 @@ export class YoutubeService {
     return url.match(YT_REGEXES[0])[1] || url.match(YT_REGEXES[1])[1];
   }
 
-  publishVideos(videos: any) {
-  }
-
   setActiveVideo(video: any) {
     this.localStorage.set('activeVideo', video);
   }
 
-  playAll(release: any, callback: (video: any) => void) {
-    if (!release) {
-      return;
-    }
+  initPlayer(video: YoutubeVideo) {
+    this.player.on('ready', event => {
+        event.target.setVolume(50);
+        // this.currentTime = this.timer(this.currentDuration);
+      });
 
-    this.discogs.getRelease(release.id)
-      .mergeMap(response => {
-        const videoList = response.json().videos;
-        const urls = videoList
-          ? videoList.map(v => this.getIdFromUrl(v.uri)) : [];
-        return this.getListData(urls);
-      })
-      .subscribe(response => {
-        const videos = response.json().items;
-        this.publishVideos({releaseInfo: release, items: videos});
-
-        const video = videos[0];
-
-        if (video) {
-          video.discogsId = release.id;
-          video.discogsTitle = release.title || release.basic_information.title;
-
-          this.setActiveVideo(video);
+      this.player.on('stateChange', event => {
+        switch (event.data) {
+          case 0:
+            this.tryNextVideo();
+            break;
+          case 1:
+            this.player.getCurrentTime()
+              .then(time => {
+                // this.currentTime = this.timer(this.currentDuration, time);
+              });
+            break;
+          case 3:
+            this.currentTime = Observable.of(
+              formatDuration(moment.duration(this.currentTimeSeconds, 'seconds'))
+            );
+            break;
         }
-
-        callback(video);
       });
   }
 
-  timer(duration: string, startTime = 0) {
-    const startWithTime = formatDuration(moment.duration(startTime, 'seconds'));
-    const trackDuration = moment.duration(duration).asMilliseconds() + 1000;
+  playerTime(video: YoutubeVideo, startTime = 0) {
+    const startSpan = moment.duration(startTime, 'seconds');
+    const trackDuration = moment
+      .duration(video && video.contentDetails.duration)
+      .asMilliseconds() + 1000;
+
     return Observable.timer(0, 1000)
       .takeUntil(Observable.timer(trackDuration))
       .map(t => {
         const span = moment.duration(startTime + t, 'seconds');
-        this.currentTimeSeconds = span.asSeconds();
-        return formatDuration(span);
+        return {
+          formatted: formatDuration(span),
+          seconds: span.asSeconds()
+        };
       })
-      .startWith(startWithTime);
+      .startWith({
+        formatted: formatDuration(startSpan),
+        seconds: startSpan.asSeconds()
+      });
   }
 
   tryNextVideo() {
-    this.currentTime = this.timer(this.currentDuration);
+    // this.currentTime = this.timer(this.currentDuration);
   }
 
   private _selectVideo(video: any) {

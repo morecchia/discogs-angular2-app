@@ -12,8 +12,11 @@ import { DiscogsUser } from '../../models';
 })
 export class AppComponent {
   user$: Observable<DiscogsUser>;
+  videoSelected$: Observable<boolean>;
 
   constructor(private store: Store<fromRoot.State>) {
     this.user$ = store.select(fromRoot.getUser);
+    this.videoSelected$ = store.select(fromRoot.getSelectedVideo)
+      .map(video => video !== null);
   }
 }

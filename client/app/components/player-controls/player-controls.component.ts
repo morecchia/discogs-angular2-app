@@ -1,8 +1,12 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Store } from '@ngrx/store';
 
+import * as moment from 'moment';
+
 import * as fromRoot from '../../reducers';
 import * as player from '../../actions/player';
+
+import { YoutubeService } from '../../services';
 import { YoutubeVideo } from '../../models';
 
 @Component({
@@ -24,6 +28,9 @@ export class PlayerControlsComponent {
   playing: boolean;
 
   @Input()
+  playerTime: {formatted: string, seconds: number};
+
+  @Input()
   volume = 50;
 
   @Output()
@@ -35,9 +42,13 @@ export class PlayerControlsComponent {
   @Output()
   onVolumeSet = new EventEmitter<number>();
 
+  get videoDurationSeconds() {
+    return moment.duration(this.video.contentDetails.duration, 'seconds').asSeconds();
+  }
+
   volumeVisible = false;
 
-  constructor(private store: Store<fromRoot.State>) { }
+  constructor(private store: Store<fromRoot.State>, private youtube: YoutubeService) { }
 
   pauseVideo() {
     this.store.dispatch(new player.StopAction());

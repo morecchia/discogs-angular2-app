@@ -10,7 +10,8 @@ export interface State {
   video: YoutubeVideo;
   volume: number;
   release: DiscogsRelease;
-  currentTime: number;
+  timeFormatted: string;
+  timeSeconds: number;
 };
 
 const initialState: State = {
@@ -22,7 +23,8 @@ const initialState: State = {
   nextId: null,
   prevId: null,
   volume: 50,
-  currentTime: 0
+  timeFormatted: '0:00',
+  timeSeconds: 0
 };
 
 export function reducer(state = initialState, action: player.Actions): State {
@@ -63,6 +65,13 @@ export function reducer(state = initialState, action: player.Actions): State {
       });
     }
 
+    case player.ActionTypes.SET_TIME: {
+      return Object.assign({}, state, {
+        timeFormatted: action.payload.formatted,
+        timeSeconds: action.payload.seconds
+      });
+    }
+
     default: {
       return state;
     }
@@ -92,5 +101,14 @@ export const getPlaying = (state: State) => state.playing;
 export const getPlayingRelease = (state: State) => state.release;
 
 export const getPlayerVideo = (state: State) => state.video;
+
+export const getPlayerTime = (state: State) => {
+  return {
+    formatted: state.timeFormatted,
+    seconds: state.timeSeconds
+  };
+};
+
+export const getNextVideoId = (state: State) => state.nextId;
 
 export const getPlayerInitialized = (state: State) => state.initialized;

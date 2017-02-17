@@ -85,3 +85,7 @@ section.player-content {
 .playing-title-image .player-image-icon {
     display: none;
 }
+
+.player-controls {
+    margin: 0 8px;
+}

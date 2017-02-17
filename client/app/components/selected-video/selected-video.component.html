@@ -36,14 +36,17 @@
         </div>
 
         <div class="mdl-layout-spacer"></div>
-
-        <app-player-controls 
-            [video]="selectedVideo"
-            [nextVideo]="nextPrevVideos.next"
-            [prevVideo]="nextPrevVideos.prev"
-            [playing]="playing"
-            (onVideoSkipped)="onVideoSkipped($event)">
-        </app-player-controls>
+        
+        <div class="mdl-cell mdl-cell--6-col mdl-cell--4-col-tablet mdl-cell--2-col-phone player-controls">
+            <app-player-controls 
+                [video]="selectedVideo"
+                [nextVideo]="nextPrevVideos.next"
+                [prevVideo]="nextPrevVideos.prev"
+                [playing]="playing"
+                [playerTime] = "playerTime$ | async"
+                (onVideoSkipped)="onVideoSkipped($event)">
+            </app-player-controls>
+        </div>
 
         <div class="mdl-layout-spacer"></div>
     </div>

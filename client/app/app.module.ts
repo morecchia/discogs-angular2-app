@@ -1,7 +1,6 @@
 // core
 import { BrowserModule, Title } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule, Routes } from '@angular/router';
 import { StoreModule } from '@ngrx/store';
@@ -32,7 +31,6 @@ import { DiscogsService, YoutubeService, WindowRef } from './services';
   ],
   imports: [
     BrowserModule,
-    FormsModule,
     HttpModule,
     RouterModule.forRoot(AppRoutes),
     MdlModule,
