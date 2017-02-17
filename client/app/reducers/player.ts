@@ -8,6 +8,7 @@ export interface State {
   nextId: string | null;
   prevId: string | null;
   video: YoutubeVideo;
+  videos: YoutubeVideo[];
   volume: number;
   release: DiscogsRelease;
   timeFormatted: string;
@@ -19,6 +20,7 @@ const initialState: State = {
   playing: false,
   ids: [],
   video: null,
+  videos: [],
   release: null,
   nextId: null,
   prevId: null,
@@ -30,8 +32,10 @@ const initialState: State = {
 export function reducer(state = initialState, action: player.Actions): State {
   switch (action.type) {
     case player.ActionTypes.INIT: {
+      const videos = action.payload;
       return Object.assign({}, state, {
-        ids: action.payload.map(v => v.id)
+        videos: videos,
+        ids: videos.map(v => v.id)
       });
     }
 
@@ -101,6 +105,10 @@ export const getPlaying = (state: State) => state.playing;
 export const getPlayingRelease = (state: State) => state.release;
 
 export const getPlayerVideo = (state: State) => state.video;
+
+export const getPlayerVideos = (state: State) => state.videos;
+
+export const getPlayerIds = (state: State) => state.ids;
 
 export const getPlayerTime = (state: State) => {
   return {
