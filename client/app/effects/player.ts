@@ -36,7 +36,7 @@ export class PlayerEffects {
   @Effect()
   setTime$: Observable<Action> = this.actions$
     .ofType(player.ActionTypes.SET_TIME)
-    .mergeMap(action =>
+    .switchMap(action =>
       this.youtube.playerTime(action.payload)
         .map(time => new player.GetTimeAction(time))
     );
