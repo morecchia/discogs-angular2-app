@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Action } from '@ngrx/store';
+import { Action, Store } from '@ngrx/store';
 import { Effect, Actions } from '@ngrx/effects';
 
 import { Observable } from 'rxjs/Observable';
@@ -12,6 +12,10 @@ import { LocalStorageService } from 'angular-2-local-storage';
 import * as moment from 'moment';
 
 import * as player from '../actions/player';
+import * as videos from '../actions/videos';
+
+import * as fromPlayer from '../reducers';
+
 import { YoutubeService, formatDuration } from '../services/youtube.service';
 import { YoutubeVideo } from '../models';
 
@@ -31,6 +35,18 @@ export class PlayerEffects {
     .map(action => {
       this.youtube.player.loadVideoById(action.payload.video.id);
       return new player.PlayingAction(action.payload.video);
+    });
+
+  @Effect()
+  playNext$ = this.actions$
+    .ofType(player.ActionTypes.PLAY_NEXT)
+    .withLatestFrom(this.store, (action, state) => state.player)
+    .map(player => {
+      this.youtube.player.loadVideoById(player.next.id);
+      return new videos.SelectedAction({
+        video: player.next,
+        release: player.release
+      });
     });
 
   @Effect()
@@ -73,5 +89,6 @@ export class PlayerEffects {
       return of({});
     });
 
-  constructor(private actions$: Actions, private youtube: YoutubeService, private localStorage: LocalStorageService) { }
+  constructor(private actions$: Actions, private store: Store<fromPlayer.State>,
+    private youtube: YoutubeService, private localStorage: LocalStorageService) { }
 }

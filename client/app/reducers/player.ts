@@ -6,7 +6,7 @@ export interface State {
   playing: boolean;
   next: YoutubeVideo | null;
   prev: YoutubeVideo | null;
-  video: YoutubeVideo;
+  current: YoutubeVideo;
   videos: YoutubeVideo[];
   volume: number;
   release: DiscogsRelease;
@@ -17,7 +17,7 @@ export interface State {
 const initialState: State = {
   initialized: false,
   playing: false,
-  video: null,
+  current: null,
   videos: [],
   release: null,
   next: null,
@@ -39,7 +39,7 @@ export function reducer(state = initialState, action: player.Actions): State {
     case player.ActionTypes.PLAY: {
       return Object.assign({}, state, {
         initialized: true,
-        video: action.payload.video,
+        current: action.payload.video,
         release: action.payload.release
       });
     }
@@ -48,7 +48,7 @@ export function reducer(state = initialState, action: player.Actions): State {
       const prevNextVideos = _getPrevNextVideos(state.videos, action.payload);
       return Object.assign({}, state, {
         playing: true,
-        video: action.payload,
+        current: action.payload,
         next: prevNextVideos.next,
         prev: prevNextVideos.prev
       });
@@ -102,7 +102,7 @@ export const getPlaying = (state: State) => state.playing;
 
 export const getPlayingRelease = (state: State) => state.release;
 
-export const getPlayerVideo = (state: State) => state.video;
+export const getPlayerVideo = (state: State) => state.current;
 
 export const getPlayerVideos = (state: State) => state.videos;
 

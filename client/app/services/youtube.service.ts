@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
+import { Store } from '@ngrx/store';
 
 import { Observable, Subject } from 'rxjs';
 
@@ -7,15 +8,26 @@ import { LocalStorageService } from 'angular-2-local-storage';
 
 import * as YouTubePlayer from 'youtube-player';
 
+import * as fromRoot from '../reducers';
+import * as player from '../actions/player';
+
 import { DiscogsService } from './discogs.service';
 import { YoutubeResponse, YoutubeVideo, Video } from '../models';
 
 import * as moment from 'moment';
 
-const YT_REGEXES = [
+export const YT_REGEXES = [
   /https?:\/\/(?:www\.)?youtube\.com\/.*?v=(.*)$/,
   /https?:\/\/youtu\.be\/(.*)/
 ];
+
+export enum YTPLAYER_STATE {
+  ENDED = 0,
+  PLAYING = 1,
+  PAUSED = 2,
+  BUFFERING = 3,
+  CUED = 5
+}
 
 export function formatDuration(span: any) {
   const spanSeconds = span.seconds();
@@ -44,24 +56,16 @@ export class YoutubeService {
   initPlayer(video: YoutubeVideo) {
     this.player.on('ready', event => {
         event.target.setVolume(50);
-        // this.currentTime = this.timer(this.currentDuration);
       });
 
       this.player.on('stateChange', event => {
         switch (event.data) {
-          case 0:
-            this.tryNextVideo();
+          case YTPLAYER_STATE.ENDED:
+            this.store.dispatch(new player.PlayNextAction());
             break;
-          case 1:
-            this.player.getCurrentTime()
-              .then(time => {
-                // this.currentTime = this.timer(this.currentDuration, time);
-              });
+          case YTPLAYER_STATE.PLAYING:
             break;
-          case 3:
-            // this.currentTime = Observable.of(
-            //   formatDuration(moment.duration(this.currentTimeSeconds, 'seconds'))
-            // );
+          case YTPLAYER_STATE.BUFFERING:
             break;
         }
       });
@@ -88,15 +92,6 @@ export class YoutubeService {
       });
   }
 
-  tryNextVideo() {
-    // this.currentTime = this.timer(this.currentDuration);
-  }
-
-  private _selectVideo(video: any) {
-    this.player.loadVideoById(video.id);
-    this.setActiveVideo(video);
-  }
-
   constructor(private http: Http, private discogs: DiscogsService,
-    private localStorage: LocalStorageService) { }
+    private localStorage: LocalStorageService, private store: Store<fromRoot.State>) { }
 }
