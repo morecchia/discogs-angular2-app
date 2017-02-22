@@ -31,8 +31,9 @@ export class SelectedVideoComponent {
   nextPrevVideos: {next: YoutubeVideo, prev: YoutubeVideo};
 
   onVideoSkipped(video: YoutubeVideo) {
-    this.store.dispatch(video && new videos.SelectedAction({video, release: this.playerRelease}));
-    this.store.dispatch(video && new player.SetTimeAction(video));
+    if (video) {
+      this.store.dispatch(new videos.SelectedAction({video, release: this.playerRelease}));
+    }
   }
 
   constructor(private store: Store<fromRoot.State>) { }

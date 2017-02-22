@@ -61,34 +61,35 @@ export class YoutubeService {
       this.player.on('stateChange', event => {
         switch (event.data) {
           case YTPLAYER_STATE.ENDED:
+            console.log('Youtube: ended');
             this.store.dispatch(new player.PlayNextAction());
             break;
           case YTPLAYER_STATE.PLAYING:
+            console.log('Youtube: playing');
             break;
           case YTPLAYER_STATE.BUFFERING:
+            console.log('Youtube: buffering');
             break;
         }
       });
   }
 
   playerTime(video: YoutubeVideo, startTime = 0) {
+    console.log(`Timer setting to ${startTime} seconds`);
+    const ms = startTime * 1000;
     const startSpan = moment.duration(startTime, 'seconds');
     const trackDuration = moment
       .duration(video && video.contentDetails.duration)
-      .asMilliseconds() + 1000;
+      .asMilliseconds();
 
-    return Observable.timer(0, 1000)
-      .takeUntil(Observable.timer(trackDuration))
+    return Observable
+      .timer(0, 1000)
       .map(t => {
         const span = moment.duration(startTime + t, 'seconds');
         return {
           formatted: formatDuration(span),
           seconds: span.asSeconds()
         };
-      })
-      .startWith({
-        formatted: formatDuration(startSpan),
-        seconds: startSpan.asSeconds()
       });
   }
 

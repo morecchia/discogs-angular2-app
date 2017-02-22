@@ -80,7 +80,7 @@ export function reducer(state = initialState, action: player.Actions): State {
 }
 
 function _getPrevNextVideos(videos: YoutubeVideo[], selectedVideo: YoutubeVideo) {
-  const currentIndex = videos.map(v => v.id).indexOf(selectedVideo.id);
+  const currentIndex = videos.map(v => v.id).indexOf(selectedVideo && selectedVideo.id);
   return {
     prev: videos[currentIndex - 1] || null,
     next: videos[currentIndex + 1] || null

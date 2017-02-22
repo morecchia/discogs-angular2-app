@@ -72,7 +72,7 @@ export class ResumeAction implements Action {
 export class SeekAction implements Action {
   type = ActionTypes.SEEK;
 
-  constructor(public payload = null) { }
+  constructor(public payload: {video: YoutubeVideo, time: number}) { }
 }
 
 export class VolumeInputAction implements Action {
@@ -96,7 +96,7 @@ export class GetTimeAction implements Action {
 export class SetTimeAction implements Action {
   type = ActionTypes.SET_TIME;
 
-  constructor(public payload: YoutubeVideo) { }
+  constructor(public payload: {video: YoutubeVideo, time: number}) { }
 }
 
 export type Actions

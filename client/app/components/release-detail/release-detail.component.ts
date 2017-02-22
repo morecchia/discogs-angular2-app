@@ -31,7 +31,6 @@ export class ReleaseDetailComponent implements OnDestroy {
 
   onSelectedVideo(video: YoutubeVideo) {
     this.store.dispatch(new videos.SelectedAction({video, release: this.release}));
-    this.store.dispatch(new player.SetTimeAction(video));
   }
 
   ngOnDestroy() {

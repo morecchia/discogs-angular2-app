@@ -5,7 +5,7 @@ import { Effect, Actions } from '@ngrx/effects';
 import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';
 import 'rxjs/add/operator/catch';
-import 'rxjs/add/operator/mergeMap';
+import 'rxjs/add/operator/switchMap';
 
 import { LocalStorageService } from 'angular-2-local-storage';
 
@@ -33,27 +33,31 @@ export class PlayerEffects {
   playVideo$: Observable<Action> = this.actions$
     .ofType(player.ActionTypes.PLAY)
     .map(action => {
-      this.youtube.player.loadVideoById(action.payload.video.id);
+      this.youtube.player.loadVideoById(action.payload.video && action.payload.video.id);
       return new player.PlayingAction(action.payload.video);
     });
 
   @Effect()
-  playNext$ = this.actions$
+  playNext$: Observable<Action> = this.actions$
     .ofType(player.ActionTypes.PLAY_NEXT)
     .withLatestFrom(this.store, (action, state) => state.player)
-    .map(player => {
-      this.youtube.player.loadVideoById(player.next.id);
-      return new videos.SelectedAction({
-        video: player.next,
-        release: player.release
-      });
+    .map(state =>
+      new videos.SelectedAction({video: state.next, release: state.release})
+    );
+
+  @Effect()
+  seekTo$: Observable<Action> = this.actions$
+    .ofType(player.ActionTypes.SEEK)
+    .map(action => {
+      this.youtube.player.seekTo(action.payload.time);
+      return new player.SetTimeAction(action.payload);
     });
 
   @Effect()
   setTime$: Observable<Action> = this.actions$
     .ofType(player.ActionTypes.SET_TIME)
     .switchMap(action =>
-      this.youtube.playerTime(action.payload)
+      this.youtube.playerTime(action.payload.video, action.payload.time)
         .map(time => new player.GetTimeAction(time))
     );
 

@@ -3,6 +3,7 @@ import { Action } from '@ngrx/store';
 import { Effect, Actions } from '@ngrx/effects';
 
 import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/mergeMap';
 
 import * as moment from 'moment';
 
@@ -17,7 +18,10 @@ export class VideoEffects {
   @Effect()
   selectVideo$: Observable<Action> = this.actions$
     .ofType(videos.ActionTypes.SELECTED)
-    .map(action => new player.PlayAction(action.payload));
+    .mergeMap(action => [
+      new player.PlayAction(action.payload),
+      new player.SetTimeAction({video: action.payload.video, time: 0})
+    ]);
 
   @Effect()
   loadCompleted$: Observable<Action> = this.actions$

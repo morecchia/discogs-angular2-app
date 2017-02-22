@@ -66,6 +66,10 @@ export class PlayerControlsComponent {
     this.onVideoSkipped.emit(this.prevVideo);
   }
 
+  seekTo(value: number) {
+    this.store.dispatch(new player.SeekAction({video: this.video, time: value}));
+  }
+
   toggleVolumeVisibility(hidden = false) {
     setTimeout(() => {
       this.volumeVisible = !hidden;
@@ -78,9 +82,5 @@ export class PlayerControlsComponent {
 
   inputVolume(value: number) {
     this.store.dispatch(new player.VolumeInputAction(value));
-  }
-
-  setVolume(value: number) {
-    this.store.dispatch(new player.VolumeSetAction(value));
   }
 }
