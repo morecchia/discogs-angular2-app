@@ -27,7 +27,9 @@ import { DiscogsService, YoutubeService, WindowRef } from './services';
     containers.SalesComponent,
     containers.SelectedDetailComponent,
     containers.ViewDetailComponent,
-    containers.PlayerComponent
+    containers.PlayerComponent,
+    containers.SearchComponent,
+    containers.SearchResultsComponent
   ],
   imports: [
     BrowserModule,
@@ -44,6 +46,7 @@ import { DiscogsService, YoutubeService, WindowRef } from './services';
     EffectsModule.run(effects.CollectionEffects),
     EffectsModule.run(effects.WantlistEffects),
     EffectsModule.run(effects.SalesEffects),
+    EffectsModule.run(effects.SearchEffects),
     EffectsModule.run(effects.UserEffects),
     EffectsModule.run(effects.PlayerEffects),
     EffectsModule.run(effects.VideoEffects),

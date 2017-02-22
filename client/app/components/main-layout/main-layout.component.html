@@ -9,19 +9,25 @@
             <mdl-layout-spacer></mdl-layout-spacer>
 
             <nav class="mdl-navigation">
-                <a class="mdl-navigation__link" routerLink="/discogs/wantlist"><span mdl-badge-no-background mdl-badge="{{user.num_wantlist}}">Wantlist</span></a>
-                <a class="mdl-navigation__link" routerLink="/discogs/collection"><span mdl-badge-no-background mdl-badge="{{user.num_collection}}">Collection</span></a>
-                <a class="mdl-navigation__link" routerLink="/discogs/sales"><span mdl-badge-no-background mdl-badge="{{user.num_for_sale}}">Sales</span></a>
-
+                <a [ngClass]="{'hidden': searchVisible, 'mdl-navigation__link': true}" routerLink="/discogs/wantlist">
+                    <span mdl-badge-no-background mdl-badge="{{user.num_wantlist}}">Wantlist</span>
+                </a>
+                <a [ngClass]="{'hidden': searchVisible, 'mdl-navigation__link': true}" routerLink="/discogs/collection">
+                    <span mdl-badge-no-background mdl-badge="{{user.num_collection}}">Collection</span>
+                </a>
+                <a [ngClass]="{'hidden': searchVisible, 'mdl-navigation__link': true}" routerLink="/discogs/sales">
+                    <span mdl-badge-no-background mdl-badge="{{user.num_for_sale}}">Sales</span>
+                </a>
+                
                 <span class="spacer-horz"></span>
 
                 <button (click)="toggleSearch()" class="mdl-navigation__link toggle-search" mdl-button mdl-button-type="icon">
-              <i class="material-icons">search</i>
-            </button>
+                    <i class="material-icons">search</i>
+                </button>
             </nav>
 
-            <div *ngIf="searchVisible" class="search-container">
-                <app-search-box></app-search-box>
+            <div [ngClass]="{'hidden': !searchVisible, 'search-container': true}">
+                <app-search-box (onSearch)="onSearch($event)"></app-search-box>
             </div>
         </mdl-layout-header-row>
     </mdl-layout-header>

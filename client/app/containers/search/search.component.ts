@@ -8,20 +8,20 @@ import 'rxjs/add/operator/map';
 import { Subscription } from 'rxjs/Subscription';
 
 import * as fromRoot from '../../reducers';
-import * as release from '../../actions/release';
+import * as search from '../../actions/search';
 
 @Component({
-  selector: 'app-view-detail',
+  selector: 'app-search',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  templateUrl: './view-detail.component.html'
+  templateUrl: './search.component.html'
 })
-export class ViewDetailComponent implements OnDestroy {
+export class SearchComponent implements OnDestroy {
   actionsSubscription: Subscription;
 
   constructor(store: Store<fromRoot.State>, private route: ActivatedRoute) {
     this.actionsSubscription = route.params
-      .select<string>('id')
-      .map(id => new release.LoadAction(id))
+      .select<string>('q')
+      .map(q => new search.LoadResultsAction(q))
       .subscribe(store);
   }
 

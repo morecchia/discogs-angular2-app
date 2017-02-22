@@ -20,3 +20,21 @@
         </span>
     </li>
 </ul>-->
+<!--<div class="pagination-wrapper">
+    <pagination-controls (pageChange)="getPage($event)"></pagination-controls>
+</div>
+<hr>
+
+<ul *ngIf="searchResults" class="mdl-list">
+    <div *ngIf="!searchResults.results.length" class="progress progress-list">
+        <mdl-spinner single-color [active]="!searchResults.results.length"></mdl-spinner>
+    </div>
+
+    <app-search-preview *ngFor="let result of search.results | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage, totalItems: totalItems }"
+        [results]="results"></app-search-preview>
+</ul>
+
+<hr *ngIf="searchResults && searchResults.results.length">
+<div *ngIf="searchResults && searchResults.results.length" class="pagination-wrapper ">
+    <pagination-controls (pageChange)="getPage($event) "></pagination-controls>
+</div>-->

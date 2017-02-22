@@ -28,6 +28,11 @@
     box-shadow: none;
 }
 
+.mdl-navigation.hidden,
+.search-container.hidden {
+    display: none;
+}
+
 @media (max-width: 600px) {
     .search-container {
         display: none;

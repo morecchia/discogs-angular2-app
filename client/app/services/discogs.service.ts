@@ -66,11 +66,10 @@ export class DiscogsService {
     return this.http.get(`/api/wantlistids?want_count=${length}`);
   }
 
-  // searchReleases(term: string, page = 1): Observable<models.DiscogsSearch> {
-  //   this._activeTerm = term;
-  //   return this.http.get(`/api/search/releases/${term}/${page}`)
-  //     .map(response => response.json());
-  // }
+  searchReleases(term: string, page = 1): Observable<models.DiscogsSearch> {
+    return this.http.get(`/api/search/releases/${term}/${page}`)
+      .map(response => response.json());
+  }
 
   getUser(): Observable<models.DiscogsUser> {
     return this.http.get(`/api/user`)

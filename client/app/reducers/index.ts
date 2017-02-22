@@ -41,6 +41,7 @@ import * as fromRelease from './release';
 import * as fromVideos from './videos';
 import * as fromPlayer from './player';
 import * as fromCollection from './collection';
+import * as fromSearch from './search';
 import * as fromSales from './sales';
 import * as fromWantlist from './wantlist';
 import * as fromUser from './user';
@@ -57,11 +58,11 @@ export interface State {
   player: fromPlayer.State;
   collection: fromCollection.State;
   wantlist: fromWantlist.State;
+  search: fromSearch.State;
   sales: fromSales.State;
   user: fromUser.State;
   router: fromRouter.RouterState;
   // layout: fromLayout.State;
-  // search: fromSearch.State;
 }
 
 /**
@@ -144,24 +145,12 @@ export const getPlayerRelease = createSelector(getPlayerState, fromPlayer.getPla
 export const getPlayerTime = createSelector(getPlayerState, fromPlayer.getPlayerTime);
 export const getNextPreviousVideos = createSelector(getPlayerState, fromPlayer.getPrevNextVideos);
 
-/**
- * Just like with the books selectors, we also have to compose the search
- * reducer's and collection reducer's selectors.
- */
-// export const getSearchState = (state: State) => state.search;
+// Discogs Search
+export const getSearchState = (state: State) => state.search;
 
-// export const getSearchBookIds = createSelector(getSearchState, fromSearch.getIds);
-// export const getSearchQuery = createSelector(getSearchState, fromSearch.getQuery);
-// export const getSearchLoading = createSelector(getSearchState, fromSearch.getLoading);
-
-
-/**
- * Some selector functions create joins across parts of state. This selector
- * composes the search result IDs to return an array of books in the store.
- */
-// export const getSearchResults = createSelector(getBookEntities, getSearchBookIds, (books, searchIds) => {
-//   return searchIds.map(id => books[id]);
-// });
+export const getSearchResults = createSelector(getSearchState, fromSearch.getSearchResults);
+export const getSearchQuery = createSelector(getSearchState, fromSearch.getQuery);
+export const getSearchLoading = createSelector(getSearchState, fromSearch.getSearching);
 
 // Discogs Collection
 export const getCollectionState = (state: State) => state.collection;
@@ -190,11 +179,6 @@ export const getUserState = (state: State) => state.user;
 export const getUserLoaded = createSelector(getUserState, fromUser.getLoaded);
 export const getUserLoading = createSelector(getUserState, fromUser.getLoading);
 export const getUser = createSelector(getUserState, fromUser.getUser);
-
-// export const isSelectedReleaseInCollection = createSelector(getCollectionReleaseIds,
-//   getSelectedReleaseId, (ids: number[], selected: number) => {
-//   return ids.indexOf(selected) > -1;
-// });
 
 /**
  * Layout Reducers

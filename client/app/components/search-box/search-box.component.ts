@@ -1,26 +1,25 @@
-import { Component, OnInit, OnDestroy, Input } from '@angular/core';
+import { Component, OnDestroy, Input, Output, EventEmitter } from '@angular/core';
+import { Store } from '@ngrx/store';
 
-import { DiscogsService } from '../../services/discogs.service';
+import * as fromRoot from '../../reducers';
 
 @Component({
   selector: 'app-search-box',
   templateUrl: './search-box.component.html',
   styleUrls: ['./search-box.component.css']
 })
-export class SearchBoxComponent implements OnInit, OnDestroy {
+export class SearchBoxComponent implements OnDestroy {
+  placeholder = 'Type the name of a release...';
+
   @Input()
-  placeholder: string = 'Type the name of a release...';
+  searchTerm: string;
 
-  constructor(private discogs: DiscogsService) { }
-
-  onInput(q: string) {
-    // this.discogs.searchReleases(q);
-  }
-
-  ngOnInit() {
-  }
+  @Output()
+  onSearch = new EventEmitter<string>();
 
   ngOnDestroy() {
     // this.discogs.deactivateSearch();
   }
+
+  constructor(private store: Store<fromRoot.State>) { }
 }

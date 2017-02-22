@@ -1,8 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { Store } from '@ngrx/store';
 
-import { Observable } from 'rxjs';
-
 import * as fromRoot from '../../reducers';
 import * as videos from '../../actions/videos';
 import * as player from '../../actions/player';

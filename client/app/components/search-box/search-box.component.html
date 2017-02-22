@@ -1,1 +1,2 @@
-<!--<mdl-textfield #input type="text" label="{{placeholder}}" (keyup)="onInput(input.value)" autofocus floating-label></mdl-textfield>-->
+<mdl-textfield #input type="text" label="{{placeholder}}" 
+  (keyup)="onSearch.emit($event.target.value)" floating-label></mdl-textfield>

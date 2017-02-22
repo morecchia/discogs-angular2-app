@@ -9,5 +9,6 @@ export const AppRoutes: Routes = [
   { path: 'discogs/collection', component: containers.CollectionComponent },
   { path: 'discogs/wantlist', component: containers.WantlistComponent },
   { path: 'discogs/sales', component: containers.SalesComponent },
-  { path: 'detail/:id', component: containers.ViewDetailComponent }
+  { path: 'detail/:id', component: containers.ViewDetailComponent },
+  { path: 'search/:q', component: containers.SearchComponent }
 ];
