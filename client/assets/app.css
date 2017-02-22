@@ -15,6 +15,11 @@ body {
 }
 
 
+.progress.progress-list {
+    padding: 8em 0;
+    margin: auto;
+}
+
 /* material design lite overwrites */
 
 .mdl-textfield__input {
@@ -60,11 +65,6 @@ body {
 
 .material-icons.md-light.md-inactive {
     color: rgba(255, 255, 255, 0.3);
-}
-
-.progress.progress-list {
-    padding: 8em 0;
-    margin: auto;
 }
 
 .mdl-list li a.release-title {

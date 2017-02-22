@@ -26,7 +26,6 @@ export class SearchPreviewListComponent {
   get totalItems() { return this.searchResults.pagination.items || 0; };
 
   getPage(page: number) {
-    this.searchResults.results = [];
     this.currentPage = page;
     this.store.dispatch(
       new discogsSearch.SearchReleasesAction({query: this.searchTerm, page})
