@@ -25,12 +25,13 @@ export class SearchEffects {
       }
 
       const nextSearch$ = this.actions$.ofType(search.ActionTypes.SEARCH_RELEASES).skip(1);
+      const query = encodeURIComponent(action.payload.query.trim());
 
-      return this.discogs.searchReleases(action.payload.query, action.payload.page)
+      return this.discogs.searchReleases(query, action.payload.page)
         .takeUntil(nextSearch$)
         .mergeMap((response: DiscogsSearch) => [
           new search.SearchCompleteAction(response),
-          go([`/search/${action.payload.query}`])
+          go([`/search/${query}`])
         ]);
     });
 
