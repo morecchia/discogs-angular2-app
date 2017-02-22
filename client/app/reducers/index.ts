@@ -78,10 +78,10 @@ const reducers = {
   player: fromPlayer.reducer,
   collection: fromCollection.reducer,
   wantlist: fromWantlist.reducer,
+  search: fromSearch.reducer,
   sales: fromSales.reducer,
   user: fromUser.reducer,
   router: fromRouter.routerReducer
-  // search: fromSearch.reducer,
   // layout: fromLayout.reducer
 };
 

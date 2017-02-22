@@ -6,4 +6,3 @@ export * from './view-detail/view-detail.component';
 export * from './selected-detail/selected-detail.component';
 export * from './player/player.component';
 export * from './search/search.component';
-export * from './search-results/search-results.component';

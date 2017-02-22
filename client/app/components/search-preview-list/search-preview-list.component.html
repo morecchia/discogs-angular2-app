@@ -1,40 +1,18 @@
-<!--<ul class="mdl-list">
-    <li class="mdl-list__item mdl-list__item--two-line" *ngFor="let item of items">
-
-        <span class="mdl-list__item-primary-content release-link" [routerLink]="['/detail', item.id]">
-                    <a><img class="mdl-list__item-avatar" src="{{item.thumb}}" /></a>
-                    <span>
-                      <a title="{{item.title}}" class="release-title">
-                        {{item.title}}
-                      </a>
-                    </span>
-        <span class="mdl-list__item-sub-title release-title">{{item.label | joinNames}} ({{item.year}})</span>
-        </span>
-
-        <span class="mdl-list__item-secondary-content">
-            <span class="list-actions">
-                <button (click)="playAll(item)" class="mdl-list__item-secondary-action" mdl-button mdl-js-button mdl-ripple mdl-colored="primary">
-                    <span>Play All</span> <i class="material-icons md-resized">play_arrow</i>
-        </button>
-        </span>
-        </span>
-    </li>
-</ul>-->
-<!--<div class="pagination-wrapper">
+<div class="pagination-wrapper">
     <pagination-controls (pageChange)="getPage($event)"></pagination-controls>
 </div>
 <hr>
 
-<ul *ngIf="searchResults" class="mdl-list">
-    <div *ngIf="!searchResults.results.length" class="progress progress-list">
-        <mdl-spinner single-color [active]="!searchResults.results.length"></mdl-spinner>
+<ul class="mdl-list">
+    <div *ngIf="searching" class="progress progress-list">
+        <mdl-spinner single-color [active]="searching"></mdl-spinner>
     </div>
 
-    <app-search-preview *ngFor="let result of search.results | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage, totalItems: totalItems }"
-        [results]="results"></app-search-preview>
+    <app-search-preview *ngFor="let result of searchResults.results | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage, totalItems: totalItems }"
+        [result]="result"></app-search-preview>
 </ul>
 
-<hr *ngIf="searchResults && searchResults.results.length">
-<div *ngIf="searchResults && searchResults.results.length" class="pagination-wrapper ">
+<hr *ngIf="searchResults.results.length">
+<div *ngIf="searchResults.results.length" class="pagination-wrapper">
     <pagination-controls (pageChange)="getPage($event) "></pagination-controls>
-</div>-->
+</div>

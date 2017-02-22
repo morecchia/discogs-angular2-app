@@ -1,9 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Action } from '@ngrx/store';
 import { Effect, Actions } from '@ngrx/effects';
+import { go } from '@ngrx/router-store';
+
 import { Observable } from 'rxjs/Observable';
 import { defer } from 'rxjs/observable/defer';
 import { of } from 'rxjs/observable/of';
+import 'rxjs/operator/map';
+import 'rxjs/add/operator/mergeMap';
 
 import * as search from '../actions/search';
 import { DiscogsService } from '../services';
@@ -24,8 +28,10 @@ export class SearchEffects {
 
       return this.discogs.searchReleases(action.payload.query, action.payload.page)
         .takeUntil(nextSearch$)
-        .map((response: DiscogsSearch) => new search.SearchCompleteAction(response))
-        .catch(err => of(new search.SearchFailAction(err)));
+        .mergeMap((response: DiscogsSearch) => [
+          new search.SearchCompleteAction(response),
+          go([`/search/${action.payload.query}`])
+        ]);
     });
 
   constructor(private actions$: Actions, private discogs: DiscogsService) { }

@@ -29,7 +29,6 @@ export class MainLayoutComponent {
 
     onSearch(query: string) {
       this.store.dispatch(new search.SearchReleasesAction({query, page: 1}));
-      this.router.navigate(['/search', query]);
     }
 
     constructor(private store: Store<fromRoot.State>, private router: Router) { }

@@ -17,19 +17,23 @@ const initialState: State = {
 export function reducer(state = initialState, action: search.Actions): State {
   switch (action.type) {
     case search.ActionTypes.SEARCH_RELEASES: {
-      return Object.assign({}, state, {
+      const searchState =  Object.assign({}, state, {
         searching: true,
         query: action.payload
       });
+      console.log(searchState);
+      return searchState;
     }
 
     case search.ActionTypes.SEARCH_COMPLETE: {
       const searchResponse = action.payload;
-      return Object.assign({}, state, {
+      const completeState = Object.assign({}, state, {
         searching: false,
         results: searchResponse.results,
         pagination: searchResponse.pagination
       });
+      console.log(completeState);
+      return completeState;
     }
 
     default: {

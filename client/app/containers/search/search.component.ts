@@ -1,31 +1,26 @@
-import { Component, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-
 import { Store } from '@ngrx/store';
-import '@ngrx/core/add/operator/select';
 
-import 'rxjs/add/operator/map';
-import { Subscription } from 'rxjs/Subscription';
+import { Observable } from 'rxjs/Observable';
 
 import * as fromRoot from '../../reducers';
 import * as search from '../../actions/search';
+import { DiscogsSearch, DiscogsSearchResult } from '../../models';
 
 @Component({
   selector: 'app-search',
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './search.component.html'
 })
-export class SearchComponent implements OnDestroy {
-  actionsSubscription: Subscription;
+export class SearchComponent {
+  searchResults$: Observable<DiscogsSearch>;
+  searching$: Observable<boolean>;
+  searchTerm$: Observable<string>;
 
-  constructor(store: Store<fromRoot.State>, private route: ActivatedRoute) {
-    this.actionsSubscription = route.params
-      .select<string>('q')
-      .map(q => new search.LoadResultsAction(q))
-      .subscribe(store);
-  }
-
-  ngOnDestroy() {
-    this.actionsSubscription.unsubscribe();
+  constructor(private store: Store<fromRoot.State>) {
+    this.searchResults$ = store.select(fromRoot.getSearchResults);
+    this.searching$ = store.select(fromRoot.getSearchLoading);
+    this.searchTerm$ = store.select(fromRoot.getSearchQuery);
   }
 }

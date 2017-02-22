@@ -2,7 +2,10 @@
     <div class="mdl-layout-spacer"></div>
 
     <div class="mdl-cell mdl-cell--8-col">
-        <app-release-preview-list [collection]="collection$ | async" [loading]="loading$ | async"></app-release-preview-list>
+        <app-release-preview-list
+            [collection]="collection$ | async"
+            [loading]="loading$ | async">
+        </app-release-preview-list>
     </div>
 
     <div class="mdl-layout-spacer"></div>

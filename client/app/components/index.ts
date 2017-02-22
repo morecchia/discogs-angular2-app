@@ -11,6 +11,7 @@ import { ReleasePreviewComponent } from './release-preview/release-preview.compo
 import { ReleasePreviewListComponent } from './release-preview-list/release-preview-list.component';
 import { WantPreviewListComponent } from './want-preview-list/want-preview-list.component';
 import { SearchBoxComponent } from './search-box/search-box.component';
+import { SearchPreviewComponent } from './search-preview/search-preview.component';
 import { SearchPreviewListComponent } from './search-preview-list/search-preview-list.component';
 import { ReleaseDetailComponent } from './release-detail/release-detail.component';
 import { VideoListComponent } from './video-list/video-list.component';
@@ -25,6 +26,7 @@ export const COMPONENTS = [
   ReleasePreviewListComponent,
   WantPreviewListComponent,
   SearchBoxComponent,
+  SearchPreviewComponent,
   SearchPreviewListComponent,
   SalesPreviewComponent,
   SalesPreviewListComponent,

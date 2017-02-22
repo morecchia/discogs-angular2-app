@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
 import { RouterModule, Routes } from '@angular/router';
 import { StoreModule } from '@ngrx/store';
+import { RouterStoreModule } from '@ngrx/router-store';
 import { EffectsModule } from '@ngrx/effects';
 
 // external
@@ -11,7 +12,7 @@ import { LocalStorageModule } from 'angular-2-local-storage';
 import { MdlModule } from 'angular2-mdl';
 
 // app
-import { AppRoutes } from './routes';
+import { routes } from './routes';
 import { reducer } from './reducers';
 import * as effects from './effects';
 import * as containers from './containers';
@@ -28,19 +29,19 @@ import { DiscogsService, YoutubeService, WindowRef } from './services';
     containers.SelectedDetailComponent,
     containers.ViewDetailComponent,
     containers.PlayerComponent,
-    containers.SearchComponent,
-    containers.SearchResultsComponent
+    containers.SearchComponent
   ],
   imports: [
     BrowserModule,
     HttpModule,
-    RouterModule.forRoot(AppRoutes),
+    RouterModule.forRoot(routes),
     MdlModule,
     PipesModule,
     LocalStorageModule.withConfig({
       prefix: 'discogs-test-app',
       storageType: 'localStorage'
     }),
+    RouterStoreModule.connectRouter(),
     StoreModule.provideStore(reducer),
     EffectsModule.run(effects.ReleaseEffects),
     EffectsModule.run(effects.CollectionEffects),

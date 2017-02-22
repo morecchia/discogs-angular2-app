@@ -1,1 +1,15 @@
-<app-search-results></app-search-results>
+<div class="mdl-grid">
+    <div class="mdl-layout-spacer"></div>
+
+    <div class="mdl-cell mdl-cell--8-col">
+        <app-search-preview-list 
+          [searchResults]="searchResults$ | async"
+          [searching]="searching$ | async"
+          [searchTerm]="searchTerm$ | async">
+        </app-search-preview-list>
+    </div>
+
+    <div class="mdl-layout-spacer"></div>
+</div>
+
+<router-outlet></router-outlet>
