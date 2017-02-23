@@ -28,6 +28,10 @@
     box-shadow: none;
 }
 
+.mdl-navigation .toggle-search:hover {
+    background-color: rgb(96,125,139);
+}
+
 .mdl-navigation.hidden,
 .search-container.hidden {
     display: none;

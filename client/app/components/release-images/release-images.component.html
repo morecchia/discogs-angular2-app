@@ -1,16 +1,22 @@
-<div [ngClass]="{'visible': imagesVisible, 'release-images': true}">
+<div [ngClass]="setMainClasses()">
     <mdl-card mdl-shadow="3">
         <mdl-card-supporting-text>
-            <img src="{{showingImageUrl}}">
+            <img (click)="nextImage()" src="{{showingImageUrl}}">
         </mdl-card-supporting-text>
         <mdl-card-actions mdl-card-border>
-            <button mdl-button mdl-ripple (click)="prevImage()">Previous</button>
-            <span class="image-counter">{{imageIndex + 1}} of {{images.length}} images</span>
-            <button mdl-button mdl-ripple (click)="nextImage()">Next</button>
+            <button class="previous" mdl-button mdl-button-type="icon" mdl-ripple (click)="prevImage()">
+                <mdl-icon>keyboard_arrow_left</mdl-icon>
+            </button>
+
+            <span class="image-counter">{{imageIndex + 1}} of {{images.length}}</span>
+
+            <button class="next" mdl-button mdl-button-type="icon" mdl-ripple (click)="nextImage()">
+                <mdl-icon>keyboard_arrow_right</mdl-icon>
+            </button>
         </mdl-card-actions>
         <mdl-card-menu>
-            <button mdl-button mdl-button-type="icon" mdl-ripple (click)="closeImages()">
-                <mdl-icon>close</mdl-icon>
+            <button mdl-button mdl-button-type="icon" (click)="onImagesClose.emit($event)">
+                <mdl-icon class="md-18" >close</mdl-icon>
             </button>
         </mdl-card-menu>
     </mdl-card>

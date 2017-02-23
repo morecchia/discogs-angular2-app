@@ -19,13 +19,31 @@
     border-radius: 4px;
 }
 
+.release-images mdl-card mdl-card-menu {
+    top: -4px;
+    right: -4px;
+}
+
+.release-images mdl-card mdl-card-menu button:hover {
+    background: 0 0;
+}
+
 .release-images mdl-card mdl-card-actions {
     text-align: center;
 }
 
+.release-images mdl-card mdl-card-actions .next {
+    float: right;
+}
+
+.release-images mdl-card mdl-card-actions .previous {
+    float: left;
+}
+
 .release-images mdl-card mdl-card-actions .image-counter {
     display: inline-block;
-    margin: 0 2em 0 1em;
+    margin-top: 6px;
+    word-spacing: 0.2em;
 }
 
 .release-images mdl-card mdl-card-supporting-text {
@@ -35,4 +53,5 @@
 .release-images mdl-card mdl-card-supporting-text img {
     width: 100%;
     height: auto;
+    padding: 2px 0;
 }

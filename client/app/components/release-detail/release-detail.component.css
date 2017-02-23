@@ -2,13 +2,18 @@
     margin: 3em auto;
 }
 
-.release-thumb {
+.video-wrapper li:hover,
+.release-thumb,
+.detail-actions a {
     cursor: pointer;
 }
 
-.video-wrapper li:hover,
-.detail-actions a {
-    cursor: pointer;
+.release-thumb {
+    text-align: center;
+}
+
+.release-thumb > .img-container {
+    width: 150px;
 }
 
 .video-wrapper li.active {

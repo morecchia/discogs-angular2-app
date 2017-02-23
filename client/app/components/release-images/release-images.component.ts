@@ -13,31 +13,33 @@ export class ReleaseImagesComponent implements OnInit {
   imagesVisible = false;
 
   @Output()
-  onImagesClose = new EventEmitter<boolean>()
+  onImagesClose = new EventEmitter<boolean>();
 
   imageIndex = 0;
 
   showingImageUrl: string;
 
-  closeImages() {
-    this.onImagesClose.emit(false);
+  setMainClasses() {
+    return {
+      'visible': this.imagesVisible,
+      'fadeIn': this.imagesVisible,
+      'release-images': true
+    };
+  }
+  nextImage() {
+    this.imageIndex = this.imageIndex < this.images.length - 1
+      ? this.imageIndex = this.imageIndex + 1 : 0;
+    this.showingImageUrl = this.images[this.imageIndex].uri;
+  }
+
+  prevImage() {
+    this.imageIndex = this.imageIndex > 0
+      ? this.imageIndex = this.imageIndex - 1 : this.images.length - 1;
+
+    this.showingImageUrl = this.images[this.imageIndex].uri;
   }
 
   ngOnInit() {
     this.showingImageUrl = this.images[0].uri;
-  }
-
-  nextImage() {
-    if (this.imageIndex < this.images.length - 1) {
-      this.imageIndex = this.imageIndex + 1;
-      this.showingImageUrl = this.images[this.imageIndex].uri;
-    }
-  }
-
-  prevImage() {
-    if (this.imageIndex > 0) {
-      this.imageIndex = this.imageIndex - 1;
-      this.showingImageUrl = this.images[this.imageIndex].uri;
-    }
   }
 }

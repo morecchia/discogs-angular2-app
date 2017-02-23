@@ -3,8 +3,12 @@
 
     <div class="mdl-cell mdl-cell--8-col">
         <div class="mdl-grid" *ngIf="release">
-            <div *ngIf="release.images" class="mdl-cell mdl-cell--4-col mdl-cell--2-col-tablet mdl-cell--hide-phone release-thumb"
-                (click)="toggleImages()"><img src="{{release.images[0].uri150}}"></div>
+            <div *ngIf="release.images" (click)="toggleImages()" class="mdl-cell mdl-cell--4-col mdl-cell--2-col-tablet mdl-cell--hide-phone release-thumb">
+                <div class="img-container">
+                    <img src="{{release.images[0].uri150}}">
+                    <span class="extra-info">More images...</span>
+                </div>
+            </div>
 
             <div class="mdl-cell mdl-cell--8-col mdl-cell--6-col-tablet release-info">
                 <div class="release-basic-info">
