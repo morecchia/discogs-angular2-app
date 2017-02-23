@@ -8,6 +8,10 @@
         <mdl-spinner single-color [active]="searching"></mdl-spinner>
     </div>
 
+    <div *ngIf="!searching && !searchResults.results.length">
+        No results for '{{searchTerm}}'
+    </div>
+    
     <app-search-preview *ngFor="let result of searchResults.results | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage, totalItems: totalItems }"
         [result]="result"></app-search-preview>
 </ul>

@@ -18,3 +18,7 @@ export function type<T>(label: T | ''): T {
 
   return <T>label;
 }
+
+export const defaults = {
+  pagination: { per_page: 10, items: 0, pages: 0, page: 1 }
+};

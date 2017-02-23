@@ -75,7 +75,6 @@ export class YoutubeService {
   }
 
   playerTime(video: YoutubeVideo, startTime = 0) {
-    console.log(`Timer setting to ${startTime} seconds`);
     const ms = startTime * 1000;
     const startSpan = moment.duration(startTime, 'seconds');
     const trackDuration = moment

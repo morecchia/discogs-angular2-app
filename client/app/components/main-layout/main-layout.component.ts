@@ -27,9 +27,15 @@ export class MainLayoutComponent {
       this.searchVisible = !this.searchVisible;
     }
 
-    onSearch(query: string) {
-      this.store.dispatch(new search.SearchReleasesAction({query, page: 1}));
+    onSearch(e) {
+      if (goodKey(e)) {
+        this.store.dispatch(new search.SearchReleasesAction({query: e.target.value, page: 1}));
+      }
     }
 
     constructor(private store: Store<fromRoot.State>, private router: Router) { }
+}
+
+function goodKey(e) {
+  return e.which > 40 || e.keyCode === 13 || !e.ctrlKey || !e.altKey || !e.metaKey;
 }

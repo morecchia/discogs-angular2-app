@@ -9,6 +9,8 @@ import { of } from 'rxjs/observable/of';
 import 'rxjs/operator/map';
 import 'rxjs/add/operator/mergeMap';
 
+import { defaults } from '../util';
+
 import * as search from '../actions/search';
 import { DiscogsService } from '../services';
 import { DiscogsSearch } from '../models';
@@ -21,7 +23,9 @@ export class SearchEffects {
     .debounceTime(300)
     .switchMap((action: search.SearchReleasesAction) => {
       if (action.payload.query.length < 3) {
-        return of({});
+        return [
+          new search.SearchCompleteAction({results: [], pagination: defaults.pagination})
+        ];
       }
 
       const nextSearch$ = this.actions$.ofType(search.ActionTypes.SEARCH_RELEASES).skip(1);

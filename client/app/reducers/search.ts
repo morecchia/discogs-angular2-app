@@ -1,5 +1,9 @@
 import * as search from '../actions/search';
+
+import { defaults } from '../util';
+
 import { DiscogsSearch, DiscogsSearchResult, DiscogsPagination } from '../models';
+
 export interface State {
   searching: boolean;
   query: string;
@@ -11,7 +15,7 @@ const initialState: State = {
   searching: false,
   query: null,
   results: [],
-  pagination: { per_page: 10, items: 0, pages: 0, page: 1 },
+  pagination: defaults.pagination,
 };
 
 export function reducer(state = initialState, action: search.Actions): State {
