@@ -6,7 +6,7 @@
             <div *ngIf="release.images" (click)="toggleImages()" class="mdl-cell mdl-cell--4-col mdl-cell--2-col-tablet mdl-cell--hide-phone release-thumb">
                 <div class="img-container">
                     <img src="{{release.images[0].uri150}}">
-                    <span class="extra-info">More images...</span>
+                    <span *ngIf="release.images.length > 1" class="extra-info">More images...</span>
                 </div>
             </div>
 

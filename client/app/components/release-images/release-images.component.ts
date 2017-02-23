@@ -19,6 +19,8 @@ export class ReleaseImagesComponent implements OnInit {
 
   showingImageUrl: string;
 
+  get navButtonDisabled() { return this.images.length <= 1; }
+
   setMainClasses() {
     return {
       'visible': this.imagesVisible,

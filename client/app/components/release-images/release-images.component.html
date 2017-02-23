@@ -4,13 +4,13 @@
             <img (click)="nextImage()" src="{{showingImageUrl}}">
         </mdl-card-supporting-text>
         <mdl-card-actions mdl-card-border>
-            <button class="previous" mdl-button mdl-button-type="icon" mdl-ripple (click)="prevImage()">
+            <button [disabled]="navButtonDisabled" class="previous" mdl-button mdl-button-type="icon" mdl-ripple (click)="prevImage()">
                 <mdl-icon>keyboard_arrow_left</mdl-icon>
             </button>
 
             <span class="image-counter">{{imageIndex + 1}} of {{images.length}}</span>
 
-            <button class="next" mdl-button mdl-button-type="icon" mdl-ripple (click)="nextImage()">
+            <button [disabled]="navButtonDisabled" class="next" mdl-button mdl-button-type="icon" mdl-ripple (click)="nextImage()">
                 <mdl-icon>keyboard_arrow_right</mdl-icon>
             </button>
         </mdl-card-actions>
