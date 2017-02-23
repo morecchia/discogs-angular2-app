@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 
 import { Observable } from 'rxjs/Observable';
+import { Subscription }   from 'rxjs/Subscription';
 
 import * as fromRoot from '../../reducers';
 import * as search from '../../actions/search';
@@ -17,10 +18,17 @@ export class SearchComponent {
   searchResults$: Observable<DiscogsSearch>;
   searching$: Observable<boolean>;
   searchTerm$: Observable<string>;
+  routeParamSub: Subscription;
 
-  constructor(private store: Store<fromRoot.State>) {
+  constructor(private store: Store<fromRoot.State>, private activatedRoute: ActivatedRoute) {
     this.searchResults$ = store.select(fromRoot.getSearchResults);
     this.searching$ = store.select(fromRoot.getSearchLoading);
     this.searchTerm$ = store.select(fromRoot.getSearchQuery);
+
+    this.routeParamSub = activatedRoute.params
+      .subscribe(params => {
+        const query = params['q'];
+        this.store.dispatch(new search.SearchReleasesAction({query, page: 1}));
+      });
   }
 }

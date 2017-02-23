@@ -9,13 +9,13 @@
             <mdl-layout-spacer></mdl-layout-spacer>
 
             <nav class="mdl-navigation">
-                <a [ngClass]="{'hidden': searchVisible, 'mdl-navigation__link': true}" routerLink="/discogs/wantlist">
+                <a [ngClass]="{'hidden': searchVisible, 'mdl-navigation__link': true}" routerLink="/wantlist">
                     <span mdl-badge-no-background mdl-badge="{{user.num_wantlist}}">Wantlist</span>
                 </a>
-                <a [ngClass]="{'hidden': searchVisible, 'mdl-navigation__link': true}" routerLink="/discogs/collection">
+                <a [ngClass]="{'hidden': searchVisible, 'mdl-navigation__link': true}" routerLink="/collection">
                     <span mdl-badge-no-background mdl-badge="{{user.num_collection}}">Collection</span>
                 </a>
-                <a [ngClass]="{'hidden': searchVisible, 'mdl-navigation__link': true}" routerLink="/discogs/sales">
+                <a [ngClass]="{'hidden': searchVisible, 'mdl-navigation__link': true}" routerLink="/sales">
                     <span mdl-badge-no-background mdl-badge="{{user.num_for_sale}}">Sales</span>
                 </a>
                 
@@ -35,9 +35,9 @@
     <mdl-layout-drawer>
         <mdl-layout-title>{{title}}</mdl-layout-title>
         <nav class="mdl-navigation">
-            <a class="mdl-navigation__link" routerLink="/discogs/wantlist" (click)="mainLayout.closeDrawer()">Wantlist</a>
-            <a class="mdl-navigation__link" routerLink="/discogs/collection" (click)="mainLayout.closeDrawer()">Collection</a>
-            <a class="mdl-navigation__link" routerLink="/discogs/sales" (click)="mainLayout.closeDrawer()">Sales</a>
+            <a class="mdl-navigation__link" routerLink="/wantlist" (click)="mainLayout.closeDrawer()">Wantlist</a>
+            <a class="mdl-navigation__link" routerLink="/collection" (click)="mainLayout.closeDrawer()">Collection</a>
+            <a class="mdl-navigation__link" routerLink="/sales" (click)="mainLayout.closeDrawer()">Sales</a>
 
             <span class="drawer-search-container">
             <app-search-box></app-search-box>

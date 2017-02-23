@@ -2,11 +2,9 @@
     <div class="mdl-layout-spacer"></div>
 
     <div class="mdl-cell mdl-cell--8-col">
-
         <div class="mdl-grid" *ngIf="release">
-            <div class="mdl-cell mdl-cell--4-col mdl-cell--2-col-tablet mdl-cell--hide-phone release-thumb" *ngIf="release.images">
-                <img src="{{release.images[0].uri150}}" />
-            </div>
+            <div *ngIf="release.images" class="mdl-cell mdl-cell--4-col mdl-cell--2-col-tablet mdl-cell--hide-phone release-thumb"
+                (click)="toggleImages()"><img src="{{release.images[0].uri150}}"></div>
 
             <div class="mdl-cell mdl-cell--8-col mdl-cell--6-col-tablet release-info">
                 <div class="release-basic-info">
@@ -33,68 +31,65 @@
             </div>
 
             <div class="mdl-cell mdl-cell--12-col">
-                <!--<div *ngIf="videosLoading" class="progress progress-detail">
-                    <mdl-spinner single-color [active]="videosLoading"></mdl-spinner>
-                </div>-->
+                <mdl-tabs mdl-ripple mdl-tab-active-index="0">
+                    <mdl-tab-panel [disabled]="!releaseVideos || !releaseVideos.length">
+                        <mdl-tab-panel-title>
+                            <span *ngIf="videosLoading">Loading</span>
+                            <span *ngIf="!videosLoading && !releaseVideos.length">No Videos</span>
+                            <span *ngIf="!videosLoading && releaseVideos.length" mdl-badge="{{releaseVideos.length}}">Videos</span>
+                        </mdl-tab-panel-title>
 
-                <div *ngIf="!videosLoading">
-                    <mdl-tabs mdl-ripple mdl-tab-active-index="0">
-                        <mdl-tab-panel [disabled]="!releaseVideos || !releaseVideos.length">
-                            <mdl-tab-panel-title>
-                                <span *ngIf="!releaseVideos.length">No Videos</span>
-                                <span *ngIf="releaseVideos.length" mdl-badge="{{releaseVideos.length}}">Videos</span>
-                            </mdl-tab-panel-title>
+                        <mdl-tab-panel-content>
+                            <app-video-list [loading]="videosLoading" [videos]="releaseVideos" (onVideoSelected)="onSelectedVideo($event)"></app-video-list>
+                        </mdl-tab-panel-content>
+                    </mdl-tab-panel>
 
-                            <mdl-tab-panel-content>
-                                <app-video-list [loading]="videosLoading" [videos]="releaseVideos" (onVideoSelected)="onSelectedVideo($event)"></app-video-list>
-                            </mdl-tab-panel-content>
-                        </mdl-tab-panel>
+                    <mdl-tab-panel>
+                        <mdl-tab-panel-title>
+                            <span mdl-badge="{{release.tracklist.length}}">Tracklist</span>
+                        </mdl-tab-panel-title>
 
-                        <mdl-tab-panel>
-                            <mdl-tab-panel-title>
-                                <span mdl-badge="{{release.tracklist.length}}">Tracklist</span>
-                            </mdl-tab-panel-title>
+                        <mdl-tab-panel-content>
+                            <ul class="mdl-list">
+                                <li class="mdl-list__item" *ngFor="let track of release.tracklist">
+                                    <span class="tracklist-position" *ngIf="track.position">{{track.position}}.</span>
+                                    <span *ngIf="track.artists" class="tracklist-artist">
+                                            <a href="https://discogs.com/artist/{{track.artists[0].id}}" target="_blank">
+                                                {{track.artists[0].name}}
+                                            </a>
+                                        </span>
+                                    <span>{{track.title}}</span>
+                                </li>
+                            </ul>
+                        </mdl-tab-panel-content>
+                    </mdl-tab-panel>
 
-                            <mdl-tab-panel-content>
-                                <ul class="mdl-list">
-                                    <li class="mdl-list__item" *ngFor="let track of release.tracklist">
-                                        <span class="tracklist-position" *ngIf="track.position">{{track.position}}.</span>
-                                        <span *ngIf="track.artists" class="tracklist-artist">
-                                                <a href="https://discogs.com/artist/{{track.artists[0].id}}" target="_blank">
-                                                    {{track.artists[0].name}}
-                                                </a>
-                                            </span>
-                                        <span>{{track.title}}</span>
-                                    </li>
-                                </ul>
-                            </mdl-tab-panel-content>
-                        </mdl-tab-panel>
+                    <mdl-tab-panel [disabled]="!release.extraartists.length && !release.notes">
+                        <mdl-tab-panel-title>
+                            <span>Info</span>
+                        </mdl-tab-panel-title>
 
-                        <mdl-tab-panel [disabled]="!release.extraartists.length && !release.notes">
-                            <mdl-tab-panel-title>
-                                <span>Info</span>
-                            </mdl-tab-panel-title>
-
-                            <mdl-tab-panel-content>
-                                <h5 *ngIf="release.extraartists.length">Credits</h5>
-                                <ul class="mdl-list">
-                                    <li class="mdl-list__item" *ngFor="let credit of release.extraartists">
-                                        <span>{{credit.role}} - 
-                                                <a href="https://discogs.com/artist/{{credit.id}}" target="_blank">{{credit.name}}</a>
-                                            </span>
-                                    </li>
-                                </ul>
-                                <h5 *ngIf="release.notes">Notes</h5>
-                                <p [innerHtml]="release.notes_html | embed"></p>
-                            </mdl-tab-panel-content>
-                        </mdl-tab-panel>
-                    </mdl-tabs>
-                </div>
-
+                        <mdl-tab-panel-content>
+                            <h5 *ngIf="release.extraartists.length">Credits</h5>
+                            <ul class="mdl-list">
+                                <li class="mdl-list__item" *ngFor="let credit of release.extraartists">
+                                    <span>{{credit.role}} - 
+                                            <a href="https://discogs.com/artist/{{credit.id}}" target="_blank">{{credit.name}}</a>
+                                        </span>
+                                </li>
+                            </ul>
+                            <h5 *ngIf="release.notes">Notes</h5>
+                            <p [innerHtml]="release.notes_html | embed"></p>
+                        </mdl-tab-panel-content>
+                    </mdl-tab-panel>
+                </mdl-tabs>
             </div>
 
+            <app-release-images (onImagesClose)="toggleImages()"
+                [images]="release.images"
+                [imagesVisible]="releaseImagesVisible">
+            </app-release-images>
         </div>
-
     </div>
 
     <div class="mdl-layout-spacer"></div>

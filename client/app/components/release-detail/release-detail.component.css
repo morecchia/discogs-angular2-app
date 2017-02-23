@@ -2,6 +2,10 @@
     margin: 3em auto;
 }
 
+.release-thumb {
+    cursor: pointer;
+}
+
 .video-wrapper li:hover,
 .detail-actions a {
     cursor: pointer;

@@ -16,6 +16,7 @@ export class SelectedDetailComponent {
   release$: Observable<DiscogsRelease>;
   videos$: Observable<YoutubeVideo[]>;
   videosLoading$: Observable<boolean>;
+  videosLoaded$: Observable<boolean>;
 
   // isSelectedReleaseInCollection$: Observable<boolean>;
 
@@ -23,6 +24,7 @@ export class SelectedDetailComponent {
     this.release$ = store.select(fromRoot.getSelectedRelease);
     this.videos$ = store.select(fromRoot.getVideos);
     this.videosLoading$ = store.select(fromRoot.getVideosLoading);
+    this.videosLoaded$ = store.select(fromRoot.getVideosLoaded);
     // this.isSelectedReleaseInCollection$ = store.select(fromRoot.isSelectedReleaseInCollection);
     // this.isSelectedReleaseInWantlist$ = store.select(fromRoot.isSelectedReleaseInWantlist);
   }

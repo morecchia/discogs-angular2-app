@@ -30,28 +30,10 @@ export class ReleaseEffects {
   loaded$: Observable<Action> = this.actions$
     .ofType(release.ActionTypes.LOAD_COMPLETE)
     .map(action => new videos.LoadAction(action.payload.videos &&
-      action.payload.videos.map(v => this.youtube.getIdFromUrl(v.uri)))
-    )
+      action.payload.videos.map(v => this.youtube.getIdFromUrl(v.uri))
+    ))
     .mergeMap(action => this.youtube.getListData(action.payload)
       .map(response => new videos.LoadCompleteAction(response)));
-
-  // @Effect()
-  // search$: Observable<Action> = this.actions$
-  //   .ofType(release.ActionTypes.SEARCH)
-  //   .debounceTime(300)
-  //   .map((action: release.SearchAction) => action.payload)
-  //   .switchMap(query => {
-  //     if (query === '') {
-  //       return empty();
-  //     }
-
-  //     const nextSearch$ = this.actions$.ofType(release.ActionTypes.SEARCH).skip(1);
-
-  //     return this.discogs.searchReleases(query)
-  //       .takeUntil(nextSearch$)
-  //       .map(response => new release.SearchCompleteAction(response.results))
-  //       .catch(() => of(new release.SearchCompleteAction([])));
-  //   });
 
     constructor(private actions$: Actions, private discogs: DiscogsService,
       private youtube: YoutubeService) { }

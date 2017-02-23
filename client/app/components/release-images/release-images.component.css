@@ -1,0 +1,38 @@
+.release-images {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(3, 3, 3, 0.5);
+}
+
+.release-images.visible {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.release-images mdl-card {
+    width: 360px;
+    border-radius: 4px;
+}
+
+.release-images mdl-card mdl-card-actions {
+    text-align: center;
+}
+
+.release-images mdl-card mdl-card-actions .image-counter {
+    display: inline-block;
+    margin: 0 2em 0 1em;
+}
+
+.release-images mdl-card mdl-card-supporting-text {
+    min-height: 320px;
+}
+
+.release-images mdl-card mdl-card-supporting-text img {
+    width: 100%;
+    height: auto;
+}

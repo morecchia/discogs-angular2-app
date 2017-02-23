@@ -27,10 +27,21 @@ export class ReleaseDetailComponent implements OnDestroy {
   @Input()
   videosLoading: boolean;
 
+  @Input()
+  videosLoaded: boolean;
+
+  releaseImagesVisible = false;
+
+  get activeTabIndex() { return this.videosLoaded && !this.releaseVideos.length ? 0 : 1; }
+
   constructor(private store: Store<fromRoot.State>, private youtube: YoutubeService) { }
 
   onSelectedVideo(video: YoutubeVideo) {
     this.store.dispatch(new videos.SelectedAction({video, release: this.release}));
+  }
+
+  toggleImages() {
+    this.releaseImagesVisible = !this.releaseImagesVisible;
   }
 
   ngOnDestroy() {

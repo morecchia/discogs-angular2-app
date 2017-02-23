@@ -29,13 +29,14 @@ export class SearchEffects {
       }
 
       const nextSearch$ = this.actions$.ofType(search.ActionTypes.SEARCH_RELEASES).skip(1);
-      const query = encodeURIComponent(action.payload.query.trim());
+      const searchTerm = action.payload.query.trim();
+      const query = encodeURIComponent(searchTerm);
 
       return this.discogs.searchReleases(query, action.payload.page)
         .takeUntil(nextSearch$)
         .mergeMap((response: DiscogsSearch) => [
           new search.SearchCompleteAction(response),
-          go([`/search/${query}`])
+          go([`/search/${searchTerm}`])
         ]);
     });
 
