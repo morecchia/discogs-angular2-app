@@ -34,5 +34,9 @@ export class SelectedVideoComponent {
     }
   }
 
+  togglePlayerFrame() {
+    return false;
+  }
+
   constructor(private store: Store<fromRoot.State>) { }
 }

@@ -4,17 +4,11 @@
 
         <div class="playing mdl-cell mdl-cell--4-col mdl-cell--2-col-phone">
             <div class="playing playing-title-container">
-                <a class="playing-title-image" (mouseenter)="toggleImgIcon()" (mouseleave)="toggleImgIcon(true)">
-                    <div *ngIf="player" (click)="togglePlayerFrame()">
+                <a class="playing-title-image">
+                    <div (click)="togglePlayerFrame()">
                         <img src="{{selectedVideo.snippet.thumbnails.default.url}}" alt="{{selectedVideo.snippet.title}}" />
                         <span [ngClass]="{'visible': imageIconVisible, 'player-image-icon': true}">
                             <i class="material-icons md-light">featured_video</i>
-                        </span>
-                    </div>
-                    <div *ngIf="!player" (click)="resumeVideo()">
-                        <img src="{{selectedVideo.snippet.thumbnails.default.url}}" alt="{{selectedVideo.snippet.title}}" />
-                        <span [ngClass]="{'visible': imageIconVisible, 'player-image-icon': true}">
-                            <i class="material-icons md-light">play_arrow</i>
                         </span>
                     </div>
                 </a>
@@ -43,9 +37,14 @@
                 [nextVideo]="nextPrevVideos.next"
                 [prevVideo]="nextPrevVideos.prev"
                 [playing]="playing"
-                [playerTime] = "playerTime"
                 (onVideoSkipped)="onVideoSkipped($event)">
             </app-player-controls>
+
+            <app-player-time 
+                [video]="selectedVideo"
+                [playerTime] = "playerTime"
+                [duration]="selectedVideo.contentDetails.duration">
+            </app-player-time>
         </div>
 
         <div class="mdl-layout-spacer"></div>

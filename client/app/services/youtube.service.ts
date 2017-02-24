@@ -37,6 +37,8 @@ export function formatDuration(span: any) {
 
 @Injectable()
 export class YoutubeService {
+  private _playbackEndedSubject = new Subject<any>();
+  playbackEnded$ = this._playbackEndedSubject.asObservable();
 
   player = YouTubePlayer('youtube-player');
 
@@ -61,14 +63,11 @@ export class YoutubeService {
       this.player.on('stateChange', event => {
         switch (event.data) {
           case YTPLAYER_STATE.ENDED:
-            console.log('Youtube: ended');
-            this.store.dispatch(new player.PlayNextAction());
+            this._playbackEndedSubject.next();
             break;
           case YTPLAYER_STATE.PLAYING:
-            console.log('Youtube: playing');
             break;
           case YTPLAYER_STATE.BUFFERING:
-            console.log('Youtube: buffering');
             break;
         }
       });
@@ -79,10 +78,11 @@ export class YoutubeService {
     const startSpan = moment.duration(startTime, 'seconds');
     const trackDuration = moment
       .duration(video && video.contentDetails.duration)
-      .asMilliseconds();
+      .asMilliseconds() + 1000;
 
     return Observable
       .timer(0, 1000)
+      .takeUntil(Observable.timer((trackDuration) - ms))
       .map(t => {
         const span = moment.duration(startTime + t, 'seconds');
         return {

@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, ViewChild, ElementRef } from '@angular/core';
 import { Store } from '@ngrx/store';
 
 import * as moment from 'moment';
@@ -15,6 +15,9 @@ import { YoutubeVideo } from '../../models';
   styleUrls: ['./player-controls.component.css']
 })
 export class PlayerControlsComponent {
+  @ViewChild('skipNextButton')
+  skipNextButton: ElementRef;
+
   @Input()
   video: YoutubeVideo;
 
@@ -28,9 +31,6 @@ export class PlayerControlsComponent {
   playing: boolean;
 
   @Input()
-  playerTime: {formatted: string, seconds: number};
-
-  @Input()
   volume = 50;
 
   @Output()
@@ -42,13 +42,7 @@ export class PlayerControlsComponent {
   @Output()
   onVolumeSet = new EventEmitter<number>();
 
-  get videoDurationSeconds() {
-    return moment.duration(this.video.contentDetails.duration, 'seconds').asSeconds();
-  }
-
   volumeVisible = false;
-
-  constructor(private store: Store<fromRoot.State>, private youtube: YoutubeService) { }
 
   pauseVideo() {
     this.store.dispatch(new player.StopAction());
@@ -66,10 +60,6 @@ export class PlayerControlsComponent {
     this.onVideoSkipped.emit(this.prevVideo);
   }
 
-  seekTo(value: number) {
-    this.store.dispatch(new player.SeekAction({video: this.video, time: value}));
-  }
-
   toggleVolumeVisibility(hidden = false) {
     setTimeout(() => {
       this.volumeVisible = !hidden;
@@ -82,5 +72,12 @@ export class PlayerControlsComponent {
 
   inputVolume(value: number) {
     this.store.dispatch(new player.VolumeInputAction(value));
+  }
+
+  constructor(private store: Store<fromRoot.State>, private youtube: YoutubeService) {
+    this.youtube.playbackEnded$
+      .subscribe(() =>
+        this.skipNextButton.nativeElement.click()
+      );
   }
 }

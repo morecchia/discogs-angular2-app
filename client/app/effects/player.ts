@@ -21,6 +21,8 @@ import { YoutubeVideo } from '../models';
 
 @Injectable()
 export class PlayerEffects {
+  playerTime$: Observable<{formatted: string, seconds: number}>;
+
   @Effect()
   initPlayer$: Observable<Action> = this.actions$
     .ofType(player.ActionTypes.INIT)
@@ -56,17 +58,23 @@ export class PlayerEffects {
   @Effect()
   setTime$: Observable<Action> = this.actions$
     .ofType(player.ActionTypes.SET_TIME)
-    .switchMap(action =>
-      this.youtube.playerTime(action.payload.video, action.payload.time)
-        .map(time => new player.GetTimeAction(time))
-    );
+    .switchMap(action => {
+      this.playerTime$ = this.youtube.playerTime(action.payload.video, action.payload.time);
+      return this.playerTime$
+        .map(time => new player.GetTimeAction(time));
+    });
 
   @Effect()
   stopVideo$ = this.actions$
     .ofType(player.ActionTypes.STOP)
-    .map(action => {
+    .withLatestFrom(this.store, (action, state) => state.player)
+    .map(state => {
       this.youtube.player.pauseVideo();
-      return of({});
+      this.playerTime$ = null;
+      return time => new player.GetTimeAction({
+        formatted: state.timeFormatted,
+        seconds: state.timeSeconds
+      });
     });
 
   @Effect()

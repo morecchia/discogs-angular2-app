@@ -2,7 +2,7 @@
     <button title="Skip Previous" class="player-control mdl-button mdl-js-button mdl-button--icon" (click)="skipPrev()"><i class="material-icons">skip_previous</i></button>
     <button title="Pause" *ngIf="playing" class="player-control mdl-button mdl-js-button mdl-button--icon" (click)="pauseVideo()"><i class="material-icons">pause_circle_outline</i></button>
     <button title="Play" *ngIf="video && !playing" class="player-control mdl-button mdl-js-button mdl-button--icon" (click)="resumeVideo()"><i class="material-icons">play_circle_outline</i></button>
-    <button title="Skip Next" class="player-control mdl-button mdl-js-button mdl-button--icon" (click)="skipNext()"><i class="material-icons">skip_next</i></button>
+    <button #skipNextButton title="Skip Next" class="player-control mdl-button mdl-js-button mdl-button--icon" (click)="skipNext()"><i class="material-icons">skip_next</i></button>
     <span class="volume-wrapper">
       <span class="volume-icon-wrapper">
           <button title="Volume" class="player-control mdl-button mdl-js-button mdl-button--icon"
@@ -22,14 +22,4 @@
       </span>
     </span>
   </div>
-
-  <div class="mdl-grid video-duration-wrapper mdl-cell--hide-phone">
-    <div class="mdl-cell--1-col mdl-cell--hide-tablet video-duration">{{playerTime.formatted}}</div>
-
-    <div class="mdl-cell--10-col video-duration mdl-cell--hide-phone">
-      <mdl-slider [min]="0" [max]="videoDurationSeconds" [step]="1"
-        #time (input)="seekTo(time.value)" [(ngModel)]="playerTime.seconds"></mdl-slider>
-    </div>
-
-    <div class="mdl-cell--1-col mdl-cell--hide-tablet video-duration">{{video.contentDetails.duration | formatDuration}}</div>
-  </div>
+  

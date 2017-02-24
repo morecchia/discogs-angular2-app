@@ -18,6 +18,7 @@ import { ReleaseImagesComponent } from './release-images/release-images.componen
 import { VideoListComponent } from './video-list/video-list.component';
 import { SelectedVideoComponent } from './selected-video/selected-video.component';
 import { PlayerControlsComponent } from './player-controls/player-controls.component';
+import { PlayerTimeComponent } from './player-time/player-time.component';
 import { MainLayoutComponent } from './main-layout/main-layout.component';
 
 import { PipesModule } from '../pipes';
@@ -36,6 +37,7 @@ export const COMPONENTS = [
   VideoListComponent,
   SelectedVideoComponent,
   PlayerControlsComponent,
+  PlayerTimeComponent,
   MainLayoutComponent
 ];
 
