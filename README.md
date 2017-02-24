@@ -1,11 +1,15 @@
 # discogs-angular2-app
 
-This is an example of a single-page-application written in Angular 2.
+This is an example of a single-page-application written in Angular 2 (using ngrx-store).  You can browse your collection, wantlist, sales items, search, and listen to any youtube videos associated with the releases.
 
+When player is active, it should automatically advance to the next video once a track ends, continuously advancing until the end of the list.  I also plan on adding a feature to build custom playlists.  Please enjoy and feel free to submit feedback.
+
+
+## Development server
 
 Generated with [angular-cli](https://github.com/angular/angular-cli) version 1.0.0-beta.22-1.
 
-## Development server
+
 1. Create a `config.js` file in the server directory.
 
    Here is a sample `config.js` file (*the token values below are just examples and will not work*):
