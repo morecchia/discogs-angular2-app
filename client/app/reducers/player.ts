@@ -30,9 +30,14 @@ const initialState: State = {
 export function reducer(state = initialState, action: player.Actions): State {
   switch (action.type) {
     case player.ActionTypes.INIT: {
-      const videos = action.payload;
       return Object.assign({}, state, {
-        videos: videos,
+        videos: action.payload
+      });
+    }
+
+    case player.ActionTypes.LOAD_VIDEOS: {
+      return Object.assign({}, state, {
+        videos: action.payload.videos
       });
     }
 
@@ -48,7 +53,6 @@ export function reducer(state = initialState, action: player.Actions): State {
       const prevNextVideos = _getPrevNextVideos(state.videos, action.payload);
       return Object.assign({}, state, {
         playing: true,
-        current: action.payload,
         next: prevNextVideos.next,
         prev: prevNextVideos.prev
       });

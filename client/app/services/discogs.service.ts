@@ -82,9 +82,9 @@ export class DiscogsService {
         .map(response => response.json());
     }
 
-  getRelease(id: string) {
+  getRelease(id: string):  Observable<models.DiscogsRelease> {
     return this.http.get(`/api/releases/${id}`)
-      .map(response => response.json());;
+      .map(response => response.json());
   }
 
   getArtist(id: number): Observable<any> {

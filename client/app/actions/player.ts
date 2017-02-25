@@ -8,7 +8,9 @@ export const ActionTypes = {
   INIT_FAIL:    type('[Player] Init Fail'),
   PLAY:         type('[Player] Play'),
   PLAYING:      type('[Player] Playing'),
-  PLAY_NEXT:    type('[Player] Play Next'),
+  PLAY_RELEASE: type('[Player] Play Release'),
+  LOAD_RELEASE: type('[Player] Load Release'),
+  LOAD_VIDEOS:  type('[Player] Load Videos'),
   STOP:         type('[Player] Stop'),
   RESUME:       type('[Player] Resume'),
   SEEK:         type('[Player] Seek'),
@@ -51,10 +53,22 @@ export class PlayingAction implements Action {
   constructor(public payload: YoutubeVideo) { }
 }
 
-export class PlayNextAction implements Action {
-  type = ActionTypes.PLAY_NEXT;
+export class PlayReleaseAction implements Action {
+  type = ActionTypes.PLAY_RELEASE;
 
-  constructor(public payload = null) { }
+  constructor(public payload: DiscogsRelease) { }
+}
+
+export class LoadReleaseAction implements Action {
+  type = ActionTypes.LOAD_RELEASE;
+
+  constructor(public payload: number) { }
+}
+
+export class LoadVideosAction implements Action {
+  type = ActionTypes.LOAD_VIDEOS;
+
+  constructor(public payload: {videos: YoutubeVideo[], release: DiscogsRelease}) { }
 }
 
 export class StopAction implements Action {
@@ -104,6 +118,9 @@ export type Actions
   | InitSuccessAction
   | InitFailAction
   | PlayAction
+  | PlayReleaseAction
+  | LoadReleaseAction
+  | LoadVideosAction
   | StopAction
   | ResumeAction
   | SeekAction

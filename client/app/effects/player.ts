@@ -6,17 +6,20 @@ import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/switchMap';
+import 'rxjs/add/operator/mergeMap';
 
 import { LocalStorageService } from 'angular-2-local-storage';
 
 import * as moment from 'moment';
 
 import * as player from '../actions/player';
+import * as release from '../actions/release';
 import * as videos from '../actions/videos';
 
 import * as fromPlayer from '../reducers';
 
-import { YoutubeService, formatDuration } from '../services/youtube.service';
+import { YoutubeService, DiscogsService } from '../services';
+import { formatDuration } from '../services/youtube.service';
 import { YoutubeVideo } from '../models';
 
 @Injectable()
@@ -40,12 +43,24 @@ export class PlayerEffects {
     });
 
   @Effect()
-  playNext$: Observable<Action> = this.actions$
-    .ofType(player.ActionTypes.PLAY_NEXT)
-    .withLatestFrom(this.store, (action, state) => state.player)
-    .map(state =>
-      new videos.SelectedAction({video: state.next, release: state.release})
-    );
+  loadRelease$: Observable<Action> = this.actions$
+    .ofType(player.ActionTypes.LOAD_RELEASE)
+    .mergeMap(action => this.discogs.getRelease(action.payload)
+      .map(response => new player.PlayReleaseAction(response)));
+
+  @Effect()
+  playRelease$: Observable<Action> = this.actions$
+    .ofType(player.ActionTypes.PLAY_RELEASE)
+    .mergeMap(action => {
+      const ids = action.payload.videos && action.payload.videos.map(v => this.youtube.getIdFromUrl(v.uri));
+      return this.youtube.getListData(ids)
+        .map(response => new player.LoadVideosAction({videos: response.items, release: action.payload}));
+    });
+
+  @Effect()
+  loadVideos$: Observable<Action> = this.actions$
+    .ofType(player.ActionTypes.LOAD_VIDEOS)
+    .map(action => new videos.SelectedAction({video: action.payload.videos[0], release: action.payload.release}));
 
   @Effect()
   seekTo$: Observable<Action> = this.actions$
@@ -97,10 +112,10 @@ export class PlayerEffects {
   setVolume$ = this.actions$
     .ofType(player.ActionTypes.SET_VOL)
     .map(action => {
-      this.localStorage.set('playerVolume', action.payload);
+      // this.localStorage.set('playerVolume', action.payload);
       return of({});
     });
 
   constructor(private actions$: Actions, private store: Store<fromPlayer.State>,
-    private youtube: YoutubeService, private localStorage: LocalStorageService) { }
+    private youtube: YoutubeService, private discogs: DiscogsService) { }
 }

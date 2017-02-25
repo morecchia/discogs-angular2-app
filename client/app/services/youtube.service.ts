@@ -42,7 +42,7 @@ export class YoutubeService {
 
   player = YouTubePlayer('youtube-player');
 
-  getListData(ids: string[]): Observable<any> {
+  getListData(ids: string[]): Observable<YoutubeResponse> {
     return this.http.post('/api/videos', {ids})
       .map(response => response.json());
   }
