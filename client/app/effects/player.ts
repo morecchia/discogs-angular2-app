@@ -10,10 +10,7 @@ import 'rxjs/add/operator/mergeMap';
 
 import { LocalStorageService } from 'angular-2-local-storage';
 
-import * as moment from 'moment';
-
 import * as player from '../actions/player';
-import * as release from '../actions/release';
 import * as videos from '../actions/videos';
 
 import * as fromPlayer from '../reducers';
@@ -40,21 +37,6 @@ export class PlayerEffects {
     .map(action => {
       this.youtube.player.loadVideoById(action.payload.video && action.payload.video.id);
       return new player.PlayingAction(action.payload.video);
-    });
-
-  @Effect()
-  loadRelease$: Observable<Action> = this.actions$
-    .ofType(player.ActionTypes.LOAD_RELEASE)
-    .mergeMap(action => this.discogs.getRelease(action.payload)
-      .map(response => new player.PlayReleaseAction(response)));
-
-  @Effect()
-  playRelease$: Observable<Action> = this.actions$
-    .ofType(player.ActionTypes.PLAY_RELEASE)
-    .mergeMap(action => {
-      const ids = action.payload.videos && action.payload.videos.map(v => this.youtube.getIdFromUrl(v.uri));
-      return this.youtube.getListData(ids)
-        .map(response => new player.LoadVideosAction({videos: response.items, release: action.payload}));
     });
 
   @Effect()

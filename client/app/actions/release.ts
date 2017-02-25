@@ -13,9 +13,10 @@ import { type } from '../util';
 export const ActionTypes = {
   LOAD_COMPLETE:  type('[Release] Load Complete'),
   LOAD_FAIL:      type('[Release] Load Fail'),
-  LOAD:         type('[Release] Load')
+  LOAD:           type('[Release] Load'),
+  LOAD_PLAYER:    type('[Release] Load Player'),
+  PLAY_RELEASE:   type('[Release] Play Release')
 };
-
 
 /**
  * Every action is comprised of at least a type and an optional
@@ -37,6 +38,18 @@ export class LoadCompleteAction implements Action {
   constructor(public payload: DiscogsRelease) { }
 }
 
+export class LoadPlayerAction implements Action {
+  type = ActionTypes.LOAD_PLAYER;
+
+  constructor(public payload: number) { }
+}
+
+export class PlayReleaseAction implements Action {
+  type = ActionTypes.PLAY_RELEASE;
+
+  constructor(public payload: DiscogsRelease) { }
+}
+
 export class LoadFailAction implements Action {
   type = ActionTypes.LOAD_FAIL;
 
@@ -50,4 +63,6 @@ export class LoadFailAction implements Action {
 export type Actions
   = LoadAction
   | LoadCompleteAction
+  | LoadPlayerAction
+  | PlayReleaseAction
   | LoadFailAction;

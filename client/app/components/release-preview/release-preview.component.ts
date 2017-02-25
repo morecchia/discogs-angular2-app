@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { Store } from '@ngrx/store';
 
 import * as fromRoot from '../../reducers';
-import * as player from '../../actions/player';
+import * as discogs from '../../actions/release';
 
 import { DiscogsRelease } from '../../models';
 
@@ -13,8 +13,8 @@ import { DiscogsRelease } from '../../models';
 export class ReleasePreviewComponent {
   @Input() release: DiscogsRelease;
 
-  playAll(release: DiscogsRelease) {
-    this.store.dispatch(new player.LoadReleaseAction(this.release.id));
+  playAll() {
+    this.store.dispatch(new discogs.LoadPlayerAction(this.release.id));
   }
 
   constructor(private store: Store<fromRoot.State>) { }

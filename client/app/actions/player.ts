@@ -8,8 +8,6 @@ export const ActionTypes = {
   INIT_FAIL:    type('[Player] Init Fail'),
   PLAY:         type('[Player] Play'),
   PLAYING:      type('[Player] Playing'),
-  PLAY_RELEASE: type('[Player] Play Release'),
-  LOAD_RELEASE: type('[Player] Load Release'),
   LOAD_VIDEOS:  type('[Player] Load Videos'),
   STOP:         type('[Player] Stop'),
   RESUME:       type('[Player] Resume'),
@@ -51,18 +49,6 @@ export class PlayingAction implements Action {
   type = ActionTypes.PLAYING;
 
   constructor(public payload: YoutubeVideo) { }
-}
-
-export class PlayReleaseAction implements Action {
-  type = ActionTypes.PLAY_RELEASE;
-
-  constructor(public payload: DiscogsRelease) { }
-}
-
-export class LoadReleaseAction implements Action {
-  type = ActionTypes.LOAD_RELEASE;
-
-  constructor(public payload: number) { }
 }
 
 export class LoadVideosAction implements Action {
@@ -118,8 +104,6 @@ export type Actions
   | InitSuccessAction
   | InitFailAction
   | PlayAction
-  | PlayReleaseAction
-  | LoadReleaseAction
   | LoadVideosAction
   | StopAction
   | ResumeAction
