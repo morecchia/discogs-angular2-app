@@ -37,7 +37,9 @@
                 [nextVideo]="nextPrevVideos.next"
                 [prevVideo]="nextPrevVideos.prev"
                 [playing]="playing"
-                (onVideoSkipped)="onVideoSkipped($event)">
+                [playerTime] = "playerTime"
+                (onVideoSkipped)="onVideoSkipped($event)"
+                (onVideoTogglePlay)="onVideoTogglePlay($event)">
             </app-player-controls>
 
             <app-player-time 

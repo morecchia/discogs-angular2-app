@@ -58,15 +58,9 @@ export function reducer(state = initialState, action: player.Actions): State {
       });
     }
 
-    case player.ActionTypes.STOP: {
+    case player.ActionTypes.TOGGLE_PLAY: {
       return Object.assign({}, state, {
-        playing: false
-      });
-    }
-
-    case player.ActionTypes.RESUME: {
-      return Object.assign({}, state, {
-        playing: true
+        playing: !state.playing
       });
     }
 

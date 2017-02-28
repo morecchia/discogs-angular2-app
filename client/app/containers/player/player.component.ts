@@ -5,7 +5,7 @@ import { Observable } from 'rxjs/Observable';
 
 import * as fromRoot from '../../reducers';
 
-import { YoutubeVideo, DiscogsRelease } from '../../models';
+import { YoutubeVideo, DiscogsRelease, PlayerTime } from '../../models';
 
 @Component({
   selector: 'app-player',
@@ -16,7 +16,7 @@ export class PlayerComponent {
   nextPrevVideos$: Observable<{next: YoutubeVideo, prev: YoutubeVideo}>;
   playerRelease$: Observable<DiscogsRelease>;
   playerPlaying$: Observable<boolean>;
-  playerTime$: Observable<{formatted: string, seconds: number}>;
+  playerTime$: Observable<PlayerTime>;
 
   constructor(private store: Store<fromRoot.State>) {
     this.selectedVideo$ = store.select(fromRoot.getSelectedVideo);

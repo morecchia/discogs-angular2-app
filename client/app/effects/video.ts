@@ -20,7 +20,9 @@ export class VideoEffects {
     .ofType(videos.ActionTypes.SELECTED)
     .mergeMap(action => [
       new player.PlayAction(action.payload),
-      new player.SetTimeAction({video: action.payload.video, time: 0})
+      new player.SetTimeAction({
+        duration: action.payload.video.contentDetails.duration,
+        startTime: 0})
     ]);
 
   @Effect()

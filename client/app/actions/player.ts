@@ -1,5 +1,5 @@
 import { Action } from '@ngrx/store';
-import { YoutubeVideo, DiscogsRelease } from '../models';
+import { YoutubeVideo, DiscogsRelease, PlayerTime, SelectedVideo } from '../models';
 import { type } from '../util';
 
 export const ActionTypes = {
@@ -9,10 +9,8 @@ export const ActionTypes = {
   PLAY:         type('[Player] Play'),
   PLAYING:      type('[Player] Playing'),
   LOAD_VIDEOS:  type('[Player] Load Videos'),
-  STOP:         type('[Player] Stop'),
-  RESUME:       type('[Player] Resume'),
+  TOGGLE_PLAY:  type('[Player] Stop'),
   SEEK:         type('[Player] Seek'),
-  SET_VOL:      type('[Player] Set Volume'),
   INPUT_VOL:    type('[Player] Input Volume'),
   SET_TIME:     type('[Player] Set Time'),
   GET_TIME:     type('[Player] Get Time')
@@ -42,7 +40,7 @@ export class InitFailAction implements Action {
 export class PlayAction implements Action {
   type = ActionTypes.PLAY;
 
-  constructor(public payload: { video: YoutubeVideo, release: DiscogsRelease }) { }
+  constructor(public payload: SelectedVideo) { }
 }
 
 export class PlayingAction implements Action {
@@ -57,22 +55,16 @@ export class LoadVideosAction implements Action {
   constructor(public payload: {videos: YoutubeVideo[], release: DiscogsRelease}) { }
 }
 
-export class StopAction implements Action {
-  type = ActionTypes.STOP;
+export class TogglePlay implements Action {
+  type = ActionTypes.TOGGLE_PLAY;
 
-  constructor(public payload: any = null) { }
-}
-
-export class ResumeAction implements Action {
-  type = ActionTypes.RESUME;
-
-  constructor(public payload = null) { }
+  constructor(public payload: number) { }
 }
 
 export class SeekAction implements Action {
   type = ActionTypes.SEEK;
 
-  constructor(public payload: {video: YoutubeVideo, time: number}) { }
+  constructor(public payload: {duration: string, startTime: number}) { }
 }
 
 export class VolumeInputAction implements Action {
@@ -81,22 +73,16 @@ export class VolumeInputAction implements Action {
   constructor(public payload: number) { }
 }
 
-export class VolumeSetAction implements Action {
-  type = ActionTypes.SET_VOL;
-
-  constructor(public payload: number) { }
-}
-
 export class GetTimeAction implements Action {
   type = ActionTypes.GET_TIME;
 
-  constructor(public payload: {formatted: string, seconds: number}) { }
+  constructor(public payload: PlayerTime) { }
 }
 
 export class SetTimeAction implements Action {
   type = ActionTypes.SET_TIME;
 
-  constructor(public payload: {video: YoutubeVideo, time: number}) { }
+  constructor(public payload: {duration: string, startTime: number}) { }
 }
 
 export type Actions
@@ -105,6 +91,7 @@ export type Actions
   | InitFailAction
   | PlayAction
   | LoadVideosAction
+  | VolumeInputAction
   | StopAction
   | ResumeAction
   | SeekAction

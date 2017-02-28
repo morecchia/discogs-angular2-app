@@ -7,7 +7,7 @@ import * as fromRoot from '../../reducers';
 import * as player from '../../actions/player';
 
 import { YoutubeService } from '../../services';
-import { YoutubeVideo } from '../../models';
+import { YoutubeVideo, PlayerTime } from '../../models';
 
 @Component({
   selector: 'app-player-controls',
@@ -31,10 +31,16 @@ export class PlayerControlsComponent {
   playing: boolean;
 
   @Input()
+  playerTime: PlayerTime;
+
+  @Input()
   volume = 50;
 
   @Output()
   onVideoSkipped = new EventEmitter<YoutubeVideo>();
+
+  @Output()
+  onVideoTogglePlay = new EventEmitter<number>();
 
   @Output()
   onVolumeChanged = new EventEmitter<number>();
@@ -44,12 +50,8 @@ export class PlayerControlsComponent {
 
   volumeVisible = false;
 
-  pauseVideo() {
-    this.store.dispatch(new player.StopAction());
-  }
-
-  resumeVideo() {
-    this.store.dispatch(new player.ResumeAction());
+  togglePlay() {
+    this.onVideoTogglePlay.emit(this.playerTime.seconds);
   }
 
   skipNext() {

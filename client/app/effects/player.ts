@@ -15,14 +15,11 @@ import * as videos from '../actions/videos';
 
 import * as fromPlayer from '../reducers';
 
-import { YoutubeService, DiscogsService } from '../services';
-import { formatDuration } from '../services/youtube.service';
-import { YoutubeVideo } from '../models';
+import { YoutubeService, formatDuration } from '../services/youtube.service';
+import { YoutubeVideo, PlayerTime } from '../models';
 
 @Injectable()
 export class PlayerEffects {
-  playerTime$: Observable<{formatted: string, seconds: number}>;
-
   @Effect()
   initPlayer$: Observable<Action> = this.actions$
     .ofType(player.ActionTypes.INIT)
@@ -42,44 +39,51 @@ export class PlayerEffects {
   @Effect()
   loadVideos$: Observable<Action> = this.actions$
     .ofType(player.ActionTypes.LOAD_VIDEOS)
-    .map(action => new videos.SelectedAction({video: action.payload.videos[0], release: action.payload.release}));
+    .map(action => new videos.SelectedAction({
+      video: action.payload.videos[0],
+      release: action.payload.release
+    }));
 
   @Effect()
   seekTo$: Observable<Action> = this.actions$
     .ofType(player.ActionTypes.SEEK)
     .map(action => {
-      this.youtube.player.seekTo(action.payload.time);
+      this.youtube.player.seekTo(action.payload.startTime);
       return new player.SetTimeAction(action.payload);
     });
 
   @Effect()
   setTime$: Observable<Action> = this.actions$
     .ofType(player.ActionTypes.SET_TIME)
-    .switchMap(action => {
-      this.playerTime$ = this.youtube.playerTime(action.payload.video, action.payload.time);
-      return this.playerTime$
-        .map(time => new player.GetTimeAction(time));
-    });
+    .switchMap(action =>
+      this.youtube.playerTime(action.payload.duration, action.payload.startTime)
+        .map((time: PlayerTime) => new player.GetTimeAction(time))
+    );
 
   @Effect()
-  stopVideo$ = this.actions$
-    .ofType(player.ActionTypes.STOP)
-    .withLatestFrom(this.store, (action, state) => state.player)
+  togglePlay$ = this.actions$
+    .ofType(player.ActionTypes.TOGGLE_PLAY)
+    .withLatestFrom(this.store, (action, state) => {
+      return {
+        playing: state.player.playing,
+        time: state.player.timeSeconds,
+        video: state.player.current
+      };
+    })
     .map(state => {
-      this.youtube.player.pauseVideo();
-      this.playerTime$ = null;
-      return time => new player.GetTimeAction({
-        formatted: state.timeFormatted,
-        seconds: state.timeSeconds
-      });
-    });
+      if (!state.playing) {
+        this.youtube.player.pauseVideo();
+        return new player.SetTimeAction({
+          duration: null,
+          startTime: state.time
+        });
+      }
 
-  @Effect()
-  resumeVideo$ = this.actions$
-    .ofType(player.ActionTypes.RESUME)
-    .map(action => {
       this.youtube.player.playVideo();
-      return of({});
+      return new player.SetTimeAction({
+        duration: state.video.contentDetails.duration,
+        startTime: state.time
+      });
     });
 
   @Effect()
@@ -90,14 +94,5 @@ export class PlayerEffects {
       return of({});
     });
 
-  @Effect()
-  setVolume$ = this.actions$
-    .ofType(player.ActionTypes.SET_VOL)
-    .map(action => {
-      // this.localStorage.set('playerVolume', action.payload);
-      return of({});
-    });
-
-  constructor(private actions$: Actions, private store: Store<fromPlayer.State>,
-    private youtube: YoutubeService, private discogs: DiscogsService) { }
+  constructor(private actions$: Actions, private store: Store<fromPlayer.State>, private youtube: YoutubeService) { }
 }

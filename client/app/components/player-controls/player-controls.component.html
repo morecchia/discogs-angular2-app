@@ -1,7 +1,7 @@
   <div class="player-transport">
     <button title="Skip Previous" class="player-control mdl-button mdl-js-button mdl-button--icon" (click)="skipPrev()"><i class="material-icons">skip_previous</i></button>
-    <button title="Pause" *ngIf="playing" class="player-control mdl-button mdl-js-button mdl-button--icon" (click)="pauseVideo()"><i class="material-icons">pause_circle_outline</i></button>
-    <button title="Play" *ngIf="video && !playing" class="player-control mdl-button mdl-js-button mdl-button--icon" (click)="resumeVideo()"><i class="material-icons">play_circle_outline</i></button>
+    <button title="Pause" *ngIf="playing" class="player-control mdl-button mdl-js-button mdl-button--icon" (click)="togglePlay()"><i class="material-icons">pause_circle_outline</i></button>
+    <button title="Play" *ngIf="video && !playing" class="player-control mdl-button mdl-js-button mdl-button--icon" (click)="togglePlay()"><i class="material-icons">play_circle_outline</i></button>
     <button #skipNextButton title="Skip Next" class="player-control mdl-button mdl-js-button mdl-button--icon" (click)="skipNext()"><i class="material-icons">skip_next</i></button>
     <span class="volume-wrapper">
       <span class="volume-icon-wrapper">

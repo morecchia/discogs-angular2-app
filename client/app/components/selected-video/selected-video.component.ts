@@ -1,11 +1,13 @@
 import { Component, Input } from '@angular/core';
 import { Store } from '@ngrx/store';
 
+import { Observable } from 'rxjs/Observable';
+
 import * as fromRoot from '../../reducers';
 import * as videos from '../../actions/videos';
 import * as player from '../../actions/player';
 
-import { DiscogsRelease, YoutubeVideo } from '../../models';
+import { DiscogsRelease, YoutubeVideo, PlayerTime } from '../../models';
 
 @Component({
   selector: 'app-selected-video',
@@ -32,6 +34,10 @@ export class SelectedVideoComponent {
     if (video) {
       this.store.dispatch(new videos.SelectedAction({video, release: this.playerRelease}));
     }
+  }
+
+  onVideoTogglePlay(time: number) {
+    this.store.dispatch(new player.TogglePlay(time));
   }
 
   togglePlayerFrame() {
