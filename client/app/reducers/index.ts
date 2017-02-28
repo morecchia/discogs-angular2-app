@@ -143,6 +143,7 @@ export const getPlayerVideo = createSelector(getPlayerState, fromPlayer.getPlaye
 export const getPlayerVideos = createSelector(getPlayerState, fromPlayer.getPlayerVideos);
 export const getPlayerPlaying = createSelector(getPlayerState, fromPlayer.getPlaying);
 export const getPlayerRelease = createSelector(getPlayerState, fromPlayer.getPlayingRelease);
+export const getPlayerVolume = createSelector(getPlayerState, fromPlayer.getPlayerVolume);
 export const getPlayerTime = createSelector(getPlayerState, fromPlayer.getPlayerTime);
 export const getNextPreviousVideos = createSelector(getPlayerState, fromPlayer.getPrevNextVideos);
 

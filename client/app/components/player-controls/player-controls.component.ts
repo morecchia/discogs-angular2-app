@@ -34,7 +34,7 @@ export class PlayerControlsComponent {
   playerTime: PlayerTime;
 
   @Input()
-  volume = 50;
+  volume: number;
 
   @Output()
   onVideoSkipped = new EventEmitter<YoutubeVideo>();

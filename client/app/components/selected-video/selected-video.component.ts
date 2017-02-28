@@ -25,6 +25,9 @@ export class SelectedVideoComponent {
   playerTime: {formatted: string, seconds: number};
 
   @Input()
+  playerVolume: number;
+
+  @Input()
   playing: boolean;
 
   @Input()

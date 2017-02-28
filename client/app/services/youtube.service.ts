@@ -55,22 +55,22 @@ export class YoutubeService {
     this.localStorage.set('activeVideo', video);
   }
 
-  initPlayer(video: YoutubeVideo) {
+  initPlayer(volume: number) {
     this.player.on('ready', event => {
-        event.target.setVolume(50);
-      });
+      event.target.setVolume(volume);
+    });
 
-      this.player.on('stateChange', event => {
-        switch (event.data) {
-          case YTPLAYER_STATE.ENDED:
-            this._playbackEndedSubject.next();
-            break;
-          case YTPLAYER_STATE.PLAYING:
-            break;
-          case YTPLAYER_STATE.BUFFERING:
-            break;
-        }
-      });
+    this.player.on('stateChange', event => {
+      switch (event.data) {
+        case YTPLAYER_STATE.ENDED:
+          this._playbackEndedSubject.next();
+          break;
+        case YTPLAYER_STATE.PLAYING:
+          break;
+        case YTPLAYER_STATE.BUFFERING:
+          break;
+      }
+    });
   }
 
   playerTime(duration: string, startTime = 0): Observable<PlayerTime> {

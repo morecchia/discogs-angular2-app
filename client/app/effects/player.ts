@@ -24,8 +24,9 @@ export class PlayerEffects {
   initPlayer$: Observable<Action> = this.actions$
     .ofType(player.ActionTypes.INIT)
     .map(action => {
-      this.youtube.initPlayer(action.payload);
-      return new player.InitSuccessAction(action.payload);
+      const volume = this.localStorage.get('playerVolume') as number;
+      this.youtube.initPlayer(volume);
+      return new player.InitSuccessAction(volume);
     });
 
   @Effect()
@@ -91,8 +92,10 @@ export class PlayerEffects {
     .ofType(player.ActionTypes.INPUT_VOL)
     .map(action => {
       this.youtube.player.setVolume(action.payload);
+      this.localStorage.set('playerVolume', action.payload)
       return of({});
     });
 
-  constructor(private actions$: Actions, private store: Store<fromPlayer.State>, private youtube: YoutubeService) { }
+  constructor(private actions$: Actions, private store: Store<fromPlayer.State>, private youtube: YoutubeService,
+    private localStorage: LocalStorageService) { }
 }

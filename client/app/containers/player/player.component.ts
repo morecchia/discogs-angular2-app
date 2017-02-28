@@ -17,6 +17,7 @@ export class PlayerComponent {
   playerRelease$: Observable<DiscogsRelease>;
   playerPlaying$: Observable<boolean>;
   playerTime$: Observable<PlayerTime>;
+  playerVolume$: Observable<number>;
 
   constructor(private store: Store<fromRoot.State>) {
     this.selectedVideo$ = store.select(fromRoot.getSelectedVideo);
@@ -24,5 +25,6 @@ export class PlayerComponent {
     this.playerRelease$ = store.select(fromRoot.getPlayerRelease);
     this.playerPlaying$ = store.select(fromRoot.getPlayerPlaying);
     this.playerTime$ = store.select(fromRoot.getPlayerTime);
+    this.playerVolume$ = store.select(fromRoot.getPlayerVolume);
   }
 }

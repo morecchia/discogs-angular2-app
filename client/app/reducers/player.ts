@@ -31,7 +31,14 @@ export function reducer(state = initialState, action: player.Actions): State {
   switch (action.type) {
     case player.ActionTypes.INIT: {
       return Object.assign({}, state, {
+        initialized: true,
         videos: action.payload
+      });
+    }
+
+    case player.ActionTypes.INIT_SUCCESS: {
+      return Object.assign({}, state, {
+        volume: action.payload
       });
     }
 
@@ -43,7 +50,6 @@ export function reducer(state = initialState, action: player.Actions): State {
 
     case player.ActionTypes.PLAY: {
       return Object.assign({}, state, {
-        initialized: true,
         current: action.payload.video,
         release: action.payload.release
       });
@@ -105,6 +111,8 @@ export const getPlaying = (state: State) => state.playing;
 export const getPlayingRelease = (state: State) => state.release;
 
 export const getPlayerVideo = (state: State) => state.current;
+
+export const getPlayerVolume = (state: State) => state.volume;
 
 export const getPlayerVideos = (state: State) => state.videos;
 

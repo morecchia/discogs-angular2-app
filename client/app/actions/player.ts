@@ -28,7 +28,7 @@ export class InitAction implements Action {
 export class InitSuccessAction implements Action {
   type = ActionTypes.INIT_SUCCESS;
 
-  constructor(public payload: string) { }
+  constructor(public payload: number) { }
 }
 
 export class InitFailAction implements Action {
