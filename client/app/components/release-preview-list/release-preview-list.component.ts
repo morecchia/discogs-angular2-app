@@ -16,6 +16,7 @@ export class ReleasePreviewListComponent {
   @Input()
   loading: boolean;
 
+  @Input()
   currentPage = 1;
 
   get itemsPerPage() { return this.collection.pagination.per_page || 0; };

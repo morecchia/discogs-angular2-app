@@ -13,13 +13,16 @@ export class SalesPreviewListComponent {
   @Input()
   sales: DiscogsSales;
 
+  @Input()
+  loading: boolean;
+
+  @Input()
   currentPage = 1;
 
   get itemsPerPage() { return this.sales.pagination.per_page || 0; };
   get totalItems() { return this.sales.pagination.items || 0; };
 
   getPage(page: number) {
-    this.sales.listings = [];
     this.currentPage = page;
     this.store.dispatch(new sales.LoadAction(page));
   }

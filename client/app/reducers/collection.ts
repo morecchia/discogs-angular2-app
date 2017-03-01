@@ -70,6 +70,8 @@ export const getLoaded = (state: State) => state.loaded;
 
 export const getLoading = (state: State) => state.loading;
 
+export const getPage = (state: State) => state.pagination.page;
+
 export const getReleases = (state: State) => {
   return {
     pagination: state.pagination,

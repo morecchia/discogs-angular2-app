@@ -1,5 +1,5 @@
 import { Action } from '@ngrx/store';
-import { YoutubeVideo, DiscogsRelease, PlayerTime, SelectedVideo } from '../models';
+import { YoutubeVideo, DiscogsRelease, PlayerTime, SelectedVideo, StartTime } from '../models';
 import { type } from '../util';
 
 export const ActionTypes = {
@@ -55,7 +55,7 @@ export class LoadVideosAction implements Action {
   constructor(public payload: {videos: YoutubeVideo[], release: DiscogsRelease}) { }
 }
 
-export class TogglePlay implements Action {
+export class TogglePlayAction implements Action {
   type = ActionTypes.TOGGLE_PLAY;
 
   constructor(public payload: number) { }
@@ -64,7 +64,7 @@ export class TogglePlay implements Action {
 export class SeekAction implements Action {
   type = ActionTypes.SEEK;
 
-  constructor(public payload: {duration: string, startTime: number}) { }
+  constructor(public payload: StartTime) { }
 }
 
 export class VolumeInputAction implements Action {
@@ -82,7 +82,7 @@ export class GetTimeAction implements Action {
 export class SetTimeAction implements Action {
   type = ActionTypes.SET_TIME;
 
-  constructor(public payload: {duration: string, startTime: number}) { }
+  constructor(public payload: StartTime) { }
 }
 
 export type Actions
@@ -92,8 +92,7 @@ export type Actions
   | PlayAction
   | LoadVideosAction
   | VolumeInputAction
-  | StopAction
-  | ResumeAction
+  | TogglePlayAction
   | SeekAction
   | SetTimeAction
   | GetTimeAction;

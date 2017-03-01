@@ -29,7 +29,7 @@ export class MainLayoutComponent {
 
     onSearch(e) {
       if (goodKey(e)) {
-        this.store.dispatch(new search.SearchReleasesAction({query: e.target.value, page: 1}));
+        this.store.dispatch(new search.SearchReleasesAction(e.target.value));
       }
     }
 

@@ -33,7 +33,8 @@ export class PlayerEffects {
   playVideo$: Observable<Action> = this.actions$
     .ofType(player.ActionTypes.PLAY)
     .map(action => {
-      this.youtube.player.loadVideoById(action.payload.video && action.payload.video.id);
+      this.youtube.player.loadVideoById(action.payload.video
+        && action.payload.video.id);
       return new player.PlayingAction(action.payload.video);
     });
 
@@ -49,7 +50,7 @@ export class PlayerEffects {
   seekTo$: Observable<Action> = this.actions$
     .ofType(player.ActionTypes.SEEK)
     .map(action => {
-      this.youtube.player.seekTo(action.payload.startTime);
+      this.youtube.player.seekTo(action.payload.seconds);
       return new player.SetTimeAction(action.payload);
     });
 
@@ -57,7 +58,7 @@ export class PlayerEffects {
   setTime$: Observable<Action> = this.actions$
     .ofType(player.ActionTypes.SET_TIME)
     .switchMap(action =>
-      this.youtube.playerTime(action.payload.duration, action.payload.startTime)
+      this.youtube.playerTime(action.payload)
         .map((time: PlayerTime) => new player.GetTimeAction(time))
     );
 
@@ -76,14 +77,14 @@ export class PlayerEffects {
         this.youtube.player.pauseVideo();
         return new player.SetTimeAction({
           duration: null,
-          startTime: state.time
+          seconds: state.time
         });
       }
 
       this.youtube.player.playVideo();
       return new player.SetTimeAction({
         duration: state.video.contentDetails.duration,
-        startTime: state.time
+        seconds: state.time
       });
     });
 
@@ -96,6 +97,6 @@ export class PlayerEffects {
       return of({});
     });
 
-  constructor(private actions$: Actions, private store: Store<fromPlayer.State>, private youtube: YoutubeService,
-    private localStorage: LocalStorageService) { }
+  constructor(private actions$: Actions, private store: Store<fromPlayer.State>,
+    private youtube: YoutubeService, private localStorage: LocalStorageService) { }
 }

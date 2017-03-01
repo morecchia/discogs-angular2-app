@@ -22,7 +22,8 @@ export class VideoEffects {
       new player.PlayAction(action.payload),
       new player.SetTimeAction({
         duration: action.payload.video.contentDetails.duration,
-        startTime: 0})
+        seconds: 0
+      })
     ]);
 
   @Effect()

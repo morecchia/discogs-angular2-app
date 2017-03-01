@@ -6,7 +6,7 @@ import * as moment from 'moment';
 import * as fromRoot from '../../reducers';
 import * as player from '../../actions/player';
 
-import { YoutubeVideo, PlayerTime } from '../../models';
+import { YoutubeVideo, PlayerTime, StartTime } from '../../models';
 
 @Component({
   selector: 'app-player-time',
@@ -23,15 +23,15 @@ export class PlayerTimeComponent {
   @Input()
   duration: string;
 
+  @Output()
+  onVideoSeek = new EventEmitter<StartTime>();
+
   get durationSeconds() {
     return moment.duration(this.duration, 'seconds').asSeconds();
   }
 
-  seekTo(value: number) {
-    this.store.dispatch(new player.SeekAction({
-      duration: this.video.contentDetails.duration,
-      startTime: value
-    }));
+  seekTo(seconds: number) {
+    this.onVideoSeek.emit({duration: this.duration, seconds});
   }
 
   constructor(private store: Store<fromRoot.State>) { }

@@ -14,9 +14,11 @@ import { DiscogsCollection } from '../../models';
 export class CollectionComponent{
   collection$: Observable<DiscogsCollection>;
   loading$: Observable<boolean>;
+  currentPage$: Observable<number>;
 
   constructor(private store: Store<fromRoot.State>) {
     this.collection$ = store.select(fromRoot.getCollection);
+    this.currentPage$ = store.select(fromRoot.getCollectionPage);
     this.loading$ = store.select(fromRoot.getCollectionLoading);
   }
 }

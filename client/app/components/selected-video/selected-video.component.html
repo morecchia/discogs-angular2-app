@@ -46,7 +46,8 @@
             <app-player-time 
                 [video]="selectedVideo"
                 [playerTime] = "playerTime"
-                [duration]="selectedVideo.contentDetails.duration">
+                [duration]="selectedVideo.contentDetails.duration"
+                (onVideoSeek)="onVideoSeek($event)">
             </app-player-time>
         </div>
 

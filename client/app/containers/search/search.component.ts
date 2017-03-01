@@ -18,17 +18,20 @@ export class SearchComponent {
   searchResults$: Observable<DiscogsSearch>;
   searching$: Observable<boolean>;
   searchTerm$: Observable<string>;
+  currentPage$: Observable<number>;
+
   routeParamSub: Subscription;
 
   constructor(private store: Store<fromRoot.State>, private activatedRoute: ActivatedRoute) {
     this.searchResults$ = store.select(fromRoot.getSearchResults);
     this.searching$ = store.select(fromRoot.getSearchLoading);
     this.searchTerm$ = store.select(fromRoot.getSearchQuery);
+    this.currentPage$ = store.select(fromRoot.getSearchPage);
 
     this.routeParamSub = activatedRoute.params
       .subscribe(params => {
         const query = params['q'];
-        this.store.dispatch(new search.SearchReleasesAction({query, page: 1}));
+        this.store.dispatch(new search.SearchReleasesAction(query));
       });
   }
 }

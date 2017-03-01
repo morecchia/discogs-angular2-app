@@ -20,6 +20,7 @@ export function reducer(state = initialState, action: sales.Actions): State {
   switch (action.type) {
     case sales.ActionTypes.LOAD: {
       return Object.assign({}, state, {
+        listings: [],
         loading: true
       });
     }
@@ -45,6 +46,8 @@ export function reducer(state = initialState, action: sales.Actions): State {
 export const getLoaded = (state: State) => state.loaded;
 
 export const getLoading = (state: State) => state.loading;
+
+export const getPage = (state: State) => state.pagination.page;
 
 export const getListings = (state: State) => {
   return {

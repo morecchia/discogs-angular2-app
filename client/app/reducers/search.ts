@@ -24,7 +24,7 @@ export function reducer(state = initialState, action: search.Actions): State {
       return Object.assign({}, state, {
         searching: true,
         results: [],
-        query: action.payload.query
+        query: action.payload
       });
     }
 
@@ -47,6 +47,8 @@ export function reducer(state = initialState, action: search.Actions): State {
 export const getSearching = (state: State) => state.searching;
 
 export const getQuery = (state: State) => state.query;
+
+export const getPage = (state: State) => state.pagination.page;
 
 export const getSearchResults = (state: State) => {
   return {

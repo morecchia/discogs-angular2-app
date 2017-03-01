@@ -4,6 +4,7 @@
     <div class="mdl-cell mdl-cell--8-col">
         <app-want-preview-list
             [wantlist]="wantlist$ | async"
+            [currentPage]="currentPage$ | async"
             [loading]="loading$ | async">
         </app-want-preview-list>
     </div>

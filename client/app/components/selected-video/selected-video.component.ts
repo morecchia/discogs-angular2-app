@@ -7,7 +7,7 @@ import * as fromRoot from '../../reducers';
 import * as videos from '../../actions/videos';
 import * as player from '../../actions/player';
 
-import { DiscogsRelease, YoutubeVideo, PlayerTime } from '../../models';
+import { DiscogsRelease, YoutubeVideo, PlayerTime, StartTime } from '../../models';
 
 @Component({
   selector: 'app-selected-video',
@@ -39,8 +39,12 @@ export class SelectedVideoComponent {
     }
   }
 
+  onVideoSeek(time: StartTime) {
+    this.store.dispatch(new player.SeekAction(time));
+  }
+
   onVideoTogglePlay(time: number) {
-    this.store.dispatch(new player.TogglePlay(time));
+    this.store.dispatch(new player.TogglePlayAction(time));
   }
 
   togglePlayerFrame() {

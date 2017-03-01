@@ -1,5 +1,6 @@
 import * as wantlist from '../actions/wantlist';
 import { DiscogsPagination, DiscogsItem } from '../models';
+
 export interface State {
   loaded: boolean;
   loading: boolean;
@@ -68,6 +69,8 @@ export function reducer(state = initialState, action: wantlist.Actions): State {
 export const getLoaded = (state: State) => state.loaded;
 
 export const getLoading = (state: State) => state.loading;
+
+export const getPage = (state: State) => state.pagination.page;
 
 export const getReleases = (state: State) => {
   return {

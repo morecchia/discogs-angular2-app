@@ -152,6 +152,7 @@ export const getSearchState = (state: State) => state.search;
 
 export const getSearchResults = createSelector(getSearchState, fromSearch.getSearchResults);
 export const getSearchQuery = createSelector(getSearchState, fromSearch.getQuery);
+export const getSearchPage = createSelector(getSearchState, fromSearch.getPage);
 export const getSearchLoading = createSelector(getSearchState, fromSearch.getSearching);
 
 // Discogs Collection
@@ -159,6 +160,7 @@ export const getCollectionState = (state: State) => state.collection;
 
 export const getCollectionLoaded = createSelector(getCollectionState, fromCollection.getLoaded);
 export const getCollectionLoading = createSelector(getCollectionState, fromCollection.getLoading);
+export const getCollectionPage = createSelector(getCollectionState, fromCollection.getPage);
 export const getCollection = createSelector(getCollectionState, fromCollection.getReleases);
 
 // Discogs Wantlist
@@ -166,6 +168,7 @@ export const getWantlistState = (state: State) => state.wantlist;
 
 export const getWantlistLoaded = createSelector(getWantlistState, fromWantlist.getLoaded);
 export const getWantlistLoading = createSelector(getWantlistState, fromWantlist.getLoading);
+export const getWantlistPage = createSelector(getWantlistState, fromWantlist.getPage);
 export const getWantlist = createSelector(getWantlistState, fromWantlist.getReleases);
 
 // Discogs Sales
@@ -173,6 +176,7 @@ export const getSalesState = (state: State) => state.sales;
 
 export const getSalesLoaded = createSelector(getSalesState, fromSales.getLoaded);
 export const getSalesLoading = createSelector(getSalesState, fromSales.getLoading);
+export const getSalesPage = createSelector(getSalesState, fromSales.getPage);
 export const getSales = createSelector(getSalesState, fromSales.getListings);
 
 // Discogs User

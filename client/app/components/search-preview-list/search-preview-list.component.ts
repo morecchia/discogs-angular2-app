@@ -20,6 +20,7 @@ export class SearchPreviewListComponent {
   @Input()
   searching: boolean;
 
+  @Input()
   currentPage = 1;
 
   get itemsPerPage() { return this.searchResults.pagination.per_page || 0; };
@@ -28,7 +29,7 @@ export class SearchPreviewListComponent {
   getPage(page: number) {
     this.currentPage = page;
     this.store.dispatch(
-      new discogsSearch.SearchReleasesAction({query: this.searchTerm, page})
+      new discogsSearch.SearchReleasesAction(this.searchTerm)
     );
   }
 

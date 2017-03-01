@@ -12,19 +12,13 @@ export const ActionTypes = {
 export class SearchReleasesAction implements Action {
   type = ActionTypes.SEARCH_RELEASES;
 
-  constructor(public payload: {query: string, page: number}) { }
+  constructor(public payload: string) { }
 }
 
 export class SearchCompleteAction implements Action {
   type = ActionTypes.SEARCH_COMPLETE;
 
   constructor(public payload: DiscogsSearch) { }
-}
-
-export class LoadResultsAction implements Action {
-  type = ActionTypes.LOAD_RESULTS;
-
-  constructor(public payload: string) { }
 }
 
 export class SearchFailAction implements Action {
@@ -36,5 +30,4 @@ export class SearchFailAction implements Action {
 export type Actions
   = SearchReleasesAction
   | SearchCompleteAction
-  | SearchFailAction
-  | LoadResultsAction;
+  | SearchFailAction;

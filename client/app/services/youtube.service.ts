@@ -12,7 +12,7 @@ import * as fromRoot from '../reducers';
 import * as player from '../actions/player';
 
 import { DiscogsService } from './discogs.service';
-import { YoutubeResponse, YoutubeVideo, Video, PlayerTime } from '../models';
+import { YoutubeResponse, YoutubeVideo, Video, PlayerTime, StartTime } from '../models';
 
 import * as moment from 'moment';
 
@@ -73,10 +73,10 @@ export class YoutubeService {
     });
   }
 
-  playerTime(duration: string, startTime = 0): Observable<PlayerTime> {
-    const ms = startTime * 1000;
+  playerTime(startTime: StartTime): Observable<PlayerTime> {
+    const ms = startTime.seconds * 1000;
 
-    if (!duration) {
+    if (!startTime.duration) {
       const span = moment.duration(startTime, 'seconds');
       return Observable.of({
         formatted: formatDuration(span),
@@ -85,14 +85,14 @@ export class YoutubeService {
     }
 
     const trackDuration = moment
-      .duration(duration)
+      .duration(startTime.duration)
       .asMilliseconds() + 1000;
 
     return Observable
       .timer(0, 1000)
       .takeUntil(Observable.timer((trackDuration) - ms))
       .map(t => {
-        const span = moment.duration(startTime + t, 'seconds');
+        const span = moment.duration(startTime.seconds + t, 'seconds');
         return {
           formatted: formatDuration(span),
           seconds: span.asSeconds()
