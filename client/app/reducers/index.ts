@@ -134,6 +134,7 @@ export const getVideosState = (state: State) => state.videos;
 export const getVideos = createSelector(getVideosState, fromVideos.getVideoEntities);
 export const getVideosLoading = createSelector(getVideosState, fromVideos.getLoading);
 export const getVideosLoaded = createSelector(getVideosState, fromVideos.getLoaded);
+export const getActiveVideoId = createSelector(getVideosState, fromVideos.getSelectedId);
 export const getSelectedVideo = createSelector(getVideosState, fromVideos.getSelectedVideo);
 
 // Youtube Player

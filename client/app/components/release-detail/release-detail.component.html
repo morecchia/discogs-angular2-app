@@ -44,7 +44,18 @@
                         </mdl-tab-panel-title>
 
                         <mdl-tab-panel-content>
-                            <app-video-list [loading]="videosLoading" [videos]="releaseVideos" (onVideoSelected)="onSelectedVideo($event)"></app-video-list>
+                            <div class="video-wrapper">
+                                <ul class="mdl-list">
+                                    <div *ngIf="videosLoading" class="progress progress-list">
+                                        <mdl-spinner single-color [active]="videosLoading"></mdl-spinner>
+                                    </div>
+                                    <app-video-list
+                                        [videos]="releaseVideos"
+                                        [activeVideoId]="activeVideoId"
+                                        (onVideoSelected)="onSelectedVideo($event)">
+                                    </app-video-list>
+                                </ul>
+                            </div>
                         </mdl-tab-panel-content>
                     </mdl-tab-panel>
 

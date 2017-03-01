@@ -57,6 +57,7 @@ export class YoutubeService {
 
   initPlayer(volume: number) {
     this.player.on('ready', event => {
+      console.log('Youtube ready');
       event.target.setVolume(volume);
     });
 
@@ -66,8 +67,10 @@ export class YoutubeService {
           this._playbackEndedSubject.next();
           break;
         case YTPLAYER_STATE.PLAYING:
+          console.log('Youtube playing');
           break;
         case YTPLAYER_STATE.BUFFERING:
+          console.log('Youtube buffering');
           break;
       }
     });

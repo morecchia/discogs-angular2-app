@@ -16,11 +16,6 @@
     width: 150px;
 }
 
-.video-wrapper li.active {
-    border-left: 2px solid orange;
-    background: #efefef;
-}
-
 .video-duration {
     color: rgba(0, 0, 0, .54);
 }

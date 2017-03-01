@@ -31,9 +31,7 @@ export class ReleaseEffects {
     .ofType(release.ActionTypes.LOAD_COMPLETE)
     .map(action => new videos.LoadAction(action.payload.videos &&
       action.payload.videos.map(v => this.youtube.getIdFromUrl(v.uri))
-    ))
-    .mergeMap(action => this.youtube.getListData(action.payload)
-      .map(response => new videos.LoadCompleteAction(response)));
+    ));
 
   @Effect()
   loadPlayer$: Observable<Action> = this.actions$

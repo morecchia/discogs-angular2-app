@@ -30,6 +30,9 @@ export class ReleaseDetailComponent implements OnDestroy {
   @Input()
   videosLoaded: boolean;
 
+  @Input()
+  activeVideoId: string;
+
   releaseImagesVisible = false;
 
   get activeTabIndex() { return this.videosLoaded && !this.releaseVideos.length ? 0 : 1; }

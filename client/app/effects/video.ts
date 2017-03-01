@@ -10,6 +10,7 @@ import * as moment from 'moment';
 import * as videos from '../actions/videos';
 import * as player from '../actions/player';
 
+import { YoutubeService } from '../services';
 import { YoutubeVideo  } from '../models';
 
 @Injectable()
@@ -27,9 +28,16 @@ export class VideoEffects {
     ]);
 
   @Effect()
+  load$: Observable<Action> = this.actions$
+    .ofType(videos.ActionTypes.LOAD)
+    .mergeMap(action =>
+      this.youtube.getListData(action.payload)
+        .map(response => new videos.LoadCompleteAction(response)));
+
+  @Effect()
   loadCompleted$: Observable<Action> = this.actions$
     .ofType(videos.ActionTypes.LOAD_COMPLETE)
     .map(action => new player.InitAction(action.payload.items));
 
-  constructor(private actions$: Actions) { }
+  constructor(private actions$: Actions, private youtube: YoutubeService) { }
 }

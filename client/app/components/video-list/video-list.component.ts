@@ -12,7 +12,7 @@ export class VideoListComponent {
   videos: YoutubeVideo[];
 
   @Input()
-  loading: boolean;
+  activeVideoId: string;
 
   @Output()
   onVideoSelected = new EventEmitter<YoutubeVideo>();
