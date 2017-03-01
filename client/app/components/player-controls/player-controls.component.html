@@ -1,8 +1,9 @@
-  <div class="player-transport">
+<div class="player-transport">
     <button title="Skip Previous" class="player-control mdl-button mdl-js-button mdl-button--icon" (click)="skipPrev()"><i class="material-icons">skip_previous</i></button>
     <button title="Pause" *ngIf="playing" class="player-control mdl-button mdl-js-button mdl-button--icon" (click)="togglePlay()"><i class="material-icons">pause_circle_outline</i></button>
-    <button title="Play" *ngIf="video && !playing" class="player-control mdl-button mdl-js-button mdl-button--icon" (click)="togglePlay()"><i class="material-icons">play_circle_outline</i></button>
+    <button title="Play" *ngIf="selectedVideo && !playing" class="player-control mdl-button mdl-js-button mdl-button--icon" (click)="togglePlay()"><i class="material-icons">play_circle_outline</i></button>
     <button #skipNextButton title="Skip Next" class="player-control mdl-button mdl-js-button mdl-button--icon" (click)="skipNext()"><i class="material-icons">skip_next</i></button>
+
     <span class="volume-wrapper">
       <span class="volume-icon-wrapper">
           <button title="Volume" class="player-control mdl-button mdl-js-button mdl-button--icon"
@@ -14,12 +15,24 @@
           </button>
       </span>
 
-      <span [ngClass]="{'visible': volumeVisible, 'volume-slider': true}" 
-        (mouseenter)="toggleVolumeVisibility()" (mouseleave)="toggleVolumeVisibility(true)">
-          <mdl-slider [min]="0" [max]="100" [step]="1"
-            #src (input)="inputVolume(src.value)" [(ngModel)]="volume"></mdl-slider>
-          <span class="volume-label">{{volume}}</span>
+      <span [ngClass]="{'visible': volumeVisible, 'volume-slider': true}" (mouseenter)="toggleVolumeVisibility()" (mouseleave)="toggleVolumeVisibility(true)">
+              <mdl-slider [min]="0" [max]="100" [step]="1"
+                #src (input)="inputVolume(src.value)" [(ngModel)]="volume"></mdl-slider>
+              <span class="volume-label">{{volume}}</span>
       </span>
     </span>
-  </div>
-  
+
+    <span class="playlist-wrapper">
+        <button mdl-button #playlistBtn="mdlButton" [mdl-toggle-menu]="playlistMenu" mdl-button-type="icon" mdl-ripple>
+          <mdl-icon>view_list</mdl-icon>
+        </button>
+        <mdl-menu #playlistMenu="mdlMenu" mdl-menu-position="top-right">
+            <mdl-menu-item class="playlist-title" disabled mdl-menu-item-full-bleed-divider>
+                {{playerRelease.artists[0].name}} - {{playerRelease.title}}
+            </mdl-menu-item>
+            <mdl-menu-item *ngFor="let video of playlist" mdl-ripple (click)="selectVideo(video)">
+                <span [ngClass]="{'active': video.id === selectedVideo.id, 'playlist-item': true}">{{video.snippet.title}}</span>
+            </mdl-menu-item>
+        </mdl-menu>
+    </span>
+</div>

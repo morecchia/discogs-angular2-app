@@ -22,7 +22,7 @@ export const ActionTypes = {
 export class InitAction implements Action {
   type = ActionTypes.INIT;
 
-  constructor(public payload: YoutubeVideo[]) { }
+  constructor(public payload = null) { }
 }
 
 export class InitSuccessAction implements Action {
@@ -46,7 +46,7 @@ export class PlayAction implements Action {
 export class PlayingAction implements Action {
   type = ActionTypes.PLAYING;
 
-  constructor(public payload: YoutubeVideo) { }
+  constructor(public payload: {selected: YoutubeVideo, videos: YoutubeVideo[]}) { }
 }
 
 export class LoadVideosAction implements Action {

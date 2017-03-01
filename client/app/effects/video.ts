@@ -37,7 +37,7 @@ export class VideoEffects {
   @Effect()
   loadCompleted$: Observable<Action> = this.actions$
     .ofType(videos.ActionTypes.LOAD_COMPLETE)
-    .map(action => new player.InitAction(action.payload.items));
+    .map(action => new player.InitAction());
 
   constructor(private actions$: Actions, private youtube: YoutubeService) { }
 }

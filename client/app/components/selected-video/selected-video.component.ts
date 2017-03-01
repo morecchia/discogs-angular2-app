@@ -19,6 +19,9 @@ export class SelectedVideoComponent {
   selectedVideo: YoutubeVideo;
 
   @Input()
+  playlist: YoutubeVideo[];
+
+  @Input()
   playerRelease: DiscogsRelease;
 
   @Input()

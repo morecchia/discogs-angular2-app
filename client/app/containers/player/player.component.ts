@@ -18,6 +18,7 @@ export class PlayerComponent {
   playerPlaying$: Observable<boolean>;
   playerTime$: Observable<PlayerTime>;
   playerVolume$: Observable<number>;
+  playlist$: Observable<YoutubeVideo[]>;
 
   constructor(private store: Store<fromRoot.State>) {
     this.selectedVideo$ = store.select(fromRoot.getSelectedVideo);
@@ -26,5 +27,6 @@ export class PlayerComponent {
     this.playerPlaying$ = store.select(fromRoot.getPlayerPlaying);
     this.playerTime$ = store.select(fromRoot.getPlayerTime);
     this.playerVolume$ = store.select(fromRoot.getPlayerVolume);
+    this.playlist$ = store.select(fromRoot.getPlayerVideos);
   }
 }

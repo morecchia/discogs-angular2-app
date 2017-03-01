@@ -32,8 +32,12 @@
 }
 
 .player-transport {
-    width: 140px;
+    width: 200px;
     margin: 0 auto;
+}
+
+.player-transport .mdl-menu__container {
+    border: 1px solid #d9d9d9;
 }
 
 .video-duration {
@@ -48,9 +52,31 @@
     margin-top: 2px;
 }
 
+.playlist-wrapper,
 .volume-wrapper,
 .volume-icon-wrapper {
     position: relative;
+}
+
+.playlist-wrapper {
+    margin-left: 20px;
+ }
+
+.playlist-title {
+    color: #333333;
+    font-size: 18px;
+    text-align: center;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+}
+
+.playlist-item {
+    padding: 0 8px;
+}
+
+.playlist-item.active {
+    border-left: 2px solid orange;
+    font-weight: bolder;
 }
 
 .volume-slider.visible,

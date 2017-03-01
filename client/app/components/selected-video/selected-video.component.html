@@ -33,7 +33,9 @@
         
         <div class="mdl-cell mdl-cell--6-col mdl-cell--4-col-tablet mdl-cell--2-col-phone player-controls">
             <app-player-controls 
-                [video]="selectedVideo"
+                [selectedVideo]="selectedVideo"
+                [playlist]="playlist"
+                [playerRelease]="playerRelease"
                 [volume] = "playerVolume"
                 [nextVideo]="nextPrevVideos.next"
                 [prevVideo]="nextPrevVideos.prev"
