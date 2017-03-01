@@ -1,4 +1,4 @@
-import { Component, OnDestroy, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Store } from '@ngrx/store';
 
 import * as fromRoot from '../../reducers';
@@ -8,7 +8,7 @@ import * as fromRoot from '../../reducers';
   templateUrl: './search-box.component.html',
   styleUrls: ['./search-box.component.css']
 })
-export class SearchBoxComponent implements OnDestroy {
+export class SearchBoxComponent {
   placeholder = 'Type the name of a release...';
 
   @Input()
@@ -16,10 +16,6 @@ export class SearchBoxComponent implements OnDestroy {
 
   @Output()
   onSearch = new EventEmitter<string>();
-
-  ngOnDestroy() {
-    // this.discogs.deactivateSearch();
-  }
 
   constructor(private store: Store<fromRoot.State>) { }
 }

@@ -15,12 +15,7 @@ import * as search from '../actions/search';
 import * as fromSearch from '../reducers';
 
 import { DiscogsService } from '../services';
-import { DiscogsSearch } from '../models';
-
-interface SearchInput {
-  query: string;
-  page: number;
-}
+import { DiscogsSearch, SearchInput } from '../models';
 
 @Injectable()
 export class SearchEffects {
@@ -28,24 +23,18 @@ export class SearchEffects {
   search$: Observable<Action> = this.actions$
     .ofType(search.ActionTypes.SEARCH_RELEASES)
     .debounceTime(300)
-    .withLatestFrom(this.store, (action, store) => {
-      return {
-        query: action.payload,
-        page: store.search.pagination.page
-      };
-    })
-    .switchMap((input: SearchInput) => {
-      if (input.query.length < 3) {
+    .switchMap(action => {
+      if (action.payload.query.length < 3) {
         return [
           new search.SearchCompleteAction({results: [], pagination: defaults.pagination})
         ];
       }
 
       const nextSearch$ = this.actions$.ofType(search.ActionTypes.SEARCH_RELEASES).skip(1);
-      const searchTerm = input.query.trim();
+      const searchTerm = action.payload.query.trim();
       const query = encodeURIComponent(searchTerm);
 
-      return this.discogs.searchReleases(query, input.page)
+      return this.discogs.searchReleases(query, action.payload.page)
         .takeUntil(nextSearch$)
         .mergeMap((response: DiscogsSearch) => [
           new search.SearchCompleteAction(response),

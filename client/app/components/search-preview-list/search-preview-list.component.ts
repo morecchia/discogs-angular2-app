@@ -21,15 +21,16 @@ export class SearchPreviewListComponent {
   searching: boolean;
 
   @Input()
-  currentPage = 1;
+  currentPage;
 
   get itemsPerPage() { return this.searchResults.pagination.per_page || 0; };
   get totalItems() { return this.searchResults.pagination.items || 0; };
 
   getPage(page: number) {
     this.currentPage = page;
+    console.log(this.searchTerm, page);
     this.store.dispatch(
-      new discogsSearch.SearchReleasesAction(this.searchTerm)
+      new discogsSearch.SearchReleasesAction({query: this.searchTerm, page})
     );
   }
 

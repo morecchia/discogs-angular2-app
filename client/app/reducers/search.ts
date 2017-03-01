@@ -24,7 +24,7 @@ export function reducer(state = initialState, action: search.Actions): State {
       return Object.assign({}, state, {
         searching: true,
         results: [],
-        query: action.payload
+        query: action.payload.query
       });
     }
 

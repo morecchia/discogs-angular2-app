@@ -1,5 +1,5 @@
 import { Action } from '@ngrx/store';
-import { DiscogsSearch } from '../models';
+import { DiscogsSearch, SearchInput } from '../models';
 import { type } from '../util';
 
 export const ActionTypes = {
@@ -12,7 +12,7 @@ export const ActionTypes = {
 export class SearchReleasesAction implements Action {
   type = ActionTypes.SEARCH_RELEASES;
 
-  constructor(public payload: string) { }
+  constructor(public payload: SearchInput) { }
 }
 
 export class SearchCompleteAction implements Action {

@@ -31,7 +31,7 @@ export class SearchComponent {
     this.routeParamSub = activatedRoute.params
       .subscribe(params => {
         const query = params['q'];
-        this.store.dispatch(new search.SearchReleasesAction(query));
+        this.store.dispatch(new search.SearchReleasesAction({query, page: 1}));
       });
   }
 }
