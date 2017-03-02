@@ -28,7 +28,6 @@ export class SearchPreviewListComponent {
 
   getPage(page: number) {
     this.currentPage = page;
-    console.log(this.searchTerm, page);
     this.store.dispatch(
       new discogsSearch.SearchReleasesAction({query: this.searchTerm, page})
     );

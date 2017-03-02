@@ -23,7 +23,7 @@ export class WantlistEffects {
   loadWantlist$: Observable<Action> = this.actions$
     .ofType(wantlist.ActionTypes.LOAD)
     .startWith(new wantlist.LoadAction())
-    .mergeMap(action => this.discogs.getListByType('wantlist', action.payload)
+    .switchMap(action => this.discogs.getListByType('wantlist', action.payload)
         .map((wants: DiscogsWants) => new wantlist.LoadSuccessAction(wants))
         .catch(error => of(new wantlist.LoadFailAction(error))));
 

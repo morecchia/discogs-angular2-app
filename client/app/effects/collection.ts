@@ -8,6 +8,7 @@ import { of } from 'rxjs/observable/of';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/startWith';
 import 'rxjs/add/operator/mergeMap';
+import 'rxjs/add/operator/switchMap';
 
 import * as collection from '../actions/collection';
 import { DiscogsService } from '../services';
@@ -24,7 +25,7 @@ export class CollectionEffects {
   loadCollection$: Observable<Action> = this.actions$
     .ofType(collection.ActionTypes.LOAD)
     .startWith(new collection.LoadAction())
-    .mergeMap(action =>
+    .switchMap(action =>
       this.discogs.getListByType('collection', action.payload)
         .map((releases: DiscogsCollection) => new collection.LoadSuccessAction(releases))
         .catch(error => of(new collection.LoadFailAction(error)))
