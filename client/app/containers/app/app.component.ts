@@ -4,6 +4,8 @@ import { Store } from '@ngrx/store';
 import { Observable }   from 'rxjs/Observable';
 
 import * as fromRoot from '../../reducers';
+import * as player from '../../actions/player';
+
 import { DiscogsUser } from '../../models';
 
 @Component({
@@ -16,7 +18,10 @@ export class AppComponent {
 
   constructor(private store: Store<fromRoot.State>) {
     this.user$ = store.select(fromRoot.getUser);
-    this.videoSelected$ = store.select(fromRoot.getSelectedVideo)
+
+    this.videoSelected$ = store.select(fromRoot.getPlayerCurrent)
       .map(video => video !== null);
+
+    store.dispatch(new player.InitAction());
   }
 }
