@@ -37,7 +37,9 @@ export function reducer(state = initialState, action: player.Actions): State {
 
     case player.ActionTypes.INIT_SUCCESS: {
       return Object.assign({}, state, {
-        volume: action.payload
+        volume: action.payload.volume,
+        current: action.payload.activeVideo,
+        release: action.payload.activeRelease
       });
     }
 

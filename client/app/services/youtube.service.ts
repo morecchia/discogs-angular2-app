@@ -12,7 +12,7 @@ import * as fromRoot from '../reducers';
 import * as player from '../actions/player';
 
 import { DiscogsService } from './discogs.service';
-import { YoutubeResponse, YoutubeVideo, Video, PlayerTime, StartTime } from '../models';
+import * as models from '../models';
 
 import * as moment from 'moment';
 
@@ -42,7 +42,7 @@ export class YoutubeService {
 
   player = YouTubePlayer('youtube-player');
 
-  getListData(ids: string[]): Observable<YoutubeResponse> {
+  getListData(ids: string[]): Observable<models.YoutubeResponse> {
     return this.http.post('/api/videos', {ids})
       .map(response => response.json());
   }
@@ -55,10 +55,28 @@ export class YoutubeService {
     this.localStorage.set('activeVideo', video);
   }
 
+  setVolume(value: number) {
+    this.player.setVolume(value);
+    this.localStorage.set('playerVolume', value);
+  }
+
+  setSelectedVideo(selected: models.SelectedVideo) {
+    this.localStorage.set('activeVideo', selected.video);
+    this.localStorage.set('activeRelease', selected.release);
+  }
+
+  getPlayerSettings(): models.PlayerSettings {
+    return {
+      volume: this.localStorage.get('playerVolume') as number,
+      activeVideo: this.localStorage.get('activeVideo') as models.YoutubeVideo,
+      activeRelease: this.localStorage.get('activeRelease') as models.DiscogsRelease
+    };
+  }
+
   initPlayer(volume: number) {
     this.player.on('ready', event => {
       console.log('Youtube ready');
-      event.target.setVolume(volume);
+      this.player.setVolume(volume);
     });
 
     this.player.on('stateChange', event => {
@@ -76,7 +94,7 @@ export class YoutubeService {
     });
   }
 
-  playerTime(startTime: StartTime): Observable<PlayerTime> {
+  playerTime(startTime: models.StartTime): Observable<models.PlayerTime> {
     const ms = startTime.seconds * 1000;
 
     if (!startTime.duration) {
