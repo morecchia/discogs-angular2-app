@@ -15,10 +15,11 @@
                 <mdl-icon>keyboard_arrow_right</mdl-icon>
             </button>
         </mdl-card-actions>
-        <mdl-card-menu>
-            <button mdl-button mdl-button-type="icon" (click)="onImagesClose.emit($event)">
-                <mdl-icon class="md-18" >close</mdl-icon>
-            </button>
-        </mdl-card-menu>
     </mdl-card>
+
+    <span class="close">
+        <button mdl-button mdl-button-type="icon" (click)="onImagesClose.emit($event)">
+            <mdl-icon>close</mdl-icon>
+        </button>
+    </span>
 </div>
