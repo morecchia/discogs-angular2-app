@@ -65,9 +65,13 @@
 .playlist-title {
     color: #333333;
     font-size: 18px;
-    text-align: center;
     font-weight: 800;
     letter-spacing: 0.08em;
+    padding-bottom: 8px;
+}
+
+.playlist-title span {
+    margin-left: 8px;
 }
 
 .playlist-item {
@@ -75,8 +79,14 @@
 }
 
 .playlist-item.active {
-    border-left: 2px solid orange;
     font-weight: bolder;
+    font-style: italic;
+    letter-spacing: 0.08em;
+}
+
+.mdl-list__item-avatar.avatar-smaller {
+    height: 30px;
+    width: 30px;
 }
 
 .volume-slider.visible,

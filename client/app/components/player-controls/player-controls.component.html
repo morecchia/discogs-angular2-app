@@ -28,10 +28,14 @@
         </button>
         <mdl-menu #playlistMenu="mdlMenu" mdl-menu-position="top-right">
             <mdl-menu-item class="playlist-title" disabled mdl-menu-item-full-bleed-divider>
-                {{playerRelease.artists[0].name}} - {{playerRelease.title}}
+                <img class="mdl-list__item-avatar" src="{{playerRelease.images[0].uri150}}">
+                <span>{{playerRelease.artists[0].name}} - {{playerRelease.title}}</span>
             </mdl-menu-item>
             <mdl-menu-item *ngFor="let video of playlist" mdl-ripple (click)="selectVideo(video)">
-                <span [ngClass]="{'active': video.id === selectedVideo.id, 'playlist-item': true}">{{video.snippet.title}}</span>
+                <img class="mdl-list__item-avatar avatar-smaller" src="{{video.snippet.thumbnails.default.url}}">
+                <span [ngClass]="{'active': video.id === selectedVideo.id, 'playlist-item': true}">
+                    {{video.snippet.title}}
+                </span>
             </mdl-menu-item>
         </mdl-menu>
     </span>
