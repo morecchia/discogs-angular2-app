@@ -32,10 +32,24 @@ export class PlayerEffects {
   @Effect()
   playVideo$: Observable<Action> = this.actions$
     .ofType(player.ActionTypes.PLAY)
+    .withLatestFrom(this.store, (action, state) => {
+      return {videos: state.videos.videos, action};
+    })
+    .map(state => {
+      this.youtube.player.loadVideoById(state.action.payload.video
+        && state.action.payload.video.id);
+      return new player.PlayingAction({
+        selected: state.action.payload.video,
+        videos: state.videos
+      });
+    });
+
+  @Effect()
+  playlistPlay$ = this.actions$
+    .ofType(player.ActionTypes.PLAYLIST_PLAY)
     .map(action => {
-      this.youtube.player.loadVideoById(action.payload.video
-        && action.payload.video.id);
-      return new player.PlayingAction(action.payload.video);
+      this.youtube.player.loadVideoById(action.payload && action.payload.id);
+      return Observable.of({});
     });
 
   @Effect()

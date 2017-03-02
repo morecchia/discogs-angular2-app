@@ -7,7 +7,7 @@ import * as fromRoot from '../../reducers';
 import * as videos from '../../actions/videos';
 import * as player from '../../actions/player';
 
-import { DiscogsRelease, YoutubeVideo, PlayerTime, StartTime } from '../../models';
+import { DiscogsRelease, YoutubeVideo, PlayerTime, StartTime, SelectedVideo } from '../../models';
 
 @Component({
   selector: 'app-selected-video',
@@ -16,7 +16,10 @@ import { DiscogsRelease, YoutubeVideo, PlayerTime, StartTime } from '../../model
 })
 export class SelectedVideoComponent {
   @Input()
-  selectedVideo: YoutubeVideo;
+  playerCurrent: YoutubeVideo;
+
+  @Input()
+  playlist: YoutubeVideo[];
 
   @Input()
   playerRelease: DiscogsRelease;
@@ -37,6 +40,10 @@ export class SelectedVideoComponent {
     if (video) {
       this.store.dispatch(new videos.SelectedAction({video, release: this.playerRelease}));
     }
+  }
+
+  onPlaylistSelected(selected: SelectedVideo) {
+    this.store.dispatch(new videos.PlaylistSelectedAction(selected));
   }
 
   onVideoSeek(time: StartTime) {

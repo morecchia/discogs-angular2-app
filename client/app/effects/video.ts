@@ -28,6 +28,17 @@ export class VideoEffects {
     ]);
 
   @Effect()
+  selectFromPlaylist$: Observable<Action> = this.actions$
+    .ofType(videos.ActionTypes.PLAYLIST_SELECTED)
+    .mergeMap(action => [
+      new player.PlaylistPlayAction(action.payload.video),
+      new player.SetTimeAction({
+        duration: action.payload.video.contentDetails.duration,
+        seconds: 0
+      })
+    ]);
+
+  @Effect()
   load$: Observable<Action> = this.actions$
     .ofType(videos.ActionTypes.LOAD)
     .mergeMap(action =>
@@ -37,7 +48,7 @@ export class VideoEffects {
   @Effect()
   loadCompleted$: Observable<Action> = this.actions$
     .ofType(videos.ActionTypes.LOAD_COMPLETE)
-    .map(action => new player.InitAction(action.payload.items));
+    .map(action => new player.InitAction());
 
   constructor(private actions$: Actions, private youtube: YoutubeService) { }
 }

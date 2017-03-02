@@ -1,12 +1,12 @@
 <section class="player-content">
-    <div class="playing mdl-grid" *ngIf="selectedVideo">
+    <div class="playing mdl-grid" *ngIf="playerCurrent">
         <div class="mdl-layout-spacer"></div>
 
         <div class="playing mdl-cell mdl-cell--4-col mdl-cell--2-col-phone">
             <div class="playing playing-title-container">
                 <a class="playing-title-image">
                     <div (click)="togglePlayerFrame()">
-                        <img src="{{selectedVideo.snippet.thumbnails.default.url}}" alt="{{selectedVideo.snippet.title}}" />
+                        <img src="{{playerCurrent.snippet.thumbnails.default.url}}" alt="{{playerCurrent.snippet.title}}" />
                         <span [ngClass]="{'visible': imageIconVisible, 'player-image-icon': true}">
                             <i class="material-icons md-light">featured_video</i>
                         </span>
@@ -23,7 +23,7 @@
                     </div>
 
                     <div class="playing-title-video mdl-cell--hide-phone">
-                        <a title="{{selectedVideo.snippet.title}}" class="video-link">{{selectedVideo.snippet.title}}</a>
+                        <a title="{{playerCurrent.snippet.title}}" class="video-link">{{playerCurrent.snippet.title}}</a>
                     </div>
                 </div>
             </div>
@@ -33,20 +33,23 @@
         
         <div class="mdl-cell mdl-cell--6-col mdl-cell--4-col-tablet mdl-cell--2-col-phone player-controls">
             <app-player-controls 
-                [video]="selectedVideo"
+                [playerCurrent]="playerCurrent"
+                [playlist]="playlist"
+                [playerRelease]="playerRelease"
                 [volume] = "playerVolume"
                 [nextVideo]="nextPrevVideos.next"
                 [prevVideo]="nextPrevVideos.prev"
                 [playing]="playing"
                 [playerTime] = "playerTime"
                 (onVideoSkipped)="onVideoSkipped($event)"
-                (onVideoTogglePlay)="onVideoTogglePlay($event)">
+                (onVideoTogglePlay)="onVideoTogglePlay($event)"
+                (onPlaylistSelected)="onPlaylistSelected($event)">
             </app-player-controls>
 
             <app-player-time 
                 [video]="selectedVideo"
                 [playerTime] = "playerTime"
-                [duration]="selectedVideo.contentDetails.duration"
+                [duration]="playerCurrent.contentDetails.duration"
                 (onVideoSeek)="onVideoSeek($event)">
             </app-player-time>
         </div>

@@ -1,7 +1,8 @@
 <div [ngClass]="setMainClasses()">
     <mdl-card mdl-shadow="3">
         <mdl-card-supporting-text>
-            <img (click)="nextImage()" src="{{showingImageUrl}}">
+            <img class="release-image" *ngFor="let image of images; let i = index"
+                [ngClass]="{'visible': i === imageIndex}" (click)="nextImage()" src="{{image.uri}}">
         </mdl-card-supporting-text>
         <mdl-card-actions mdl-card-border>
             <button [disabled]="navButtonDisabled" class="previous" mdl-button mdl-button-type="icon" mdl-ripple (click)="prevImage()">

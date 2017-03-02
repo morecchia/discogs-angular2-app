@@ -11,11 +11,12 @@ import { type } from '../util';
  * action types in the application are unique. 
  */
 export const ActionTypes = {
-  LOAD_COMPLETE: type('[Videos] Load Complete'),
-  LOAD_FAIL:     type('[Videos] Load Fail'),
-  LOAD:          type('[Videos] Load'),
-  SELECTED:      type('[Video] Selected'),
-  CLEAR:         type('[Videos] Cleared')
+  LOAD_COMPLETE:      type('[Videos] Load Complete'),
+  LOAD_FAIL:          type('[Videos] Load Fail'),
+  LOAD:               type('[Videos] Load'),
+  SELECTED:           type('[Video] Selected'),
+  PLAYLIST_SELECTED:  type('[Video] Playlist Selected'),
+  CLEAR:              type('[Videos] Cleared')
 };
 
 /**
@@ -46,6 +47,12 @@ export class LoadFailAction implements Action {
 
 export class SelectedAction implements Action {
   type = ActionTypes.SELECTED;
+
+  constructor(public payload: SelectedVideo) { }
+}
+
+export class PlaylistSelectedAction implements Action {
+  type = ActionTypes.PLAYLIST_SELECTED;
 
   constructor(public payload: SelectedVideo) { }
 }

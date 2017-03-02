@@ -5,9 +5,10 @@ import * as moment from 'moment';
 
 import * as fromRoot from '../../reducers';
 import * as player from '../../actions/player';
+import * as videos from '../../actions/videos';
 
 import { YoutubeService } from '../../services';
-import { YoutubeVideo, PlayerTime } from '../../models';
+import { YoutubeVideo, PlayerTime, DiscogsRelease, SelectedVideo } from '../../models';
 
 @Component({
   selector: 'app-player-controls',
@@ -19,7 +20,10 @@ export class PlayerControlsComponent {
   skipNextButton: ElementRef;
 
   @Input()
-  video: YoutubeVideo;
+  playerCurrent: YoutubeVideo;
+
+  @Input()
+  playlist: YoutubeVideo[];
 
   @Input()
   nextVideo: YoutubeVideo;
@@ -36,11 +40,17 @@ export class PlayerControlsComponent {
   @Input()
   volume: number;
 
+  @Input()
+  playerRelease: DiscogsRelease;
+
   @Output()
   onVideoSkipped = new EventEmitter<YoutubeVideo>();
 
   @Output()
   onVideoTogglePlay = new EventEmitter<number>();
+
+  @Output()
+  onPlaylistSelected = new EventEmitter<SelectedVideo>();
 
   @Output()
   onVolumeChanged = new EventEmitter<number>();
@@ -52,6 +62,10 @@ export class PlayerControlsComponent {
 
   togglePlay() {
     this.onVideoTogglePlay.emit(this.playerTime.seconds);
+  }
+
+  selectVideo(video: YoutubeVideo) {
+    this.onPlaylistSelected.emit({video, release: this.playerRelease});
   }
 
   skipNext() {
