@@ -44,7 +44,6 @@
 
 .release-images mdl-card mdl-card-actions {
     text-align: center;
-    margin-top: 4px;
 }
 
 .release-images mdl-card mdl-card-actions .next {
@@ -64,7 +63,6 @@
 .release-images mdl-card mdl-card-supporting-text {
     position: relative;
     min-height: 320px;
-    margin: 4px;
 }
 
 .release-images mdl-card mdl-card-supporting-text img {
