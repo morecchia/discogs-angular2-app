@@ -3,17 +3,18 @@ import { YoutubeVideo, DiscogsRelease, PlayerTime, SelectedVideo, StartTime } fr
 import { type } from '../util';
 
 export const ActionTypes = {
-  INIT:         type('[Player] Init'),
-  INIT_SUCCESS: type('[Player] Init Success'),
-  INIT_FAIL:    type('[Player] Init Fail'),
-  PLAY:         type('[Player] Play'),
-  PLAYING:      type('[Player] Playing'),
-  LOAD_VIDEOS:  type('[Player] Load Videos'),
-  TOGGLE_PLAY:  type('[Player] Stop'),
-  SEEK:         type('[Player] Seek'),
-  INPUT_VOL:    type('[Player] Input Volume'),
-  SET_TIME:     type('[Player] Set Time'),
-  GET_TIME:     type('[Player] Get Time')
+  INIT:          type('[Player] Init'),
+  INIT_SUCCESS:  type('[Player] Init Success'),
+  INIT_FAIL:     type('[Player] Init Fail'),
+  PLAY:          type('[Player] Play'),
+  PLAYING:       type('[Player] Playing'),
+  LOAD_VIDEOS:   type('[Player] Load Videos'),
+  TOGGLE_PLAY:   type('[Player] Stop'),
+  PLAYLIST_PLAY: type('[Player] PLaylist Play'),
+  SEEK:          type('[Player] Seek'),
+  INPUT_VOL:     type('[Player] Input Volume'),
+  SET_TIME:      type('[Player] Set Time'),
+  GET_TIME:      type('[Player] Get Time')
 };
 
 /**
@@ -47,6 +48,12 @@ export class PlayingAction implements Action {
   type = ActionTypes.PLAYING;
 
   constructor(public payload: {selected: YoutubeVideo, videos: YoutubeVideo[]}) { }
+}
+
+export class PlaylistPlayAction implements Action {
+  type = ActionTypes.PLAYLIST_PLAY;
+
+  constructor(public payload: YoutubeVideo) { }
 }
 
 export class LoadVideosAction implements Action {

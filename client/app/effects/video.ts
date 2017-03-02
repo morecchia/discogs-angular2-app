@@ -28,6 +28,17 @@ export class VideoEffects {
     ]);
 
   @Effect()
+  selectFromPlaylist$: Observable<Action> = this.actions$
+    .ofType(videos.ActionTypes.PLAYLIST_SELECTED)
+    .mergeMap(action => [
+      new player.PlaylistPlayAction(action.payload.video),
+      new player.SetTimeAction({
+        duration: action.payload.video.contentDetails.duration,
+        seconds: 0
+      })
+    ]);
+
+  @Effect()
   load$: Observable<Action> = this.actions$
     .ofType(videos.ActionTypes.LOAD)
     .mergeMap(action =>

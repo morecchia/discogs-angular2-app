@@ -58,5 +58,3 @@ export const getLoading = (state: State) => state.loading;
 export const getVideoEntities = (state: State) => state.videos;
 
 export const getSelectedVideo = (state: State) => state.selected;
-
-export const getSelectedId = (state: State) => state.selected && state.selected.id;

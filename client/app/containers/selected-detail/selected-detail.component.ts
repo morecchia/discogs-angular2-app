@@ -26,7 +26,7 @@ export class SelectedDetailComponent {
     this.videos$ = store.select(fromRoot.getVideos);
     this.videosLoading$ = store.select(fromRoot.getVideosLoading);
     this.videosLoaded$ = store.select(fromRoot.getVideosLoaded);
-    this.activeVideoId$ = store.select(fromRoot.getActiveVideoId);
+    this.activeVideoId$ = store.select(fromRoot.getPlayerCurrentId);
     // this.isSelectedReleaseInCollection$ = store.select(fromRoot.isSelectedReleaseInCollection);
     // this.isSelectedReleaseInWantlist$ = store.select(fromRoot.isSelectedReleaseInWantlist);
   }

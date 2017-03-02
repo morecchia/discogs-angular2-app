@@ -1,7 +1,7 @@
 <div class="player-transport">
     <button title="Skip Previous" class="player-control mdl-button mdl-js-button mdl-button--icon" (click)="skipPrev()"><i class="material-icons">skip_previous</i></button>
     <button title="Pause" *ngIf="playing" class="player-control mdl-button mdl-js-button mdl-button--icon" (click)="togglePlay()"><i class="material-icons">pause_circle_outline</i></button>
-    <button title="Play" *ngIf="selectedVideo && !playing" class="player-control mdl-button mdl-js-button mdl-button--icon" (click)="togglePlay()"><i class="material-icons">play_circle_outline</i></button>
+    <button title="Play" *ngIf="playerCurrent && !playing" class="player-control mdl-button mdl-js-button mdl-button--icon" (click)="togglePlay()"><i class="material-icons">play_circle_outline</i></button>
     <button #skipNextButton title="Skip Next" class="player-control mdl-button mdl-js-button mdl-button--icon" (click)="skipNext()"><i class="material-icons">skip_next</i></button>
 
     <span class="volume-wrapper">
@@ -33,7 +33,7 @@
             </mdl-menu-item>
             <mdl-menu-item *ngFor="let video of playlist" mdl-ripple (click)="selectVideo(video)">
                 <img class="mdl-list__item-avatar avatar-smaller" src="{{video.snippet.thumbnails.default.url}}">
-                <span [ngClass]="{'active': video.id === selectedVideo.id, 'playlist-item': true}">
+                <span [ngClass]="{'active': video.id === playerCurrent.id, 'playlist-item': true}">
                     {{video.snippet.title}}
                 </span>
             </mdl-menu-item>

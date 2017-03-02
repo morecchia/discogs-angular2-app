@@ -45,6 +45,14 @@ export class PlayerEffects {
     });
 
   @Effect()
+  playlistPlay$ = this.actions$
+    .ofType(player.ActionTypes.PLAYLIST_PLAY)
+    .map(action => {
+      this.youtube.player.loadVideoById(action.payload && action.payload.id);
+      return Observable.of({});
+    });
+
+  @Effect()
   loadVideos$: Observable<Action> = this.actions$
     .ofType(player.ActionTypes.LOAD_VIDEOS)
     .map(action => new videos.SelectedAction({

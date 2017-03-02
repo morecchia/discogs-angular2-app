@@ -65,6 +65,15 @@ export function reducer(state = initialState, action: player.Actions): State {
       });
     }
 
+    case player.ActionTypes.PLAYLIST_PLAY: {
+      const prevNextVideos = _getPrevNextVideos(state.videos, action.payload);
+      return Object.assign({}, state, {
+        current: action.payload,
+        next: prevNextVideos.next,
+        prev: prevNextVideos.prev
+      });
+    }
+
     case player.ActionTypes.TOGGLE_PLAY: {
       return Object.assign({}, state, {
         playing: !state.playing
@@ -111,7 +120,9 @@ export const getPlaying = (state: State) => state.playing;
 
 export const getPlayingRelease = (state: State) => state.release;
 
-export const getPlayerVideo = (state: State) => state.current;
+export const getPlayerCurrent = (state: State) => state.current;
+
+export const getPlayerCurrentId = (state: State) => state.current && state.current.id;
 
 export const getPlayerVolume = (state: State) => state.volume;
 
