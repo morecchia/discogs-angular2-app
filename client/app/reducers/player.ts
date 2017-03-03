@@ -39,7 +39,8 @@ export function reducer(state = initialState, action: player.Actions): State {
       return Object.assign({}, state, {
         volume: action.payload.volume,
         current: action.payload.activeVideo,
-        release: action.payload.activeRelease
+        release: action.payload.activeRelease,
+        videos: action.payload.playerVideos
       });
     }
 

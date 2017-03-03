@@ -60,23 +60,26 @@ export class YoutubeService {
     this.localStorage.set('playerVolume', value);
   }
 
-  setSelectedVideo(selected: models.SelectedVideo) {
+  setSelectedVideo(selected: models.SelectedVideo, videos: models.YoutubeVideo[]) {
     this.localStorage.set('activeVideo', selected.video);
     this.localStorage.set('activeRelease', selected.release);
+    this.localStorage.set('playerVideos', videos || []);
   }
 
   getPlayerSettings(): models.PlayerSettings {
     return {
       volume: this.localStorage.get('playerVolume') as number,
       activeVideo: this.localStorage.get('activeVideo') as models.YoutubeVideo,
-      activeRelease: this.localStorage.get('activeRelease') as models.DiscogsRelease
+      activeRelease: this.localStorage.get('activeRelease') as models.DiscogsRelease,
+      playerVideos: this.localStorage.get('playerVideos') as models.YoutubeVideo[] || []
     };
   }
 
-  initPlayer(volume: number) {
+  initPlayer(settings: models.PlayerSettings) {
     this.player.on('ready', event => {
       console.log('Youtube ready');
-      this.player.setVolume(volume);
+      this.player.setVolume(settings.volume);
+      this.player.cueVideoById(settings.activeVideo && settings.activeVideo.id);
     });
 
     this.player.on('stateChange', event => {

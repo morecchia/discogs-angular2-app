@@ -25,7 +25,7 @@ export class PlayerEffects {
     .ofType(player.ActionTypes.INIT)
     .map(action => {
       const settings = this.youtube.getPlayerSettings();
-      this.youtube.initPlayer(settings.volume);
+      this.youtube.initPlayer(settings);
       return new player.InitSuccessAction(settings);
     });
 
@@ -33,12 +33,14 @@ export class PlayerEffects {
   playVideo$: Observable<Action> = this.actions$
     .ofType(player.ActionTypes.PLAY)
     .withLatestFrom(this.store, (action, state) => {
-      return {videos: state.videos.videos, action};
+      const videos = state.videos.videos.length
+        ? state.videos.videos : state.player.videos;
+      return {videos, action};
     })
     .map(state => {
       this.youtube.player.loadVideoById(state.action.payload.video
         && state.action.payload.video.id);
-      this.youtube.setSelectedVideo(state.action.payload);
+      this.youtube.setSelectedVideo(state.action.payload, state.videos);
       return new player.PlayingAction({
         selected: state.action.payload.video,
         videos: state.videos
@@ -49,21 +51,29 @@ export class PlayerEffects {
   playlistPlay$ = this.actions$
     .ofType(player.ActionTypes.PLAYLIST_PLAY)
     .withLatestFrom(this.store, (action, state) => {
-      return {video: action.payload, release: state.player.release};
+      return {
+        videos: state.player.videos,
+        selected: {
+          video: action.payload,
+          release: state.player.release
+        }
+      };
     })
-    .map(selected => {
-      this.youtube.player.loadVideoById(selected.video && selected.video.id);
-      this.youtube.setSelectedVideo(selected);
+    .map(state => {
+      this.youtube.player.loadVideoById(state.selected.video
+        && state.selected.video.id);
+      this.youtube.setSelectedVideo(state.selected, state.videos);
       return Observable.of({});
     });
 
   @Effect()
   loadVideos$: Observable<Action> = this.actions$
     .ofType(player.ActionTypes.LOAD_VIDEOS)
-    .map(action => new videos.SelectedAction({
-      video: action.payload.videos[0],
-      release: action.payload.release
-    }));
+    .map(action =>
+      new videos.SelectedAction({
+        video: action.payload.videos[0],
+        release: action.payload.release
+      }));
 
   @Effect()
   seekTo$: Observable<Action> = this.actions$
