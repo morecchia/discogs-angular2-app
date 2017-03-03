@@ -17,7 +17,7 @@ export class ReleaseImagesComponent implements OnInit {
 
   imageIndex = 0;
 
-  get navButtonDisabled() { return this.images.length <= 1; }
+  get navButtonDisabled() { return this.images && this.images.length <= 1; }
 
   setMainClasses() {
     return {

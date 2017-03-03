@@ -9,7 +9,7 @@
                 <mdl-icon>keyboard_arrow_left</mdl-icon>
             </button>
 
-            <span class="image-counter">{{imageIndex + 1}} of {{images.length}}</span>
+            <span *ngIf="images" class="image-counter">{{imageIndex + 1}} of {{images.length}}</span>
 
             <button [disabled]="navButtonDisabled" class="next" mdl-button mdl-button-type="icon" mdl-ripple (click)="nextImage()">
                 <mdl-icon>keyboard_arrow_right</mdl-icon>
