@@ -19,7 +19,9 @@
         "styles": [
             "assets/app.css"
         ],
-        "scripts": [],
+        "scripts": [
+            "assets/material.min.js"
+        ],
         "environments": {
             "source": "environments/environment.ts",
             "dev": "environments/environment.ts",
