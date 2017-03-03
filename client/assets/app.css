@@ -51,6 +51,9 @@ body {
 }
 
 /* material design lite overwrites */
+.mdl-layout__header {
+    background-color: #333;
+}
 
 .mdl-textfield__input {
     border-bottom: 1px solid #aaa;
