@@ -22,7 +22,7 @@ export class VideoEffects {
     .mergeMap(action => [
       new player.PlayAction(action.payload),
       new player.SetTimeAction({
-        duration: action.payload.video.contentDetails.duration,
+        duration: action.payload.video && action.payload.video.contentDetails.duration,
         seconds: 0
       })
     ]);

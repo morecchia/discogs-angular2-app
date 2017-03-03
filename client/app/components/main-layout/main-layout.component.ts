@@ -19,6 +19,9 @@ export class MainLayoutComponent {
     @Input()
     videoSelected: boolean;
 
+    @Input()
+    videoLoadFailed: boolean;
+
     searchVisible = false;
 
     title = 'Discogs Player';

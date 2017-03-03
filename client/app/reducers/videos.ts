@@ -3,6 +3,7 @@ import { YoutubeVideo } from '../models';
 export interface State {
   loaded: boolean;
   loading: boolean;
+  failed: string;
   videos: YoutubeVideo[];
   selected: YoutubeVideo;
 };
@@ -10,6 +11,7 @@ export interface State {
 const initialState: State = {
   loaded: false,
   loading: false,
+  failed: null,
   videos: [],
   selected: null
 };
@@ -28,6 +30,13 @@ export function reducer(state = initialState, action: videos.Actions): State {
         loaded: true,
         loading: false,
         videos: youtubeResponse.items,
+      });
+    }
+
+    case videos.ActionTypes.LOAD_FAIL: {
+      return Object.assign({}, state, {
+        loading: false,
+        failed: action.payload
       });
     }
 
@@ -54,6 +63,8 @@ export function reducer(state = initialState, action: videos.Actions): State {
 export const getLoaded = (state: State) => state.loaded;
 
 export const getLoading = (state: State) => state.loading;
+
+export const getLoadingFailed = (state: State) => state.failed;
 
 export const getVideoEntities = (state: State) => state.videos;
 

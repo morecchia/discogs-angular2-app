@@ -36,8 +36,12 @@ export class ReleaseEffects {
   @Effect()
   loadPlayer$: Observable<Action> = this.actions$
     .ofType(release.ActionTypes.LOAD_PLAYER)
-    .mergeMap(action => this.discogs.getRelease(action.payload)
-      .map(response => new release.PlayReleaseAction(response)));
+    .mergeMap(action =>
+      this.discogs.getRelease(action.payload)
+        .map(response => response.videos
+            ? new release.PlayReleaseAction(response)
+            : new videos.LoadFailAction('Sorry, this release has no videos!'))
+    );
 
   @Effect()
   playRelease$: Observable<Action> = this.actions$

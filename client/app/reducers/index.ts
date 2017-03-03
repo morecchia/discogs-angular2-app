@@ -133,6 +133,7 @@ export const getVideosState = (state: State) => state.videos;
 
 export const getVideos = createSelector(getVideosState, fromVideos.getVideoEntities);
 export const getVideosLoading = createSelector(getVideosState, fromVideos.getLoading);
+export const getVideosLoadingFailed = createSelector(getVideosState, fromVideos.getLoadingFailed);
 export const getVideosLoaded = createSelector(getVideosState, fromVideos.getLoaded);
 export const getSelectedVideo = createSelector(getVideosState, fromVideos.getSelectedVideo);
 

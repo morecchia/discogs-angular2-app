@@ -77,7 +77,6 @@ export class YoutubeService {
 
   initPlayer(settings: models.PlayerSettings) {
     this.player.on('ready', event => {
-      console.log('Youtube ready');
       this.player.setVolume(settings.volume);
       this.player.cueVideoById(settings.activeVideo && settings.activeVideo.id);
     });
@@ -88,10 +87,8 @@ export class YoutubeService {
           this._playbackEndedSubject.next();
           break;
         case YTPLAYER_STATE.PLAYING:
-          console.log('Youtube playing');
           break;
         case YTPLAYER_STATE.BUFFERING:
-          console.log('Youtube buffering');
           break;
       }
     });
