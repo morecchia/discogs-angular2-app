@@ -1,7 +1,6 @@
 .release-images,
 .release-image {
     display: none;
-    position: absolute;
     top: 0;
     left: 0;
 }
@@ -10,6 +9,13 @@
     width: 100%;
     height: 100%;
     background: rgba(0,0,0,0.7);
+}
+
+.release-images mdl-card mdl-card-supporting-text img,
+.release-images .close,
+.release-images,
+.release-image {
+    position: absolute;
 }
 
 .release-images.visible {
@@ -28,7 +34,6 @@
 }
 
 .release-images .close {
-    position: absolute;
     top: 2px;
     right: 2px;
     color: #ffffff;
@@ -70,7 +75,6 @@
     max-width: 100%; 
     width: auto;
     height: auto;
-    position: absolute;  
     top: 0;  
     bottom: 0;  
     left: 0;  

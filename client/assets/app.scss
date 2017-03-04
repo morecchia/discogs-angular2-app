@@ -1,3 +1,5 @@
+@import "../../node_modules/material-design-lite/src/material-design-lite";
+
 body {
     font-family: "Roboto", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
     font-weight: 400;
@@ -14,7 +16,6 @@ body {
     width: 100px;
 }
 
-
 .progress.progress-list {
     padding: 8em 0;
     margin: auto;
@@ -30,17 +31,41 @@ body {
     text-decoration: underline;
 }
 
+/******* Pagination *******/
+
 .pagination-wrapper {
     width: 600px;
+
+    ul {
+        padding: 0;
+    }
+
+    li {
+        cursor: pointer;
+    }
 }
 
-.pagination-wrapper ul {
-    padding: 0;
+.ng2-pagination .current {
+    background: rgba(0, 0, 0, 0.54) !important;
+    border-radius: 3px;
 }
 
-.pagination-wrapper li {
-    cursor: pointer;
+.ng2-pagination li a {
+    color: #3e3e3e !important;
+    font-weight: normal !important;
 }
+
+/******* Lists *******/
+
+.list-actions span {
+    font-size: 0.9em;
+}
+
+.list-actions .material-icons.md-resized {
+    font-size: 18px;
+}
+
+/******* Youtube player *******/
 
 .youtube-frame {
     display: none;
@@ -50,22 +75,9 @@ body {
     display: block;
 }
 
-/* material design lite overwrites */
+/***** MDL overwrites *********/
 .mdl-layout__header {
     background-color: #333;
-}
-
-.mdl-textfield__input {
-    border-bottom: 1px solid #aaa;
-}
-
-.ng2-pagination .current {
-    background: rgb(96, 125, 139) !important;
-}
-
-.ng2-pagination li a {
-    color: #3e3e3e !important;
-    font-weight: normal !important;
 }
 
 .material-icons.md-18 {
@@ -117,14 +129,27 @@ body {
     cursor: pointer;
 }
 
-.list-actions span {
-    font-size: 0.9em;
+.mdl-textfield__input {
+    border-bottom: 1px solid #eaeaea;
 }
 
-.list-actions .material-icons.md-resized {
-    font-size: 18px;
+.mdl-textfield__input,
+.mdl-textfield__label {
+    font-size: 14px;
 }
 
+.mdl-textfield__label {
+    color: #aaa;
+
+    .mdl-textfield--floating-label.is-focused &,
+    .mdl-textfield--floating-label.is-dirty &,
+    .mdl-textfield--floating-label.has-placeholder & {
+        color: #eaeaea;
+        text-align: right;
+    }
+}
+
+/********** Breakpoints ************/
 
 @media (max-width: 360px) {
     .pagination-wrapper {

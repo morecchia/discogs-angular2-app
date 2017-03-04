@@ -29,7 +29,8 @@
 }
 
 .mdl-navigation .toggle-search:hover {
-    background-color: rgb(96,125,139);
+    background-color: #333;
+    color: #ff4081;
 }
 
 .mdl-navigation.hidden,
