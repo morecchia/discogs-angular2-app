@@ -4,10 +4,7 @@ import * as player from '../actions/player';
 export interface State {
   initialized: boolean;
   playing: boolean;
-  next: YoutubeVideo | null;
-  prev: YoutubeVideo | null;
   current: YoutubeVideo;
-  videos: YoutubeVideo[];
   volume: number;
   release: DiscogsRelease;
   timeFormatted: string;
@@ -18,10 +15,7 @@ const initialState: State = {
   initialized: false,
   playing: false,
   current: null,
-  videos: [],
   release: null,
-  next: null,
-  prev: null,
   volume: 50,
   timeFormatted: '0:00',
   timeSeconds: 0
@@ -39,14 +33,7 @@ export function reducer(state = initialState, action: player.Actions): State {
       return Object.assign({}, state, {
         volume: action.payload.volume,
         current: action.payload.activeVideo,
-        release: action.payload.activeRelease,
-        videos: action.payload.playerVideos
-      });
-    }
-
-    case player.ActionTypes.LOAD_VIDEOS: {
-      return Object.assign({}, state, {
-        videos: action.payload.videos
+        release: action.payload.activeRelease
       });
     }
 
@@ -59,21 +46,14 @@ export function reducer(state = initialState, action: player.Actions): State {
 
     case player.ActionTypes.PLAYING: {
       const videos = action.payload.videos;
-      const prevNextVideos = _getPrevNextVideos(videos, action.payload.selected);
       return Object.assign({}, state, {
-        playing: true,
-        videos: videos,
-        next: prevNextVideos.next,
-        prev: prevNextVideos.prev
+        playing: true
       });
     }
 
     case player.ActionTypes.PLAYLIST_PLAY: {
-      const prevNextVideos = _getPrevNextVideos(state.videos, action.payload);
       return Object.assign({}, state, {
-        current: action.payload,
-        next: prevNextVideos.next,
-        prev: prevNextVideos.prev
+        current: action.payload
       });
     }
 
@@ -94,18 +74,6 @@ export function reducer(state = initialState, action: player.Actions): State {
       return state;
     }
   }
-}
-
-function _getPrevNextVideos(videos: YoutubeVideo[], selectedVideo: YoutubeVideo) {
-  const currentIndex = videos.map(v => v.id).indexOf(selectedVideo && selectedVideo.id);
-  return {
-    // the next video in the list, or the first if we are already on the last
-    next: currentIndex < videos.length - 1
-      ? videos[currentIndex + 1] : videos[0],
-    // the previuos video in the list, or null if we are already on the first
-    prev: currentIndex > 0
-      ? videos[currentIndex - 1] : null
-  };
 }
 
 /**
@@ -129,18 +97,9 @@ export const getPlayerCurrentId = (state: State) => state.current && state.curre
 
 export const getPlayerVolume = (state: State) => state.volume;
 
-export const getPlayerVideos = (state: State) => state.videos;
-
 export const getPlayerTime = (state: State) => {
   return {
     formatted: state.timeFormatted,
     seconds: state.timeSeconds
-  };
-};
-
-export const getPrevNextVideos = (state: State) => {
-  return {
-    prev: state.prev,
-    next: state.next
   };
 };

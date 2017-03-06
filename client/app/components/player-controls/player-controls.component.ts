@@ -53,6 +53,9 @@ export class PlayerControlsComponent {
   onPlaylistSelected = new EventEmitter<SelectedVideo>();
 
   @Output()
+  onPlaylistRemove = new EventEmitter<SelectedVideo>();
+
+  @Output()
   onVolumeChanged = new EventEmitter<number>();
 
   @Output()
@@ -66,6 +69,10 @@ export class PlayerControlsComponent {
 
   selectVideo(video: YoutubeVideo) {
     this.onPlaylistSelected.emit({video, release: this.playerRelease});
+  }
+
+  removeVideo(video: YoutubeVideo) {
+    this.onPlaylistRemove.emit({video, release: this.playerRelease});
   }
 
   skipNext() {

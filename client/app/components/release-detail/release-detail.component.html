@@ -52,7 +52,8 @@
                                     <app-video-list
                                         [videos]="releaseVideos"
                                         [activeVideoId]="activeVideoId"
-                                        (onVideoSelected)="onSelectedVideo($event)">
+                                        (onVideoSelected)="onSelectedVideo($event)"
+                                        (onVideoQueued)="onQueuedVideo($event)">
                                     </app-video-list>
                                 </ul>
                             </div>

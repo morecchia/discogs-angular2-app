@@ -18,7 +18,7 @@ import * as effects from './effects';
 import * as containers from './containers';
 import { ComponentsModule } from './components';
 import { PipesModule } from './pipes';
-import { DiscogsService, YoutubeService, WindowRef } from './services';
+import { DiscogsService, YoutubeService, PlaylistService, WindowRef } from './services';
 
 @NgModule({
   declarations: [
@@ -50,10 +50,11 @@ import { DiscogsService, YoutubeService, WindowRef } from './services';
     EffectsModule.run(effects.SearchEffects),
     EffectsModule.run(effects.UserEffects),
     EffectsModule.run(effects.PlayerEffects),
+    EffectsModule.run(effects.PlaylistEffects),
     EffectsModule.run(effects.VideoEffects),
     ComponentsModule
   ],
-  providers: [DiscogsService, YoutubeService, WindowRef, Title],
+  providers: [DiscogsService, YoutubeService, PlaylistService, WindowRef, Title],
   bootstrap: [containers.AppComponent]
 })
 export class AppModule { }

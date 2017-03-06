@@ -4,5 +4,6 @@ export * from './wantlist';
 export * from './sales';
 export * from './user';
 export * from './player';
+export * from './playlist';
 export * from './video';
 export * from './search';

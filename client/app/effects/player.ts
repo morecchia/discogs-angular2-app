@@ -23,6 +23,7 @@ export class PlayerEffects {
   @Effect()
   initPlayer$: Observable<Action> = this.actions$
     .ofType(player.ActionTypes.INIT)
+    .startWith(new player.InitAction())
     .map(action => {
       const settings = this.youtube.getPlayerSettings();
       this.youtube.initPlayer(settings);
@@ -34,13 +35,13 @@ export class PlayerEffects {
     .ofType(player.ActionTypes.PLAY)
     .withLatestFrom(this.store, (action, state) => {
       const videos = state.videos.videos.length
-        ? state.videos.videos : state.player.videos;
+        ? state.videos.videos : state.playlist.videos.map(s => s.video);
       return {videos, action};
     })
     .map(state => {
       this.youtube.player.loadVideoById(state.action.payload.video
         && state.action.payload.video.id);
-      this.youtube.setSelectedVideo(state.action.payload, state.videos);
+      this.youtube.setSelectedVideo(state.action.payload);
       return new player.PlayingAction({
         selected: state.action.payload.video,
         videos: state.videos
@@ -52,7 +53,7 @@ export class PlayerEffects {
     .ofType(player.ActionTypes.PLAYLIST_PLAY)
     .withLatestFrom(this.store, (action, state) => {
       return {
-        videos: state.player.videos,
+        videos: state.playlist.videos.map(s => s.video),
         selected: {
           video: action.payload,
           release: state.player.release
@@ -62,7 +63,7 @@ export class PlayerEffects {
     .map(state => {
       this.youtube.player.loadVideoById(state.selected.video
         && state.selected.video.id);
-      this.youtube.setSelectedVideo(state.selected, state.videos);
+      this.youtube.setSelectedVideo(state.selected);
       return Observable.of({});
     });
 

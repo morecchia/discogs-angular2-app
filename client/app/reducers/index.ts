@@ -40,6 +40,7 @@ import { combineReducers } from '@ngrx/store';
 import * as fromRelease from './release';
 import * as fromVideos from './videos';
 import * as fromPlayer from './player';
+import * as fromPlaylist from './playlist';
 import * as fromCollection from './collection';
 import * as fromSearch from './search';
 import * as fromSales from './sales';
@@ -56,6 +57,7 @@ export interface State {
   release: fromRelease.State;
   videos: fromVideos.State;
   player: fromPlayer.State;
+  playlist: fromPlaylist.State;
   collection: fromCollection.State;
   wantlist: fromWantlist.State;
   search: fromSearch.State;
@@ -76,6 +78,7 @@ const reducers = {
   release: fromRelease.reducer,
   videos: fromVideos.reducer,
   player: fromPlayer.reducer,
+  playlist: fromPlaylist.reducer,
   collection: fromCollection.reducer,
   wantlist: fromWantlist.reducer,
   search: fromSearch.reducer,
@@ -142,12 +145,26 @@ export const getPlayerState = (state: State) => state.player;
 
 export const getPlayerCurrent = createSelector(getPlayerState, fromPlayer.getPlayerCurrent);
 export const getPlayerCurrentId = createSelector(getPlayerState, fromPlayer.getPlayerCurrentId);
-export const getPlayerVideos = createSelector(getPlayerState, fromPlayer.getPlayerVideos);
 export const getPlayerPlaying = createSelector(getPlayerState, fromPlayer.getPlaying);
 export const getPlayerRelease = createSelector(getPlayerState, fromPlayer.getPlayingRelease);
 export const getPlayerVolume = createSelector(getPlayerState, fromPlayer.getPlayerVolume);
 export const getPlayerTime = createSelector(getPlayerState, fromPlayer.getPlayerTime);
-export const getNextPreviousVideos = createSelector(getPlayerState, fromPlayer.getPrevNextVideos);
+
+// Playlist
+export const getPlaylistState = (state: State) => state.playlist;
+
+export const getPlaylistVideos = createSelector(getPlaylistState, fromPlaylist.getPlaylistVideos);
+export const getNextPreviousVideos = createSelector(getPlaylistVideos, getPlayerCurrent, (videos, current) => {
+  const currentIndex = videos.map(v => v.id).indexOf(current && current.id);
+  return {
+    // the next video in the list, or the first if we are already on the last
+    next: currentIndex < videos.length - 1
+      ? videos[currentIndex + 1] : videos[0],
+    // the previuos video in the list, or null if we are already on the first
+    prev: currentIndex > 0
+      ? videos[currentIndex - 1] : null
+  };
+});
 
 // Discogs Search
 export const getSearchState = (state: State) => state.search;

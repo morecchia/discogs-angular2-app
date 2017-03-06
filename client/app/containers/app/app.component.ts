@@ -8,6 +8,7 @@ import { MdlSnackbarService } from 'angular2-mdl';
 
 import * as fromRoot from '../../reducers';
 import * as player from '../../actions/player';
+import * as playlist from '../../actions/playlist';
 
 import { DiscogsUser } from '../../models';
 
@@ -43,6 +44,7 @@ export class AppComponent {
         }
       });
 
-    store.dispatch(new player.InitAction());
+    // store.dispatch(new playlist.LoadAction());
+    // store.dispatch(new player.InitAction());
   }
 }

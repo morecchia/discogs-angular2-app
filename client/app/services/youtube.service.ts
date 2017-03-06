@@ -60,19 +60,25 @@ export class YoutubeService {
     this.localStorage.set('playerVolume', value);
   }
 
-  setSelectedVideo(selected: models.SelectedVideo, videos: models.YoutubeVideo[]) {
+  setSelectedVideo(selected: models.SelectedVideo) {
     this.localStorage.set('activeVideo', selected.video);
     this.localStorage.set('activeRelease', selected.release);
-    this.localStorage.set('playerVideos', videos || []);
   }
 
   getPlayerSettings(): models.PlayerSettings {
     return {
       volume: this.localStorage.get('playerVolume') as number,
       activeVideo: this.localStorage.get('activeVideo') as models.YoutubeVideo,
-      activeRelease: this.localStorage.get('activeRelease') as models.DiscogsRelease,
-      playerVideos: this.localStorage.get('playerVideos') as models.YoutubeVideo[] || []
+      activeRelease: this.localStorage.get('activeRelease') as models.DiscogsRelease
     };
+  }
+
+  setPlaylist(videos: models.SelectedVideo[]) {
+    this.localStorage.set('playerVideos', videos || []);
+  }
+
+  getPlaylist(): models.SelectedVideo[] {
+    return this.localStorage.get('playerVideos') as models.SelectedVideo[] || [];
   }
 
   initPlayer(settings: models.PlayerSettings) {

@@ -8,6 +8,7 @@ import { DiscogsService, YoutubeService } from '../services';
 import * as release from '../actions/release';
 import * as videos from '../actions/videos';
 import * as player from '../actions/player';
+import * as playlist from '../actions/playlist';
 
 /**
  * Effects offer a way to isolate and easily test side-effects within your
@@ -36,20 +37,28 @@ export class ReleaseEffects {
   @Effect()
   loadPlayer$: Observable<Action> = this.actions$
     .ofType(release.ActionTypes.LOAD_PLAYER)
-    .mergeMap(action =>
-      this.discogs.getRelease(action.payload)
-        .map(response => response.videos
-            ? new release.PlayReleaseAction(response)
-            : new videos.LoadFailAction('Sorry, this release has no videos!'))
-    );
+    .mergeMap(action => this.discogs.getRelease(action.payload)
+      .map(response => response.videos
+        ? new release.QueueReleaseAction(response)
+        : new videos.LoadFailAction('Sorry, this release has no videos!')
+    ));
 
   @Effect()
-  playRelease$: Observable<Action> = this.actions$
-    .ofType(release.ActionTypes.PLAY_RELEASE)
+  addRelease$: Observable<Action> = this.actions$
+    .ofType(release.ActionTypes.QUEUE_RELEASE)
     .mergeMap(action => {
-      const ids = action.payload.videos && action.payload.videos.map(v => this.youtube.getIdFromUrl(v.uri));
+      const ids = action.payload.videos
+        && action.payload.videos.map(v => this.youtube.getIdFromUrl(v.uri));
       return this.youtube.getListData(ids)
-        .map(response => new player.LoadVideosAction({videos: response.items, release: action.payload}));
+        .map(response => {
+          return new playlist.AddAction(
+            response.items.map(item => {
+              return {
+                video: item,
+                release: action.payload
+              };
+          }));
+        });
     });
 
     constructor(private actions$: Actions, private discogs: DiscogsService,
