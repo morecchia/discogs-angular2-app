@@ -22,21 +22,11 @@
       </span>
     </span>
 
-    <span class="playlist-wrapper">
-        <button mdl-button #playlistBtn="mdlButton" [mdl-toggle-menu]="playlistMenu" mdl-button-type="icon" mdl-ripple>
-          <mdl-icon>view_list</mdl-icon>
-        </button>
-        <mdl-menu #playlistMenu="mdlMenu" mdl-menu-position="top-right">
-            <mdl-menu-item class="playlist-title" disabled mdl-menu-item-full-bleed-divider>
-                <img class="mdl-list__item-avatar" src="{{playerRelease.images[0].uri150}}">
-                <span>{{playerRelease.artists[0].name}} - {{playerRelease.title}}</span>
-            </mdl-menu-item>
-            <mdl-menu-item *ngFor="let video of playlist" mdl-ripple (click)="selectVideo(video)">
-                <img class="mdl-list__item-avatar avatar-smaller" src="{{video.snippet.thumbnails.default.url}}">
-                <span [ngClass]="{'active': video.id === playerCurrent.id, 'playlist-item': true}">
-                    {{video.snippet.title | maxTextLength:50}}
-                </span>
-            </mdl-menu-item>
-        </mdl-menu>
-    </span>
+    <app-playlist-menu
+        [playlistTitle]="playerRelease.title"
+        [playlist]="playlist"
+        [currentId]="playerCurrent.id"
+        [releaseImageUri]="playerRelease.images[0].uri150"
+        (onPlaylistSelected)="selectVideo($event)">
+    </app-playlist-menu>
 </div>

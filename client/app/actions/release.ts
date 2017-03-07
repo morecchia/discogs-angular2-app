@@ -15,7 +15,7 @@ export const ActionTypes = {
   LOAD_FAIL:      type('[Release] Load Fail'),
   LOAD:           type('[Release] Load'),
   LOAD_PLAYER:    type('[Release] Load Player'),
-  PLAY_RELEASE:   type('[Release] Play Release')
+  QUEUE_RELEASE:  type('[Release] Queue Release')
 };
 
 /**
@@ -44,8 +44,8 @@ export class LoadPlayerAction implements Action {
   constructor(public payload: number) { }
 }
 
-export class PlayReleaseAction implements Action {
-  type = ActionTypes.PLAY_RELEASE;
+export class QueueReleaseAction implements Action {
+  type = ActionTypes.QUEUE_RELEASE;
 
   constructor(public payload: DiscogsRelease) { }
 }
@@ -64,5 +64,5 @@ export type Actions
   = LoadAction
   | LoadCompleteAction
   | LoadPlayerAction
-  | PlayReleaseAction
+  | QueueReleaseAction
   | LoadFailAction;

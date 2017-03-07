@@ -5,5 +5,4 @@ export interface PlayerSettings {
   volume: number;
   activeVideo: YoutubeVideo;
   activeRelease: DiscogsRelease;
-  playerVideos: YoutubeVideo[];
 }

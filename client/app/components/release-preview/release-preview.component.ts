@@ -17,5 +17,7 @@ export class ReleasePreviewComponent {
     this.store.dispatch(new discogs.LoadPlayerAction(this.release.id));
   }
 
+  addToQueue() { }
+
   constructor(private store: Store<fromRoot.State>) { }
 }

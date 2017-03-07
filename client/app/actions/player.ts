@@ -56,12 +56,6 @@ export class PlaylistPlayAction implements Action {
   constructor(public payload: models.YoutubeVideo) { }
 }
 
-export class LoadVideosAction implements Action {
-  type = ActionTypes.LOAD_VIDEOS;
-
-  constructor(public payload: {videos: models.YoutubeVideo[], release: models.DiscogsRelease}) { }
-}
-
 export class TogglePlayAction implements Action {
   type = ActionTypes.TOGGLE_PLAY;
 
@@ -97,7 +91,6 @@ export type Actions
   | InitSuccessAction
   | InitFailAction
   | PlayAction
-  | LoadVideosAction
   | VolumeInputAction
   | TogglePlayAction
   | SeekAction

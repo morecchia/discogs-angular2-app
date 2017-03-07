@@ -6,4 +6,7 @@
     <span class="mdl-list__item-secondary-content video-duration">
         <span>{{video.contentDetails.duration | formatDuration}}</span>
     </span>
+    <button (click)="queueVideo(video)" class="mdl-list__item-secondary-action" mdl-button mdl-js-button mdl-ripple mdl-colored="primary">
+        <i class="material-icons">playlist_add</i>
+    </button>
 </li>
