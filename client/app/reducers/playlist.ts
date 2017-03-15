@@ -4,12 +4,14 @@ import * as playlist from '../actions/playlist';
 export interface State {
   loading: boolean;
   loaded: boolean;
+  currentId: string;
   playlists: Playlist[];
 };
 
 const initialState: State = {
   loading: false,
   loaded: false,
+  currentId: null,
   playlists: []
 };
 
@@ -79,6 +81,8 @@ export function reducer(state = initialState, action: playlist.Actions): State {
  */
 
 export const getPlaylists = (state: State) => state.playlists;
+
+export const getCurrentId = (state: State) => state.currentId;
 
 export const getPlaylistsLoaded = (state: State) => state.loaded;
 

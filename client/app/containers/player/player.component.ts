@@ -22,11 +22,11 @@ export class PlayerComponent {
 
   constructor(private store: Store<fromRoot.State>) {
     this.playerCurrent$ = store.select(fromRoot.getPlayerCurrent);
-    // this.nextPrevVideos$ = store.select(fromRoot.getNextPreviousVideos);
+    this.nextPrevVideos$ = store.select(fromRoot.getNextPreviousVideos);
     this.playerRelease$ = store.select(fromRoot.getPlayerRelease);
     this.playerPlaying$ = store.select(fromRoot.getPlayerPlaying);
     this.playerTime$ = store.select(fromRoot.getPlayerTime);
     this.playerVolume$ = store.select(fromRoot.getPlayerVolume);
-    // this.playlist$ = store.select(fromRoot.getPlaylistVideos);
+    this.playlist$ = store.select(fromRoot.getPlaylistVideos);
   }
 }
