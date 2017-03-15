@@ -55,7 +55,8 @@ export class ReleaseEffects {
             response.items.map(item => {
               return {
                 video: item,
-                release: action.payload
+                release: action.payload,
+                playlistIds: []
               };
           }));
         });

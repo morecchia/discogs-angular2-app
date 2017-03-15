@@ -1,16 +1,16 @@
-import { SelectedVideo } from '../models';
+import { Playlist } from '../models';
 import * as playlist from '../actions/playlist';
 
 export interface State {
   loading: boolean;
   loaded: boolean;
-  videos: SelectedVideo[];
+  playlists: Playlist[];
 };
 
 const initialState: State = {
   loading: false,
   loaded: false,
-  videos: []
+  playlists: []
 };
 
 export function reducer(state = initialState, action: playlist.Actions): State {
@@ -25,20 +25,41 @@ export function reducer(state = initialState, action: playlist.Actions): State {
       return Object.assign({}, state, {
         loading: false,
         loaded: true,
-        videos: action.payload
+        playlists: action.payload
       });
     }
 
-    case playlist.ActionTypes.ADD: {
+    case playlist.ActionTypes.ADD_COMPLETE: {
       return Object.assign({}, state, {
-        videos: state.videos.concat(action.payload)
+        playlists: action.payload
       });
     }
 
     case playlist.ActionTypes.REMOVE: {
-      const videoIndex = state.videos.map(s => s.video.id).findIndex(action.payload.id);
+      const playlistIndex = state.playlists.map(s => s.id).findIndex(action.payload.id);
       return Object.assign({}, state, {
-        videos: state.videos.splice(videoIndex, 1)
+        playlists: state.playlists.splice(playlistIndex, 1)
+      });
+    }
+
+    case playlist.ActionTypes.ADD_VIDEOS: {
+      const addToPlaylist = state.playlists.find(p => p.id === action.payload.playlistId);
+      const updatedPlaylists = state.playlists.filter(p => p.id !== addToPlaylist.id);
+      addToPlaylist.videos.concat(action.payload);
+      updatedPlaylists.push(addToPlaylist);
+      return Object.assign({}, state, {
+        playlists: updatedPlaylists
+      });
+    }
+
+    case playlist.ActionTypes.REMOVE_VIDEO: {
+      const removeFromPlaylist = state.playlists.find(p => p.id === action.payload.playlistId);
+      const updatedPlaylists = state.playlists.filter(p => p.id !== removeFromPlaylist.id);
+      const videoIndex = removeFromPlaylist.videos.map(s => s.video.id).findIndex(action.payload.id);
+      removeFromPlaylist.videos = removeFromPlaylist.videos.splice(videoIndex, 1);
+      updatedPlaylists.push(removeFromPlaylist);
+      return Object.assign({}, state, {
+        playlists: updatedPlaylists
       });
     }
 
@@ -57,8 +78,8 @@ export function reducer(state = initialState, action: playlist.Actions): State {
  * use-case.
  */
 
-export const getPlaylistVideos = (state: State) => state.videos.map(s => s.video);
+export const getPlaylists = (state: State) => state.playlists;
 
-export const getPlaylistLoaded = (state: State) => state.loaded;
+export const getPlaylistsLoaded = (state: State) => state.loaded;
 
-export const getPlaylistCount = (state: State) => state.videos.length;
+export const getPlaylistsLoading = (state: State) => state.loading;

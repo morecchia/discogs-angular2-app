@@ -1,21 +1,12 @@
-<span class="playlist-wrapper">
-  <button mdl-button #playlistBtn="mdlButton" [mdl-toggle-menu]="playlistMenu" mdl-button-type="icon" mdl-ripple>
-    <mdl-icon>view_list</mdl-icon>
-  </button>
+<mdl-list>
 
-  <mdl-menu #playlistMenu="mdlMenu" mdl-menu-position="top-right">
-
-    <mdl-menu-item class="playlist-title" disabled mdl-menu-item-full-bleed-divider>
-      <img class="mdl-list__item-avatar" src="{{releaseImageUri}}">
-      <span>{{playlistTitle}}</span>
-    </mdl-menu-item>
-
-    <mdl-menu-item *ngFor="let video of playlist" mdl-ripple (click)="onPlaylistSelected.emit(video)">
-      <img class="mdl-list__item-avatar avatar-smaller" src="{{video.snippet.thumbnails.default.url}}">
-      <span [ngClass]="{'active': video.id === currentId, 'playlist-item': true}">
-        {{video.snippet.title}}
+  <mdl-list-item lines="2" mdl-ripple *ngFor="let playlist of playlists">
+    <mdl-list-item-primary-content>
+      <span [ngClass]="{'active': playlist.id === currentId}">
+        {{playlist.name}}
       </span>
-    </mdl-menu-item>
-    
-  </mdl-menu>
-</span>
+      <mdl-list-item-sub-title>{{playlist.count}} videos</mdl-list-item-sub-title>
+    </mdl-list-item-primary-content>
+  </mdl-list-item>
+
+</mdl-list>

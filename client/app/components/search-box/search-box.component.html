@@ -1,2 +1,8 @@
-<mdl-textfield #input type="text" label="{{placeholder}}" autofocus
-  (keyup)="onSearch.emit($event)" floating-label></mdl-textfield>
+<section class="search-content">
+
+  <div class="search-wrapper">
+    <mdl-textfield #input type="text" label="{{placeholder}}"
+      (keyup)="onSearch.emit($event)" floating-label></mdl-textfield>
+  </div>
+  
+</section>

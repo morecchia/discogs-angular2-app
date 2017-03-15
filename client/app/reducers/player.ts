@@ -32,8 +32,8 @@ export function reducer(state = initialState, action: player.Actions): State {
     case player.ActionTypes.INIT_SUCCESS: {
       return Object.assign({}, state, {
         volume: action.payload.volume,
-        current: action.payload.activeVideo,
-        release: action.payload.activeRelease
+        current: action.payload.activeVideo && action.payload.activeVideo.video,
+        release: action.payload.activeVideo && action.payload.activeVideo.release
       });
     }
 
@@ -45,7 +45,6 @@ export function reducer(state = initialState, action: player.Actions): State {
     }
 
     case player.ActionTypes.PLAYING: {
-      const videos = action.payload.videos;
       return Object.assign({}, state, {
         playing: true
       });
@@ -53,7 +52,8 @@ export function reducer(state = initialState, action: player.Actions): State {
 
     case player.ActionTypes.PLAYLIST_PLAY: {
       return Object.assign({}, state, {
-        current: action.payload
+        current: action.payload.video,
+        release: action.payload.release
       });
     }
 

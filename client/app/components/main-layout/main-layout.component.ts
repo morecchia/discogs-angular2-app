@@ -1,11 +1,8 @@
-import { Component, Input } from '@angular/core';
-import { Router } from '@angular/router';
-import { Store } from '@ngrx/store';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 
-import * as fromRoot from '../../reducers';
-import * as search from '../../actions/search';
+import { UUID } from 'angular2-uuid';
 
-import { DiscogsUser } from '../../models';
+import { DiscogsUser, Playlist } from '../../models';
 
 @Component({
   selector: 'app-main-layout',
@@ -20,7 +17,13 @@ export class MainLayoutComponent {
     videoSelected: boolean;
 
     @Input()
-    videoLoadFailed: boolean;
+    playlists: Playlist[];
+
+    @Output()
+    onPlaylistRemove = new EventEmitter<Playlist>();
+
+    @Output()
+    onPlaylistAdd = new EventEmitter<Playlist>();
 
     searchVisible = false;
 
@@ -30,15 +33,20 @@ export class MainLayoutComponent {
       this.searchVisible = !this.searchVisible;
     }
 
-    onSearch(e) {
-      if (goodKey(e)) {
-        this.store.dispatch(new search.SearchReleasesAction({query: e.target.value, page: 1}));
+    addPlaylist(dialog: any, playlistName: string) {
+      console.log(playlistName);
+      if (playlistName) {
+        dialog.close();
+        this.onPlaylistAdd.emit({
+          name: playlistName,
+          count: 0,
+          id: UUID.UUID(),
+          videos: []
+        });
       }
     }
 
-    constructor(private store: Store<fromRoot.State>, private router: Router) { }
-}
-
-function goodKey(e) {
-  return e.which > 40 || e.keyCode === 13 || !e.ctrlKey || !e.altKey || !e.metaKey;
+    removePlaylist(playlist: Playlist) {
+      this.onPlaylistRemove.emit(playlist);
+    }
 }

@@ -14,3 +14,4 @@ export * from './startTime';
 export * from './selectedVideo';
 export * from './searchInput';
 export * from './playerSettings';
+export * from './playlist';

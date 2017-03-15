@@ -2,16 +2,24 @@ import { Injectable } from '@angular/core';
 
 import { LocalStorageService } from 'angular-2-local-storage';
 
-import { SelectedVideo } from '../models';
+import { SelectedVideo, Playlist } from '../models';
 
 @Injectable()
 export class PlaylistService {
-  setPlaylist(videos: SelectedVideo[]) {
+  getPlaylistVideos(): SelectedVideo[] {
+    return this.localStorage.get('playerVideos') as SelectedVideo[] || [];
+  }
+
+  setPlaylistVideos(videos: SelectedVideo[]) {
     this.localStorage.set('playerVideos', videos || []);
   }
 
-  getPlaylist(): SelectedVideo[] {
-    return this.localStorage.get('playerVideos') as SelectedVideo[] || [];
+  getPlaylists() {
+    return this.localStorage.get('playlists') as Playlist[] || [];
+  }
+
+  setPlaylists(playlists: Playlist[]) {
+    this.localStorage.set('playlists', playlists || []);
   }
 
   constructor(private localStorage: LocalStorageService) { }

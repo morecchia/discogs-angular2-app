@@ -51,12 +51,6 @@ export class SelectedAction implements Action {
   constructor(public payload: SelectedVideo) { }
 }
 
-export class PlaylistSelectedAction implements Action {
-  type = ActionTypes.PLAYLIST_SELECTED;
-
-  constructor(public payload: SelectedVideo) { }
-}
-
 export class ClearAction implements Action {
   type = ActionTypes.CLEAR;
     constructor(public payload = null) { }

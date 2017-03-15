@@ -3,16 +3,6 @@
     text-decoration: none;
 }
 
-.search-container {
-    position: absolute;
-    top: -2px;
-    right: 52px;
-}
-
-.drawer-search-container {
-    margin: 16px;
-}
-
 .spacer-horz {
     padding: 0 12px;
 }
@@ -26,11 +16,6 @@
     background: transparent;
     font-size: 0.8em;
     box-shadow: none;
-}
-
-.mdl-navigation .toggle-search:hover {
-    background-color: #333;
-    color: #ff4081;
 }
 
 .mdl-navigation.hidden,

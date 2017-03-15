@@ -19,7 +19,7 @@ export class SelectedVideoComponent {
   playerCurrent: YoutubeVideo;
 
   @Input()
-  playlist: YoutubeVideo[];
+  playlist: SelectedVideo[];
 
   @Input()
   playerRelease: DiscogsRelease;
@@ -34,16 +34,16 @@ export class SelectedVideoComponent {
   playing: boolean;
 
   @Input()
-  nextPrevVideos: {next: YoutubeVideo, prev: YoutubeVideo};
+  nextPrevVideos: {next: SelectedVideo, prev: SelectedVideo};
 
-  onVideoSkipped(video: YoutubeVideo) {
+  onVideoSkipped(video: SelectedVideo) {
     if (video) {
-      this.store.dispatch(new videos.SelectedAction({video, release: this.playerRelease}));
+      this.store.dispatch(new videos.SelectedAction(video));
     }
   }
 
   onPlaylistSelected(selected: SelectedVideo) {
-    this.store.dispatch(new videos.PlaylistSelectedAction(selected));
+    this.store.dispatch(new videos.SelectedAction(selected));
   }
 
   onVideoSeek(time: StartTime) {

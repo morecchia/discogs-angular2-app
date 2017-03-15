@@ -1,7 +1,6 @@
 <div class="mdl-grid">
-    <div class="mdl-layout-spacer"></div>
 
-    <div class="mdl-cell mdl-cell--10-col">
+    <div class="mdl-cell mdl-cell--12-col">
         <app-search-preview-list 
           [searchResults]="searchResults$ | async"
           [searching]="searching$ | async"
@@ -10,7 +9,6 @@
         </app-search-preview-list>
     </div>
 
-    <div class="mdl-layout-spacer"></div>
 </div>
 
 <router-outlet></router-outlet>

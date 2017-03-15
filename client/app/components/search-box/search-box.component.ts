@@ -9,7 +9,7 @@ import * as fromRoot from '../../reducers';
   styleUrls: ['./search-box.component.css']
 })
 export class SearchBoxComponent {
-  placeholder = 'Type the name of a release...';
+  placeholder = 'Search for a release...';
 
   @Input()
   searchTerm: string;

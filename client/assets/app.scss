@@ -12,6 +12,30 @@ body {
     background: #FAFAFA;
 }
 
+.app-wrapper {
+  height: 100%;
+  margin-top: 60px;
+  display: flex;
+  box-sizing: border-box;
+
+  > .column {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+
+    &.left {
+      width: 200px;
+      flex-shrink: 0;
+      flex-grow: 0;
+      margin: 0 1em;
+    }
+
+    &.main {
+      flex-grow: 1;
+    }
+  }
+}
+
 .progress {
     width: 100px;
 }
@@ -130,7 +154,7 @@ body {
 }
 
 .mdl-textfield__input {
-    border-bottom: 1px solid #eaeaea;
+    border-bottom: 1px solid #aaa;
 }
 
 .mdl-textfield__input,
@@ -144,7 +168,7 @@ body {
     .mdl-textfield--floating-label.is-focused &,
     .mdl-textfield--floating-label.is-dirty &,
     .mdl-textfield--floating-label.has-placeholder & {
-        color: #eaeaea;
+        color: #aaa;
         text-align: right;
     }
 }

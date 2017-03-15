@@ -1,8 +1,3 @@
-.playlist-wrapper {
-    position: relative;
-    margin-left: 20px;
- }
-
 .playlist-title {
     color: #333333;
     font-size: 18px;
@@ -11,21 +6,8 @@
     padding-bottom: 8px;
 }
 
-.playlist-title span {
-    margin-left: 8px;
-}
-
-.playlist-item {
-    padding: 0 8px;
-}
-
 .playlist-item.active {
     font-weight: bolder;
     font-style: italic;
     letter-spacing: 0.08em;
-}
-
-.mdl-list__item-avatar.avatar-smaller {
-    height: 30px;
-    width: 30px;
 }

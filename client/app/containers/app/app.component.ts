@@ -7,10 +7,10 @@ import { Subscription } from 'rxjs/Subscription';
 import { MdlSnackbarService } from 'angular2-mdl';
 
 import * as fromRoot from '../../reducers';
-import * as player from '../../actions/player';
-import * as playlist from '../../actions/playlist';
+import * as search from '../../actions/search';
+import * as playlistMenu from '../../actions/playlist';
 
-import { DiscogsUser } from '../../models';
+import { DiscogsUser, Playlist } from '../../models';
 
 @Component({
   selector: 'app-root',
@@ -19,8 +19,7 @@ import { DiscogsUser } from '../../models';
 export class AppComponent {
   user$: Observable<DiscogsUser>;
   videoSelected$: Observable<boolean>;
-
-  videoLoadFailedSub: Subscription;
+  playlists$: Observable<Playlist[]>;
 
   private _showError(message: string) {
     this.mdlSnackbarService.showSnackbar({
@@ -31,9 +30,20 @@ export class AppComponent {
       }
     });
   }
+
+  onSearch(e) {
+    if (goodKey(e)) {
+      this.store.dispatch(new search.SearchReleasesAction({query: e.target.value, page: 1}));
+    }
+  }
+
+  onPlaylistAdd(playlist: Playlist) {
+    this.store.dispatch(new playlistMenu.AddAction(playlist));
+  }
+
   constructor(private store: Store<fromRoot.State>, private mdlSnackbarService: MdlSnackbarService) {
     this.user$ = store.select(fromRoot.getUser);
-
+    this.playlists$ = store.select(fromRoot.getPlaylists);
     this.videoSelected$ = store.select(fromRoot.getPlayerCurrent)
       .map(video => video !== null);
 
@@ -43,8 +53,9 @@ export class AppComponent {
           this._showError(message);
         }
       });
-
-    // store.dispatch(new playlist.LoadAction());
-    // store.dispatch(new player.InitAction());
   }
+}
+
+function goodKey(e) {
+  return e.which > 40 || e.keyCode === 13 || !e.ctrlKey || !e.altKey || !e.metaKey;
 }

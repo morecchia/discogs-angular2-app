@@ -1,7 +1,6 @@
 <div class="mdl-grid">
-    <div class="mdl-layout-spacer"></div>
 
-    <div class="mdl-cell mdl-cell--8-col">
+    <div class="mdl-cell mdl-cell--12-col">
         <div class="mdl-grid" *ngIf="release">
             <div *ngIf="release.images" (click)="toggleImages()" class="mdl-cell mdl-cell--4-col mdl-cell--2-col-tablet mdl-cell--hide-phone release-thumb">
                 <div class="img-container">
@@ -107,7 +106,5 @@
             </app-release-images>
         </div>
     </div>
-
-    <div class="mdl-layout-spacer"></div>
 
 </div>

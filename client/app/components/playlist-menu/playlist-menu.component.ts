@@ -7,7 +7,7 @@ import * as fromRoot from '../../reducers';
 import * as player from '../../actions/player';
 import * as videos from '../../actions/videos';
 
-import { YoutubeVideo } from '../../models';
+import { Playlist } from '../../models';
 
 @Component({
   selector: 'app-playlist-menu',
@@ -17,20 +17,11 @@ import { YoutubeVideo } from '../../models';
 export class PlaylistMenuComponent {
 
   @Input()
-  currentId: YoutubeVideo;
+  currentId: string;
 
   @Input()
-  playlist: YoutubeVideo[];
-
-  @Input()
-  playlistTitle: string;
-
-  @Input()
-  releaseImageUri: string;
+  playlists: Playlist[];
 
   @Output()
-  onPlaylistSelected = new EventEmitter<YoutubeVideo>();
-
-  @Output()
-  onVideoRemoved = new EventEmitter<YoutubeVideo>();
+  onPlaylistRemoved = new EventEmitter<Playlist>();
 }

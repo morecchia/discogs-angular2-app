@@ -4,4 +4,5 @@ import { YoutubeVideo } from './video';
 export interface SelectedVideo {
   video: YoutubeVideo;
   release: DiscogsRelease;
+  playlistIds: string[] | null;
 }

@@ -1,7 +1,10 @@
+<app-search-box (onSearch)="onSearch($event)"></app-search-box>
+
 <app-main-layout
-  [user]="user$ | async"
-  [videoSelected]="videoSelected$ | async"
-  [videoLoadFailed]="videoLoadFailed$ | async">
+    [user]="user$ | async"
+    [videoSelected]="videoSelected$ | async"
+    [playlists]="playlists$ | async"
+    (onPlaylistAdd)="onPlaylistAdd($event)">
 </app-main-layout>
 
 <app-player></app-player>

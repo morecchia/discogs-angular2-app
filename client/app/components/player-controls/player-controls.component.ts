@@ -23,13 +23,13 @@ export class PlayerControlsComponent {
   playerCurrent: YoutubeVideo;
 
   @Input()
-  playlist: YoutubeVideo[];
+  playlist: SelectedVideo[];
 
   @Input()
-  nextVideo: YoutubeVideo;
+  nextVideo: SelectedVideo;
 
   @Input()
-  prevVideo: YoutubeVideo;
+  prevVideo: SelectedVideo;
 
   @Input()
   playing: boolean;
@@ -44,16 +44,10 @@ export class PlayerControlsComponent {
   playerRelease: DiscogsRelease;
 
   @Output()
-  onVideoSkipped = new EventEmitter<YoutubeVideo>();
+  onVideoSkipped = new EventEmitter<SelectedVideo>();
 
   @Output()
   onVideoTogglePlay = new EventEmitter<number>();
-
-  @Output()
-  onPlaylistSelected = new EventEmitter<SelectedVideo>();
-
-  @Output()
-  onPlaylistRemove = new EventEmitter<SelectedVideo>();
 
   @Output()
   onVolumeChanged = new EventEmitter<number>();
@@ -65,14 +59,6 @@ export class PlayerControlsComponent {
 
   togglePlay() {
     this.onVideoTogglePlay.emit(this.playerTime.seconds);
-  }
-
-  selectVideo(video: YoutubeVideo) {
-    this.onPlaylistSelected.emit({video, release: this.playerRelease});
-  }
-
-  removeVideo(video: YoutubeVideo) {
-    this.onPlaylistRemove.emit({video, release: this.playerRelease});
   }
 
   skipNext() {

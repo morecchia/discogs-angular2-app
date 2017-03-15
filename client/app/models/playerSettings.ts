@@ -1,8 +1,7 @@
 import { DiscogsRelease } from './release';
-import { YoutubeVideo } from './video';
+import { SelectedVideo } from './selectedVideo';
 
 export interface PlayerSettings {
   volume: number;
-  activeVideo: YoutubeVideo;
-  activeRelease: DiscogsRelease;
+  activeVideo: SelectedVideo;
 }

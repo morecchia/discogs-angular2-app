@@ -41,11 +41,11 @@ export class ReleaseDetailComponent implements OnDestroy {
   constructor(private store: Store<fromRoot.State>, private youtube: YoutubeService) { }
 
   onSelectedVideo(video: YoutubeVideo) {
-    this.store.dispatch(new videos.SelectedAction({video, release: this.release}));
+    this.store.dispatch(new videos.SelectedAction({video, release: this.release, playlistIds: []}));
   }
 
   onQueuedVideo(video: YoutubeVideo) {
-    this.store.dispatch(new playlist.AddAction([{video, release: this.release}]));
+    this.store.dispatch(new playlist.AddAction([{video, release: this.release, playlistIds: []}]));
   }
 
   toggleImages() {

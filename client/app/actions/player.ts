@@ -8,7 +8,6 @@ export const ActionTypes = {
   INIT_FAIL:     type('[Player] Init Fail'),
   PLAY:          type('[Player] Play'),
   PLAYING:       type('[Player] Playing'),
-  LOAD_VIDEOS:   type('[Player] Load Videos'),
   TOGGLE_PLAY:   type('[Player] Stop'),
   PLAYLIST_PLAY: type('[Player] Playlist Play'),
   SEEK:          type('[Player] Seek'),
@@ -47,13 +46,7 @@ export class PlayAction implements Action {
 export class PlayingAction implements Action {
   type = ActionTypes.PLAYING;
 
-  constructor(public payload: {selected: models.YoutubeVideo, videos: models.YoutubeVideo[]}) { }
-}
-
-export class PlaylistPlayAction implements Action {
-  type = ActionTypes.PLAYLIST_PLAY;
-
-  constructor(public payload: models.YoutubeVideo) { }
+  constructor(public payload = null) { }
 }
 
 export class TogglePlayAction implements Action {
