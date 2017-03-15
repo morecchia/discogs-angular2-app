@@ -6,7 +6,7 @@ import { Observable } from 'rxjs/Observable';
 import * as fromRoot from '../../reducers';
 import * as videos from '../../actions/videos';
 
-import { DiscogsRelease, YoutubeVideo } from '../../models';
+import { DiscogsRelease, YoutubeVideo, Playlist } from '../../models';
 
 @Component({
   selector: 'app-selected-detail',
@@ -18,6 +18,7 @@ export class SelectedDetailComponent {
   videosLoading$: Observable<boolean>;
   videosLoaded$: Observable<boolean>;
   activeVideoId$: Observable<string>;
+  playlists$: Observable<Playlist[]>;
 
   // isSelectedReleaseInCollection$: Observable<boolean>;
 
@@ -27,6 +28,7 @@ export class SelectedDetailComponent {
     this.videosLoading$ = store.select(fromRoot.getVideosLoading);
     this.videosLoaded$ = store.select(fromRoot.getVideosLoaded);
     this.activeVideoId$ = store.select(fromRoot.getPlayerCurrentId);
+    this.playlists$ = store.select(fromRoot.getPlaylists);
     // this.isSelectedReleaseInCollection$ = store.select(fromRoot.isSelectedReleaseInCollection);
     // this.isSelectedReleaseInWantlist$ = store.select(fromRoot.isSelectedReleaseInWantlist);
   }

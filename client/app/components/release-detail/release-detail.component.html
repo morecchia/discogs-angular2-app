@@ -50,6 +50,7 @@
                                     </div>
                                     <app-video-list
                                         [videos]="releaseVideos"
+                                        [playlists]="playlists"
                                         [activeVideoId]="activeVideoId"
                                         (onVideoSelected)="onSelectedVideo($event)"
                                         (onVideoQueued)="onQueuedVideo($event)">

@@ -3,7 +3,7 @@ import { Store } from '@ngrx/store';
 
 import * as collection from '../../actions/collection';
 import * as fromRoot from '../../reducers';
-import { DiscogsCollection } from '../../models';
+import { DiscogsCollection, Playlist } from '../../models';
 
 @Component({
   selector: 'app-release-preview-list',
@@ -12,6 +12,9 @@ import { DiscogsCollection } from '../../models';
 export class ReleasePreviewListComponent {
   @Input()
   collection: DiscogsCollection;
+
+  @Input()
+  playlists: Playlist[];
 
   @Input()
   loading: boolean;

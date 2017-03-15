@@ -1,6 +1,7 @@
 <app-release-detail 
   [release]="release$ | async"
-  [releaseVideos]="videos$ | async"
+  [releaseVideos] ="videos$ | async"
+  [playlists] = "playlists$ | async"
   [videosLoading]="videosLoading$ | async"
   [activeVideoId]="activeVideoId$ | async">
 </app-release-detail>

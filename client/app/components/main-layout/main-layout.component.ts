@@ -1,8 +1,14 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Store } from '@ngrx/store';
 
 import { UUID } from 'angular2-uuid';
 
+import * as fromRoot from '../../reducers';
+import * as search from '../../actions/search';
+
 import { DiscogsUser, Playlist } from '../../models';
+
+import { goodKey } from '../../util';
 
 @Component({
   selector: 'app-main-layout',
@@ -25,16 +31,13 @@ export class MainLayoutComponent {
     @Output()
     onPlaylistAdd = new EventEmitter<Playlist>();
 
-    searchVisible = false;
-
-    title = 'Discogs Player';
-
-    toggleSearch() {
-      this.searchVisible = !this.searchVisible;
+    onSearch(e) {
+      if (goodKey(e)) {
+        this.store.dispatch(new search.SearchReleasesAction({query: e.target.value, page: 1}));
+      }
     }
 
     addPlaylist(dialog: any, playlistName: string) {
-      console.log(playlistName);
       if (playlistName) {
         dialog.close();
         this.onPlaylistAdd.emit({
@@ -49,4 +52,6 @@ export class MainLayoutComponent {
     removePlaylist(playlist: Playlist) {
       this.onPlaylistRemove.emit(playlist);
     }
+
+    constructor(private store: Store<fromRoot.State>) { }
 }

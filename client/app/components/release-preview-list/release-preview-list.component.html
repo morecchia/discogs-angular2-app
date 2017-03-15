@@ -9,7 +9,7 @@
     </div>
 
     <app-release-preview *ngFor="let release of collection.releases | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage, totalItems: totalItems }"
-        [release]="release"></app-release-preview>
+        [release]="release" [playlists]="playlists"></app-release-preview>
 </ul>
 
 <hr *ngIf="!loading">

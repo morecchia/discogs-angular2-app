@@ -1,13 +1,3 @@
 section.search-content {
-    position: fixed;
-    top: 0;
-    left: 0;
     width: 100%;
-    z-index: 999;
-}
-
-.search-wrapper {
-  position: absolute;
-  right: 0;
-  margin-right: 2em;
 }

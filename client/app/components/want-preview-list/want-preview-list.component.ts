@@ -3,7 +3,7 @@ import { Store } from '@ngrx/store';
 
 import * as wantlist from '../../actions/wantlist';
 import * as fromRoot from '../../reducers';
-import { DiscogsWants, DiscogsPagination } from '../../models';
+import { DiscogsWants, DiscogsPagination, Playlist } from '../../models';
 
 @Component({
   selector: 'app-want-preview-list',
@@ -12,6 +12,9 @@ import { DiscogsWants, DiscogsPagination } from '../../models';
 export class WantPreviewListComponent {
   @Input()
   wantlist: DiscogsWants;
+
+  @Input()
+  playlists: Playlist[];
 
   @Input()
   currentPage = 1;

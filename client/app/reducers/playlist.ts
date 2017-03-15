@@ -45,10 +45,14 @@ export function reducer(state = initialState, action: playlist.Actions): State {
     }
 
     case playlist.ActionTypes.ADD_VIDEOS: {
-      const addToPlaylist = state.playlists.find(p => p.id === action.payload.playlistId);
-      const updatedPlaylists = state.playlists.filter(p => p.id !== addToPlaylist.id);
-      addToPlaylist.videos.concat(action.payload);
-      updatedPlaylists.push(addToPlaylist);
+      const updatedPlaylists = state.playlists.map(playlist => {
+        const newPlaylist =  Object.assign({}, playlist);
+        if (playlist.id === action.payload.id) {
+          newPlaylist.count = newPlaylist.count + action.payload.videos.length;
+          newPlaylist.videos = playlist.videos.concat(action.payload.videos);
+        }
+        return newPlaylist;
+      });
       return Object.assign({}, state, {
         playlists: updatedPlaylists
       });

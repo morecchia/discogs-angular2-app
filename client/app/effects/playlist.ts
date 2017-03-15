@@ -3,6 +3,7 @@ import { Action, Store } from '@ngrx/store';
 import { Effect, Actions } from '@ngrx/effects';
 
 import { Observable } from 'rxjs/Observable';
+import { of } from 'rxjs/observable/of';
 
 import { LocalStorageService } from 'angular-2-local-storage';
 
@@ -33,6 +34,15 @@ export class PlaylistEffects {
       playlists.push(state.action.payload);
       this.playlistService.setPlaylists(playlists);
       return new playlistMenu.AddCompleteAction(playlists);
+    });
+
+  @Effect()
+  addVideos$ = this.actions$
+    .ofType(playlistMenu.ActionTypes.ADD_VIDEOS)
+    .withLatestFrom(this.store, (action, state) => state.playlist)
+    .map(state => {
+      this.playlistService.setPlaylists(state.playlists);
+      return of({});
     });
 
   constructor(private actions$: Actions, private store: Store<fromPlaylistMenu.State>,

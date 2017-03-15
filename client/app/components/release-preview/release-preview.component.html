@@ -13,9 +13,12 @@
 
     <span class="mdl-list__item-secondary-content">
         <span class="list-actions">
-            <button (click)="playAll()" class="mdl-list__item-secondary-action" mdl-button mdl-js-button mdl-ripple mdl-colored="primary">
+            <button #queueBtn="mdlButton" (click)="playlistMenu.toggle($event, queueBtn)" class="mdl-list__item-secondary-action" mdl-button mdl-js-button mdl-ripple mdl-colored="primary">
                 <span>Add</span> <i class="material-icons">playlist_add</i>
             </button>
+            <mdl-menu #playlistMenu="mdlMenu" mdl-menu-position="bottom-right">
+                <mdl-menu-item *ngFor="let playlist of playlists" mdl-ripple (click)="queueAll(playlist.id)">{{playlist.name}}</mdl-menu-item>
+            </mdl-menu>
         </span>
     </span>
 </li>

@@ -35,11 +35,11 @@ export class ReleaseEffects {
     ));
 
   @Effect()
-  loadPlayer$: Observable<Action> = this.actions$
-    .ofType(release.ActionTypes.LOAD_PLAYER)
-    .mergeMap(action => this.discogs.getRelease(action.payload)
+  appendPlaylist$: Observable<Action> = this.actions$
+    .ofType(release.ActionTypes.APPEND_PLAYLIST)
+    .mergeMap(action => this.discogs.getRelease(action.payload.releaseId)
       .map(response => response.videos
-        ? new release.QueueReleaseAction(response)
+        ? new release.QueueReleaseAction({release: response, id: action.payload.playlistId})
         : new videos.LoadFailAction('Sorry, this release has no videos!')
     ));
 
@@ -47,18 +47,18 @@ export class ReleaseEffects {
   addRelease$: Observable<Action> = this.actions$
     .ofType(release.ActionTypes.QUEUE_RELEASE)
     .mergeMap(action => {
-      const ids = action.payload.videos
-        && action.payload.videos.map(v => this.youtube.getIdFromUrl(v.uri));
+      const ids = action.payload.release.videos
+        && action.payload.release.videos.map(v => this.youtube.getIdFromUrl(v.uri));
       return this.youtube.getListData(ids)
         .map(response => {
-          return new playlist.AddAction(
-            response.items.map(item => {
+          const videos = response.items.map(item => {
               return {
                 video: item,
-                release: action.payload,
+                release: action.payload.release,
                 playlistIds: []
               };
-          }));
+          });
+          return new playlist.AddVideosAction({videos, id: action.payload.id});
         });
     });
 

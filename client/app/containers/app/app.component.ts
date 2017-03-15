@@ -7,7 +7,6 @@ import { Subscription } from 'rxjs/Subscription';
 import { MdlSnackbarService } from 'angular2-mdl';
 
 import * as fromRoot from '../../reducers';
-import * as search from '../../actions/search';
 import * as playlistMenu from '../../actions/playlist';
 
 import { DiscogsUser, Playlist } from '../../models';
@@ -31,12 +30,6 @@ export class AppComponent {
     });
   }
 
-  onSearch(e) {
-    if (goodKey(e)) {
-      this.store.dispatch(new search.SearchReleasesAction({query: e.target.value, page: 1}));
-    }
-  }
-
   onPlaylistAdd(playlist: Playlist) {
     this.store.dispatch(new playlistMenu.AddAction(playlist));
   }
@@ -54,8 +47,4 @@ export class AppComponent {
         }
       });
   }
-}
-
-function goodKey(e) {
-  return e.which > 40 || e.keyCode === 13 || !e.ctrlKey || !e.altKey || !e.metaKey;
 }

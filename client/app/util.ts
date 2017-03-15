@@ -22,3 +22,7 @@ export function type<T>(label: T | ''): T {
 export const defaults = {
   pagination: { per_page: 10, items: 0, pages: 0, page: 1 }
 };
+
+export function goodKey(e) {
+  return e.which > 40 || e.keyCode === 13 || !e.ctrlKey || !e.altKey || !e.metaKey;
+}
