@@ -3,7 +3,7 @@ import { Store } from '@ngrx/store';
 
 import * as sales from '../../actions/sales';
 import * as fromRoot from '../../reducers';
-import { DiscogsSales } from '../../models';
+import { DiscogsSales, Playlist } from '../../models';
 
 @Component({
   selector: 'app-sales-preview-list',
@@ -12,6 +12,9 @@ import { DiscogsSales } from '../../models';
 export class SalesPreviewListComponent {
   @Input()
   sales: DiscogsSales;
+
+  @Input()
+  playlists: Playlist[];
 
   @Input()
   loading: boolean;

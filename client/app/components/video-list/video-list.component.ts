@@ -2,7 +2,7 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 
 import { UUID } from 'angular2-uuid';
 
-import { YoutubeVideo, Playlist } from '../../models';
+import { YoutubeVideo, Playlist, PlaylistAdd } from '../../models';
 
 @Component({
   selector: 'app-video-list',
@@ -23,33 +23,22 @@ export class VideoListComponent {
   onVideoSelected = new EventEmitter<YoutubeVideo>();
 
   @Output()
-  onVideoQueued = new EventEmitter<{video: YoutubeVideo, id: string}>();
+  onVideoQueued = new EventEmitter<PlaylistAdd>();
 
   @Output()
   onPlaylistAdd = new EventEmitter<Playlist>();
+
+  addType = 'video';
 
   selectVideo(video: YoutubeVideo) {
     this.onVideoSelected.emit(video);
   }
 
-  queueVideo(video: YoutubeVideo, id: string) {
-    this.onVideoQueued.emit({video, id});
+  queueVideo(playlistAdd: PlaylistAdd) {
+    this.onVideoQueued.emit(playlistAdd);
   }
 
-  addPlaylist(dialog: any, playlistName: string, video: YoutubeVideo) {
-      if (playlistName) {
-        dialog.close();
-
-        const id = UUID.UUID();
-
-        this.onPlaylistAdd.emit({
-          name: playlistName,
-          count: 1,
-          id: id,
-          videos: []
-        });
-
-        this.queueVideo(video, id);
-      }
-    }
+  addPlaylist(playlist: Playlist) {
+    this.onPlaylistAdd.emit(playlist);
+  }
 }

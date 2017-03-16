@@ -3,6 +3,7 @@
     <div class="mdl-cell mdl-cell--10-col">
         <app-sales-preview-list
             [sales]="sales$ | async"
+            [playlists]="playlists$ | async"
             [currentPage]="currentPage$ | async"
             [loading]="loading$ | async">
         </app-sales-preview-list>

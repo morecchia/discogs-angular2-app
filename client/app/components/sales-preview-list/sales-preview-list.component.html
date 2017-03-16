@@ -8,7 +8,10 @@
         <mdl-spinner single-color [active]="loading"></mdl-spinner>
     </div>
 
-    <app-sales-preview *ngFor="let listing of sales.listings | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage, totalItems: totalItems }" [listing]="listing"></app-sales-preview>
+    <app-sales-preview *ngFor="let listing of sales.listings | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage, totalItems: totalItems }"
+        [listing]="listing"
+        [playlists]="playlists">
+    </app-sales-preview>
 </ul>
 
 <hr *ngIf="!loading">

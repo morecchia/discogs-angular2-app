@@ -173,6 +173,36 @@ body {
     }
 }
 
+.mdl-menu {
+    padding: 0 !important;
+}
+
+mdl-menu-item.playlist-menu-add {
+    color: rgb(255,64,129);
+}
+
+mdl-menu-item.playlist-menu-add,
+mdl-menu-item.playlist-menu-title {
+    font-weight: bold;
+    letter-spacing: .05em;
+}
+
+mdl-menu-item.playlist-menu-title {
+    background-color: #efefef !important;
+    color: rgba(3, 3, 3, 0.8) !important;
+    font-weight: bold;
+}
+
+mdl-menu-item.playlist-menu-title:hover {
+    background-color: #efefef !important;
+}
+
+.mdl-button--fab.mdl-button--supermini-fab {
+    height: 30px;
+    min-width: 30px;
+    width: 30px;
+}
+
 /********** Breakpoints ************/
 
 @media (max-width: 360px) {

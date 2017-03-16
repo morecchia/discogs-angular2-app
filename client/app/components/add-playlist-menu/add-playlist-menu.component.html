@@ -1,0 +1,37 @@
+<button #queueBtn="mdlButton" (click)="playlistMenu.toggle($event, queueBtn)" class="mdl-list__item-secondary-action" mdl-button mdl-js-button mdl-ripple mdl-colored="primary">
+    <i class="material-icons">playlist_add</i>
+</button>
+
+<mdl-menu #playlistMenu="mdlMenu" mdl-menu-position="bottom-left">
+    <mdl-menu-item class="playlist-menu-title" mdl-ripple mdl-menu-item-full-bleed-divider disabled>
+        Add {{type}} to playlist:
+    </mdl-menu-item>
+    <mdl-menu-item class="playlist-menu-add" mdl-ripple mdl-menu-item-full-bleed-divider (click)="addPlaylistDialog.show()">
+        &#x2b; New Playlist...
+    </mdl-menu-item>
+    <mdl-menu-item *ngFor="let playlist of playlists" mdl-ripple (click)="queueVideos(playlist.id)">
+        {{playlist.name}} ({{playlist.count}})
+    </mdl-menu-item>
+</mdl-menu>
+
+<mdl-dialog #addPlaylistDialog
+    [mdl-dialog-config]="{
+        clickOutsideToClose: true,
+        styles:{'width': '300px'},
+        isModal:true,
+        openFrom: addPlaylistButton,
+        enterTransitionDuration: 300,
+        leaveTransitionDuration: 300}">
+
+    <h3 class="mdl-dialog__title">Add Playlist</h3>
+
+    <div class="mdl-dialog__content">
+        <mdl-textfield type="text" label="Playlist Name" #playlistName floating-label autofocus></mdl-textfield>
+    </div>
+
+    <div class="mdl-dialog__actions">
+        <button mdl-button (click)="addPlaylist(addPlaylistDialog, playlistName.value)"
+            mdl-button-type="raised" mdl-colored="primary" mdl-ripple>Save</button>
+        <button mdl-button (click)="addPlaylistDialog.close()" mdl-ripple>Cancel</button>
+    </div>
+</mdl-dialog>

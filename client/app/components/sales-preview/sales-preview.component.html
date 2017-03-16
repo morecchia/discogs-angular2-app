@@ -1,18 +1,21 @@
 <li class="mdl-list__item mdl-list__item--two-line">
     <span class="mdl-list__item-primary-content release-link" [routerLink]="['/detail', listing.release.id]">
-    <span>
-        <a title="{{listing.release.description}}" class="release-title">
-            {{listing.release.description}} - {{listing.release.catalog_number}} {{listing.release.year}}
-        </a>
-    </span>
-    <span class="mdl-list__item-sub-title">{{listing.price.value}} ({{listing.price.currency}})</span>
+        <span>
+            <a title="{{listing.release.description}}" class="release-title">
+                {{listing.release.description}} - {{listing.release.catalog_number}} {{listing.release.year}}
+            </a>
+        </span>
+        <span class="mdl-list__item-sub-title">{{listing.price.value}} ({{listing.price.currency}})</span>
     </span>
 
     <span class="mdl-list__item-secondary-content">
-    <span class="list-actions">
-        <button (click)="playAll(listing)" class="mdl-list__item-secondary-action" mdl-button mdl-js-button mdl-ripple mdl-colored="primary">
-            <span>Play All</span> <i class="material-icons md-resized">play_arrow</i>
-    </button>
-    </span>
+        <span class="list-actions">
+            <app-add-playlist-menu
+                [playlists]="playlists"
+                [type]="addType"
+                (onPlaylistAdd)="addPlaylist($event)"
+                (onQueueAll)="queueAll($event)">
+            </app-add-playlist-menu>
+        </span>
     </span>
 </li>

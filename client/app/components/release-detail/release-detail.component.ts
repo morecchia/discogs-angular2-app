@@ -11,12 +11,7 @@ import * as playlistMenu from '../../actions/playlist';
 
 import { YoutubeService} from '../../services';
 
-import { DiscogsRelease, YoutubeVideo, Playlist } from '../../models';
-
-interface PlaylistAdd {
-  video: YoutubeVideo;
-  id: string;
-}
+import { DiscogsRelease, YoutubeVideo, Playlist, PlaylistAdd } from '../../models';
 
 @Component({
   selector: 'app-release-detail',
@@ -53,7 +48,7 @@ export class ReleaseDetailComponent implements OnDestroy {
   }
 
   onQueuedVideo(playlistAdd: PlaylistAdd) {
-    const videos = [{video: playlistAdd.video, release: this.release, playlistIds: []}];
+    const videos = [{video: playlistAdd.videos[0], release: this.release, playlistIds: []}];
     this.store.dispatch(new playlistMenu.AddVideosAction({videos, id: playlistAdd.id}));
   }
 
