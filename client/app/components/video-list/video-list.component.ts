@@ -6,8 +6,7 @@ import { YoutubeVideo, Playlist, PlaylistAdd } from '../../models';
 
 @Component({
   selector: 'app-video-list',
-  templateUrl: './video-list.component.html',
-  styleUrls: ['./video-list.component.css']
+  templateUrl: './video-list.component.html'
 })
 export class VideoListComponent {
   @Input()

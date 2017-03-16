@@ -1,6 +1,6 @@
 <div class="mdl-grid">
     <div class="mdl-cell mdl-cell--4-col mdl-cell--2-col-tablet mdl-cell--hide-phone playlist-thumb">
-        <div (click)="toggleImages()" class="img-container">
+        <div (click)="toggleImages()" class="img-container" *ngIf="selectedPlaylist.videos.length">
             <img src="{{selectedPlaylist.videos[0].release.images[0].uri}}">
             <span *ngIf="images.length > 1" class="extra-info">More images...</span>
         </div>
@@ -14,14 +14,14 @@
     </div>
 
     <div class="mdl-cell mdl-cell--12-col">
-      <ul class="mdl-list">
+      <ul class="mdl-list" *ngIf="selectedPlaylist.videos.length">
           <li *ngFor="let selected of selectedPlaylist.videos" [ngClass]="{'active': selected.video.id === activeVideoId, 'mdl-list__item mdl-list__item': true}">
               <span class="mdl-list__item-primary-content" (click)="selectVideo(selected)">
                 <img class="mdl-list__item-avatar" src="{{selected.video.snippet.thumbnails.default.url}}" alt="{{selected.video.snippet.title}}" />
                 {{selected.video.snippet.title}}
               </span>
 
-              <span class="mdl-list__item-secondary-content video-duration">
+              <span class="mdl-list__item-secondary-content">
                 <span>{{selected.video.contentDetails.duration | formatDuration}}</span>
               </span>
 

@@ -17,10 +17,10 @@
         "prefix": "app",
         "mobile": false,
         "styles": [
-            "assets/app.scss"
+            "assets/scss/app.scss"
         ],
         "scripts": [
-            "assets/material.min.js"
+            "assets/js/material.min.js"
         ],
         "environments": {
             "source": "environments/environment.ts",

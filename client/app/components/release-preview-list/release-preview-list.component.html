@@ -11,8 +11,3 @@
     <app-release-preview *ngFor="let release of collection.releases | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage, totalItems: totalItems }"
         [release]="release" [playlists]="playlists"></app-release-preview>
 </ul>
-
-<hr *ngIf="!loading">
-<div *ngIf="!loading" class="pagination-wrapper">
-    <pagination-controls (pageChange)="getPage($event)"></pagination-controls>
-</div>

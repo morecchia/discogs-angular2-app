@@ -12,8 +12,7 @@ import { YoutubeVideo, PlayerTime, DiscogsRelease, SelectedVideo } from '../../m
 
 @Component({
   selector: 'app-player-controls',
-  templateUrl: './player-controls.component.html',
-  styleUrls: ['./player-controls.component.css']
+  templateUrl: './player-controls.component.html'
 })
 export class PlayerControlsComponent {
   @ViewChild('skipNextButton')

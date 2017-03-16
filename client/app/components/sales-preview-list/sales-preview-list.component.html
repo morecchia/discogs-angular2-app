@@ -13,8 +13,3 @@
         [playlists]="playlists">
     </app-sales-preview>
 </ul>
-
-<hr *ngIf="!loading">
-<div *ngIf="!loading" class="pagination-wrapper ">
-    <pagination-controls (pageChange)="getPage($event) "></pagination-controls>
-</div>

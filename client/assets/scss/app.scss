@@ -1,4 +1,5 @@
-@import "../../node_modules/material-design-lite/src/material-design-lite";
+@import "../../../node_modules/material-design-lite/src/material-design-lite";
+@import "components";
 
 body {
     font-family: "Roboto", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
@@ -28,10 +29,23 @@ body {
       flex-shrink: 0;
       flex-grow: 0;
       margin: 0 1em;
+
+      h5 {
+        font-size: 14px;
+      }
+
+      .mdl-list__item {
+        padding: 0 16px;
+        min-height: 36px;
+      }
     }
 
     &.main {
       flex-grow: 1;
+      
+      .mdl-list__item-primary-content {
+          cursor: pointer;
+      }
     }
   }
 }
@@ -100,8 +114,8 @@ body {
 }
 
 /***** MDL overwrites *********/
-.mdl-layout__header {
-    background-color: #333;
+.mdl-navigation__link:hover {
+    color: rgb(255,64,129);
 }
 
 .material-icons.md-18 {

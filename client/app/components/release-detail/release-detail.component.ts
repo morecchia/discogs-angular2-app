@@ -15,8 +15,7 @@ import { DiscogsRelease, YoutubeVideo, Playlist, PlaylistAdd } from '../../model
 
 @Component({
   selector: 'app-release-detail',
-  templateUrl: './release-detail.component.html',
-  styleUrls: ['./release-detail.component.css']
+  templateUrl: './release-detail.component.html'
 })
 export class ReleaseDetailComponent implements OnDestroy {
   @Input()

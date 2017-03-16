@@ -10,8 +10,7 @@ import { YoutubeVideo, PlayerTime, StartTime } from '../../models';
 
 @Component({
   selector: 'app-player-time',
-  templateUrl: './player-time.component.html',
-  styleUrls: ['./player-time.component.css']
+  templateUrl: './player-time.component.html'
 })
 export class PlayerTimeComponent {
   @Input()

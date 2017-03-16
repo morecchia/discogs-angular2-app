@@ -5,8 +5,7 @@ import * as fromRoot from '../../reducers';
 
 @Component({
   selector: 'app-search-box',
-  templateUrl: './search-box.component.html',
-  styleUrls: ['./search-box.component.css']
+  templateUrl: './search-box.component.html'
 })
 export class SearchBoxComponent {
   placeholder = 'Search for a release...';

@@ -11,8 +11,7 @@ import { Playlist } from '../../models';
 
 @Component({
   selector: 'app-playlist-menu',
-  templateUrl: './playlist-menu.component.html',
-  styleUrls: ['./playlist-menu.component.css']
+  templateUrl: './playlist-menu.component.html'
 })
 export class PlaylistMenuComponent {
 

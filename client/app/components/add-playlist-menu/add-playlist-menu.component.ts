@@ -6,8 +6,7 @@ import { YoutubeVideo, Playlist, PlaylistAdd } from '../../models';
 
 @Component({
   selector: 'app-add-playlist-menu',
-  templateUrl: './add-playlist-menu.component.html',
-  styleUrls: ['./add-playlist-menu.component.css']
+  templateUrl: './add-playlist-menu.component.html'
 })
 export class AddPlaylistMenuComponent {
   @Input()

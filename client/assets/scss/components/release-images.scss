@@ -1,3 +1,7 @@
+.release-images {
+    position: fixed;
+}
+
 .release-images,
 .release-image {
     display: none;
@@ -13,7 +17,6 @@
 
 .release-images mdl-card mdl-card-supporting-text img,
 .release-images .close,
-.release-images,
 .release-image {
     position: absolute;
 }

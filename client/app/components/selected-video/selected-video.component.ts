@@ -11,8 +11,7 @@ import { DiscogsRelease, YoutubeVideo, PlayerTime, StartTime, SelectedVideo } fr
 
 @Component({
   selector: 'app-selected-video',
-  templateUrl: './selected-video.component.html',
-  styleUrls: ['./selected-video.component.css']
+  templateUrl: './selected-video.component.html'
 })
 export class SelectedVideoComponent {
   @Input()

@@ -4,8 +4,7 @@ import { DiscogsImage } from '../../models';
 
 @Component({
   selector: 'app-release-images',
-  templateUrl: './release-images.component.html',
-  styleUrls: ['./release-images.component.css']
+  templateUrl: './release-images.component.html'
 })
 export class ReleaseImagesComponent implements OnInit {
   @Input()

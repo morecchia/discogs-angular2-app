@@ -15,8 +15,3 @@
     <app-search-preview *ngFor="let result of searchResults.results | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage, totalItems: totalItems }"
         [result]="result"></app-search-preview>
 </ul>
-
-<hr *ngIf="searchResults.results.length">
-<div *ngIf="searchResults.results.length" class="pagination-wrapper">
-    <pagination-controls (pageChange)="getPage($event) "></pagination-controls>
-</div>

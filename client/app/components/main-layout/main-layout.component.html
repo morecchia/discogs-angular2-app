@@ -8,17 +8,17 @@
         <mdl-list>
             <mdl-list-item>
                 <a [ngClass]="{'hidden': searchVisible, 'mdl-navigation__link': true}" routerLink="/wantlist">
-                    <span mdl-badge-no-background mdl-badge="{{user.num_wantlist}}">Wantlist</span>
+                    <span>Wantlist ({{user.num_wantlist}})</span>
                 </a>
             </mdl-list-item>
             <mdl-list-item>
                 <a [ngClass]="{'hidden': searchVisible, 'mdl-navigation__link': true}" routerLink="/collection">
-                    <span mdl-badge-no-background mdl-badge="{{user.num_collection}}">Collection</span>
+                    <span>Collection ({{user.num_collection}})</span>
                 </a>
             </mdl-list-item>
             <mdl-list-item>
                 <a [ngClass]="{'hidden': searchVisible, 'mdl-navigation__link': true}" routerLink="/sales">
-                    <span mdl-badge-no-background mdl-badge="{{user.num_for_sale}}">Sales</span>
+                    <span>Sales ({{user.num_for_sale}})</span>
                 </a>
             </mdl-list-item>
 

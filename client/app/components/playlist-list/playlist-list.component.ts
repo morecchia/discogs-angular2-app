@@ -4,8 +4,7 @@ import { SelectedVideo, Playlist, DiscogsRelease, DiscogsImage } from '../../mod
 
 @Component({
   selector: 'app-playlist-list',
-  templateUrl: './playlist-list.component.html',
-  styleUrls: ['./playlist-list.component.css']
+  templateUrl: './playlist-list.component.html'
 })
 export class PlaylistListComponent implements OnInit {
   @Input()
