@@ -7,7 +7,7 @@ import { Observable, Subscription } from 'rxjs';
 import * as fromRoot from '../../reducers';
 import * as videos from '../../actions/videos';
 import * as player from '../../actions/player';
-import * as playlist from '../../actions/playlist';
+import * as playlistMenu from '../../actions/playlist';
 
 import { YoutubeService} from '../../services';
 
@@ -54,7 +54,11 @@ export class ReleaseDetailComponent implements OnDestroy {
 
   onQueuedVideo(playlistAdd: PlaylistAdd) {
     const videos = [{video: playlistAdd.video, release: this.release, playlistIds: []}];
-    this.store.dispatch(new playlist.AddVideosAction({videos, id: playlistAdd.id}));
+    this.store.dispatch(new playlistMenu.AddVideosAction({videos, id: playlistAdd.id}));
+  }
+
+  onPlaylistAdd(playlist: Playlist) {
+    this.store.dispatch(new playlistMenu.AddAction(playlist));
   }
 
   toggleImages() {

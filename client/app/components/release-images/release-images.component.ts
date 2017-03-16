@@ -1,5 +1,7 @@
 import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 
+import { DiscogsImage } from '../../models';
+
 @Component({
   selector: 'app-release-images',
   templateUrl: './release-images.component.html',
@@ -7,7 +9,7 @@ import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 })
 export class ReleaseImagesComponent implements OnInit {
   @Input()
-  images: any;
+  images: DiscogsImage[];
 
   @Input()
   imagesVisible = false;

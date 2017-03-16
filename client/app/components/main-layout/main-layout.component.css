@@ -1,3 +1,13 @@
+.playlist-wrapper {
+    position: relative;
+}
+
+.add-playlist-button {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+}
+
 .nav-title a {
     color: rgb(255, 255, 255);
     text-decoration: none;

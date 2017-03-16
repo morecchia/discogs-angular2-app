@@ -48,8 +48,8 @@ export function reducer(state = initialState, action: playlist.Actions): State {
       const updatedPlaylists = state.playlists.map(playlist => {
         const newPlaylist =  Object.assign({}, playlist);
         if (playlist.id === action.payload.id) {
-          newPlaylist.count = newPlaylist.count + action.payload.videos.length;
           newPlaylist.videos = playlist.videos.concat(action.payload.videos);
+          newPlaylist.count = newPlaylist.videos.length;
         }
         return newPlaylist;
       });
@@ -59,12 +59,26 @@ export function reducer(state = initialState, action: playlist.Actions): State {
     }
 
     case playlist.ActionTypes.REMOVE_VIDEO: {
-      const removeFromPlaylist = state.playlists.find(p => p.id === action.payload.playlistId);
-      const updatedPlaylists = state.playlists.filter(p => p.id !== removeFromPlaylist.id);
-      const videoIndex = removeFromPlaylist.videos.map(s => s.video.id).findIndex(action.payload.id);
-      removeFromPlaylist.videos = removeFromPlaylist.videos.splice(videoIndex, 1);
-      updatedPlaylists.push(removeFromPlaylist);
+      const videoIndex = state.current.videos
+        .map(s => s.video.id)
+        .indexOf(action.payload.video.id);
+
+      const updatedPlaylists = state.playlists.map(playlist => {
+        const newPlaylist =  Object.assign({}, playlist);
+        if (playlist.id === state.current.id) {
+          const newVideos = newPlaylist.videos.slice(0);
+          newVideos.splice(videoIndex, 1)
+          newPlaylist.videos = newVideos;
+          newPlaylist.count = newPlaylist.videos.length;
+        }
+        return newPlaylist;
+      });
+
+      const updatedCurrent = updatedPlaylists
+        .find(p => p.id === state.current.id);
+
       return Object.assign({}, state, {
+        current: updatedCurrent,
         playlists: updatedPlaylists
       });
     }

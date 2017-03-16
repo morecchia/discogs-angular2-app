@@ -16,7 +16,8 @@ body {
   height: 100%;
   display: flex;
   box-sizing: border-box;
-
+  margin-bottom: 60px;
+  
   > .column {
     flex-grow: 1;
     display: flex;

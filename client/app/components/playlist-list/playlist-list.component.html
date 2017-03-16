@@ -1,7 +1,8 @@
 <div class="mdl-grid">
     <div class="mdl-cell mdl-cell--4-col mdl-cell--2-col-tablet mdl-cell--hide-phone playlist-thumb">
-        <div class="img-container">
-            <img src="{{selectedPlaylist.videos[0].video.snippet.thumbnails.default.url}}">
+        <div (click)="toggleImages()" class="img-container">
+            <img src="{{selectedPlaylist.videos[0].release.images[0].uri}}">
+            <span *ngIf="images.length > 1" class="extra-info">More images...</span>
         </div>
     </div>
 
@@ -23,7 +24,16 @@
               <span class="mdl-list__item-secondary-content video-duration">
                 <span>{{selected.video.contentDetails.duration | formatDuration}}</span>
               </span>
+
+              <button (click)="remove(selected)" class="mdl-list__item-secondary-action" mdl-button mdl-js-button mdl-ripple mdl-colored="accent">
+                <i class="material-icons">clear</i>
+              </button>
           </li>
       </ul>
     </div>
+
+    <app-release-images (onImagesClose)="toggleImages()"
+        [images]="images"
+        [imagesVisible]="playlistImagesVisible">
+    </app-release-images>
 </div>

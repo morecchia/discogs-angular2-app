@@ -43,7 +43,16 @@ export class PlaylistEffects {
 
   @Effect()
   addVideos$ = this.actions$
-    .ofType(playlistMenu.ActionTypes.ADD_VIDEOS)
+    .ofType(playlistMenu.ActionTypes.ADD_VIDEOS || playlistMenu.ActionTypes.REMOVE_VIDEO)
+    .withLatestFrom(this.store, (action, state) => state.playlist)
+    .map(state => {
+      this.playlistService.setPlaylists(state.playlists);
+      return of({});
+    });
+
+  @Effect()
+  removeVideos$ = this.actions$
+    .ofType(playlistMenu.ActionTypes.REMOVE_VIDEO)
     .withLatestFrom(this.store, (action, state) => state.playlist)
     .map(state => {
       this.playlistService.setPlaylists(state.playlists);

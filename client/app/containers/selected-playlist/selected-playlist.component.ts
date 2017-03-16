@@ -21,13 +21,19 @@ interface PlaylistAdd {
 export class SelectedPlaylistComponent {
   playlists$: Observable<Playlist[]>;
   selectedPlaylist$: Observable<Playlist>;
+  activeVideoId$: Observable<string>;
 
   onSelectedVideo(selected: SelectedVideo) {
     this.store.dispatch(new videos.SelectedAction(selected));
   }
 
+  onVideoRemoved(video: SelectedVideo) {
+    this.store.dispatch(new playlist.RemoveVideoAction(video));
+  }
+
   constructor(private store: Store<fromRoot.State>) {
     this.playlists$ = store.select(fromRoot.getPlaylists);
     this.selectedPlaylist$ = store.select(fromRoot.getCurrentPlaylist);
+    this.activeVideoId$ = store.select(fromRoot.getPlayerCurrentId);
   }
 }

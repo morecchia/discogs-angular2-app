@@ -3,8 +3,9 @@
     <app-playlist-list 
       [selectedPlaylist]="selectedPlaylist$ | async"
       [playlists]="playlists$ | async"
-      [activeVideoId]="activeVideoId"
-      (onVideoSelected)="onSelectedVideo($event)">
+      [activeVideoId]="activeVideoId$ | async"
+      (onVideoSelected)="onSelectedVideo($event)"
+      (onVideoRemoved)="onVideoRemoved($event)">
     </app-playlist-list>
   </div>
 </div>

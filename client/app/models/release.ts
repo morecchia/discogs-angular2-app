@@ -6,7 +6,7 @@ export interface DiscogsRelease {
   year: number;
   community: Community;
   artists: Artist[];
-  images: Image[];
+  images: DiscogsImage[];
   format_quantity: number;
   id: number;
   genres: string[];
@@ -85,7 +85,7 @@ interface Artist {
   id: number;
 }
 
-interface Image {
+export interface DiscogsImage {
   uri: string;
   height: number;
   width: number;

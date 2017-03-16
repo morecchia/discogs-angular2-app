@@ -22,3 +22,8 @@
 .playlist-basic-info span {
     color: rgba(0, 0, 0, .54);
 }
+
+.active {
+    border-left: 2px solid #ff4081;
+    background: #efefef;
+}
