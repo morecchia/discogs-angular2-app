@@ -1,0 +1,29 @@
+<div class="mdl-grid">
+    <div class="mdl-cell mdl-cell--4-col mdl-cell--2-col-tablet mdl-cell--hide-phone playlist-thumb">
+        <div class="img-container">
+            <img src="{{selectedPlaylist.videos[0].video.snippet.thumbnails.default.url}}">
+        </div>
+    </div>
+
+    <div class="mdl-cell mdl-cell--8-col mdl-cell--6-col-tablet playlist-info">
+        <div class="playlist-basic-info">
+            <h5>{{selectedPlaylist.name}}</h5>
+            <span>{{selectedPlaylist.count}} videos</span>
+        </div>
+    </div>
+
+    <div class="mdl-cell mdl-cell--12-col">
+      <ul class="mdl-list">
+          <li *ngFor="let selected of selectedPlaylist.videos" [ngClass]="{'active': selected.video.id === activeVideoId, 'mdl-list__item mdl-list__item': true}">
+              <span class="mdl-list__item-primary-content" (click)="selectVideo(selected)">
+                <img class="mdl-list__item-avatar" src="{{selected.video.snippet.thumbnails.default.url}}" alt="{{selected.video.snippet.title}}" />
+                {{selected.video.snippet.title}}
+              </span>
+
+              <span class="mdl-list__item-secondary-content video-duration">
+                <span>{{selected.video.contentDetails.duration | formatDuration}}</span>
+              </span>
+          </li>
+      </ul>
+    </div>
+</div>

@@ -6,6 +6,7 @@ export const ActionTypes = {
   LOAD:          type('[Playlist] Load'),
   LOAD_COMPLETE: type('[Playlist] Success'),
   LOAD_FAIL:     type('[Playlist] Load Fail'),
+  VIEW:          type('[Playlist] View'),
   ADD:           type('[Playlist Menu] Add'),
   ADD_COMPLETE:  type('[Playlist Menu] Add Complete'),
   REMOVE:        type('[Playlist Menu] Remove'),
@@ -29,6 +30,12 @@ export class LoadFailAction implements Action {
   type = ActionTypes.LOAD_FAIL;
 
   constructor(public payload: any) { }
+}
+
+export class ViewAction implements Action {
+  type = ActionTypes.VIEW;
+
+  constructor(public payload: string) { }
 }
 
 export class AddAction implements Action {

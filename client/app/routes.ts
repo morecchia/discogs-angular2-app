@@ -7,6 +7,7 @@ export const routes: Routes = [
   { path: 'collection', component: containers.CollectionComponent },
   { path: 'wantlist', component: containers.WantlistComponent },
   { path: 'sales', component: containers.SalesComponent },
+  { path: 'playlist/:id', component: containers.ViewPlaylistComponent },
   { path: 'detail/:id', component: containers.ViewDetailComponent },
   { path: 'search/:q', component: containers.SearchComponent }
 ];

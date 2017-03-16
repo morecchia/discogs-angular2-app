@@ -16,6 +16,7 @@ import { SearchPreviewListComponent } from './search-preview-list/search-preview
 import { ReleaseDetailComponent } from './release-detail/release-detail.component';
 import { ReleaseImagesComponent } from './release-images/release-images.component';
 import { VideoListComponent } from './video-list/video-list.component';
+import { PlaylistListComponent } from './playlist-list/playlist-list.component';
 import { SelectedVideoComponent } from './selected-video/selected-video.component';
 import { PlayerControlsComponent } from './player-controls/player-controls.component';
 import { PlaylistMenuComponent } from './playlist-menu/playlist-menu.component';
@@ -36,6 +37,7 @@ export const COMPONENTS = [
   ReleaseDetailComponent,
   ReleaseImagesComponent,
   VideoListComponent,
+  PlaylistListComponent,
   SelectedVideoComponent,
   PlayerControlsComponent,
   PlaylistMenuComponent,

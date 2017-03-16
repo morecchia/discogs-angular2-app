@@ -27,6 +27,6 @@ export class PlayerComponent {
     this.playerPlaying$ = store.select(fromRoot.getPlayerPlaying);
     this.playerTime$ = store.select(fromRoot.getPlayerTime);
     this.playerVolume$ = store.select(fromRoot.getPlayerVolume);
-    this.playlist$ = store.select(fromRoot.getPlaylistVideos);
+    this.playlist$ = store.select(fromRoot.getSelectedPlaylistVideos);
   }
 }

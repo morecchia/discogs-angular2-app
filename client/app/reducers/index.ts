@@ -156,14 +156,11 @@ export const getPlaylistState = (state: State) => state.playlist;
 export const getPlaylists = createSelector(getPlaylistState, fromPlaylist.getPlaylists);
 export const getPlaylistsLoaded = createSelector(getPlaylistState, fromPlaylist.getPlaylistsLoaded);
 export const getPlaylistsLoading = createSelector(getPlaylistState, fromPlaylist.getPlaylistsLoading);
-export const getCurrentPlaylistId = createSelector(getPlaylistState, fromPlaylist.getCurrentId);
+export const getCurrentPlaylist = createSelector(getPlaylistState, fromPlaylist.getCurrent);
 
-export const getPlaylistVideos = createSelector(getPlaylists, getCurrentPlaylistId, (playlists, current) => {
-  const currentPlaylist = playlists.find(p => p.id === current);
-  return currentPlaylist && currentPlaylist.videos;
-});
+export const getSelectedPlaylistVideos = createSelector(getCurrentPlaylist, current => current && current.videos);
 
-export const getNextPreviousVideos = createSelector(getPlaylistVideos, getPlayerCurrent, (videos, current) => {
+export const getNextPreviousVideos = createSelector(getSelectedPlaylistVideos, getPlayerCurrent, (videos, current) => {
   if (!videos) {
     return null;
   }

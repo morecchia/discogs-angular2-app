@@ -28,6 +28,8 @@ import { DiscogsService, YoutubeService, PlaylistService, WindowRef } from './se
     containers.SalesComponent,
     containers.SelectedDetailComponent,
     containers.ViewDetailComponent,
+    containers.SelectedPlaylistComponent,
+    containers.ViewPlaylistComponent,
     containers.PlayerComponent,
     containers.SearchComponent
   ],

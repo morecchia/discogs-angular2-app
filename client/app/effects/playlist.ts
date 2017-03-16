@@ -15,13 +15,18 @@ import { PlaylistService } from '../services/playlist.service';
 @Injectable()
 export class PlaylistEffects {
   @Effect()
-  loadPlaylist$: Observable<Action> = this.actions$
+  loadPlaylists$: Observable<Action> = this.actions$
     .ofType(playlistMenu.ActionTypes.LOAD)
     .startWith(new playlistMenu.LoadAction())
     .map(action => {
       const playlists = this.playlistService.getPlaylists();
       return new playlistMenu.LoadCompleteAction(playlists);
     });
+
+  @Effect()
+  viewPlaylist$ = this.actions$
+    .ofType(playlistMenu.ActionTypes.VIEW)
+    .map(action => of({}));
 
   @Effect()
   add$: Observable<Action> = this.actions$

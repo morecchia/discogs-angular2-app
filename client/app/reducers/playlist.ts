@@ -4,14 +4,14 @@ import * as playlist from '../actions/playlist';
 export interface State {
   loading: boolean;
   loaded: boolean;
-  currentId: string;
+  current: Playlist;
   playlists: Playlist[];
 };
 
 const initialState: State = {
   loading: false,
   loaded: false,
-  currentId: null,
+  current: null,
   playlists: []
 };
 
@@ -69,6 +69,13 @@ export function reducer(state = initialState, action: playlist.Actions): State {
       });
     }
 
+    case playlist.ActionTypes.VIEW: {
+      const selected = state.playlists.find(p => p.id === action.payload);
+      return Object.assign({}, state, {
+        current: selected
+      });
+    }
+
     default: {
       return state;
     }
@@ -86,7 +93,7 @@ export function reducer(state = initialState, action: playlist.Actions): State {
 
 export const getPlaylists = (state: State) => state.playlists;
 
-export const getCurrentId = (state: State) => state.currentId;
+export const getCurrent = (state: State) => state.current;
 
 export const getPlaylistsLoaded = (state: State) => state.loaded;
 

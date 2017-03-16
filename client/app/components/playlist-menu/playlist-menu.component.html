@@ -1,10 +1,10 @@
 <mdl-list>
 
-  <mdl-list-item lines="2" mdl-ripple *ngFor="let playlist of playlists">
+  <mdl-list-item lines="2" *ngFor="let playlist of playlists">
     <mdl-list-item-primary-content>
-      <span [ngClass]="{'active': playlist.id === currentId}">
+      <a [ngClass]="{'active': playlist.id === currentId}" routerLink="/playlist/{{playlist.id}}">
         {{playlist.name}}
-      </span>
+      </a>
       <mdl-list-item-sub-title>{{playlist.count}} videos</mdl-list-item-sub-title>
     </mdl-list-item-primary-content>
   </mdl-list-item>

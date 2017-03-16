@@ -1,0 +1,10 @@
+<div class="mdl-grid">
+  <div class="mdl-cell mdl-cell--12-col">
+    <app-playlist-list 
+      [selectedPlaylist]="selectedPlaylist$ | async"
+      [playlists]="playlists$ | async"
+      [activeVideoId]="activeVideoId"
+      (onVideoSelected)="onSelectedVideo($event)">
+    </app-playlist-list>
+  </div>
+</div>
