@@ -9,6 +9,12 @@
                 </div>
             </div>
 
+            <div *ngIf="!release.images" class="mdl-cell mdl-cell--4-col mdl-cell--2-col-tablet mdl-cell--hide-phone release-thumb">
+                <div class="img-container">
+                    <img src="../../../assets/images/placeholder.jpg">
+                </div>
+            </div>
+
             <div class="mdl-cell mdl-cell--8-col mdl-cell--6-col-tablet release-info">
                 <div class="release-basic-info">
                     <h5>{{release.artists | joinNames}} - {{release.title}}</h5>
@@ -105,7 +111,7 @@
     </div>
     <app-release-images
         (onImagesClose)="toggleImages()"
-        [images]="release.images"
+        [images]="release.images || []"
         [imagesVisible]="releaseImagesVisible">
     </app-release-images>
 </div>
