@@ -25,9 +25,19 @@
                 <span>{{selected.video.contentDetails.duration | formatDuration}}</span>
               </span>
 
-              <button (click)="remove(selected)" class="mdl-list__item-secondary-action" mdl-button mdl-js-button mdl-ripple mdl-colored="accent">
-                <i class="material-icons">clear</i>
-              </button>
+              <span class="playlist-actions">
+                <app-add-playlist-menu
+                    [playlists]="playlists"
+                    [videos]="[selected.video]"
+                    [type]="addType"
+                    (onPlaylistAdd)="addPlaylist($event)"
+                    (onVideoQueued)="queueVideo($event, selected.release)">
+                </app-add-playlist-menu>
+                
+                <button (click)="remove(selected)" mdl-button mdl-js-button mdl-colored="accent">
+                    <i class="material-icons md-18">clear</i>
+                </button>
+              </span>
           </li>
       </ul>
     </div>

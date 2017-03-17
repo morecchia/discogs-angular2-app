@@ -24,11 +24,6 @@ export class PlaylistEffects {
     });
 
   @Effect()
-  viewPlaylist$ = this.actions$
-    .ofType(playlistMenu.ActionTypes.VIEW)
-    .map(action => of({}));
-
-  @Effect()
   add$: Observable<Action> = this.actions$
     .ofType(playlistMenu.ActionTypes.ADD)
     .withLatestFrom(this.store, (action, state) => {

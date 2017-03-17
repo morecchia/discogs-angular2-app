@@ -67,7 +67,7 @@ export function reducer(state = initialState, action: playlist.Actions): State {
         const newPlaylist =  Object.assign({}, playlist);
         if (playlist.id === state.current.id) {
           const newVideos = newPlaylist.videos.slice(0);
-          newVideos.splice(videoIndex, 1)
+          newVideos.splice(videoIndex, 1);
           newPlaylist.videos = newVideos;
           newPlaylist.count = newPlaylist.videos.length;
         }

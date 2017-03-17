@@ -9,8 +9,6 @@ import * as videos from '../../actions/videos';
 import * as player from '../../actions/player';
 import * as playlistMenu from '../../actions/playlist';
 
-import { YoutubeService} from '../../services';
-
 import { DiscogsRelease, YoutubeVideo, Playlist, PlaylistAdd } from '../../models';
 
 @Component({
@@ -40,8 +38,6 @@ export class ReleaseDetailComponent implements OnDestroy {
 
   get activeTabIndex() { return this.videosLoaded && !this.releaseVideos.length ? 0 : 1; }
 
-  constructor(private store: Store<fromRoot.State>, private youtube: YoutubeService) { }
-
   onSelectedVideo(video: YoutubeVideo) {
     this.store.dispatch(new videos.SelectedAction({video, release: this.release, playlistIds: []}));
   }
@@ -62,4 +58,6 @@ export class ReleaseDetailComponent implements OnDestroy {
   ngOnDestroy() {
     this.store.dispatch(new videos.ClearAction());
   }
+
+  constructor(private store: Store<fromRoot.State>) { }
 }

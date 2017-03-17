@@ -3,7 +3,7 @@
   <mdl-list-item *ngFor="let playlist of playlists">
     <mdl-list-item-primary-content>
       <a [ngClass]="{'active': playlist.id === currentId, 'mdl-navigation__link': true}" routerLink="/playlist/{{playlist.id}}">
-        <span>{{playlist.name}}</span>
+        <span>{{playlist.name}} ({{playlist.count}})</span>
       </a>
     </mdl-list-item-primary-content>
   </mdl-list-item>

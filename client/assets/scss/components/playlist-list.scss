@@ -23,6 +23,19 @@
     color: rgba(0, 0, 0, .54);
 }
 
+.playlist-actions {
+    padding-left: 24px;
+
+    button {
+        min-width: 12px;
+        padding: 0;
+    }
+
+    button:hover {
+        background: inherit;
+    }
+}
+
 .active {
     border-left: 2px solid #ff4081;
     background: #efefef;

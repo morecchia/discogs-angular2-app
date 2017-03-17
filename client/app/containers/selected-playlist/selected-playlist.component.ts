@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { Store } from '@ngrx/store';
 
 import { Observable } from 'rxjs/Observable';
@@ -16,6 +16,7 @@ interface PlaylistAdd {
 
 @Component({
   selector: 'app-selected-playlist',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './selected-playlist.component.html'
 })
 export class SelectedPlaylistComponent {
@@ -32,7 +33,7 @@ export class SelectedPlaylistComponent {
   }
 
   constructor(private store: Store<fromRoot.State>) {
-    this.playlists$ = store.select(fromRoot.getPlaylists);
+    this.playlists$ = store.select(fromRoot.getPlaylistsForList);
     this.selectedPlaylist$ = store.select(fromRoot.getCurrentPlaylist);
     this.activeVideoId$ = store.select(fromRoot.getPlayerCurrentId);
   }
