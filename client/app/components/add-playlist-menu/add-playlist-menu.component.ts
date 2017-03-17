@@ -27,7 +27,13 @@ export class AddPlaylistMenuComponent {
   @Output()
   onPlaylistAdd = new EventEmitter<Playlist>();
 
-  queueVideos(id: string) {
+  addingNew = false;
+
+  queueVideos(id: string, dialog?: any) {
+      if (dialog) {
+        dialog.close();
+      }
+
       return this.type === 'video'
         ? this.onVideoQueued.emit({videos: this.videos, id})
         : this.onQueueAll.emit(id);
@@ -48,5 +54,9 @@ export class AddPlaylistMenuComponent {
 
         this.queueVideos(id);
       }
+    }
+
+    toggleAddPlaylist() {
+      this.addingNew = !this.addingNew;
     }
 }
