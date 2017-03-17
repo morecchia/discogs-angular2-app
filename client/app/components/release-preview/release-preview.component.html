@@ -2,7 +2,7 @@
     <span class="mdl-list__item-primary-content release-link" [routerLink]="['/detail', release.id]">
         <a><img class="mdl-list__item-avatar" src="{{release.basic_information.thumb}}" /></a>
         <span>
-            <a class="release-title" title="{{release.basic_information.title}}">
+            <a title="{{release.basic_information.title}}" class="release-title" >
                 {{release.basic_information.artists | joinNames}} - {{release.basic_information.title}}
             </a>
         </span>

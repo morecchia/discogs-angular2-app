@@ -1,11 +1,14 @@
 <mdl-list-item lines="2">
     <span class="mdl-list__item-primary-content release-link" [routerLink]="['/detail', listing.release.id]">
+        <a><img class="mdl-list__item-avatar" src="../../../assets/images/placeholder.jpg" /></a>
         <span>
             <a title="{{listing.release.description}}" class="release-title">
                 {{listing.release.description}} - {{listing.release.catalog_number}} {{listing.release.year}}
             </a>
         </span>
-        <span class="mdl-list__item-sub-title">{{listing.price.value}} ({{listing.price.currency}})</span>
+        <span class="mdl-list__item-sub-title release-title">
+            {{listing.price.value}} ({{listing.price.currency}})
+        </span>
     </span>
 
     <span class="mdl-list__item-secondary-content">
