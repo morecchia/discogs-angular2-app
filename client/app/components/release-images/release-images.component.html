@@ -1,5 +1,5 @@
 <div [ngClass]="setMainClasses()">
-    <mdl-card mdl-shadow="3">
+    <mdl-card>
         <mdl-card-supporting-text>
             <img class="release-image" *ngFor="let image of images; let i = index"
                 [ngClass]="{'visible': i === imageIndex}" (click)="nextImage()" src="{{image.uri}}">

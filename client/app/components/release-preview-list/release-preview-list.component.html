@@ -3,11 +3,11 @@
 </div>
 <hr>
 
-<ul class="mdl-list">
+<mdl-list>
     <div *ngIf="loading" class="progress progress-list">
         <mdl-spinner single-color [active]="loading"></mdl-spinner>
     </div>
 
     <app-release-preview *ngFor="let release of collection.releases | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage, totalItems: totalItems }"
         [release]="release" [playlists]="playlists"></app-release-preview>
-</ul>
+</mdl-list>

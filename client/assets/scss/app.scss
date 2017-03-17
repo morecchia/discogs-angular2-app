@@ -150,20 +150,18 @@ body {
     color: rgba(255, 255, 255, 0.3);
 }
 
-.mdl-list li a.release-title {
-    color: #4a4a4a;
-}
-
-.mdl-list li .release-title {
+mdl-list-item .release-title {
     display: block;
     text-decoration: none;
     max-width: 200px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    color: #4a4a4a;
+    font-size: 14px;
 }
 
-.mdl-list li .release-link {
+mdl-list-item .release-link {
     cursor: pointer;
 }
 
@@ -185,30 +183,6 @@ body {
         color: #aaa;
         text-align: right;
     }
-}
-
-.mdl-menu {
-    padding: 0 !important;
-}
-
-mdl-menu-item.playlist-menu-add {
-    color: rgb(255,64,129);
-}
-
-mdl-menu-item.playlist-menu-add,
-mdl-menu-item.playlist-menu-title {
-    font-weight: bold;
-    letter-spacing: .05em;
-}
-
-mdl-menu-item.playlist-menu-title {
-    background-color: #efefef !important;
-    color: rgba(3, 3, 3, 0.8) !important;
-    font-weight: bold;
-}
-
-mdl-menu-item.playlist-menu-title:hover {
-    background-color: #efefef !important;
 }
 
 .mdl-button--fab.mdl-button--supermini-fab {
@@ -245,37 +219,37 @@ mdl-menu-item.playlist-menu-title:hover {
     .mdl-layout__header-row {
         padding: 0 16px 0 24px;
     }
-    .mdl-list li .release-title {
+    mdl-list-item .release-title {
         max-width: 300px;
     }
 }
 
 @media (min-width: 720px) {
-    .mdl-list li .release-title {
+    mdl-list-item .release-title {
         max-width: 500px;
     }
 }
 
 @media (min-width: 960px) {
-    .mdl-list li .release-title {
+    mdl-list-item .release-title {
         max-width: 600px;
     }
 }
 
 @media (min-width: 1024px) {
-    .mdl-list li .release-title {
+    mdl-list-item .release-title {
         max-width: 780px;
     }
 }
 
 @media (min-width: 1280px) {
-    .mdl-list li .release-title {
+    mdl-list-item .release-title {
         max-width: 600px;
     }
 }
 
 @media (min-width: 1440px) {
-    .mdl-list li .release-title {
+    mdl-list-item.release-title {
         max-width: 720px;
     }
 }

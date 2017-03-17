@@ -27,7 +27,8 @@
         <div  class="playlist-wrapper">
             <h5>Playlists</h5>
             
-            <button class="add-playlist-button mdl-button--supermini-fab" #addPlaylistButton mdl-button mdl-button-type="mini-fab" mdl-colored="accent" (click)="addPlaylistDialog.show()">
+            <button class="add-playlist-button mdl-button--supermini-fab"   
+                #addPlaylistButton mdl-button mdl-button-type="mini-fab" mdl-colored="accent"(click)="addPlaylistDialog.show()">
                 <mdl-icon class="md-18">add</mdl-icon>
             </button>
 
@@ -47,7 +48,8 @@
                 </div>
 
                 <div class="mdl-dialog__actions">
-                    <button mdl-button (click)="addPlaylist(addPlaylistDialog, playlistName.value)" mdl-button-type="raised" mdl-colored="primary" mdl-ripple>Save</button>
+                    <button mdl-button (click)="addPlaylist(addPlaylistDialog, playlistName.value)"
+                        mdl-button-type="raised" mdl-colored="primary" mdl-ripple>Save</button>
                     <button mdl-button (click)="addPlaylistDialog.close()" mdl-ripple>Cancel</button>
                 </div>
             </mdl-dialog>

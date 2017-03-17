@@ -3,7 +3,7 @@
 </div>
 <hr>
 
-<ul class="mdl-list">
+<mdl-list>
     <div *ngIf="searching" class="progress progress-list">
         <mdl-spinner single-color [active]="searching"></mdl-spinner>
     </div>
@@ -14,4 +14,4 @@
     
     <app-search-preview *ngFor="let result of searchResults.results | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage, totalItems: totalItems }"
         [result]="result"></app-search-preview>
-</ul>
+</mdl-list>

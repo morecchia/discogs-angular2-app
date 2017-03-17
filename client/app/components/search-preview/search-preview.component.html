@@ -1,4 +1,4 @@
-<li class="mdl-list__item mdl-list__item--two-line">
+<mdl-list-item lines="2">
     <span class="mdl-list__item-primary-content release-link" [routerLink]="['/detail', result.id]">
       <a><img class="mdl-list__item-avatar" src="{{result.thumb}}" /></a>
       <span><a title="{{result.title}}" class="release-title">{{result.title}}</a></span>
@@ -7,9 +7,12 @@
 
     <span class="mdl-list__item-secondary-content">
       <span class="list-actions">
-        <button (click)="playAll(result)" class="mdl-list__item-secondary-action" mdl-button mdl-js-button mdl-ripple mdl-colored="primary">
-          <span>Play All</span> <i class="material-icons md-resized">play_arrow</i>
-        </button>
+        <app-add-playlist-menu
+          [playlists]="playlists"
+          [type]="addType"
+          (onPlaylistAdd)="addPlaylist($event)"
+          (onQueueAll)="queueAll($event)">
+        </app-add-playlist-menu>
       </span>
     </span>
-</li>
+</mdl-list-item>

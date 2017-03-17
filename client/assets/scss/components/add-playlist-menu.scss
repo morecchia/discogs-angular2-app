@@ -1,0 +1,38 @@
+mdl-dialog-host-component {
+    .mdl-dialog__actions.playlist-menu {
+        position: absolute;
+        top: 0;
+        right: 0;
+        padding: 4px;
+        cursor: pointer;
+    }
+
+    .mdl-dialog__title.playlist-menu {
+        font-size: 1.8rem;
+        padding: 8px 12px 0;
+    }
+
+    .mdl-dialog__content.playlist-menu {
+        padding: 0;
+
+        .hidden {
+          display: none;
+        }
+    }
+
+    .mdl-dialog__content.playlist-menu .playlist-menu-add {
+        color: rgb(255,64,129);
+    }
+
+    .mdl-dialog__content.playlist-menu mdl-list-item {
+        cursor: pointer;
+    }
+
+    .mdl-dialog__content.playlist-menu mdl-list-item:hover {
+        background-color: #eaeaea;
+    }
+
+    .menu-separator {
+      margin: 0;
+    }
+}

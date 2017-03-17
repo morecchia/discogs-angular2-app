@@ -3,7 +3,7 @@
 </div>
 <hr>
 
-<ul class="mdl-list">
+<mdl-list>
     <div *ngIf="loading" class="progress progress-list">
         <mdl-spinner single-color [active]="loading"></mdl-spinner>
     </div>
@@ -12,4 +12,4 @@
         [listing]="listing"
         [playlists]="playlists">
     </app-sales-preview>
-</ul>
+</mdl-list>
