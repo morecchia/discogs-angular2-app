@@ -48,7 +48,11 @@ export function reducer(state = initialState, action: playlist.Actions): State {
       const updatedPlaylists = state.playlists.map(playlist => {
         const newPlaylist =  Object.assign({}, playlist);
         if (playlist.id === action.payload.id) {
-          newPlaylist.videos = playlist.videos.concat(action.payload.videos);
+          newPlaylist.videos = playlist.videos
+            .concat(action.payload.videos
+              .filter(v => newPlaylist.videos
+                .findIndex(p => p.video.id === v.video.id) < 0));
+
           newPlaylist.count = newPlaylist.videos.length;
         }
         return newPlaylist;
