@@ -35,16 +35,16 @@ export class AppComponent {
   }
 
   constructor(private store: Store<fromRoot.State>, private mdlSnackbarService: MdlSnackbarService) {
-    this.user$ = store.select(fromRoot.getUser);
-    this.playlists$ = store.select(fromRoot.getPlaylists);
-    this.videoSelected$ = store.select(fromRoot.getPlayerCurrent)
-      .map(video => video !== null);
+      this.user$ = store.select(fromRoot.getUser);
+      this.playlists$ = store.select(fromRoot.getPlaylists);
+      this.videoSelected$ = store.select(fromRoot.getPlayerCurrent)
+        .map(video => video !== null);
 
-    store.select(fromRoot.getVideosLoadingFailed)
-      .subscribe(message => {
-        if (message) {
-          this._showError(message);
-        }
-      });
-  }
+      store.select(fromRoot.getVideosLoadingFailed)
+        .subscribe(message => {
+          if (message) {
+            this._showError(message);
+          }
+        });
+    }
 }

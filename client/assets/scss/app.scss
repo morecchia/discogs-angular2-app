@@ -13,43 +13,6 @@ body {
     background: #FAFAFA;
 }
 
-.app-wrapper {
-  height: 100%;
-  display: flex;
-  box-sizing: border-box;
-  margin-bottom: 60px;
-  
-  > .column {
-    flex-grow: 1;
-    display: flex;
-    flex-direction: column;
-
-    &.left {
-      width: 200px;
-      flex-shrink: 0;
-      flex-grow: 0;
-      margin: 0 1em;
-
-      h5 {
-        font-size: 14px;
-      }
-
-      .mdl-list__item {
-        padding: 0 16px;
-        min-height: 36px;
-      }
-    }
-
-    &.main {
-      flex-grow: 1;
-      
-      .mdl-list__item-primary-content {
-          cursor: pointer;
-      }
-    }
-  }
-}
-
 .progress {
     width: 100px;
 }
@@ -155,20 +118,23 @@ body {
     color: rgba(255, 255, 255, 0.3);
 }
 
-mdl-list-item .release-title {
-    display: block;
-    text-decoration: none;
-    max-width: 200px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    color: #4a4a4a;
+.mdl-list__item {
     font-size: 14px;
-}
 
-mdl-list-item .release-link {
-    cursor: pointer;
-}
+    .release-title {
+        display: block;
+        text-decoration: none;
+        max-width: 400px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        color: #4a4a4a;
+    }
+
+    .release-link {
+        cursor: pointer;
+    }
+} 
 
 .mdl-textfield__input {
     border-bottom: 1px solid #aaa;
@@ -196,6 +162,11 @@ mdl-list-item .release-link {
     width: 30px;
 }
 
+.mdl-dialog__title {
+    font-size: 1.8rem;
+    padding: 8px 12px 0;
+}
+
 /********** Breakpoints ************/
 
 @media (max-width: 360px) {
@@ -207,55 +178,6 @@ mdl-list-item .release-link {
     }
     .list-actions .material-icons.md-resized {
         font-size: 24px;
-    }
-}
-
-@media (max-width: 600px) {
-    .mdl-layout__header-row .mdl-navigation {
-        display: none;
-    }
-}
-
-@media (min-width: 600px) {
-    .mdl-layout__drawer,
-    .mdl-layout__drawer-button {
-        display: none;
-    }
-    .mdl-layout__header-row {
-        padding: 0 16px 0 24px;
-    }
-    mdl-list-item .release-title {
-        max-width: 300px;
-    }
-}
-
-@media (min-width: 720px) {
-    mdl-list-item .release-title {
-        max-width: 500px;
-    }
-}
-
-@media (min-width: 960px) {
-    mdl-list-item .release-title {
-        max-width: 600px;
-    }
-}
-
-@media (min-width: 1024px) {
-    mdl-list-item .release-title {
-        max-width: 780px;
-    }
-}
-
-@media (min-width: 1280px) {
-    mdl-list-item .release-title {
-        max-width: 600px;
-    }
-}
-
-@media (min-width: 1440px) {
-    mdl-list-item.release-title {
-        max-width: 720px;
     }
 }
 
@@ -297,42 +219,4 @@ mdl-list-item .release-link {
 @-o-keyframes fadein {
     from { opacity: 0; }
     to   { opacity: 1; }
-}
-
-/* Fade out */
-.fadeOut {
-    -webkit-animation: fadeout 0.5s; /* Safari, Chrome and Opera > 12.1 */
-    -moz-animation: fadeout 0.5s; /* Firefox < 16 */
-    -ms-animation: fadeout 0.5s; /* Internet Explorer */
-    -o-animation: fadeout 0.5s; /* Opera < 12.1 */
-    animation: fadeout 0.5s;
-}
-
-@keyframes fadeout {
-    from { opacity: 1; }
-    to   { opacity: 0; }
-}
-
-/* Firefox < 16 */
-@-moz-keyframes fadeout {
-    from { opacity: 1; }
-    to   { opacity: 0; }
-}
-
-/* Safari, Chrome and Opera > 12.1 */
-@-webkit-keyframes fadeout {
-    from { opacity: 1; }
-    to   { opacity: 0; }
-}
-
-/* Internet Explorer */
-@-ms-keyframes fadeout {
-    from { opacity: 1; }
-    to   { opacity: 0; }
-}
-
-/* Opera < 12.1 */
-@-o-keyframes fadeout {
-    from { opacity: 1; }
-    to   { opacity: 0; }
 }

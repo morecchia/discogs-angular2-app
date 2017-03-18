@@ -18,7 +18,7 @@
         </div>
 
         <div [ngClass]="{'hidden': addingNew}">
-            <h3 class="mdl-dialog__title playlist-menu">Add {{type}} to Playlist</h3>
+            <h3 class="mdl-dialog__title playlist-menu">Add {{type}} to playlist</h3>
             
             <hr class="menu-separator" />
 
@@ -35,7 +35,7 @@
         </div>
 
         <div [ngClass]="{'hidden': !addingNew}">
-            <h3 class="mdl-dialog__title">Add Playlist</h3>
+            <h3 class="mdl-dialog__title">Add a playlist</h3>
 
             <div class="mdl-dialog__content">
                 <mdl-textfield type="text" label="Playlist Name" #playlistName floating-label autofocus></mdl-textfield>

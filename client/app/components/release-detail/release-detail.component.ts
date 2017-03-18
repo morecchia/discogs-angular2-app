@@ -51,6 +51,8 @@ export class ReleaseDetailComponent implements OnDestroy {
     this.store.dispatch(new playlistMenu.AddAction(playlist));
   }
 
+  addToWantlist() { }
+
   toggleImages() {
     this.releaseImagesVisible = !this.releaseImagesVisible;
   }

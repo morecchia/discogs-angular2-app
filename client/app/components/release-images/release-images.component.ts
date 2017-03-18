@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnChanges } from '@angular/core';
 
 import { DiscogsImage } from '../../models';
 
@@ -6,7 +6,7 @@ import { DiscogsImage } from '../../models';
   selector: 'app-release-images',
   templateUrl: './release-images.component.html'
 })
-export class ReleaseImagesComponent implements OnInit {
+export class ReleaseImagesComponent implements OnChanges {
   @Input()
   images: DiscogsImage[];
 
@@ -38,7 +38,7 @@ export class ReleaseImagesComponent implements OnInit {
       ? this.imageIndex = this.imageIndex - 1 : this.images.length - 1;
   }
 
-  ngOnInit() {
+  ngOnChanges() {
     this.imageIndex = 0;
   }
 }

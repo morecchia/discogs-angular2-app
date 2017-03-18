@@ -24,6 +24,7 @@ import { PlaylistMenuComponent } from './playlist-menu/playlist-menu.component';
 
 import { PlayerTimeComponent } from './player-time/player-time.component';
 import { MainLayoutComponent } from './main-layout/main-layout.component';
+import { HeaderRowComponent } from './header-row/header-row.component';
 
 import { PipesModule } from '../pipes';
 
@@ -45,7 +46,8 @@ export const COMPONENTS = [
   PlaylistMenuComponent,
   AddPlaylistMenuComponent,
   PlayerTimeComponent,
-  MainLayoutComponent
+  MainLayoutComponent,
+  HeaderRowComponent
 ];
 
 
