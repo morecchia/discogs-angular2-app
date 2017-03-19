@@ -5,7 +5,7 @@
     },
     "apps": [{
         "root": "client",
-        "outDir": "dist",
+        "outDir": "../discogs-player/public",
         "assets": [
             "assets",
             "favicon.ico"

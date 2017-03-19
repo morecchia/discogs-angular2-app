@@ -70,6 +70,12 @@ export function reducer(state = initialState, action: player.Actions): State {
       });
     }
 
+    case player.ActionTypes.INPUT_VOL: {
+      return Object.assign({}, state, {
+        volume: action.payload
+      });
+    }
+
     default: {
       return state;
     }

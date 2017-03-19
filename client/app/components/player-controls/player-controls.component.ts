@@ -1,11 +1,7 @@
 import { Component, Input, Output, EventEmitter, ViewChild, ElementRef } from '@angular/core';
 import { Store } from '@ngrx/store';
 
-import * as moment from 'moment';
-
-import * as fromRoot from '../../reducers';
-import * as player from '../../actions/player';
-import * as videos from '../../actions/videos';
+import { LocalStorageService } from 'angular-2-local-storage';
 
 import { YoutubeService } from '../../services';
 import { YoutubeVideo, PlayerTime, DiscogsRelease, SelectedVideo } from '../../models';
@@ -49,9 +45,6 @@ export class PlayerControlsComponent {
   onVideoTogglePlay = new EventEmitter<number>();
 
   @Output()
-  onVolumeChanged = new EventEmitter<number>();
-
-  @Output()
   onVolumeSet = new EventEmitter<number>();
 
   volumeVisible = false;
@@ -75,14 +68,12 @@ export class PlayerControlsComponent {
   }
 
   toggleVolume() {
-    this.store.dispatch(new player.VolumeInputAction(0));
+    const storedVolume = this.youtube.getStoredVolume() || 50;
+    this.volume = this.volume === 0 ? storedVolume : 0;
+    this.youtube.setVolume(this.volume, false);
   }
 
-  inputVolume(value: number) {
-    this.store.dispatch(new player.VolumeInputAction(value));
-  }
-
-  constructor(private store: Store<fromRoot.State>, private youtube: YoutubeService) {
+  constructor(private youtube: YoutubeService, private localStorage: LocalStorageService) {
     this.youtube.playbackEnded$
       .subscribe(() =>
         this.skipNextButton.nativeElement.click()

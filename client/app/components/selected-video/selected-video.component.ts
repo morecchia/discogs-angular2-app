@@ -53,6 +53,10 @@ export class SelectedVideoComponent {
     this.store.dispatch(new player.TogglePlayAction(time));
   }
 
+  onVolumeSet(volume: number) {
+    this.store.dispatch(new player.VolumeInputAction(volume));
+  }
+
   togglePlayerFrame() {
     return false;
   }

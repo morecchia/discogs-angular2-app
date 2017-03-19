@@ -36,14 +36,15 @@
                 [playerCurrent]="playerCurrent"
                 [playlist]="playlist"
                 [playerRelease]="playerRelease"
-                [volume] = "playerVolume"
+                [volume]="playerVolume"
                 [nextVideo]="nextPrevVideos && nextPrevVideos.next"
                 [prevVideo]="nextPrevVideos && nextPrevVideos.prev"
                 [playing]="playing"
-                [playerTime] = "playerTime"
+                [playerTime]="playerTime"
                 (onVideoSkipped)="onVideoSkipped($event)"
                 (onVideoTogglePlay)="onVideoTogglePlay($event)"
-                (onPlaylistSelected)="onPlaylistSelected($event)">
+                (onPlaylistSelected)="onPlaylistSelected($event)"
+                (onVolumeSet)="onVolumeSet($event)">
             </app-player-controls>
 
             <app-player-time 

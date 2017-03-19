@@ -16,7 +16,7 @@
       </span>
 
       <span [ngClass]="{'visible': volumeVisible, 'volume-slider': true}" (mouseenter)="toggleVolumeVisibility()" (mouseleave)="toggleVolumeVisibility(true)">
-        <mdl-slider [min]="0" [max]="100" [step]="1" #src (input)="inputVolume(src.value)" [(ngModel)]="volume"></mdl-slider>
+        <mdl-slider [min]="0" [max]="100" [step]="1" #src (input)="onVolumeSet.emit(src.value)" [(ngModel)]="volume"></mdl-slider>
         <span class="volume-label">{{volume}}</span>
       </span>
     </span>

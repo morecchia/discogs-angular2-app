@@ -51,9 +51,15 @@ export class YoutubeService {
     return url.match(YT_REGEXES[0])[1] || url.match(YT_REGEXES[1])[1];
   }
 
-  setVolume(value: number) {
+  setVolume(value: number, store = true) {
     this.player.setVolume(value);
-    this.localStorage.set('playerVolume', value);
+    if (store) {
+      this.localStorage.set('playerVolume', value);
+    }
+  }
+
+  getStoredVolume(): number {
+    return this.localStorage.get('playerVolume') as number;
   }
 
   setSelectedVideo(selected: models.SelectedVideo) {
@@ -62,7 +68,7 @@ export class YoutubeService {
 
   getPlayerSettings(): models.PlayerSettings {
     return {
-      volume: this.localStorage.get('playerVolume') as number,
+      volume: this.localStorage.get('playerVolume') as number || 50,
       activeVideo: this.localStorage.get('activeVideo') as models.SelectedVideo,
     };
   }
@@ -77,7 +83,6 @@ export class YoutubeService {
 
   initPlayer(settings: models.PlayerSettings) {
     this.player.on('ready', event => {
-      this.player.setVolume(settings.volume);
       this.player.cueVideoById(settings.activeVideo && settings.activeVideo.video.id);
     });
 
