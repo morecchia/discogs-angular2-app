@@ -1,10 +1,10 @@
 {
-  "name": "discogs-api",
+  "name": "discogs-player",
   "version": "1.0.0",
   "description": "",
-  "main": "api.js",
+  "main": "app.js",
   "scripts": {
-    "start": "nodemon api",
+    "start": "nodemon app",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
