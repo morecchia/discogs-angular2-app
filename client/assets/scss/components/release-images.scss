@@ -1,90 +1,91 @@
 .release-images {
     position: fixed;
-}
-
-.release-images,
-.release-image {
-    display: none;
-    top: 0;
-    left: 0;
-}
-
-.release-images {
     width: 100%;
     height: 100%;
     background: rgba(0,0,0,0.3);
-}
 
-.release-images mdl-card mdl-card-supporting-text img,
-.release-images .close,
-.release-image {
-    position: absolute;
-}
+    &.visible {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
 
-.release-images.visible {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
+    &,
+    .release-image {
+        display: none;
+        top: 0;
+        left: 0;
+    }
+    
+    .release-images-wrapper {
+        position: absolute;
 
-.release-images mdl-card {
-    width: 360px;
-    border-radius: 4px;
-    padding: 4px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
+        mdl-card mdl-card-supporting-text img,
+        .close,
+        .release-image {
+            &.visible {
+                display: block
+            }
 
-.release-images .close {
-    top: 2px;
-    right: 2px;
-    color: #ffffff;
-}
+            position: absolute;
+        }
 
-.release-images mdl-card mdl-card-menu:hover {
-    color: rgb(83,109,254);
-}
+        .mdl-card {
+            width: 360px;
+            border-radius: 4px;
+            padding: 4px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
 
-.release-images mdl-card mdl-card-menu button:hover {
-    background: 0 0;
-}
+        .close {
+            top: -30px;
+            right: -30px;
+            color: #333;
+        }
 
-.release-images mdl-card mdl-card-actions {
-    text-align: center;
-}
+        mdl-card mdl-card-menu:hover {
+            color: rgb(83,109,254);
+        }
 
-.release-images mdl-card mdl-card-actions .next {
-    float: right;
-}
+        mdl-card mdl-card-menu button:hover {
+            background: 0 0;
+        }
 
-.release-images mdl-card mdl-card-actions .previous {
-    float: left;
-}
+        mdl-card mdl-card-actions {
+            text-align: center;
+        }
 
-.release-images mdl-card mdl-card-actions .image-counter {
-    display: inline-block;
-    margin-top: 6px;
-    word-spacing: 0.2em;
-}
+        mdl-card mdl-card-actions .next {
+            float: right;
+        }
 
-.release-images mdl-card mdl-card-supporting-text {
-    position: relative;
-    min-height: 320px;
-}
+        mdl-card mdl-card-actions .previous {
+            float: left;
+        }
 
-.release-images mdl-card mdl-card-supporting-text img {
-    max-height: 100%;  
-    max-width: 100%; 
-    width: auto;
-    height: auto;
-    top: 0;  
-    bottom: 0;  
-    left: 0;  
-    right: 0;  
-    margin: auto;
-}
+        mdl-card mdl-card-actions .image-counter {
+            display: inline-block;
+            margin-top: 6px;
+            word-spacing: 0.2em;
+        }
 
-.release-image.visible {
-    display: block
+        mdl-card mdl-card-supporting-text {
+            position: relative;
+            min-height: 320px;
+        }
+
+        mdl-card mdl-card-supporting-text img {
+            max-height: 100%;  
+            max-width: 100%; 
+            width: auto;
+            height: auto;
+            top: 0;  
+            bottom: 0;  
+            left: 0;  
+            right: 0;  
+            margin: auto;
+        }
+    }
 }

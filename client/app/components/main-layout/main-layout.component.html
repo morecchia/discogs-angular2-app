@@ -1,4 +1,4 @@
-<div class="app-wrapper">
+<section class="main-wrapper">
 
     <div class="column left">
         <app-search-box (onSearch)="onSearch($event)"></app-search-box>
@@ -24,7 +24,7 @@
 
         </mdl-list>
 
-        <div  class="playlist-wrapper">
+        <div  class="playlist-wrapper margin-bottom">
             <h5>Playlists</h5>
             
             <button class="add-playlist-button mdl-button--supermini-fab"   
@@ -62,8 +62,8 @@
         </div>
     </div>
 
-    <div class="column main">
+    <div class="column main margin-bottom">
         <router-outlet></router-outlet>
     </div>  
 
-</div>
+</section>

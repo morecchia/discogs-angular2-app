@@ -1,9 +1,12 @@
 <div class="pagination-wrapper">
-    <pagination-controls (pageChange)="getPage($event)"></pagination-controls>
+    <pagination-controls
+        (pageChange)="getPage($event)"
+        previousLabel=""
+        nextLabel="">
+    </pagination-controls>
 </div>
-<hr>
 
-<mdl-list>
+<mdl-list class="margin-bottom">
     <div *ngIf="searching" class="progress progress-list">
         <mdl-spinner single-color [active]="searching"></mdl-spinner>
     </div>

@@ -22,11 +22,12 @@
             
             <hr class="menu-separator" />
 
+            <div class="playlist-menu-add" (click)="toggleAddPlaylist()">
+                &#x2b; Create New Playlist...
+            </div>
+
             <div class="mdl-dialog__content playlist-menu">
                 <mdl-list>
-                    <mdl-list-item class="playlist-menu-add" mdl-ripple (click)="toggleAddPlaylist()">
-                        &#x2b; Create New Playlist...
-                    </mdl-list-item>
                     <mdl-list-item *ngFor="let playlist of playlists" mdl-ripple (click)="queueVideos(playlist.id, playlistMenu)">
                         {{playlist.name}} ({{playlist.count}})
                     </mdl-list-item>

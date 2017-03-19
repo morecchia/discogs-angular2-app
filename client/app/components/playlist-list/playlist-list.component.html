@@ -1,15 +1,17 @@
 <div class="mdl-grid">
-    <div class="mdl-cell mdl-cell--4-col mdl-cell--2-col-tablet mdl-cell--hide-phone playlist-thumb">
-        <div (click)="toggleImages()" class="img-container" *ngIf="selectedPlaylist.videos.length">
-            <img src="{{selectedPlaylist.videos[0].release.images[0].uri}}">
-            <span *ngIf="images.length > 1" class="extra-info">More images...</span>
+    <div class="details-wrapper">
+        <div class="release-thumb">
+            <div (click)="toggleImages()" class="img-container" *ngIf="selectedPlaylist.videos.length">
+                <img src="{{selectedPlaylist.videos[0].release.images[0].uri}}">
+                <span *ngIf="images.length > 1" class="extra-info">More images...</span>
+            </div>
         </div>
-    </div>
 
-    <div class="mdl-cell mdl-cell--8-col mdl-cell--6-col-tablet playlist-info">
-        <div class="playlist-basic-info">
-            <h5>{{selectedPlaylist.name}}</h5>
-            <span>{{selectedPlaylist.count}} videos</span>
+        <div class="release-info">
+            <div class="release-basic-info">
+                <h5>{{selectedPlaylist.name}}</h5>
+                <span>{{selectedPlaylist.count}} videos</span>
+            </div>
         </div>
     </div>
 

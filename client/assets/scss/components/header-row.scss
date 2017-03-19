@@ -1,17 +1,41 @@
-.header-row {
+@import "../_variables.scss";
+
+.header-wrapper {
+    height: 40px;
+    width: 100%;
     position: fixed;
     top: 0;
-    width: 100%;
+    z-index: 999;
 
-    .navigation-header {
-        display: -webkit-flex;
-        display: flex;
-        list-style-type: none;
-        padding: 0;
-        justify-content: flex-end;
+    &:hover .header-row {
+        display: block;
+    }
 
-        .navigation-action.left {
-            margin-right:auto;
+    .header-row {
+        position: absolute;
+        top: 0;
+        width: inherit;
+        background: $background-color;
+        display: none;
+        border-bottom: 2px solid $active-color;
+
+        ul.navigation-header {
+            display: -webkit-flex;
+            display: flex;
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            justify-content: flex-end;
+
+            li.navigation-action {
+                &.left {
+                    margin-right:auto;
+                }
+
+                button {
+                    border-radius: 0;
+                }
+            }
         }
     }
 }

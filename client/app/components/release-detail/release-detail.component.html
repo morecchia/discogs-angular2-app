@@ -1,21 +1,20 @@
 <div class="mdl-grid" *ngIf="release">
-
     <div class="mdl-cell mdl-cell--12-col">
-        <div class="mdl-grid">
-            <div *ngIf="release.images" (click)="toggleImages()" class="mdl-cell mdl-cell--4-col mdl-cell--2-col-tablet mdl-cell--hide-phone release-thumb">
+        <div class="details-wrapper">
+            <span *ngIf="release.images" (click)="toggleImages()" class="release-thumb">
                 <div class="img-container">
                     <img src="{{release.images[0].uri150}}">
                     <span *ngIf="release.images.length > 1" class="extra-info">More images...</span>
                 </div>
-            </div>
+            </span>
 
-            <div *ngIf="!release.images" class="mdl-cell mdl-cell--4-col mdl-cell--2-col-tablet mdl-cell--hide-phone release-thumb">
+            <span *ngIf="!release.images" class="release-thumb">
                 <div class="img-container">
                     <img src="../../../assets/images/placeholder.jpg">
                 </div>
-            </div>
+            </span>
 
-            <div class="mdl-cell mdl-cell--8-col mdl-cell--6-col-tablet release-info">
+            <span class="release-info">
                 <div class="release-basic-info">
                     <h5>{{release.artists | joinNames}} - {{release.title}}</h5>
                     <span>{{release.labels | joinNames}} ({{release.year}})</span>
@@ -37,7 +36,7 @@
                         <span class="mdl-chip__text">{{style}}</span>
                     </span>
                 </p>
-            </div>
+            </span>
         </div>
     </div>
     

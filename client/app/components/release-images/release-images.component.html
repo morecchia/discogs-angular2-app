@@ -1,25 +1,26 @@
 <div [ngClass]="setMainClasses()">
-    <mdl-card>
-        <mdl-card-supporting-text>
-            <img class="release-image" *ngFor="let image of images; let i = index"
-                [ngClass]="{'visible': i === imageIndex}" (click)="nextImage()" src="{{image.uri}}">
-        </mdl-card-supporting-text>
-        <mdl-card-actions mdl-card-border>
-            <button [disabled]="navButtonDisabled" class="previous" mdl-button mdl-button-type="icon" mdl-ripple (click)="prevImage()">
-                <mdl-icon>keyboard_arrow_left</mdl-icon>
+    <div class="release-images-wrapper">
+        <mdl-card>
+            <mdl-card-supporting-text>
+                <img class="release-image" *ngFor="let image of images; let i = index"
+                    [ngClass]="{'visible': i === imageIndex}" (click)="nextImage()" src="{{image.uri}}">
+            </mdl-card-supporting-text>
+            <mdl-card-actions mdl-card-border>
+                <button [disabled]="navButtonDisabled" class="previous" mdl-button mdl-button-type="icon" mdl-ripple (click)="prevImage()">
+                    <mdl-icon>keyboard_arrow_left</mdl-icon>
+                </button>
+
+                <span *ngIf="images" class="image-counter">{{imageIndex + 1}} of {{images.length}}</span>
+
+                <button [disabled]="navButtonDisabled" class="next" mdl-button mdl-button-type="icon" mdl-ripple (click)="nextImage()">
+                    <mdl-icon>keyboard_arrow_right</mdl-icon>
+                </button>
+            </mdl-card-actions>
+        </mdl-card>
+        <div class="close">
+            <button mdl-button mdl-button-type="icon" (click)="onImagesClose.emit($event)">
+                <mdl-icon>close</mdl-icon>
             </button>
-
-            <span *ngIf="images" class="image-counter">{{imageIndex + 1}} of {{images.length}}</span>
-
-            <button [disabled]="navButtonDisabled" class="next" mdl-button mdl-button-type="icon" mdl-ripple (click)="nextImage()">
-                <mdl-icon>keyboard_arrow_right</mdl-icon>
-            </button>
-        </mdl-card-actions>
-    </mdl-card>
-
-    <span class="close">
-        <button mdl-button mdl-button-type="icon" (click)="onImagesClose.emit($event)">
-            <mdl-icon>close</mdl-icon>
-        </button>
-    </span>
+        </div>
+    </div>
 </div>

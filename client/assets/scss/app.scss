@@ -1,5 +1,7 @@
 @import "../../../node_modules/material-design-lite/src/material-design-lite";
 @import "components";
+@import "variables";
+@import "transitions";
 
 body {
     font-family: "Roboto", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
@@ -7,10 +9,12 @@ body {
     font-style: normal;
     font-size: 16px;
     line-height: 24px;
+    height: 100%;
+    overflow: hidden;
     margin: 0;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    background: #FAFAFA;
+    background: $background-color;
 }
 
 .progress {
@@ -33,14 +37,71 @@ body {
 }
 
 .active {
-    border-left: 2px solid #ff4081;
-    background: #efefef;
+    border-left: 2px solid $color-accent;
+    background: $active-color;
+}
+
+.margin-bottom {
+    margin-bottom: 60px;
+}
+
+/******** Details ********/
+.details-wrapper {
+    display: -webkit-flex;
+    display: flex;
+    justify-content: flex-start;
+
+    .release-info {
+        padding-left: 2em;
+
+        .release-basic-info {
+            margin-bottom: 12px;
+
+            span {
+                color: rgba(0, 0, 0, .54);
+                font-size: 14px;
+            }
+        }
+
+        .style-chips span.mdl-chip {
+            margin: 6px 8px 0 0;
+        }
+    }
+
+    .release-thumb {
+        text-align: center;
+
+        > .img-container {
+            width: 150px;
+
+            img {
+                max-width: 100%;
+            }
+        }
+    }
+}
+
+.progress.progress-detail {
+    margin: 3em auto;
+}
+
+.video-wrapper li:hover,
+.release-thumb,
+.detail-actions a {
+    cursor: pointer;
+}
+
+.video-duration {
+    color: rgba(0, 0, 0, .54);
 }
 
 /******* Pagination *******/
 
 .pagination-wrapper {
-    width: 600px;
+    display: -webkit-flex;
+    display: flex;
+    justify-content: center;
+    margin-right: 2em;
 
     ul {
         padding: 0;
@@ -82,9 +143,6 @@ body {
 }
 
 /***** MDL overwrites *********/
-.mdl-navigation__link:hover {
-    color: rgb(255,64,129);
-}
 
 .material-icons.md-18 {
     font-size: 18px;
@@ -124,7 +182,7 @@ body {
     .release-title {
         display: block;
         text-decoration: none;
-        max-width: 400px;
+        max-width: 600px;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
@@ -168,55 +226,55 @@ body {
 }
 
 /********** Breakpoints ************/
+@media (max-width: 980px) {
+    .mdl-list__item {
+        .release-title {
+            max-width: 450px;
+        }
+    }
+}
 
-@media (max-width: 360px) {
+@media (max-width: 840px) {
+    .mdl-list__item {
+        .release-title {
+            max-width: 340px;
+        }
+    }
+}
+
+@media (max-width: 720px) {
+    .mdl-list__item {
+        .release-title {
+            max-width: 200px;
+        }
+    }
+}
+
+/** left column is hidden ***/
+@media (max-width: 600px) {
+    .mdl-list__item {
+        .release-title {
+            max-width: 400px;
+        }
+    }
+
     .pagination-wrapper {
-        width: 360px;
-    }
-    .list-actions span {
-        display: none;
-    }
-    .list-actions .material-icons.md-resized {
-        font-size: 24px;
+        justify-content: center;
     }
 }
 
-/* Transitions */
-
-/* Fade in */
-.fadeIn {
-    -webkit-animation: fadein 0.5s; /* Safari, Chrome and Opera > 12.1 */
-    -moz-animation: fadein 0.5s; /* Firefox < 16 */
-    -ms-animation: fadein 0.5s; /* Internet Explorer */
-    -o-animation: fadein 0.5s; /* Opera < 12.1 */
-    animation: fadein 0.5s;
+@media (max-width: 540px) {
+    .mdl-list__item {
+        .release-title {
+            max-width: 300px;
+        }
+    }
 }
 
-@keyframes fadein {
-    from { opacity: 0; }
-    to   { opacity: 1; }
-}
-
-/* Firefox < 16 */
-@-moz-keyframes fadein {
-    from { opacity: 0; }
-    to   { opacity: 1; }
-}
-
-/* Safari, Chrome and Opera > 12.1 */
-@-webkit-keyframes fadein {
-    from { opacity: 0; }
-    to   { opacity: 1; }
-}
-
-/* Internet Explorer */
-@-ms-keyframes fadein {
-    from { opacity: 0; }
-    to   { opacity: 1; }
-}
-
-/* Opera < 12.1 */
-@-o-keyframes fadein {
-    from { opacity: 0; }
-    to   { opacity: 1; }
+@media (max-width: 440px) {
+    .mdl-list__item {
+        .release-title {
+            max-width: 200px;
+        }
+    }
 }
