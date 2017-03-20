@@ -1,10 +1,25 @@
 <app-header-row></app-header-row>
 
-<app-main-layout
-    [user]="user$ | async"
-    [videoSelected]="videoSelected$ | async"
-    [playlists]="playlists$ | async"
-    (onPlaylistAdd)="onPlaylistAdd($event)">
-</app-main-layout>
+<mdl-layout #appLayout="mdlLayout">
+    <mdl-layout-drawer>
+        <div class="navigation-drawer">
+            <app-main-navigation
+                [user]="user$ | async"
+                [playlists]="playlists$ | async"
+                (onPlaylistAdd)="onPlaylistAdd($event)"
+                (onSearch)="search($event)">
+            </app-main-navigation>
+        </div>
+    </mdl-layout-drawer>
+
+    <mdl-layout-content>
+        <app-main-layout
+            [user]="user$ | async"
+            [videoSelected]="videoSelected$ | async"
+            [playlists]="playlists$ | async"
+            (onPlaylistAdd)="onPlaylistAdd($event)">
+        </app-main-layout>
+    </mdl-layout-content>
+</mdl-layout>
 
 <app-player></app-player>

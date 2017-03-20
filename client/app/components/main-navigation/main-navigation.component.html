@@ -1,0 +1,59 @@
+<app-search-box (onSearch)="search($event)"></app-search-box>
+
+<h5>Your Music</h5>
+
+<mdl-list>
+    <mdl-list-item>
+        <a [ngClass]="{'hidden': searchVisible, 'mdl-navigation__link': true}" routerLink="/wantlist">
+            <span>Wantlist ({{user.num_wantlist}})</span>
+        </a>
+    </mdl-list-item>
+    <mdl-list-item>
+        <a [ngClass]="{'hidden': searchVisible, 'mdl-navigation__link': true}" routerLink="/collection">
+            <span>Collection ({{user.num_collection}})</span>
+        </a>
+    </mdl-list-item>
+    <mdl-list-item>
+        <a [ngClass]="{'hidden': searchVisible, 'mdl-navigation__link': true}" routerLink="/sales">
+            <span>Sales ({{user.num_for_sale}})</span>
+        </a>
+    </mdl-list-item>
+
+</mdl-list>
+
+<div class="playlist-wrapper margin-bottom">
+    <h5>Playlists</h5>
+
+    <button (click)="addPlaylistDialog.show()" class="add-playlist-button mdl-button--supermini-fab"
+      #addPlaylistButton mdl-button mdl-button-type="mini-fab" mdl-colored="accent"><mdl-icon class="md-18">add</mdl-icon>
+    </button>
+
+    <mdl-dialog #addPlaylistDialog [mdl-dialog-config]="{
+                    clickOutsideToClose: true,
+                    styles:{'width': '300px'},
+                    isModal:true,
+                    openFrom: addPlaylistButton,
+                    enterTransitionDuration: 300,
+                    leaveTransitionDuration: 300}">
+
+        <h3 class="mdl-dialog__title">Add a playlist</h3>
+
+        <div class="mdl-dialog__content">
+            <mdl-textfield type="text" label="Playlist Name"
+              #playlistName floating-label autofocus>
+            </mdl-textfield>
+        </div>
+
+        <div class="mdl-dialog__actions">
+            <button mdl-button (click)="addPlaylist(addPlaylistDialog, playlistName.value)"
+              mdl-button-type="raised" mdl-colored="primary" mdl-ripple>Save</button>
+            <button mdl-button (click)="addPlaylistDialog.close()" mdl-ripple>Cancel</button>
+        </div>
+    </mdl-dialog>
+
+    <app-playlist-menu
+      [playlists]="playlists"
+      [currentId]="currentId"
+      (onPlaylistSelected)="selectVideo($event)">
+    </app-playlist-menu>
+</div>

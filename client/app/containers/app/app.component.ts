@@ -8,6 +8,9 @@ import { MdlSnackbarService } from 'angular2-mdl';
 
 import * as fromRoot from '../../reducers';
 import * as playlistMenu from '../../actions/playlist';
+import * as search from '../../actions/search';
+
+import { goodKey } from '../../util';
 
 import { DiscogsUser, Playlist } from '../../models';
 
@@ -32,6 +35,12 @@ export class AppComponent {
 
   onPlaylistAdd(playlist: Playlist) {
     this.store.dispatch(new playlistMenu.AddAction(playlist));
+  }
+
+  search(e) {
+    if (goodKey(e)) {
+      this.store.dispatch(new search.SearchReleasesAction({query: e.target.value, page: 1}));
+    }
   }
 
   constructor(private store: Store<fromRoot.State>, private mdlSnackbarService: MdlSnackbarService) {

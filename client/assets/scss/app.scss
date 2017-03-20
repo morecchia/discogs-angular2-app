@@ -95,6 +95,10 @@ body {
     color: rgba(0, 0, 0, .54);
 }
 
+.navigation-drawer {
+    margin: 0 1em;
+}
+
 /******* Pagination *******/
 
 .pagination-wrapper {
@@ -220,12 +224,24 @@ body {
     width: 30px;
 }
 
+.mdl-layout__drawer-button {
+    position: fixed;
+    top: -8px;
+    left: -8px;
+}
+
 .mdl-dialog__title {
     font-size: 1.8rem;
     padding: 8px 12px 0;
 }
 
 /********** Breakpoints ************/
+@media (min-width: 600px) {
+    .mdl-layout__drawer-button {
+        display: none;
+    }
+}
+
 @media (max-width: 980px) {
     .mdl-list__item {
         .release-title {

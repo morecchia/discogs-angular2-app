@@ -11,15 +11,12 @@ import { DiscogsUser, Playlist } from '../../models';
 import { goodKey } from '../../util';
 
 @Component({
-  selector: 'app-main-layout',
-  templateUrl: './main-layout.component.html'
+  selector: 'app-main-navigation',
+  templateUrl: './main-navigation.component.html'
 })
-export class MainLayoutComponent {
+export class MainNavigationComponent {
     @Input()
     user: DiscogsUser;
-
-    @Input()
-    videoSelected: boolean;
 
     @Input()
     playlists: Playlist[];
@@ -30,18 +27,27 @@ export class MainLayoutComponent {
     @Output()
     onPlaylistAdd = new EventEmitter<Playlist>();
 
-    search(e) {
-      if (goodKey(e)) {
-        this.store.dispatch(new search.SearchReleasesAction({query: e.target.value, page: 1}));
-      }
-    }
+    @Output()
+    onSearch = new EventEmitter<string>();
 
-    addPlaylist(playlist: Playlist) {
-      this.onPlaylistAdd.emit(playlist);
+    addPlaylist(dialog: any, playlistName: string) {
+      if (playlistName) {
+        dialog.close();
+        this.onPlaylistAdd.emit({
+          name: playlistName,
+          count: 0,
+          id: UUID.UUID(),
+          videos: []
+        });
+      }
     }
 
     removePlaylist(playlist: Playlist) {
       this.onPlaylistRemove.emit(playlist);
+    }
+
+    search(term: string) {
+      this.onSearch.emit(term);
     }
 
     constructor(private store: Store<fromRoot.State>) { }

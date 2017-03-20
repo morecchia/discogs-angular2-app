@@ -21,9 +21,9 @@ import { SelectedVideoComponent } from './selected-video/selected-video.componen
 import { PlayerControlsComponent } from './player-controls/player-controls.component';
 import { AddPlaylistMenuComponent } from './add-playlist-menu/add-playlist-menu.component';
 import { PlaylistMenuComponent } from './playlist-menu/playlist-menu.component';
-
 import { PlayerTimeComponent } from './player-time/player-time.component';
 import { MainLayoutComponent } from './main-layout/main-layout.component';
+import { MainNavigationComponent } from './main-navigation/main-navigation.component';
 import { HeaderRowComponent } from './header-row/header-row.component';
 
 import { PipesModule } from '../pipes';
@@ -47,6 +47,7 @@ export const COMPONENTS = [
   AddPlaylistMenuComponent,
   PlayerTimeComponent,
   MainLayoutComponent,
+  MainNavigationComponent,
   HeaderRowComponent
 ];
 
