@@ -227,12 +227,16 @@ body {
 .mdl-layout__drawer-button {
     position: fixed;
     top: -8px;
-    left: -8px;
+    left: 8px;
 }
 
 .mdl-dialog__title {
     font-size: 1.8rem;
     padding: 8px 12px 0;
+}
+
+.mdl-tabs__tab .mdl-tabs__ripple-container {
+    z-index: 0;
 }
 
 /********** Breakpoints ************/

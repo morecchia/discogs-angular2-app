@@ -14,7 +14,7 @@
 .mdl-dialog__content.playlist-menu {
     padding: 0;
     max-height: 360px;
-    overflow: scroll;
+    overflow: auto;
 
     .hidden {
         display: none;
