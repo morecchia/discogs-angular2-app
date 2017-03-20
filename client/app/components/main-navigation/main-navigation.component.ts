@@ -15,40 +15,43 @@ import { goodKey } from '../../util';
   templateUrl: './main-navigation.component.html'
 })
 export class MainNavigationComponent {
-    @Input()
-    user: DiscogsUser;
+  @Input()
+  layout: any;
 
-    @Input()
-    playlists: Playlist[];
+  @Input()
+  user: DiscogsUser;
 
-    @Output()
-    onPlaylistRemove = new EventEmitter<Playlist>();
+  @Input()
+  playlists: Playlist[];
 
-    @Output()
-    onPlaylistAdd = new EventEmitter<Playlist>();
+  @Output()
+  onPlaylistRemove = new EventEmitter<Playlist>();
 
-    @Output()
-    onSearch = new EventEmitter<string>();
+  @Output()
+  onPlaylistAdd = new EventEmitter<Playlist>();
 
-    addPlaylist(dialog: any, playlistName: string) {
-      if (playlistName) {
-        dialog.close();
-        this.onPlaylistAdd.emit({
-          name: playlistName,
-          count: 0,
-          id: UUID.UUID(),
-          videos: []
-        });
-      }
+  @Output()
+  onSearch = new EventEmitter<string>();
+
+  addPlaylist(dialog: any, playlistName: string) {
+    if (playlistName) {
+      dialog.close();
+      this.onPlaylistAdd.emit({
+        name: playlistName,
+        count: 0,
+        id: UUID.UUID(),
+        videos: []
+      });
     }
+  }
 
-    removePlaylist(playlist: Playlist) {
-      this.onPlaylistRemove.emit(playlist);
-    }
+  removePlaylist(playlist: Playlist) {
+    this.onPlaylistRemove.emit(playlist);
+  }
 
-    search(term: string) {
-      this.onSearch.emit(term);
-    }
+  search(term: string) {
+    this.onSearch.emit(term);
+  }
 
-    constructor(private store: Store<fromRoot.State>) { }
+  constructor(private store: Store<fromRoot.State>) { }
 }

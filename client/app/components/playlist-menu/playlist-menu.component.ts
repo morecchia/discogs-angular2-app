@@ -14,6 +14,8 @@ import { Playlist } from '../../models';
   templateUrl: './playlist-menu.component.html'
 })
 export class PlaylistMenuComponent {
+  @Input()
+  layout: any;
 
   @Input()
   currentId: string;

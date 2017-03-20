@@ -4,6 +4,7 @@
     <mdl-layout-drawer>
         <div class="navigation-drawer">
             <app-main-navigation
+                [layout]="appLayout"
                 [user]="user$ | async"
                 [playlists]="playlists$ | async"
                 (onPlaylistAdd)="onPlaylistAdd($event)"

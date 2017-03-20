@@ -4,21 +4,20 @@
 
 <mdl-list>
     <mdl-list-item>
-        <a [ngClass]="{'hidden': searchVisible, 'mdl-navigation__link': true}" routerLink="/wantlist">
+        <a class="mdl-navigation__link" routerLink="/wantlist" (click)="layout && layout.closeDrawer()">
             <span>Wantlist ({{user.num_wantlist}})</span>
         </a>
     </mdl-list-item>
     <mdl-list-item>
-        <a [ngClass]="{'hidden': searchVisible, 'mdl-navigation__link': true}" routerLink="/collection">
+        <a class="mdl-navigation__link" routerLink="/collection" (click)="layout && layout.closeDrawer()">
             <span>Collection ({{user.num_collection}})</span>
         </a>
     </mdl-list-item>
     <mdl-list-item>
-        <a [ngClass]="{'hidden': searchVisible, 'mdl-navigation__link': true}" routerLink="/sales">
+        <a class="mdl-navigation__link" routerLink="/sales" (click)="layout && layout.closeDrawer()">
             <span>Sales ({{user.num_for_sale}})</span>
         </a>
     </mdl-list-item>
-
 </mdl-list>
 
 <div class="playlist-wrapper margin-bottom">
@@ -52,6 +51,7 @@
     </mdl-dialog>
 
     <app-playlist-menu
+      [layout]="layout"
       [playlists]="playlists"
       [currentId]="currentId"
       (onPlaylistSelected)="selectVideo($event)">
