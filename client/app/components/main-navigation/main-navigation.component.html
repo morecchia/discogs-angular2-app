@@ -21,11 +21,14 @@
 </mdl-list>
 
 <div class="playlist-wrapper margin-bottom">
-    <h5>Playlists</h5>
+    <div class="playlist-header">
+        <h5>Playlists</h5>
 
-    <button (click)="addPlaylistDialog.show()" class="add-playlist-button mdl-button--supermini-fab"
-      #addPlaylistButton mdl-button mdl-button-type="mini-fab" mdl-colored="accent"><mdl-icon class="md-18">add</mdl-icon>
-    </button>
+        <button (click)="addPlaylistDialog.show()" class="add-playlist-button mdl-button--supermini-fab"
+            #addPlaylistButton mdl-button mdl-button-type="mini-fab" mdl-colored="accent">
+            <mdl-icon class="md-18">add</mdl-icon>
+        </button>
+    </div>
 
     <mdl-dialog #addPlaylistDialog [mdl-dialog-config]="{
                     clickOutsideToClose: true,

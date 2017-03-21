@@ -47,16 +47,6 @@
   }
 }
 
-.playlist-wrapper {
-    position: relative;
-
-    .add-playlist-button {
-        position: absolute;
-        top: 14px;
-        right: 72px;
-    }
-}
-
 @media (max-width: 600px) {
   .main-wrapper {
     > .column {
