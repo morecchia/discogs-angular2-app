@@ -1,7 +1,7 @@
 {
     "project": {
-        "version": "1.0.0-beta.22-1",
-        "name": "test-app"
+        "version": "1.0.0",
+        "name": "discogs-player"
     },
     "apps": [{
         "root": "client",
@@ -17,7 +17,7 @@
         "prefix": "app",
         "mobile": false,
         "styles": [
-            "assets/scss/app.scss"
+            "styles/app.scss"
         ],
         "scripts": [
             "assets/js/material.min.js"

@@ -1,0 +1,11 @@
+.playlist-wrapper {
+    .playlist-header {
+      display: -webkit-flex;
+      display: flex;
+      justify-content: flex-end;
+
+      h5 {
+        margin-right: auto;
+      }
+    }
+}
