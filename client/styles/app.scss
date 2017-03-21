@@ -58,7 +58,7 @@ body {
             margin-bottom: 12px;
 
             span {
-                color: rgba(0, 0, 0, .54);
+                color: $text-lighter;
                 font-size: 14px;
             }
         }
@@ -92,11 +92,22 @@ body {
 }
 
 .video-duration {
-    color: rgba(0, 0, 0, .54);
+    color: $text-lighter;
 }
 
 .navigation-drawer {
     margin: 0 1em;
+}
+
+.drawer-button {
+    position: fixed;
+    top: 4px;
+    left: 8px;
+    color: $text-lighter;
+
+    &:hover {
+        background: inherit;
+    }
 }
 
 /******* Pagination *******/
@@ -225,9 +236,7 @@ body {
 }
 
 .mdl-layout__drawer-button {
-    position: fixed;
-    top: -8px;
-    left: 8px;
+    display: none;
 }
 
 .mdl-dialog__title {
@@ -241,7 +250,7 @@ body {
 
 /********** Breakpoints ************/
 @media (min-width: 600px) {
-    .mdl-layout__drawer-button {
+    .drawer-button {
         display: none;
     }
 }
