@@ -10,6 +10,7 @@ import { EffectsModule } from '@ngrx/effects';
 // external
 import { LocalStorageModule } from 'angular-2-local-storage';
 import { MdlModule } from 'angular2-mdl';
+import { UuidService } from 'angular2-uuid';
 
 // app
 import { routes } from './routes';
@@ -62,8 +63,8 @@ import { InfiniteScrollDirective } from './directives/infinite-scroll.directive'
     services.DiscogsService,
     services.YoutubeService,
     services.PlaylistService,
-    services.UuidService,
     services.WindowRef,
+    UuidService,
     Title
   ],
   bootstrap: [containers.AppComponent]

@@ -1,7 +1,7 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Store } from '@ngrx/store';
 
-import { UuidService } from '../../services';
+import { UuidService } from 'angular2-uuid';
 
 import * as fromRoot from '../../reducers';
 import * as search from '../../actions/search';

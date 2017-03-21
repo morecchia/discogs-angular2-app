@@ -1,6 +1,6 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 
-import { UuidService } from '../../services';
+import { UuidService } from 'angular2-uuid';
 
 import { YoutubeVideo, Playlist, PlaylistAdd } from '../../models';
 
