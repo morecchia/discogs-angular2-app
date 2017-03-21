@@ -1,7 +1,7 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Store } from '@ngrx/store';
 
-import { UUID } from 'angular2-uuid';
+import { UuidService } from '../../services';
 
 import * as fromRoot from '../../reducers';
 import * as search from '../../actions/search';
@@ -39,7 +39,7 @@ export class MainNavigationComponent {
       this.onPlaylistAdd.emit({
         name: playlistName,
         count: 0,
-        id: UUID.UUID(),
+        id: this.uuid.generate(),
         videos: []
       });
     }
@@ -53,5 +53,5 @@ export class MainNavigationComponent {
     this.onSearch.emit(term);
   }
 
-  constructor(private store: Store<fromRoot.State>) { }
+  constructor(private store: Store<fromRoot.State>, private uuid: UuidService) { }
 }

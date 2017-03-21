@@ -1,6 +1,6 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 
-import { UUID } from 'angular2-uuid';
+import { UuidService } from '../../services';
 
 import { YoutubeVideo, Playlist, PlaylistAdd } from '../../models';
 
@@ -43,7 +43,7 @@ export class AddPlaylistMenuComponent {
       if (playlistName) {
         dialog.close();
 
-        const id = UUID.UUID();
+        const id = this.uuid.generate();
 
         this.onPlaylistAdd.emit({
           name: playlistName,
@@ -59,4 +59,6 @@ export class AddPlaylistMenuComponent {
     toggleAddPlaylist() {
       this.addingNew = !this.addingNew;
     }
+
+    constructor(private uuid: UuidService) { }
 }
