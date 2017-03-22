@@ -83,12 +83,12 @@ export class YoutubeService {
     return this.localStorage.get('playerVideos') as models.SelectedVideo[] || [];
   }
 
-  initPlayer() {
+  initPlayer(id?: string) {
     this.player = YouTubePlayer('youtube-player');
-
+    const videoId = id || this.playerSettings.activeVideo
+        && this.playerSettings.activeVideo.video.id;
     this.player.on('ready', event => {
-      this.player.loadVideoById(this.playerSettings.activeVideo
-        && this.playerSettings.activeVideo.video.id);
+      this.player.loadVideoById(videoId);
     });
 
     this.player.on('stateChange', event => {

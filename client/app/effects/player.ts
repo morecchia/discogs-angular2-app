@@ -28,7 +28,7 @@ export class PlayerEffects {
       const settings = this.youtube.getPlayerSettings();
       return new player.InitSuccessAction(settings);
     });
-  
+
   @Effect()
   initFail$: Observable<Action> = this.actions$
     .ofType(player.ActionTypes.PLAYBACK_FAILED)
@@ -40,12 +40,15 @@ export class PlayerEffects {
   playVideo$: Observable<Action> = this.actions$
     .ofType(player.ActionTypes.PLAY)
     .map(action => {
-      if (!this.youtube.player) {
-        this.youtube.initPlayer();
-      }
-      this.youtube.player.loadVideoById(action.payload.video
-        && action.payload.video.id);
       this.youtube.setSelectedVideo(action.payload);
+      const videoId = action.payload.video && action.payload.video.id;
+
+      if (!this.youtube.player) {
+        this.youtube.initPlayer(videoId);
+        return new player.PlayingAction();
+      }
+
+      this.youtube.player.loadVideoById(videoId);
       return new player.PlayingAction();
     });
 

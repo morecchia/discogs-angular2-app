@@ -20,7 +20,7 @@ import * as containers from './containers';
 import { ComponentsModule } from './components';
 import { PipesModule } from './pipes';
 import * as services from './services';
-import { InfiniteScrollDirective } from './directives/infinite-scroll.directive';
+// import { InfiniteScrollDirective } from './directives/infinite-scroll.directive';
 
 @NgModule({
   declarations: [
@@ -33,8 +33,8 @@ import { InfiniteScrollDirective } from './directives/infinite-scroll.directive'
     containers.SelectedPlaylistComponent,
     containers.ViewPlaylistComponent,
     containers.PlayerComponent,
-    containers.SearchComponent,
-    InfiniteScrollDirective
+    containers.SearchComponent
+    // InfiniteScrollDirective
   ],
   imports: [
     BrowserModule,
