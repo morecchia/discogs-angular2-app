@@ -10,6 +10,7 @@ import { EffectsModule } from '@ngrx/effects';
 // external
 import { LocalStorageModule } from 'angular-2-local-storage';
 import { MdlModule } from 'angular2-mdl';
+import { UuidService } from 'angular2-uuid';
 
 // app
 import { routes } from './routes';
@@ -18,7 +19,8 @@ import * as effects from './effects';
 import * as containers from './containers';
 import { ComponentsModule } from './components';
 import { PipesModule } from './pipes';
-import { DiscogsService, YoutubeService, PlaylistService, WindowRef } from './services';
+import * as services from './services';
+import { InfiniteScrollDirective } from './directives/infinite-scroll.directive';
 
 @NgModule({
   declarations: [
@@ -31,7 +33,8 @@ import { DiscogsService, YoutubeService, PlaylistService, WindowRef } from './se
     containers.SelectedPlaylistComponent,
     containers.ViewPlaylistComponent,
     containers.PlayerComponent,
-    containers.SearchComponent
+    containers.SearchComponent,
+    InfiniteScrollDirective
   ],
   imports: [
     BrowserModule,
@@ -56,7 +59,14 @@ import { DiscogsService, YoutubeService, PlaylistService, WindowRef } from './se
     EffectsModule.run(effects.VideoEffects),
     ComponentsModule
   ],
-  providers: [DiscogsService, YoutubeService, PlaylistService, WindowRef, Title],
+  providers: [
+    services.DiscogsService,
+    services.YoutubeService,
+    services.PlaylistService,
+    services.WindowRef,
+    UuidService,
+    Title
+  ],
   bootstrap: [containers.AppComponent]
 })
 export class AppModule { }
