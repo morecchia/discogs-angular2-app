@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Store } from '@ngrx/store';
 
 import { Observable } from 'rxjs/Observable';
@@ -35,6 +35,11 @@ export class SelectedVideoComponent {
   @Input()
   nextPrevVideos: {next: SelectedVideo, prev: SelectedVideo};
 
+  @Output()
+  onTogglePlayerVisibility = new EventEmitter<boolean>();
+
+  playerFrameVisible = false;
+
   onVideoSkipped(video: SelectedVideo) {
     if (video) {
       this.store.dispatch(new videos.SelectedAction(video));
@@ -49,8 +54,8 @@ export class SelectedVideoComponent {
     this.store.dispatch(new player.SeekAction(time));
   }
 
-  onVideoTogglePlay(time: number) {
-    this.store.dispatch(new player.TogglePlayAction(time));
+  onVideoTogglePlay(playing: boolean) {
+    this.store.dispatch(new player.TogglePlayAction(playing));
   }
 
   onVolumeSet(volume: number) {
@@ -58,7 +63,8 @@ export class SelectedVideoComponent {
   }
 
   togglePlayerFrame() {
-    return false;
+    this.playerFrameVisible = !this.playerFrameVisible;
+    this.onTogglePlayerVisibility.emit(this.playerFrameVisible);
   }
 
   constructor(private store: Store<fromRoot.State>) { }

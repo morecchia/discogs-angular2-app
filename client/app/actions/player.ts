@@ -5,7 +5,7 @@ import { type } from '../util';
 export const ActionTypes = {
   INIT:          type('[Player] Init'),
   INIT_SUCCESS:  type('[Player] Init Success'),
-  INIT_FAIL:     type('[Player] Init Fail'),
+  PLAYBACK_FAILED:     type('[Player] Playback Failed'),
   PLAY:          type('[Player] Play'),
   PLAYING:       type('[Player] Playing'),
   TOGGLE_PLAY:   type('[Player] Stop'),
@@ -32,7 +32,7 @@ export class InitSuccessAction implements Action {
 }
 
 export class InitFailAction implements Action {
-  type = ActionTypes.INIT_FAIL;
+  type = ActionTypes.PLAYBACK_FAILED;
 
   constructor(public payload: any) { }
 }
@@ -52,7 +52,7 @@ export class PlayingAction implements Action {
 export class TogglePlayAction implements Action {
   type = ActionTypes.TOGGLE_PLAY;
 
-  constructor(public payload: number) { }
+  constructor(public payload: boolean) { }
 }
 
 export class SeekAction implements Action {

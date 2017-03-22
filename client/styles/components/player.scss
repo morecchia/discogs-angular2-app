@@ -1,0 +1,29 @@
+@import "../_variables.scss";
+
+/******* Youtube player *******/
+.youtube-wrapper {
+  display: none;
+  height: 100%;
+  width: 100%;
+  position: fixed;
+  background: $backdrop-color;
+	-ms-flex-align: center;
+	-webkit-align-items: center;
+	-webkit-box-align: center;
+	align-items: center;
+  justify-content: center;
+  z-index: 10;
+
+  &.visible {
+    display: -webkit-flex;
+	  display: flex;
+  }
+
+  iframe {
+    position: relative;
+    display: block;
+    max-width: 100%;
+    margin-bottom: 40px;
+    z-index: 999;
+  }
+}

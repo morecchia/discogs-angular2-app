@@ -20,6 +20,12 @@ export class PlayerComponent {
   playerVolume$: Observable<number>;
   playlist$: Observable<SelectedVideo[]>;
 
+  playerVisible = false;
+
+  togglePlayerVisibility(visible: boolean) {
+    this.playerVisible = visible;
+  }
+
   constructor(private store: Store<fromRoot.State>) {
     this.playerCurrent$ = store.select(fromRoot.getPlayerCurrent);
     this.nextPrevVideos$ = store.select(fromRoot.getNextPreviousVideos);

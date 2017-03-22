@@ -42,7 +42,7 @@ export class PlayerControlsComponent {
   onVideoSkipped = new EventEmitter<SelectedVideo>();
 
   @Output()
-  onVideoTogglePlay = new EventEmitter<number>();
+  onVideoTogglePlay = new EventEmitter<boolean>();
 
   @Output()
   onVolumeSet = new EventEmitter<number>();
@@ -50,7 +50,7 @@ export class PlayerControlsComponent {
   volumeVisible = false;
 
   togglePlay() {
-    this.onVideoTogglePlay.emit(this.playerTime.seconds);
+    this.onVideoTogglePlay.emit(!this.playing);
   }
 
   skipNext() {

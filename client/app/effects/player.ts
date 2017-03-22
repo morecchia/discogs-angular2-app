@@ -26,14 +26,23 @@ export class PlayerEffects {
     .startWith(new player.InitAction())
     .map(action => {
       const settings = this.youtube.getPlayerSettings();
-      this.youtube.initPlayer(settings);
       return new player.InitSuccessAction(settings);
+    });
+  
+  @Effect()
+  initFail$: Observable<Action> = this.actions$
+    .ofType(player.ActionTypes.PLAYBACK_FAILED)
+    .map(action => {
+      return new player.TogglePlayAction(false);
     });
 
   @Effect()
   playVideo$: Observable<Action> = this.actions$
     .ofType(player.ActionTypes.PLAY)
     .map(action => {
+      if (!this.youtube.player) {
+        this.youtube.initPlayer();
+      }
       this.youtube.player.loadVideoById(action.payload.video
         && action.payload.video.id);
       this.youtube.setSelectedVideo(action.payload);
@@ -61,7 +70,7 @@ export class PlayerEffects {
     .ofType(player.ActionTypes.TOGGLE_PLAY)
     .withLatestFrom(this.store, (action, state) => {
       return {
-        playing: state.player.playing,
+        playing: action.payload,
         time: state.player.timeSeconds,
         video: state.player.current
       };
@@ -75,7 +84,12 @@ export class PlayerEffects {
         });
       }
 
-      this.youtube.player.playVideo();
+      if (!this.youtube.player) {
+        this.youtube.initPlayer();
+      } else {
+        this.youtube.player.playVideo();
+      }
+
       return new player.SetTimeAction({
         duration: state.video.contentDetails.duration,
         seconds: state.time

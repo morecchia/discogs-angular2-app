@@ -9,6 +9,7 @@ export interface State {
   release: DiscogsRelease;
   timeFormatted: string;
   timeSeconds: number;
+  failure: any;
 };
 
 const initialState: State = {
@@ -18,7 +19,8 @@ const initialState: State = {
   release: null,
   volume: 50,
   timeFormatted: '0:00',
-  timeSeconds: 0
+  timeSeconds: 0,
+  failure: null
 };
 
 export function reducer(state = initialState, action: player.Actions): State {
@@ -44,6 +46,12 @@ export function reducer(state = initialState, action: player.Actions): State {
       });
     }
 
+    case player.ActionTypes.PLAYBACK_FAILED: {
+      return Object.assign({}, state, {
+        failure: action.payload
+      });
+    }
+
     case player.ActionTypes.PLAYING: {
       return Object.assign({}, state, {
         playing: true
@@ -59,7 +67,7 @@ export function reducer(state = initialState, action: player.Actions): State {
 
     case player.ActionTypes.TOGGLE_PLAY: {
       return Object.assign({}, state, {
-        playing: !state.playing
+        playing: action.payload,
       });
     }
 
@@ -92,6 +100,8 @@ export function reducer(state = initialState, action: player.Actions): State {
  */
 
 export const getPlayerInitialized = (state: State) => state.initialized;
+
+export const getPlayerFailed = (state: State) => state.failure;
 
 export const getPlaying = (state: State) => state.playing;
 

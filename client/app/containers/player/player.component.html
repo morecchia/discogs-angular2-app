@@ -5,5 +5,10 @@
   [playing]="playerPlaying$ | async" 
   [nextPrevVideos]="nextPrevVideos$ | async"
   [playerTime]="playerTime$ | async"
-  [playerVolume]="playerVolume$ | async">
+  [playerVolume]="playerVolume$ | async"
+  (onTogglePlayerVisibility)="togglePlayerVisibility($event)">
 </app-selected-video>
+
+<div [ngClass]="{'visible': playerVisible, 'fadeIn': playerVisible, 'youtube-wrapper': true}">
+  <span id="youtube-player"></span>
+</div>

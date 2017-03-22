@@ -9,9 +9,8 @@ import { LocalStorageService } from 'angular-2-local-storage';
 import * as YouTubePlayer from 'youtube-player';
 
 import * as fromRoot from '../reducers';
-import * as player from '../actions/player';
+import * as playerActions from '../actions/player';
 
-import { DiscogsService } from './discogs.service';
 import * as models from '../models';
 
 import * as moment from 'moment';
@@ -40,7 +39,8 @@ export class YoutubeService {
   private _playbackEndedSubject = new Subject<any>();
   playbackEnded$ = this._playbackEndedSubject.asObservable();
 
-  player = YouTubePlayer('youtube-player');
+  playerSettings: any;
+  player: any;
 
   getListData(ids: string[]): Observable<models.YoutubeResponse> {
     return this.http.post('/api/videos', {ids})
@@ -67,10 +67,12 @@ export class YoutubeService {
   }
 
   getPlayerSettings(): models.PlayerSettings {
-    return {
+    this.playerSettings = {
       volume: this.localStorage.get('playerVolume') as number || 50,
       activeVideo: this.localStorage.get('activeVideo') as models.SelectedVideo,
     };
+
+    return this.playerSettings;
   }
 
   setPlaylist(videos: models.SelectedVideo[]) {
@@ -81,9 +83,12 @@ export class YoutubeService {
     return this.localStorage.get('playerVideos') as models.SelectedVideo[] || [];
   }
 
-  initPlayer(settings: models.PlayerSettings) {
+  initPlayer() {
+    this.player = YouTubePlayer('youtube-player');
+
     this.player.on('ready', event => {
-      this.player.cueVideoById(settings.activeVideo && settings.activeVideo.video.id);
+      this.player.loadVideoById(this.playerSettings.activeVideo
+        && this.playerSettings.activeVideo.video.id);
     });
 
     this.player.on('stateChange', event => {
@@ -93,9 +98,17 @@ export class YoutubeService {
           break;
         case YTPLAYER_STATE.PLAYING:
           break;
+        case YTPLAYER_STATE.PAUSED:
+          this.store.dispatch(new playerActions.TogglePlayAction(false));
+          break;
         case YTPLAYER_STATE.BUFFERING:
           break;
       }
+    });
+
+    this.player.on('error', event => {
+      console.warn(event);
+      this.store.dispatch(new playerActions.InitFailAction(event.data));
     });
   }
 
@@ -126,6 +139,6 @@ export class YoutubeService {
       });
   }
 
-  constructor(private http: Http, private discogs: DiscogsService,
-    private localStorage: LocalStorageService, private store: Store<fromRoot.State>) { }
+  constructor(private http: Http, private localStorage: LocalStorageService,
+    private store: Store<fromRoot.State>) { }
 }
