@@ -6,6 +6,7 @@ import { defer } from 'rxjs/observable/defer';
 import { of } from 'rxjs/observable/of';
 
 import * as user from '../actions/user';
+
 import { DiscogsService } from '../services';
 import { DiscogsUser } from '../models';
 

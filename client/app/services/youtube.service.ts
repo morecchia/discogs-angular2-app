@@ -52,7 +52,10 @@ export class YoutubeService {
   }
 
   setVolume(value: number, store = true) {
-    this.player.setVolume(value);
+    if (this.player) {
+      this.player.setVolume(value);
+    }
+
     if (store) {
       this.localStorage.set('playerVolume', value);
     }

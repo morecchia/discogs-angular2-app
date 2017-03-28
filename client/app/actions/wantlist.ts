@@ -1,17 +1,18 @@
 import { Action } from '@ngrx/store';
-import { DiscogsItem, DiscogsWants } from '../models';
+import { DiscogsItem, DiscogsWants, DiscogsRelease } from '../models';
 import { type } from '../util';
 
 export const ActionTypes = {
-  ADD_RELEASE:             type('[Wantlist] Add Release'),
-  ADD_RELEASE_SUCCESS:     type('[Wantlist] Add Release Success'),
-  ADD_RELEASE_FAIL:        type('[Wantlist] Add Release Fail'),
-  REMOVE_RELEASE:          type('[Wantlist] Remove Release'),
-  REMOVE_RELEASE_SUCCESS:  type('[Wantlist] Remove Release Success'),
-  REMOVE_RELEASE_FAIL:     type('[Wantlist] Remove Release Fail'),
-  LOAD:                 type('[Wantlist] Load'),
-  LOAD_SUCCESS:         type('[Wantlist] Load Success'),
-  LOAD_FAIL:            type('[Wantlist] Load Fail'),
+  ADD_RELEASE:            type('[Wantlist] Add Release'),
+  ADD_RELEASE_FAIL:       type('[Wantlist] Add Release Fail'),
+  REMOVE_RELEASE:         type('[Wantlist] Remove Release'),
+  REMOVE_RELEASE_FAIL:    type('[Wantlist] Remove Release Fail'),
+  LOAD:                   type('[Wantlist] Load'),
+  LOAD_SUCCESS:           type('[Wantlist] Load Success'),
+  LOAD_FAIL:              type('[Wantlist] Load Fail'),
+  LOAD_IDS:               type('[Wantlist] Load Ids'),
+  LOAD_IDS_SUCCESS:       type('[Wantlist] Load Ids Success'),
+  UPDATE_IDS:             type('[Wantlist] Update Ids')
 };
 
 /**
@@ -20,19 +21,13 @@ export const ActionTypes = {
 export class AddReleaseAction implements Action {
   type = ActionTypes.ADD_RELEASE;
 
-  constructor(public payload: DiscogsItem) { }
-}
-
-export class AddReleaseSuccessAction implements Action {
-  type = ActionTypes.ADD_RELEASE_SUCCESS;
-
-  constructor(public payload: DiscogsItem) { }
+  constructor(public payload: DiscogsRelease) { }
 }
 
 export class AddReleaseFailAction implements Action {
   type = ActionTypes.ADD_RELEASE_FAIL;
 
-  constructor(public payload: DiscogsItem) { }
+  constructor(public payload: any) { }
 }
 
 /**
@@ -41,19 +36,13 @@ export class AddReleaseFailAction implements Action {
 export class RemoveReleaseAction implements Action {
   type = ActionTypes.REMOVE_RELEASE;
 
-  constructor(public payload: DiscogsItem) { }
-}
-
-export class RemoveReleaseSuccessAction implements Action {
-  type = ActionTypes.REMOVE_RELEASE_SUCCESS;
-
-  constructor(public payload: DiscogsItem) { }
+  constructor(public payload: DiscogsRelease) { }
 }
 
 export class RemoveReleaseFailAction implements Action {
   type = ActionTypes.REMOVE_RELEASE_FAIL;
 
-  constructor(public payload: DiscogsItem) { }
+  constructor(public payload: any) { }
 }
 
 /**
@@ -77,13 +66,32 @@ export class LoadFailAction implements Action {
   constructor(public payload: any) { }
 }
 
+export class LoadIdsAction implements Action {
+  type = ActionTypes.LOAD_IDS;
+
+  constructor(public payload: number) { }
+}
+
+export class LoadIdsSuccessAction implements Action {
+  type = ActionTypes.LOAD_IDS_SUCCESS;
+
+  constructor(public payload: number[]) { }
+}
+
+export class UpdateIdsAction implements Action {
+  type = ActionTypes.UPDATE_IDS;
+
+  constructor(public payload: number[]) { }
+}
+
 export type Actions
   = AddReleaseAction
-  | AddReleaseSuccessAction
   | AddReleaseFailAction
   | RemoveReleaseAction
-  | RemoveReleaseSuccessAction
   | RemoveReleaseFailAction
   | LoadAction
   | LoadSuccessAction
-  | LoadFailAction;
+  | LoadFailAction
+  | LoadIdsAction
+  | LoadIdsSuccessAction
+  | UpdateIdsAction;

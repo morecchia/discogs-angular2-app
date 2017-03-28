@@ -22,7 +22,6 @@ module.exports = {
             let page = i + 1;
             urls.push(`${apiBase}/users/${username}/wants?sort=added&sort_order=desc&page=${page}&per_page=100`);
         }
-
         handleMultiple(urls, response => {
             // add the current timestamp to the response
             const lastUpdated = Date.now();
@@ -31,7 +30,6 @@ module.exports = {
                 .map(d => d.wants)
                 .reduce((a, b) => a.concat(b))
                 .map(w => w.id);
-
             res.send({ lastUpdated, count: ids.length, ids });
         });
     },

@@ -202,6 +202,11 @@ export const getWantlistLoaded = createSelector(getWantlistState, fromWantlist.g
 export const getWantlistLoading = createSelector(getWantlistState, fromWantlist.getLoading);
 export const getWantlistPage = createSelector(getWantlistState, fromWantlist.getPage);
 export const getWantlist = createSelector(getWantlistState, fromWantlist.getReleases);
+export const getWantlistIds = createSelector(getWantlistState, fromWantlist.getWantlistIds);
+
+export const isReleaseInWantlist = createSelector(getWantlistIds, getSelecteReleaseId, (ids, selected) => {
+  return ids.findIndex(id => id === selected) > -1;
+});
 
 // Discogs Sales
 export const getSalesState = (state: State) => state.sales;

@@ -16,7 +16,6 @@ module.exports = {
             .subscribe(response => {
                 responses.push(response.body);
                 completed_requests++;
-
                 if (completed_requests === urls.length) {
                     callback(responses);
                 }

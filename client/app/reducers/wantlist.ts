@@ -6,6 +6,7 @@ export interface State {
   loading: boolean;
   pagination: DiscogsPagination;
   wants: DiscogsItem[];
+  lastAdded: Date;
   ids: number[];
 };
 
@@ -14,6 +15,7 @@ const initialState: State = {
   loading: false,
   pagination: { per_page: 10, items: 0, pages: 0, page: 1 },
   wants: [],
+  lastAdded: null,
   ids: []
 };
 
@@ -28,34 +30,24 @@ export function reducer(state = initialState, action: wantlist.Actions): State {
 
     case wantlist.ActionTypes.LOAD_SUCCESS: {
       const discogsWantlist = action.payload;
-      return {
+      return Object.assign({}, state, {
         loaded: true,
         loading: false,
         pagination: discogsWantlist.pagination,
         wants: discogsWantlist.wants,
-        ids: discogsWantlist.wants.map(release => release.id)
-      };
-    }
-
-    case wantlist.ActionTypes.ADD_RELEASE_SUCCESS:
-    case wantlist.ActionTypes.REMOVE_RELEASE_FAIL: {
-      const release = action.payload;
-
-      if (state.ids.indexOf(release.id) > -1) {
-        return state;
-      }
-
-      return Object.assign({}, state, {
-        ids: [...state.ids, release.id]
+        lastAdded: Date.parse(discogsWantlist.wants[0].date_added)
       });
     }
 
-    case wantlist.ActionTypes.REMOVE_RELEASE_SUCCESS:
-    case wantlist.ActionTypes.ADD_RELEASE_FAIL: {
-      const release = action.payload;
-
+    case wantlist.ActionTypes.LOAD_IDS_SUCCESS: {
       return Object.assign({}, state, {
-        ids: state.ids.filter(id => id !== release.id)
+        ids: action.payload
+      });
+    }
+
+    case wantlist.ActionTypes.UPDATE_IDS: {
+      return Object.assign({}, state, {
+        ids: action.payload
       });
     }
 
@@ -71,6 +63,8 @@ export const getLoaded = (state: State) => state.loaded;
 export const getLoading = (state: State) => state.loading;
 
 export const getPage = (state: State) => state.pagination.page;
+
+export const getWantlistIds = (state: State) => state.ids;
 
 export const getReleases = (state: State) => {
   return {

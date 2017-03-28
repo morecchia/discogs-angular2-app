@@ -7,6 +7,7 @@ import { Observable, Subscription } from 'rxjs';
 import * as fromRoot from '../../reducers';
 import * as videos from '../../actions/videos';
 import * as player from '../../actions/player';
+import * as wantlist from '../../actions/wantlist';
 import * as playlistMenu from '../../actions/playlist';
 
 import { DiscogsRelease, YoutubeVideo, Playlist, PlaylistAdd } from '../../models';
@@ -18,6 +19,9 @@ import { DiscogsRelease, YoutubeVideo, Playlist, PlaylistAdd } from '../../model
 export class ReleaseDetailComponent implements OnDestroy {
   @Input()
   release: DiscogsRelease;
+
+  @Input()
+  inWantlist: boolean;
 
   @Input()
   releaseVideos: YoutubeVideo[];
@@ -51,7 +55,13 @@ export class ReleaseDetailComponent implements OnDestroy {
     this.store.dispatch(new playlistMenu.AddAction(playlist));
   }
 
-  addToWantlist() { }
+  addToWantlist() {
+    this.store.dispatch(new wantlist.AddReleaseAction(this.release));
+  }
+
+  removeFromWantlist() {
+    this.store.dispatch(new wantlist.RemoveReleaseAction(this.release));
+  }
 
   toggleImages() {
     this.releaseImagesVisible = !this.releaseImagesVisible;

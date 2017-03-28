@@ -19,7 +19,7 @@ export class SelectedDetailComponent {
   videosLoaded$: Observable<boolean>;
   activeVideoId$: Observable<string>;
   playlists$: Observable<Playlist[]>;
-
+  isReleaseInWantlist$: Observable<boolean>;
   // isSelectedReleaseInCollection$: Observable<boolean>;
 
   constructor(private store: Store<fromRoot.State>) {
@@ -29,8 +29,8 @@ export class SelectedDetailComponent {
     this.videosLoaded$ = store.select(fromRoot.getVideosLoaded);
     this.activeVideoId$ = store.select(fromRoot.getPlayerCurrentId);
     this.playlists$ = store.select(fromRoot.getPlaylists);
+    this.isReleaseInWantlist$ = store.select(fromRoot.isReleaseInWantlist);
     // this.isSelectedReleaseInCollection$ = store.select(fromRoot.isSelectedReleaseInCollection);
-    // this.isSelectedReleaseInWantlist$ = store.select(fromRoot.isSelectedReleaseInWantlist);
   }
 
   addToCollection(release: DiscogsRelease) {
@@ -38,6 +38,14 @@ export class SelectedDetailComponent {
   }
 
   removeFromCollection(release: DiscogsRelease) {
+    // this.store.dispatch(new collection.RemoveReleaseAction(release));
+  }
+
+  addToWantlist(release: DiscogsRelease) {
+    // this.store.dispatch(new collection.AddReleaseAction(release));
+  }
+
+  removeFromWantlist(release: DiscogsRelease) {
     // this.store.dispatch(new collection.RemoveReleaseAction(release));
   }
 }
