@@ -1,7 +1,4 @@
 import { Component, Input, Output, EventEmitter, ViewChild, ElementRef } from '@angular/core';
-import { Store } from '@ngrx/store';
-
-import { LocalStorageService } from 'angular-2-local-storage';
 
 import { YoutubeService } from '../../services';
 import { YoutubeVideo, PlayerTime, DiscogsRelease, SelectedVideo } from '../../models';
@@ -73,10 +70,8 @@ export class PlayerControlsComponent {
     this.youtube.setVolume(this.volume, false);
   }
 
-  constructor(private youtube: YoutubeService, private localStorage: LocalStorageService) {
+  constructor(private youtube: YoutubeService) {
     this.youtube.playbackEnded$
-      .subscribe(() =>
-        this.skipNextButton.nativeElement.click()
-      );
+      .subscribe(() => this.skipNextButton.nativeElement.click());
   }
 }

@@ -3,7 +3,7 @@
 
   <div class="mdl-cell--10-col video-duration mdl-cell--hide-phone">
     <mdl-slider [min]="0" [max]="durationSeconds" [step]="1"
-      #time (input)="seekTo(time.value)" [(ngModel)]="playerTime.seconds"></mdl-slider>
+      #time (input)="onVideoSeek.emit({duration: duration, seconds: time.value})" [(ngModel)]="playerTime.seconds"></mdl-slider>
   </div>
 
    <div class="mdl-cell--1-col mdl-cell--hide-tablet video-duration">{{duration | formatDuration}}</div>

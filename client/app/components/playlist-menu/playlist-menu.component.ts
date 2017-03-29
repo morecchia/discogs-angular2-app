@@ -1,11 +1,4 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { Store } from '@ngrx/store';
-
-import * as moment from 'moment';
-
-import * as fromRoot from '../../reducers';
-import * as player from '../../actions/player';
-import * as videos from '../../actions/videos';
 
 import { Playlist } from '../../models';
 

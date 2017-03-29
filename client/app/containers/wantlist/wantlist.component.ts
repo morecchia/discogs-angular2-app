@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 
 import * as fromRoot from '../../reducers';
-import { DiscogsWants, DiscogsPagination, Playlist } from '../../models';
+import { DiscogsWants, Playlist } from '../../models';
 
 @Component({
   selector: 'app-wantlist',

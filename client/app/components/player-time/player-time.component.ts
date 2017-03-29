@@ -29,9 +29,5 @@ export class PlayerTimeComponent {
     return moment.duration(this.duration, 'seconds').asSeconds();
   }
 
-  seekTo(seconds: number) {
-    this.onVideoSeek.emit({duration: this.duration, seconds});
-  }
-
   constructor(private store: Store<fromRoot.State>) { }
 }

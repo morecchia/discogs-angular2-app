@@ -7,7 +7,7 @@ import { Subscription }   from 'rxjs/Subscription';
 
 import * as fromRoot from '../../reducers';
 import * as search from '../../actions/search';
-import { DiscogsSearch, DiscogsSearchResult } from '../../models';
+import { DiscogsSearch } from '../../models';
 
 @Component({
   selector: 'app-search',

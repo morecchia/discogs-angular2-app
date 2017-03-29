@@ -1,12 +1,8 @@
 import { Component, Input, OnDestroy } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
-
-import { Observable, Subscription } from 'rxjs';
 
 import * as fromRoot from '../../reducers';
 import * as videos from '../../actions/videos';
-import * as player from '../../actions/player';
 import * as wantlist from '../../actions/wantlist';
 import * as playlistMenu from '../../actions/playlist';
 

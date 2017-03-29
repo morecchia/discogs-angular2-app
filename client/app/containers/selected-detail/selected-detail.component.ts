@@ -4,7 +4,6 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 
 import * as fromRoot from '../../reducers';
-import * as videos from '../../actions/videos';
 
 import { DiscogsRelease, YoutubeVideo, Playlist } from '../../models';
 
