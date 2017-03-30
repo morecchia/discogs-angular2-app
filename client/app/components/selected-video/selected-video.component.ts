@@ -63,6 +63,11 @@ export class SelectedVideoComponent {
   }
 
   togglePlayerFrame() {
+    if (!this.playing && !this.playerFrameVisible) {
+      const selecteddVideo = {video: this.playerCurrent, release: this.playerRelease};
+      this.store.dispatch(new videos.SelectedAction({selected: selecteddVideo, videos: this.playlist}));
+    }
+
     this.playerFrameVisible = !this.playerFrameVisible;
     this.onTogglePlayerVisibility.emit(this.playerFrameVisible);
   }

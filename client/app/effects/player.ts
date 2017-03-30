@@ -23,7 +23,6 @@ export class PlayerEffects {
   @Effect()
   initPlayer$: Observable<Action> = this.actions$
     .ofType(player.ActionTypes.INIT)
-    .startWith(new player.InitAction())
     .map(action => {
       const settings = this.youtube.getPlayerSettings();
       return new player.InitSuccessAction(settings);

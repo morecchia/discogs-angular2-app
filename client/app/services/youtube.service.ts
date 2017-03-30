@@ -87,7 +87,13 @@ export class YoutubeService {
   }
 
   initPlayer(id?: string) {
-    this.player = YouTubePlayer('youtube-player');
+    this.player = YouTubePlayer('youtube-player', {
+      playerVars: {
+         'autoplay': 0,
+         'controls': 0,
+         'rel' : 0
+      }
+    });
     const videoId = id || this.playerSettings.activeVideo
         && this.playerSettings.activeVideo.video.id;
     this.player.on('ready', event => {

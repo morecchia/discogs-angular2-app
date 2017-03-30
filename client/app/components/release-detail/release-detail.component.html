@@ -41,8 +41,8 @@
     </div>
     
     <div class="mdl-cell mdl-cell--12-col">
-        <mdl-tabs mdl-ripple mdl-tab-active-index="0">
-            <mdl-tab-panel [disabled]="!releaseVideos || !releaseVideos.length">
+        <mdl-tabs>
+            <mdl-tab-panel [disabled]="!videosLoading && !releaseVideos.length">
                 <mdl-tab-panel-title>
                     <span *ngIf="videosLoading">Loading</span>
                     <span *ngIf="!videosLoading && !releaseVideos.length">No Videos</span>
@@ -98,8 +98,10 @@
                     <ul class="mdl-list">
                         <li class="mdl-list__item" *ngFor="let credit of release.extraartists">
                             <span>{{credit.role}} - 
-                                            <a href="https://discogs.com/artist/{{credit.id}}" target="_blank">{{credit.name}}</a>
-                                        </span>
+                                <a href="https://discogs.com/artist/{{credit.id}}" target="_blank">
+                                    {{credit.name}}
+                                </a>
+                            </span>
                         </li>
                     </ul>
                     <h5 *ngIf="release.notes">Notes</h5>
