@@ -9,6 +9,7 @@ import * as moment from 'moment';
 
 import * as videos from '../actions/videos';
 import * as player from '../actions/player';
+import * as playlist from '../actions/playlist';
 
 import { YoutubeService } from '../services';
 import { YoutubeVideo  } from '../models';
@@ -21,8 +22,10 @@ export class VideoEffects {
     .ofType(videos.ActionTypes.SELECTED)
     .mergeMap(action => [
       new player.PlayAction(action.payload),
+      new playlist.PlayAction(action.payload.videos),
       new player.SetTimeAction({
-        duration: action.payload.video && action.payload.video.contentDetails.duration,
+        duration: action.payload.selected.video
+          && action.payload.selected.video.contentDetails.duration,
         seconds: 0
       })
     ]);

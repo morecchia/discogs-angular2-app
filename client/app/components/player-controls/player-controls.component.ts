@@ -36,7 +36,7 @@ export class PlayerControlsComponent {
   playerRelease: DiscogsRelease;
 
   @Output()
-  onVideoSkipped = new EventEmitter<SelectedVideo>();
+  onVideoSkipped = new EventEmitter<{selected: SelectedVideo, videos: SelectedVideo[]}>();
 
   @Output()
   onVideoTogglePlay = new EventEmitter<boolean>();
@@ -51,11 +51,11 @@ export class PlayerControlsComponent {
   }
 
   skipNext() {
-    this.onVideoSkipped.emit(this.nextVideo);
+    this.onVideoSkipped.emit({selected: this.nextVideo, videos: this.playlist});
   }
 
   skipPrev() {
-    this.onVideoSkipped.emit(this.prevVideo);
+    this.onVideoSkipped.emit({selected: this.prevVideo, videos: this.playlist});
   }
 
   toggleVolumeVisibility(hidden = false) {

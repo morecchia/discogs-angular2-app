@@ -28,7 +28,7 @@ export class PlayerComponent {
 
   constructor(private store: Store<fromRoot.State>) {
     this.playerCurrent$ = store.select(fromRoot.getPlayerCurrent);
-    this.nextPrevVideos$ = store.select(fromRoot.getNextPreviousVideos);
+    this.nextPrevVideos$ = store.select(fromRoot.nextPrevVideos);
     this.playerRelease$ = store.select(fromRoot.getPlayerRelease);
     this.playerPlaying$ = store.select(fromRoot.getPlayerPlaying);
     this.playerTime$ = store.select(fromRoot.getPlayerTime);

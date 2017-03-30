@@ -24,8 +24,8 @@ export class SelectedPlaylistComponent {
   selectedPlaylist$: Observable<Playlist>;
   activeVideoId$: Observable<string>;
 
-  onSelectedVideo(selected: SelectedVideo) {
-    this.store.dispatch(new videos.SelectedAction(selected));
+  onSelectedVideo(data) {
+    this.store.dispatch(new videos.SelectedAction(data));
   }
 
   onVideoRemoved(video: SelectedVideo) {

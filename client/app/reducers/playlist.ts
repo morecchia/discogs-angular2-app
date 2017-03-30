@@ -94,6 +94,19 @@ export function reducer(state = initialState, action: playlist.Actions): State {
       });
     }
 
+    case playlist.ActionTypes.PLAY: {
+      const playlist = {
+        id: null,
+        name: null,
+        count: action.payload.length,
+        videos: action.payload
+      };
+
+      return Object.assign({}, state, {
+        current: playlist
+      });
+    }
+
     default: {
       return state;
     }

@@ -40,7 +40,7 @@ export class InitFailAction implements Action {
 export class PlayAction implements Action {
   type = ActionTypes.PLAY;
 
-  constructor(public payload: models.SelectedVideo) { }
+constructor(public payload: {selected: models.SelectedVideo, videos: models.SelectedVideo[]}) { }
 }
 
 export class PlayingAction implements Action {

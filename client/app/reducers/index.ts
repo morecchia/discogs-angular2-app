@@ -149,34 +149,20 @@ export const getPlayerPlaying = createSelector(getPlayerState, fromPlayer.getPla
 export const getPlayerRelease = createSelector(getPlayerState, fromPlayer.getPlayingRelease);
 export const getPlayerVolume = createSelector(getPlayerState, fromPlayer.getPlayerVolume);
 export const getPlayerTime = createSelector(getPlayerState, fromPlayer.getPlayerTime);
+export const nextPrevVideos = createSelector(getPlayerState, fromPlayer.getNextPrevious);
 
 // Playlist
 export const getPlaylistState = (state: State) => state.playlist;
 
 export const getPlaylists = createSelector(getPlaylistState, fromPlaylist.getPlaylists);
 export const getCurrentPlaylist = createSelector(getPlaylistState, fromPlaylist.getCurrent);
-export const getPlaylistsForList = createSelector(getPlaylists, getCurrentPlaylist, (playlists, current) => {
-  return playlists.filter(p => p.id !== current.id);
-});
 export const getPlaylistsLoaded = createSelector(getPlaylistState, fromPlaylist.getPlaylistsLoaded);
 export const getPlaylistsLoading = createSelector(getPlaylistState, fromPlaylist.getPlaylistsLoading);
 
 export const getSelectedPlaylistVideos = createSelector(getCurrentPlaylist, current => current && current.videos);
 
-export const getNextPreviousVideos = createSelector(getSelectedPlaylistVideos, getPlayerCurrent, (videos, current) => {
-  if (!videos) {
-    return null;
-  }
-
-  const currentIndex = videos.map(v => v.video.id).indexOf(current && current.id);
-  return {
-    // the next video in the list, or the first if we are already on the last
-    next: currentIndex < videos.length - 1
-      ? videos[currentIndex + 1] : videos[0],
-    // the previuos video in the list, or null if we are already on the first
-    prev: currentIndex > 0
-      ? videos[currentIndex - 1] : null
-  };
+export const getPlaylistsForList = createSelector(getPlaylists, getCurrentPlaylist, (playlists, current) => {
+  return playlists.filter(p => p.id !== current.id);
 });
 
 // Discogs Search

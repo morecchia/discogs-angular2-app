@@ -54,8 +54,7 @@ export class ReleaseEffects {
           const videos = response.items.map(item => {
               return {
                 video: item,
-                release: action.payload.release,
-                playlistIds: []
+                release: action.payload.release
               };
           });
           return new playlist.AddVideosAction({videos, id: action.payload.id});

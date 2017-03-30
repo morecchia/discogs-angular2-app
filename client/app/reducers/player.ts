@@ -1,10 +1,11 @@
-import { YoutubeVideo, DiscogsRelease } from '../models';
+import { YoutubeVideo, DiscogsRelease, SelectedVideo } from '../models';
 import * as player from '../actions/player';
 
 export interface State {
   initialized: boolean;
   playing: boolean;
   current: YoutubeVideo;
+  videos: SelectedVideo[];
   volume: number;
   release: DiscogsRelease;
   timeFormatted: string;
@@ -16,6 +17,7 @@ const initialState: State = {
   initialized: false,
   playing: false,
   current: null,
+  videos: [],
   release: null,
   volume: 50,
   timeFormatted: '0:00',
@@ -41,8 +43,9 @@ export function reducer(state = initialState, action: player.Actions): State {
 
     case player.ActionTypes.PLAY: {
       return Object.assign({}, state, {
-        current: action.payload.video,
-        release: action.payload.release
+        current: action.payload.selected.video,
+        release: action.payload.selected.release,
+        videos: action.payload.videos
       });
     }
 
@@ -112,6 +115,22 @@ export const getPlayerCurrent = (state: State) => state.current;
 export const getPlayerCurrentId = (state: State) => state.current && state.current.id;
 
 export const getPlayerVolume = (state: State) => state.volume;
+
+export const getNextPrevious = (state: State) => {
+  if (!state.videos) {
+    return null;
+  }
+
+  const currentIndex = state.videos.map(v => v.video.id).indexOf(state.current && state.current.id);
+  return {
+    // the next video in the list, or the first if we are already on the last
+    next: currentIndex < state.videos.length - 1
+      ? state.videos[currentIndex + 1] : state.videos[0],
+    // the previuos video in the list, or null if we are already on the first
+    prev: currentIndex > 0
+      ? state.videos[currentIndex - 1] : null
+  };
+};
 
 export const getPlayerTime = (state: State) => {
   return {

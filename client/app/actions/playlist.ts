@@ -7,9 +7,10 @@ export const ActionTypes = {
   LOAD_COMPLETE: type('[Playlist] Success'),
   LOAD_FAIL:     type('[Playlist] Load Fail'),
   VIEW:          type('[Playlist] View'),
-  ADD:           type('[Playlist Menu] Add'),
-  ADD_COMPLETE:  type('[Playlist Menu] Add Complete'),
-  REMOVE:        type('[Playlist Menu] Remove'),
+  PLAY:          type('[Playlist] Play'),
+  ADD:           type('[Playlist] Add'),
+  ADD_COMPLETE:  type('[Playlist] Add Complete'),
+  REMOVE:        type('[Playlist] Remove'),
   ADD_VIDEOS:    type('[Playlist] Add Videos'),
   REMOVE_VIDEO:  type('[Playlist] Remove Videos')
 };
@@ -36,6 +37,12 @@ export class ViewAction implements Action {
   type = ActionTypes.VIEW;
 
   constructor(public payload: string) { }
+}
+
+export class PlayAction implements Action {
+  type = ActionTypes.PLAY;
+
+  constructor(public payload: SelectedVideo[]) { }
 }
 
 export class AddAction implements Action {

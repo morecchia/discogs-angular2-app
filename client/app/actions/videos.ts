@@ -48,7 +48,7 @@ export class LoadFailAction implements Action {
 export class SelectedAction implements Action {
   type = ActionTypes.SELECTED;
 
-  constructor(public payload: SelectedVideo) { }
+  constructor(public payload: {selected: SelectedVideo, videos: SelectedVideo[]}) { }
 }
 
 export class ClearAction implements Action {

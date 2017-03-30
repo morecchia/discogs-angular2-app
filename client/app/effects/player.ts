@@ -40,8 +40,8 @@ export class PlayerEffects {
   playVideo$: Observable<Action> = this.actions$
     .ofType(player.ActionTypes.PLAY)
     .map(action => {
-      this.youtube.setSelectedVideo(action.payload);
-      const videoId = action.payload.video && action.payload.video.id;
+      this.youtube.setSelectedVideo(action.payload.selected);
+      const videoId = action.payload.selected.video && action.payload.selected.video.id;
 
       if (!this.youtube.player) {
         this.youtube.initPlayer(videoId);

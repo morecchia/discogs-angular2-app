@@ -40,14 +40,14 @@ export class SelectedVideoComponent {
 
   playerFrameVisible = false;
 
-  onVideoSkipped(video: SelectedVideo) {
-    if (video) {
-      this.store.dispatch(new videos.SelectedAction(video));
+  onVideoSkipped(data) {
+    if (data.selected) {
+      this.store.dispatch(new videos.SelectedAction(data));
     }
   }
 
   onPlaylistSelected(selected: SelectedVideo) {
-    this.store.dispatch(new videos.SelectedAction(selected));
+    this.store.dispatch(new videos.SelectedAction({selected, videos: this.playlist}));
   }
 
   onVideoSeek(time: StartTime) {

@@ -21,7 +21,7 @@ export class PlaylistListComponent implements OnChanges {
   activeVideoId: string;
 
   @Output()
-  onVideoSelected = new EventEmitter<SelectedVideo>();
+  onVideoSelected = new EventEmitter<{selected: SelectedVideo, videos: SelectedVideo[]}>();
 
   @Output()
   onVideoRemoved = new EventEmitter<SelectedVideo>();
@@ -33,7 +33,7 @@ export class PlaylistListComponent implements OnChanges {
   addType = 'video';
 
   selectVideo(video: SelectedVideo) {
-    this.onVideoSelected.emit(video);
+    this.onVideoSelected.emit({selected: video, videos: this.selectedPlaylist.videos});
   }
 
   remove(video: SelectedVideo) {
@@ -58,7 +58,7 @@ export class PlaylistListComponent implements OnChanges {
   }
 
   queueVideo(playlistAdd: PlaylistAdd, release: DiscogsRelease) {
-    const videos = [{video: playlistAdd.videos[0], release, playlistIds: []}];
+    const videos = [{video: playlistAdd.videos[0], release}];
     this.store.dispatch(new playlistMenu.AddVideosAction({videos, id: playlistAdd.id}));
   }
 
