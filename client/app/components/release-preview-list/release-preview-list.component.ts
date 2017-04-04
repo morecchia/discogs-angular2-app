@@ -25,9 +25,9 @@ export class ReleasePreviewListComponent {
   get itemsPerPage() { return this.collection.pagination.per_page || 0; };
   get totalItems() { return this.collection.pagination.items || 0; };
 
-  getPage(page: number) {
-    this.currentPage = page;
-    this.store.dispatch(new collection.LoadAction(page));
+  getNextPage() {
+    this.currentPage = this.currentPage + 1;
+    this.store.dispatch(new collection.LoadAction(this.currentPage));
   }
 
   constructor(private store: Store<fromRoot.State>) { }

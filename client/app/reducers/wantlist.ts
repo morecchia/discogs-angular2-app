@@ -23,7 +23,6 @@ export function reducer(state = initialState, action: wantlist.Actions): State {
   switch (action.type) {
     case wantlist.ActionTypes.LOAD: {
       return Object.assign({}, state, {
-        wants: [],
         loading: true
       });
     }
@@ -34,7 +33,7 @@ export function reducer(state = initialState, action: wantlist.Actions): State {
         loaded: true,
         loading: false,
         pagination: discogsWantlist.pagination,
-        wants: discogsWantlist.wants,
+        wants: [...state.wants, ...discogsWantlist.wants],
         lastAdded: Date.parse(discogsWantlist.wants[0].date_added)
       });
     }

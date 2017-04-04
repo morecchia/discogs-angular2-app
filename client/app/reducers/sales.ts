@@ -20,7 +20,6 @@ export function reducer(state = initialState, action: sales.Actions): State {
   switch (action.type) {
     case sales.ActionTypes.LOAD: {
       return Object.assign({}, state, {
-        listings: [],
         loading: true
       });
     }
@@ -31,7 +30,7 @@ export function reducer(state = initialState, action: sales.Actions): State {
         loaded: true,
         loading: false,
         pagination: discogsSales.pagination,
-        listings: discogsSales.listings,
+        listings: [...state.listings, ...discogsSales.listings],
         ids: discogsSales.listings.map(listing => listing.release.id)
       };
     }

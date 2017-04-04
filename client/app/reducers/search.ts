@@ -23,7 +23,6 @@ export function reducer(state = initialState, action: search.Actions): State {
     case search.ActionTypes.SEARCH_RELEASES: {
       return Object.assign({}, state, {
         searching: true,
-        results: [],
         query: action.payload.query
       });
     }
@@ -32,7 +31,7 @@ export function reducer(state = initialState, action: search.Actions): State {
       const searchResponse = action.payload;
       return Object.assign({}, state, {
         searching: false,
-        results: searchResponse.results,
+        results: [...state.results, ...searchResponse.results],
         pagination: searchResponse.pagination
       });
     }

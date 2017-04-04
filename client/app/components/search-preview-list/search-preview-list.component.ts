@@ -26,10 +26,10 @@ export class SearchPreviewListComponent {
   get itemsPerPage() { return this.searchResults.pagination.per_page || 0; };
   get totalItems() { return this.searchResults.pagination.items || 0; };
 
-  getPage(page: number) {
-    this.currentPage = page;
+  getNextPage() {
+    this.currentPage = this.currentPage + 1;
     this.store.dispatch(
-      new discogsSearch.SearchReleasesAction({query: this.searchTerm, page})
+      new discogsSearch.SearchReleasesAction({query: this.searchTerm, page: this.currentPage})
     );
   }
 

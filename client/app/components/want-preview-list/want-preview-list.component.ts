@@ -25,9 +25,9 @@ export class WantPreviewListComponent {
   get itemsPerPage() { return this.wantlist.pagination.per_page || 0; };
   get totalItems() { return this.wantlist.pagination.items || 0; };
 
-  getPage(page: number) {
-    this.currentPage = page;
-    this.store.dispatch(new wantlist.LoadAction(page));
+  getNextPage() {
+    this.currentPage = this.currentPage + 1;
+    this.store.dispatch(new wantlist.LoadAction(this.currentPage));
   }
 
   constructor(private store: Store<fromRoot.State>) { }

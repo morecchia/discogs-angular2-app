@@ -7,7 +7,7 @@
             </a>
         </span>
         <span class="mdl-list__item-sub-title release-title">
-            {{release.basic_information.labels | joinNames}} ({{release.basic_information.year}})
+            {{release.basic_information.labels | joinNames}} <span *ngIf="release.basic_information.year">({{release.basic_information.year}})</span>
         </span>
     </span>
 

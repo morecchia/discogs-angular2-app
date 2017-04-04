@@ -2,7 +2,7 @@
     <span class="mdl-list__item-primary-content release-link" [routerLink]="['/detail', result.id]">
       <a><img class="mdl-list__item-avatar" src="{{result.thumb}}" /></a>
       <span><a title="{{result.title}}" class="release-title">{{result.title}}</a></span>
-      <span class="mdl-list__item-sub-title release-title">{{result.label | joinNames}} ({{result.year}})</span>
+      <span class="mdl-list__item-sub-title release-title">{{result.label | joinNames}} <span *ngIf="result.year">({{result.year}})</span></span>
     </span>
 
     <span class="mdl-list__item-secondary-content">

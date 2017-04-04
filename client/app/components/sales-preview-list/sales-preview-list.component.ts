@@ -25,9 +25,9 @@ export class SalesPreviewListComponent {
   get itemsPerPage() { return this.sales.pagination.per_page || 0; };
   get totalItems() { return this.sales.pagination.items || 0; };
 
-  getPage(page: number) {
-    this.currentPage = page;
-    this.store.dispatch(new sales.LoadAction(page));
+  getNextPage(page: number) {
+    this.currentPage = this.currentPage + 1;
+    this.store.dispatch(new sales.LoadAction(this.currentPage));
   }
 
   constructor(private store: Store<fromRoot.State>) { }

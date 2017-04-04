@@ -1,16 +1,9 @@
-<div class="pagination-wrapper">
-    <pagination-controls
-        (pageChange)="getPage($event)"
-        previousLabel=""
-        nextLabel="">
-    </pagination-controls>
-</div>
-
-<mdl-list class="margin-bottom">
-    <div *ngIf="loading" class="progress progress-list">
-        <mdl-spinner single-color [active]="loading"></mdl-spinner>
-    </div>
-
+<mdl-list>
     <app-release-preview *ngFor="let release of wantlist.wants | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage, totalItems: totalItems }"
         [release]="release" [playlists]="playlists"></app-release-preview>
 </mdl-list>
+
+<div class="pagination-wrapper">
+    <button *ngIf="!loading" mdl-button mdl-colored="accent" (click)="getNextPage()">Load more...</button>
+    <mdl-spinner *ngIf="loading" single-color [active]="loading"></mdl-spinner>
+</div>

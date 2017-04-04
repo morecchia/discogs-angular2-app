@@ -1,16 +1,4 @@
-<div class="pagination-wrapper">
-    <pagination-controls
-        (pageChange)="getPage($event)"
-        previousLabel=""
-        nextLabel="">
-    </pagination-controls>
-</div>
-
-<mdl-list class="margin-bottom">
-    <div *ngIf="searching" class="progress progress-list">
-        <mdl-spinner single-color [active]="searching"></mdl-spinner>
-    </div>
-
+<mdl-list>
     <div *ngIf="!searching && !searchResults.results.length">
         No results for '{{searchTerm}}'
     </div>
@@ -18,3 +6,8 @@
     <app-search-preview *ngFor="let result of searchResults.results | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage, totalItems: totalItems }"
         [result]="result"></app-search-preview>
 </mdl-list>
+
+<div class="pagination-wrapper">
+    <button *ngIf="!loading" mdl-button mdl-colored="accent" (click)="getNextPage()">Load more...</button>
+    <mdl-spinner *ngIf="loading" single-color [active]="loading"></mdl-spinner>
+</div>
