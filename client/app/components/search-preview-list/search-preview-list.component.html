@@ -8,6 +8,6 @@
 </mdl-list>
 
 <div class="pagination-wrapper">
-    <button *ngIf="!loading" mdl-button mdl-colored="accent" (click)="getNextPage()">Load more...</button>
-    <mdl-spinner *ngIf="loading" single-color [active]="loading"></mdl-spinner>
+    <button *ngIf="!searching" mdl-button mdl-colored="accent" (click)="getNextPage()">Load more...</button>
+    <mdl-spinner *ngIf="searching" single-color [active]="searching"></mdl-spinner>
 </div>

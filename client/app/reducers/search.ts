@@ -36,6 +36,12 @@ export function reducer(state = initialState, action: search.Actions): State {
       });
     }
 
+    case search.ActionTypes.CLEAR: {
+      return Object.assign({}, state, {
+        results: []
+      });
+    }
+
     default: {
       return state;
     }

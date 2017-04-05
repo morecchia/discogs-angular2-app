@@ -6,7 +6,8 @@ export const ActionTypes = {
   SEARCH_COMPLETE: type('[Search] Search Complete'),
   SEARCH_FAIL:     type('[Search] Search Fail'),
   SEARCH_RELEASES: type('[Search] Releases'),
-  LOAD_RESULTS:    type('[Search] Load Results')
+  LOAD_RESULTS:    type('[Search] Load Results'),
+  CLEAR:           type('[Search] Clear')
 };
 
 export class SearchReleasesAction implements Action {
@@ -27,7 +28,14 @@ export class SearchFailAction implements Action {
   constructor(public payload: any) { }
 }
 
+export class ClearAction implements Action {
+  type = ActionTypes.CLEAR;
+
+  constructor(public payload = null) {}
+}
+
 export type Actions
   = SearchReleasesAction
   | SearchCompleteAction
-  | SearchFailAction;
+  | SearchFailAction
+  | ClearAction;
