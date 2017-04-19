@@ -1,11 +1,14 @@
 import { Action } from '@ngrx/store';
-import { DiscogsUser } from '../models';
+import { DiscogsUser, UserLogin } from '../models';
 import { type } from '../util';
 
 export const ActionTypes = {
   LOAD:                 type('[User] Load'),
   LOAD_SUCCESS:         type('[User] Load Success'),
   LOAD_FAIL:            type('[User] Load Fail'),
+  LOGIN:                type('[User] Login'),
+  LOGIN_FAILED:         type('[User] Login Failed'),
+  LOGOUT:               type('[User] Logout')
 };
 
 /**
@@ -29,7 +32,27 @@ export class LoadFailAction implements Action {
   constructor(public payload: any) { }
 }
 
+export class LoginAction implements Action {
+  type = ActionTypes.LOGIN;
+
+  constructor(public payload: UserLogin) { }
+}
+
+export class LoginFailedAction implements Action {
+  type = ActionTypes.LOGIN_FAILED;
+
+  constructor(public payload: any) { }
+}
+
+export class LogoutAction implements Action {
+  type = ActionTypes.LOGOUT;
+
+  constructor(public payload = null) { }
+}
+
 export type Actions
   = LoadAction
   | LoadSuccessAction
-  | LoadFailAction;
+  | LoadFailAction
+  | LoginAction
+  | LoginFailedAction;

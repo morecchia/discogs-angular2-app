@@ -1,5 +1,6 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
+import { Router } from '@angular/router';
 
 import * as fromRoot from '../../reducers';
 import * as search from '../../actions/search';
@@ -12,7 +13,7 @@ import { goodKey } from '../../util';
   selector: 'app-main-layout',
   templateUrl: './main-layout.component.html'
 })
-export class MainLayoutComponent {
+export class MainLayoutComponent implements OnInit {
     @Input()
     user: DiscogsUser;
 
@@ -27,6 +28,12 @@ export class MainLayoutComponent {
 
     @Output()
     onPlaylistAdd = new EventEmitter<Playlist>();
+
+    ngOnInit() {
+      if (!this.user) {
+        this.router.navigate(['/login']);
+      }
+    }
 
     search(e) {
       if (goodKey(e)) {
@@ -43,5 +50,5 @@ export class MainLayoutComponent {
       this.onPlaylistRemove.emit(playlist);
     }
 
-    constructor(private store: Store<fromRoot.State>) { }
+    constructor(private router: Router, private store: Store<fromRoot.State>) { }
 }

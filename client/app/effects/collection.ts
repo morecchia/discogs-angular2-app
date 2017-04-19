@@ -3,10 +3,8 @@ import { Action } from '@ngrx/store';
 import { Effect, Actions } from '@ngrx/effects';
 
 import { Observable } from 'rxjs/Observable';
-import { defer } from 'rxjs/observable/defer';
 import { of } from 'rxjs/observable/of';
 import 'rxjs/add/operator/catch';
-import 'rxjs/add/operator/startWith';
 import 'rxjs/add/operator/mergeMap';
 import 'rxjs/add/operator/switchMap';
 
@@ -24,7 +22,6 @@ export class CollectionEffects {
   @Effect()
   loadCollection$: Observable<Action> = this.actions$
     .ofType(collection.ActionTypes.LOAD)
-    .startWith(new collection.LoadAction())
     .switchMap(action =>
       this.discogs.getListByType('collection', action.payload)
         .map((releases: DiscogsCollection) => new collection.LoadSuccessAction(releases))

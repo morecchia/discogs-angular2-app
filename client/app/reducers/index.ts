@@ -204,7 +204,8 @@ export const getSales = createSelector(getSalesState, fromSales.getListings);
 
 // Discogs User
 export const getUserState = (state: State) => state.user;
-
+export const getLoggedIn = createSelector(getUserState, fromUser.getLoggedIn);
+export const getLoginFailed = createSelector(getUserState, fromUser.getLoginFailed);
 export const getUserLoaded = createSelector(getUserState, fromUser.getLoaded);
 export const getUserLoading = createSelector(getUserState, fromUser.getLoading);
 export const getUser = createSelector(getUserState, fromUser.getUser);

@@ -12,3 +12,8 @@ export class DiscogsUser {
   releases_contributed: number;
   registered: Date;
 }
+
+export interface UserLogin {
+  username: string;
+  rememberMe: boolean;
+}

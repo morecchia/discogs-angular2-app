@@ -3,14 +3,14 @@
 const Rx = require('rxjs/Rx');
 
 const { get$, put$, delete$ } = require('../lib/request');
-const { tokens, username, headers } = require('../config');
+const { tokens, headers } = require('../config');
 const { discogsPageStr, handleMultiple } = require('./util');
 
 const apiBase = 'https://api.discogs.com';
 
 module.exports = {
     getUser: (req, res) => {
-        getRequest(`${apiBase}/users/${username}`, res);
+        getRequest(`${apiBase}/users/${req.params.username}`, res);
     },
 
     getWantlistIds: (req, res) => {
@@ -20,7 +20,7 @@ module.exports = {
 
         for (let i = 0; i < pages; i++) {
             let page = i + 1;
-            urls.push(`${apiBase}/users/${username}/wants?sort=added&sort_order=desc&page=${page}&per_page=100`);
+            urls.push(`${apiBase}/users/${req.params.username}/wants?sort=added&sort_order=desc&page=${page}&per_page=100`);
         }
         handleMultiple(urls, response => {
             // add the current timestamp to the response
@@ -36,17 +36,17 @@ module.exports = {
 
     getWantlist: (req, res) => {
         const pageStr = discogsPageStr(req);
-        getRequest(`${apiBase}/users/${username}/wants?sort=added&sort_order=desc${pageStr}&token=${tokens.discogs}`, res);
+        getRequest(`${apiBase}/users/${req.params.username}/wants?sort=added&sort_order=desc${pageStr}&token=${tokens.discogs}`, res);
     },
 
     getCollection: (req, res) => {
         const pageStr = discogsPageStr(req);
-        getRequest(`${apiBase}/users/${username}/collection/folders/0/releases?sort=added&sort_order=desc${pageStr}&token=${tokens.discogs}`, res);
+        getRequest(`${apiBase}/users/${req.params.username}/collection/folders/0/releases?sort=added&sort_order=desc${pageStr}&token=${tokens.discogs}`, res);
     },
 
     getInventory: (req, res) => {
         const pageStr = discogsPageStr(req);
-        getRequest(`${apiBase}/users/${username}/inventory?status=${encodeURIComponent('For Sale')}&sort=listed&sort_order=desc${pageStr}&token=${tokens.discogs}`, res);
+        getRequest(`${apiBase}/users/${req.params.username}/inventory?status=${encodeURIComponent('For Sale')}&sort=listed&sort_order=desc${pageStr}&token=${tokens.discogs}`, res);
     },
 
     searchReleases: (req, res) => {
@@ -66,7 +66,7 @@ module.exports = {
 
     putWantlist: (req, res) => {
         const id = req.params.id;
-        const url = `${apiBase}/users/${username}/wants/${id}?token=${tokens.discogs}`;
+        const url = `${apiBase}/users/${req.params.username}/wants/${id}?token=${tokens.discogs}`;
 
         put$({ url, headers })
             .catch(err => Rx.Observable.throw(err))
@@ -77,7 +77,7 @@ module.exports = {
 
     deleteWantlist: (req, res) => {
         const id = req.params.id;
-        const url = `${apiBase}/users/${username}/wants/${id}?token=${tokens.discogs}`;
+        const url = `${apiBase}/users/${req.params.username}/wants/${id}?token=${tokens.discogs}`;
         delete$({ url, headers })
             .catch(err => Rx.Observable.throw(err))
             .subscribe(response => {
@@ -90,6 +90,7 @@ function getRequest(url, res) {
     get$({ url, headers })
         .catch(err => Rx.Observable.throw(err))
         .subscribe(response => {
+            res.status(response.statusCode);
             res.send(response.body);
         });
 }

@@ -34,7 +34,7 @@ export function reducer(state = initialState, action: wantlist.Actions): State {
         loading: false,
         pagination: discogsWantlist.pagination,
         wants: [...state.wants, ...discogsWantlist.wants],
-        lastAdded: Date.parse(discogsWantlist.wants[0].date_added)
+        lastAdded: Date.parse(discogsWantlist.wants && discogsWantlist.wants[0].date_added)
       });
     }
 

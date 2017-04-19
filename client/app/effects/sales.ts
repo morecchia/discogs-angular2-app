@@ -5,8 +5,6 @@ import { Effect, Actions } from '@ngrx/effects';
 import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';
 import 'rxjs/add/operator/catch';
-import 'rxjs/add/operator/startWith';
-import 'rxjs/add/operator/mergeMap';
 import 'rxjs/add/operator/switchMap';
 
 import * as sales from '../actions/sales';
@@ -23,7 +21,6 @@ export class SalesEffects {
   @Effect()
   loadSales$: Observable<Action> = this.actions$
     .ofType(sales.ActionTypes.LOAD)
-    .startWith(new sales.LoadAction())
     .switchMap(action => {
       return this.discogs.getListByType('inventory', action.payload)
         .map((inventory: DiscogsSales) => new sales.LoadSuccessAction(inventory))

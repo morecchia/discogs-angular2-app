@@ -32,7 +32,7 @@ export function reducer(state = initialState, action: collection.Actions): State
         loading: false,
         pagination: discogsCollection.pagination,
         releases: [...state.releases, ...discogsCollection.releases],
-        ids: discogsCollection.releases.map(release => release.id)
+        ids: discogsCollection.releases && discogsCollection.releases.map(release => release.id)
       };
     }
 

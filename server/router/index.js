@@ -12,19 +12,19 @@ var Router = function(app) {
             res.render('index.html');
         });
 
-        app.route('/api/user').get(discogs.getUser);
+        app.route('/api/user/:username').get(discogs.getUser);
 
-        app.route('/api/wantlist/:page?').get(discogs.getWantlist);
+        app.route('/api/collection/:username/:page?').get(discogs.getCollection);
 
-        app.route('/api/wantlistids').get(discogs.getWantlistIds);
+        app.route('/api/wantlistids/:username').get(discogs.getWantlistIds);
 
-        app.route('/api/wantlist/:id').put(discogs.putWantlist);
+        app.route('/api/wantlist/:username/:page?').get(discogs.getWantlist);
 
-        app.route('/api/wantlist/:id').delete(discogs.deleteWantlist);
+        app.route('/api/wantlist/:username/:id').put(discogs.putWantlist);
 
-        app.route('/api/collection/:page?').get(discogs.getCollection);
+        app.route('/api/wantlist/:username/:id').delete(discogs.deleteWantlist);
 
-        app.route('/api/inventory/:page?').get(discogs.getInventory);
+        app.route('/api/inventory/:username/:page?').get(discogs.getInventory);
 
         app.route('/api/search/releases/:q/:page?').get(discogs.searchReleases);
 

@@ -1,0 +1,13 @@
+<div class="login-container" *ngIf="!loggedIn">
+  <p>
+    <mdl-textfield label="Discogs Username" [(ngModel)]="username" type="text" floating-label></mdl-textfield>
+  </p>
+
+  <p>
+    <input type="checkbox" [(ngModel)]="rememberMe">Remember Me
+  </p>
+
+  <p>
+    <button mdl-button (click)="submit()" mdl-button-type="raised" mdl-ripple mdl-colored="primary">Log in</button>
+  </p>
+</div>

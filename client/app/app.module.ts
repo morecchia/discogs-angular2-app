@@ -13,29 +13,16 @@ import { MdlModule } from 'angular2-mdl';
 import { UuidService } from 'angular2-uuid';
 
 // app
-import { routes } from './routes';
+import { routes, navigableContainers } from './routes';
 import { reducer } from './reducers';
 import * as effects from './effects';
-import * as containers from './containers';
+import { AppComponent } from './containers';
 import { ComponentsModule } from './components';
 import { PipesModule } from './pipes';
 import * as services from './services';
-// import { InfiniteScrollDirective } from './directives/infinite-scroll.directive';
 
 @NgModule({
-  declarations: [
-    containers.AppComponent,
-    containers.WantlistComponent,
-    containers.CollectionComponent,
-    containers.SalesComponent,
-    containers.SelectedDetailComponent,
-    containers.ViewDetailComponent,
-    containers.SelectedPlaylistComponent,
-    containers.ViewPlaylistComponent,
-    containers.PlayerComponent,
-    containers.SearchComponent
-    // InfiniteScrollDirective
-  ],
+  declarations: [...navigableContainers],
   imports: [
     BrowserModule,
     HttpModule,
@@ -67,6 +54,6 @@ import * as services from './services';
     UuidService,
     Title
   ],
-  bootstrap: [containers.AppComponent]
+  bootstrap: [AppComponent]
 })
 export class AppModule { }

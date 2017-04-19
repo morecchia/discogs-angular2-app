@@ -8,3 +8,4 @@ export * from './view-playlist/view-playlist.component';
 export * from './selected-playlist/selected-playlist.component';
 export * from './player/player.component';
 export * from './search/search.component';
+export * from './login/login.component';

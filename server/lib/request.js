@@ -30,7 +30,7 @@ function _obvservableCallback(observer, status = 200) {
             observer.error(error);
             return;
         }
-
+        
         const statusCode = response.statusCode;
         if (statusCode !== status) {
             observer.next({ statusCode, body: JSON.parse(body) });

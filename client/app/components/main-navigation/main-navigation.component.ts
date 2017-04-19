@@ -1,10 +1,12 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 
 import { UuidService } from 'angular2-uuid';
 
 import * as fromRoot from '../../reducers';
 import * as search from '../../actions/search';
+import * as userActions from '../../actions/user';
 
 import { DiscogsUser, Playlist } from '../../models';
 
@@ -53,5 +55,10 @@ export class MainNavigationComponent {
     this.onSearch.emit(term);
   }
 
-  constructor(private store: Store<fromRoot.State>, private uuid: UuidService) { }
+  logout() {
+    this.store.dispatch(new userActions.LogoutAction());
+    this.router.navigate(['/login']);
+  }
+
+  constructor(private store: Store<fromRoot.State>, private uuid: UuidService, private router: Router) { }
 }

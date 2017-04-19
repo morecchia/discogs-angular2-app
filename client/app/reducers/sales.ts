@@ -31,7 +31,7 @@ export function reducer(state = initialState, action: sales.Actions): State {
         loading: false,
         pagination: discogsSales.pagination,
         listings: [...state.listings, ...discogsSales.listings],
-        ids: discogsSales.listings.map(listing => listing.release.id)
+        ids: discogsSales.listings && discogsSales.listings.map(listing => listing.release.id)
       };
     }
 

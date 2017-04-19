@@ -25,6 +25,7 @@ import { PlayerTimeComponent } from './player-time/player-time.component';
 import { MainLayoutComponent } from './main-layout/main-layout.component';
 import { MainNavigationComponent } from './main-navigation/main-navigation.component';
 import { HeaderRowComponent } from './header-row/header-row.component';
+import { DiscogsLoginComponent } from './discogs-login/discogs-login.component';
 
 import { PipesModule } from '../pipes';
 
@@ -48,7 +49,8 @@ export const COMPONENTS = [
   PlayerTimeComponent,
   MainLayoutComponent,
   MainNavigationComponent,
-  HeaderRowComponent
+  HeaderRowComponent,
+  DiscogsLoginComponent
 ];
 
 
@@ -61,6 +63,7 @@ export const COMPONENTS = [
     MdlModule,
     Ng2PaginationModule
   ],
+  providers: [],
   declarations: COMPONENTS,
   exports: COMPONENTS
 })

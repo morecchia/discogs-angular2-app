@@ -5,7 +5,6 @@ import { Effect, Actions } from '@ngrx/effects';
 import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';
 import 'rxjs/add/operator/catch';
-import 'rxjs/add/operator/startWith';
 import 'rxjs/add/operator/mergeMap';
 
 import { LocalStorageService } from 'angular-2-local-storage';
@@ -26,7 +25,6 @@ export class WantlistEffects {
   @Effect()
   loadWantlist$: Observable<Action> = this.actions$
     .ofType(wantlist.ActionTypes.LOAD)
-    .startWith(new wantlist.LoadAction())
     .switchMap(action => this.discogs.getListByType('wantlist', action.payload)
         .map((wants: DiscogsWants) => new wantlist.LoadSuccessAction(wants))
         .catch(error => of(new wantlist.LoadFailAction(error))));
@@ -34,7 +32,7 @@ export class WantlistEffects {
   @Effect()
   afterLoad$: Observable<Action> = this.actions$
     .ofType(wantlist.ActionTypes.LOAD_SUCCESS)
-    .map(action => new wantlist.LoadIdsAction(action.payload.pagination.items));
+    .map(action => new wantlist.LoadIdsAction(action.payload.pagination && action.payload.pagination.items));
 
   @Effect()
   addReleaseToWantlist$: Observable<Action> = this.actions$

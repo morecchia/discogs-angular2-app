@@ -5,12 +5,16 @@ export interface State {
   loading: boolean;
   loaded: boolean;
   user: DiscogsUser;
+  loggedIn: boolean;
+  failed: any;
 };
 
 const initialState: State = {
   loading: true,
   loaded: false,
-  user: new DiscogsUser()
+  user: null,
+  loggedIn: false,
+  failed: null
 };
 
 export function reducer(state = initialState, action: user.Actions): State {
@@ -22,11 +26,33 @@ export function reducer(state = initialState, action: user.Actions): State {
     }
 
     case user.ActionTypes.LOAD_SUCCESS: {
-      return {
+      return Object.assign({}, state, {
         loaded: true,
         loading: false,
+        loggedIn: true,
         user: action.payload
-      };
+      });
+    }
+
+    case user.ActionTypes.LOGIN: {
+      return Object.assign({}, state, {
+        loggedIn: true,
+        failed: null
+      });
+    }
+
+    case user.ActionTypes.LOGIN_FAILED: {
+      return Object.assign({}, state, {
+        loggedIn: false,
+        failed: action.payload
+      });
+    }
+
+    case user.ActionTypes.LOGOUT: {
+      return Object.assign({}, state, {
+        user: null,
+        loggedIn: false
+      });
     }
 
     default: {
@@ -40,3 +66,7 @@ export const getLoaded = (state: State) => state.loaded;
 export const getLoading = (state: State) => state.loading;
 
 export const getUser = (state: State) => state.user;
+
+export const getLoginFailed = (state: State) => state.failed;
+
+export const getLoggedIn = (state: State) => state.loggedIn;

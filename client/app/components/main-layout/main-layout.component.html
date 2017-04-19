@@ -1,6 +1,6 @@
 <section class="main-wrapper">
 
-    <div class="column left">
+    <div class="column left" *ngIf="user">
         <app-main-navigation
             [user]="user"
             [playlists]="playlists"

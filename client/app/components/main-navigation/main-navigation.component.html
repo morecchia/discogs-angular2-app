@@ -1,8 +1,10 @@
+<button *ngIf="user" class="mdl-button" (click)="logout()">Logout</button>
+
 <app-search-box (onSearch)="search($event)"></app-search-box>
 
 <h5>Your Music</h5>
 
-<mdl-list>
+<mdl-list *ngIf="user">
     <mdl-list-item>
         <a class="mdl-navigation__link" routerLink="/wantlist" (click)="layout && layout.closeDrawer()">
             <span>Wantlist ({{user.num_wantlist}})</span>

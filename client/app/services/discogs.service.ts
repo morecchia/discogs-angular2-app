@@ -11,8 +11,21 @@ import * as models from '../models';
 
 @Injectable()
 export class DiscogsService {
+  loggedInUser: string;
 
   constructor(private http: Http, private localStorage: LocalStorageService) { }
+
+  storeUsername(login: models.UserLogin) {
+    if (login.rememberMe) {
+      this.localStorage.set('discogs-user', login.username);
+    }
+
+    this.loggedInUser = login.username;
+  }
+
+  clearUsername() {
+    this.localStorage.remove('discogs-user');
+  }
 
   updateWantlistIds(response: any) {
     this.localStorage.set('wantlist_ids', response.ids);
@@ -25,7 +38,7 @@ export class DiscogsService {
     if (lastUpdated && lastUpdated >= lastAdded) {
       return of({ids, lastUpdated});
     }
-    return this.http.get(`/api/wantlistids?want_count=${count}`)
+    return this.http.get(`/api/wantlistids/${this.loggedInUser}?want_count=${count}`)
       .map(response => response.json());
   }
 
@@ -34,14 +47,18 @@ export class DiscogsService {
       .map(response => response.json());
   }
 
-  getUser(): Observable<models.DiscogsUser> {
-    return this.http.get(`/api/user`)
+  getUser(username: string): Observable<models.DiscogsUser> {
+    return this.http.get(`/api/user/${username}`)
       .map(response => response.json());
   }
 
   getListByType(type: string, page = 1):
     Observable<models.DiscogsCollection | models.DiscogsWants | models.DiscogsSales> {
-      return this.http.get(`/api/${type}/${page}`)
+      if (!this.loggedInUser) {
+        return of({});
+      }
+
+      return this.http.get(`/api/${type}/${this.loggedInUser}/${page}`)
         .map(response => response.json());
     }
 
