@@ -1,4 +1,4 @@
-<app-header-row></app-header-row>
+<app-header-row [user]="user$ | async" (onSearch)="search($event)"></app-header-row>
 
 <mdl-layout #appLayout="mdlLayout">
     <mdl-layout-drawer>

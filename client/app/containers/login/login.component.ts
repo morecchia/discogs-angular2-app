@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Router } from '@angular/router';
 
 import { Observable } from 'rxjs/Observable';
 
@@ -17,10 +16,14 @@ import { DiscogsUser, UserLogin } from '../../models';
 })
 export class LoginComponent {
   user$: Observable<DiscogsUser>;
-  loggedIn$: Observable<boolean>;
 
-  login(data: UserLogin) {
-    this.store.dispatch(new user.LoginAction(data));
+  login(login: UserLogin) {
+    if (!login.username) {
+      this.store.dispatch(new user.LoginFailedAction('You must enter a username'));
+      return;
+    }
+
+    this.store.dispatch(new user.LoginAction(login));
   }
 
   private _showError(message: string) {
@@ -33,22 +36,13 @@ export class LoginComponent {
     });
   }
 
-  constructor(private router: Router, private store: Store<fromRoot.State>, private mdlSnackbarService: MdlSnackbarService) {
+  constructor(private store: Store<fromRoot.State>, private mdlSnackbarService: MdlSnackbarService) {
       this.user$ = store.select(fromRoot.getUser);
-      this.loggedIn$ = store.select(fromRoot.getLoggedIn);
-
-      this.loggedIn$
-        .subscribe(loggedIn => {
-          if (loggedIn) {
-            this.router.navigate(['/wantlist']);
-          }
-        });
 
       store.select(fromRoot.getLoginFailed)
         .subscribe(error => {
           if (error) {
-            this._showError(`Login failed for "${error.username}" - ${error.message}`);
-            this.router.navigate(['/']);
+            this._showError(error);
           }
         });
     }

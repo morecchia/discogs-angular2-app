@@ -19,6 +19,7 @@ export class PlayerComponent {
   playerTime$: Observable<PlayerTime>;
   playerVolume$: Observable<number>;
   playlist$: Observable<SelectedVideo[]>;
+  loggedIn$: Observable<boolean>;
 
   playerVisible = false;
 
@@ -34,5 +35,6 @@ export class PlayerComponent {
     this.playerTime$ = store.select(fromRoot.getPlayerTime);
     this.playerVolume$ = store.select(fromRoot.getPlayerVolume);
     this.playlist$ = store.select(fromRoot.getSelectedPlaylistVideos);
+    this.loggedIn$ = store.select(fromRoot.getLoggedIn);
   }
 }

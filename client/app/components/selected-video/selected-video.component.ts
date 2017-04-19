@@ -15,6 +15,9 @@ import { DiscogsRelease, YoutubeVideo, PlayerTime, StartTime, SelectedVideo } fr
 })
 export class SelectedVideoComponent {
   @Input()
+  loggedIn: boolean;
+
+  @Input()
   playerCurrent: YoutubeVideo;
 
   @Input()

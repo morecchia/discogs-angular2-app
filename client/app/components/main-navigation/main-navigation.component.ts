@@ -5,7 +5,6 @@ import { Store } from '@ngrx/store';
 import { UuidService } from 'angular2-uuid';
 
 import * as fromRoot from '../../reducers';
-import * as search from '../../actions/search';
 import * as userActions from '../../actions/user';
 
 import { DiscogsUser, Playlist } from '../../models';
@@ -49,10 +48,6 @@ export class MainNavigationComponent {
 
   removePlaylist(playlist: Playlist) {
     this.onPlaylistRemove.emit(playlist);
-  }
-
-  search(term: string) {
-    this.onSearch.emit(term);
   }
 
   logout() {

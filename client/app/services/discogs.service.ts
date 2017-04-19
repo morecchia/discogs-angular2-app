@@ -13,7 +13,9 @@ import * as models from '../models';
 export class DiscogsService {
   loggedInUser: string;
 
-  constructor(private http: Http, private localStorage: LocalStorageService) { }
+  constructor(private http: Http, private localStorage: LocalStorageService) {
+    this.loggedInUser = localStorage.get('discogs-user') as string;
+  }
 
   storeUsername(login: models.UserLogin) {
     if (login.rememberMe) {

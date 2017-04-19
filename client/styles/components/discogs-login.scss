@@ -1,6 +1,29 @@
-.login-container {
+.login-wrapper {
+  position: absolute;
   display: flex;
-  justify-content: center;
-  align-content: center;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  margin-left: -240px;
+}
+
+.login-container {
+  width: 300px;
+  height: 300px;
+}
+
+.username-wrapper {
+  margin-bottom: 12px;
+}
+
+.submit-wrapper {
+  display: flex;
+  justify-content: flex-end;
+
+  .left {
+    margin-right: auto;
+    font-size: 12px;
+  }
 }

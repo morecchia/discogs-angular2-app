@@ -36,7 +36,6 @@ export function reducer(state = initialState, action: user.Actions): State {
 
     case user.ActionTypes.LOGIN: {
       return Object.assign({}, state, {
-        loggedIn: true,
         failed: null
       });
     }

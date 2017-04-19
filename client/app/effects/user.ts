@@ -18,16 +18,15 @@ export class UserEffects {
     .ofType(user.ActionTypes.LOAD)
     .startWith(new user.LoadAction())
     .mergeMap(action => {
+      console.log(this.discogs.loggedInUser);
       if (!this.discogs.loggedInUser) {
         return of({});
       }
-
       return this.discogs.getUser(this.discogs.loggedInUser)
         .map((identity: DiscogsUser) => new user.LoadSuccessAction(identity))
-        .catch(error => of(new user.LoginFailedAction({
-          username: this.discogs.loggedInUser,
-          message: error.json().message
-        })));
+        .catch(error => of(new user.LoginFailedAction(
+          `Login failed for "${this.discogs.loggedInUser}" - ${error.json().message}`)
+        ));
     });
 
   @Effect()
@@ -37,6 +36,7 @@ export class UserEffects {
       this.discogs.storeUsername(action.payload);
       return new user.LoadAction();
     });
+
   @Effect()
   logoutUser$ = this.actions$
     .ofType(user.ActionTypes.LOGOUT)

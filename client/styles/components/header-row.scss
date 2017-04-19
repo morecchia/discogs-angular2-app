@@ -7,9 +7,8 @@
     height: 40px;
     width: 100%;
     z-index: 999;
-    border-bottom: 2px solid $active-color;
 
-    .header-row {
+    .header-row, .action-row {
         width: 140px;
         background: $background-color;
 
@@ -33,10 +32,23 @@
             }
         }
     }
+
+    .action-row {
+        width: inherit;
+        margin: 10px 0 0 240px;
+    }
+
+    .logout {
+        margin-right: 20px;
+        &:hover {
+            background: inherit;
+            color: $color-accent;
+        }
+    }
 }
 
 @media (min-width: 600px) {
-    .header-wrapper {
+    .header-row {
         display: none;
     }
 }
