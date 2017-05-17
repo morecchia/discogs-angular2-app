@@ -1,28 +1,25 @@
 @import "../_variables.scss";
 
 .header-wrapper {
-    display: -webkit-flex;
-    display: flex;
-    justify-content: flex-end;
     height: 40px;
     width: 100%;
+    padding-bottom: 20px;
     z-index: 999;
 
-    .header-row, .action-row {
-        width: 140px;
+    .header-row {
         background: $background-color;
 
         ul.navigation-header {
-            display: -webkit-flex;
             display: flex;
+            justify-content: flex-end;
             list-style-type: none;
             padding: 0;
             margin: 0;
-            justify-content: flex-end;
 
             li.navigation-action {
                 &.left {
                     margin-right:auto;
+                    margin-left: 20px;
                 }
 
                 button {
@@ -31,24 +28,16 @@
                 }
             }
         }
-    }
 
-    .action-row {
-        width: inherit;
-        margin: 10px 0 0 240px;
-    }
-
-    .logout {
-        margin-right: 20px;
-        &:hover {
-            background: inherit;
-            color: $color-accent;
+        .logout {
+            margin: 10px 20px;
+            
+            &:hover {
+                background: inherit;
+                color: $color-accent;
+            }
         }
     }
-}
 
-@media (min-width: 600px) {
-    .header-row {
-        display: none;
-    }
+    
 }

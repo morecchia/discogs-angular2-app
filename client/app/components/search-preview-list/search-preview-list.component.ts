@@ -25,6 +25,7 @@ export class SearchPreviewListComponent {
 
   get itemsPerPage() { return this.searchResults.pagination.per_page || 0; };
   get totalItems() { return this.searchResults.pagination.items || 0; };
+  get totalPages() { return this.searchResults.pagination.pages || 0; };
 
   getNextPage() {
     this.currentPage = this.currentPage + 1;

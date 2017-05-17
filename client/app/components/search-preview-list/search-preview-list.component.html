@@ -7,7 +7,7 @@
         [result]="result"></app-search-preview>
 </mdl-list>
 
-<div class="pagination-wrapper">
+<div *ngIf="totalPages > 1" class="pagination-wrapper">
     <button *ngIf="!searching" mdl-button mdl-colored="accent" (click)="getNextPage()">Load more...</button>
     <mdl-spinner *ngIf="searching" single-color [active]="searching"></mdl-spinner>
 </div>

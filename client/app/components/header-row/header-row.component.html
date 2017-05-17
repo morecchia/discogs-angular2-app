@@ -3,22 +3,6 @@
   <div class="header-row">
     <ul class="navigation-header">
       <li class="navigation-action left">
-        <button (click)="goBack()" mdl-button mdl-js-button mdl-colored>
-          <i class="material-icons">keyboard_arrow_left</i>
-        </button>
-      </li>
-
-      <li class="navigation-action right">
-        <button (click)="goForth()" mdl-button mdl-js-button mdl-colored>
-          <i class="material-icons">keyboard_arrow_right</i>
-        </button>
-      </li>
-    </ul>
-  </div>
-
-  <div class="action-row">
-    <ul class="navigation-header">
-      <li class="navigation-action left">
         <app-search-box (onSearch)="search($event)"></app-search-box>
       </li>
 
