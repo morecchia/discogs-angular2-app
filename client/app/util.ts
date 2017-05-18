@@ -24,5 +24,18 @@ export const defaults = {
 };
 
 export function goodKey(e) {
-  return e.which > 40 || e.keyCode === 13 || !e.ctrlKey || !e.altKey || !e.metaKey;
+  return (
+    // alpha numeric == OK
+    e.which > 40 ||
+    // space bar == OK
+    e.keyCode === 13 ||
+    // Ctrl/Alt + other keys != OK
+    !e.ctrlKey ||
+    !e.altKey ||
+    !e.metaKey
+  ) &&
+    // Shift != OK
+    e.keyCode !== 16 &&
+    // Ctrl != OK
+    e.keyCode !== 17;
 }

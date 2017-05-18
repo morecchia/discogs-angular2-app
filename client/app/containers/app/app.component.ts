@@ -39,6 +39,7 @@ export class AppComponent {
 
   search(e) {
     if (goodKey(e)) {
+      this.store.dispatch(new search.ClearAction());
       this.store.dispatch(new search.SearchReleasesAction({query: e.target.value, page: 1}));
     }
   }
