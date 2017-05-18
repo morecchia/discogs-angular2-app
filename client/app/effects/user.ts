@@ -18,7 +18,6 @@ export class UserEffects {
     .ofType(user.ActionTypes.LOAD)
     .startWith(new user.LoadAction())
     .mergeMap(action => {
-      console.log(this.discogs.loggedInUser);
       if (!this.discogs.loggedInUser) {
         return of({});
       }

@@ -6,7 +6,6 @@
   align-items: center;
   height: 100%;
   width: 100%;
-  margin-left: -240px;
 }
 
 .login-container {
@@ -25,5 +24,11 @@
   .left {
     margin-right: auto;
     font-size: 12px;
+  }
+}
+
+@media (min-width: 600px) {
+  .login-wrapper {
+    margin-left: -240px;
   }
 }

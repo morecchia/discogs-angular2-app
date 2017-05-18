@@ -23,6 +23,8 @@ export class AppComponent {
   videoSelected$: Observable<boolean>;
   playlists$: Observable<Playlist[]>;
 
+  loggedIn: boolean;
+
   private _showError(message: string) {
     this.mdlSnackbarService.showSnackbar({
       message: message,
@@ -52,7 +54,8 @@ export class AppComponent {
 
       store.select(fromRoot.getLoggedIn)
         .subscribe(loggedIn => {
-          console.log(loggedIn);
+          this.loggedIn = loggedIn;
+          console.log(this.loggedIn);
           if (loggedIn) {
             this.router.navigate(['/wantlist']);
           }

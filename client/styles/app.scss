@@ -100,11 +100,16 @@ body {
 }
 
 .drawer-button {
+    display: none;
     position: fixed;
     top: 4px;
     left: 8px;
     color: $text-lighter;
 
+    &.visible {
+        display: block;
+    }
+    
     &:hover {
         background: inherit;
     }
