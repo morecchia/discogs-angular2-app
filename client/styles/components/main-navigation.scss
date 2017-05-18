@@ -1,3 +1,5 @@
+@import "../_variables.scss";
+
 .playlist-wrapper {
     .playlist-header {
       display: -webkit-flex;
@@ -10,6 +12,23 @@
     }
 }
 
-.logout {
-  display: none;
+.logout-drawer {
+  display: block;
+  position: absolute;
+  top: 16px;
+  right: 40px;
+  font-size: 12px;
+  text-decoration: underline;
+  text-transform: none;
+}
+
+.logout-drawer:hover {
+  background-color: inherit;
+  color: $color-accent;
+}
+
+@media (min-width: 600px) {
+  .logout-drawer {
+    display: none;
+  }
 }

@@ -1,5 +1,28 @@
 @import "../_variables.scss";
 
+.logout {
+    display: none;
+    margin: 10px 20px;
+}
+
+.header-row {
+    background: $background-color;
+
+    ul.navigation-header {
+        display: flex;
+        justify-content: flex-end;
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+
+        li.navigation-action.search-container {
+            margin-right: 20px;
+            margin-left: 0;
+            max-width: 60%;
+        }
+    }
+}
+
 @media (min-width: 600px) {
     .header-wrapper {
         height: 40px;
@@ -26,6 +49,8 @@
 
             .logout {
                 display: block;
+                text-decoration: underline;
+                text-transform: none;
                 
                 &:hover {
                     background: inherit;
@@ -35,27 +60,3 @@
         }    
     }
 }
-
-.logout {
-    display: none;
-    margin: 10px 20px;
-}
-
-.header-row {
-    background: $background-color;
-
-    ul.navigation-header {
-        display: flex;
-        justify-content: flex-end;
-        list-style-type: none;
-        padding: 0;
-        margin: 0;
-
-        li.navigation-action.search-container {
-            margin-right: 20px;
-            margin-left: 0;
-            max-width: 60%;
-        }
-    }
-}
-

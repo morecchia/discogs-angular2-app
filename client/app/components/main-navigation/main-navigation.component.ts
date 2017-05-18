@@ -47,7 +47,10 @@ export class MainNavigationComponent {
     this.onPlaylistRemove.emit(playlist);
   }
 
-  logout() {
+  logout(layout) {
+    if (layout) {
+      layout.closeDrawer();
+    }
     this.store.dispatch(new userActions.LogoutAction());
     this.router.navigate(['/login']);
   }
