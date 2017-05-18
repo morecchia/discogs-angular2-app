@@ -1,43 +1,61 @@
 @import "../_variables.scss";
 
-.header-wrapper {
-    height: 40px;
-    width: 100%;
-    padding-bottom: 20px;
-    z-index: 999;
+@media (min-width: 600px) {
+    .header-wrapper {
+        height: 40px;
+        width: 100%;
+        padding-bottom: 20px;
+        z-index: 999;
 
-    .header-row {
-        background: $background-color;
+        .header-row {
+            background: $background-color;
 
-        ul.navigation-header {
-            display: flex;
-            justify-content: flex-end;
-            list-style-type: none;
-            padding: 0;
-            margin: 0;
+            ul.navigation-header {
+                li.navigation-action {
+                    &.left {
+                        margin-right:auto;
+                        margin-left: 20px;
+                    }
 
-            li.navigation-action {
-                &.left {
-                    margin-right:auto;
-                    margin-left: 20px;
-                }
-
-                button {
-                    color: $text-lighter;
-                    border-radius: 0;
+                    button {
+                        color: $text-lighter;
+                        border-radius: 0;
+                    }
                 }
             }
-        }
 
-        .logout {
-            margin: 10px 20px;
-            
-            &:hover {
-                background: inherit;
-                color: $color-accent;
+            .logout {
+                display: block;
+                
+                &:hover {
+                    background: inherit;
+                    color: $color-accent;
+                }
             }
+        }    
+    }
+}
+
+.logout {
+    display: none;
+    margin: 10px 20px;
+}
+
+.header-row {
+    background: $background-color;
+
+    ul.navigation-header {
+        display: flex;
+        justify-content: flex-end;
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+
+        li.navigation-action.search-container {
+            margin-right: 20px;
+            margin-left: 0;
+            max-width: 60%;
         }
     }
-
-    
 }
+

@@ -42,11 +42,7 @@ body {
 }
 
 .margin-bottom {
-    margin-bottom: 60px;
-}
-
-.margin-bottom-x2 {
-    margin-bottom: 120px;
+    margin-bottom: 40px;
 }
 
 /******** Details ********/
@@ -246,6 +242,10 @@ body {
 @media (min-width: 600px) {
     .drawer-button {
         display: none;
+    }
+
+    .margin-bottom {
+        margin-bottom: 110px;    
     }
 }
 
