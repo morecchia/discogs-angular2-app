@@ -7,6 +7,7 @@ import { of } from 'rxjs/observable/of';
 
 import { LocalStorageService } from 'angular-2-local-storage';
 
+import { getCachedItems } from '../util';
 import * as models from '../models';
 
 @Injectable()
@@ -54,14 +55,19 @@ export class DiscogsService {
       .map(response => response.json());
   }
 
-  getListByType(type: string, page = 1):
-    Observable<models.DiscogsCollection | models.DiscogsWants | models.DiscogsSales> {
+  getListByType(type: string, page = 1, cachedList: any) {
       if (!this.loggedInUser) {
         return of({});
       }
 
-      return this.http.get(`/api/${type}/${this.loggedInUser}/${page}`)
-        .map(response => response.json());
+      const cachedItems = getCachedItems(cachedList);
+
+      return cachedItems.length && page === 1
+        ? of({list: cachedList, cached: true})
+        : this.http.get(`/api/${type}/${this.loggedInUser}/${page}`)
+          .map(response => {
+            return {list: response.json(), cached: false};
+          });
     }
 
   getRelease(id: string):  Observable<models.DiscogsRelease> {

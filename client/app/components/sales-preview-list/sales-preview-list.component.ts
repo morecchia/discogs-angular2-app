@@ -22,8 +22,8 @@ export class SalesPreviewListComponent {
   @Input()
   currentPage = 1;
 
-  get itemsPerPage() { return this.sales.pagination.per_page || 0; };
-  get totalItems() { return this.sales.pagination.items || 0; };
+  get itemsPerPage() { return (this.sales.pagination && this.sales.pagination.per_page) || 0; };
+  get totalItems() { return (this.sales.pagination && this.sales.pagination.items) || 0; };
 
   getNextPage(page: number) {
     this.currentPage = this.currentPage + 1;

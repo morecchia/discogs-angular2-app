@@ -25,13 +25,13 @@ export function reducer(state = initialState, action: collection.Actions): State
     }
 
     case collection.ActionTypes.LOAD_SUCCESS: {
-      const discogsCollection = action.payload;
+      const discogsCollection = action.payload.list;
 
       return {
         loaded: true,
         loading: false,
         pagination: discogsCollection.pagination,
-        releases: [...state.releases, ...discogsCollection.releases],
+        releases: action.payload.cached ? state.releases : [...state.releases, ...discogsCollection.releases],
         ids: discogsCollection.releases && discogsCollection.releases.map(release => release.id)
       };
     }
@@ -69,7 +69,7 @@ export const getLoaded = (state: State) => state.loaded;
 
 export const getLoading = (state: State) => state.loading;
 
-export const getPage = (state: State) => state.pagination.page;
+export const getPage = (state: State) => state.pagination && state.pagination.page;
 
 export const getReleases = (state: State) => {
   return {

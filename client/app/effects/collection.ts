@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Action } from '@ngrx/store';
+import { Action, Store } from '@ngrx/store';
 import { Effect, Actions } from '@ngrx/effects';
 
 import { Observable } from 'rxjs/Observable';
@@ -8,6 +8,7 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/mergeMap';
 import 'rxjs/add/operator/switchMap';
 
+import * as fromCollection from '../reducers';
 import * as collection from '../actions/collection';
 import { DiscogsService } from '../services';
 import { DiscogsItem, DiscogsCollection } from '../models';
@@ -22,9 +23,18 @@ export class CollectionEffects {
   @Effect()
   loadCollection$: Observable<Action> = this.actions$
     .ofType(collection.ActionTypes.LOAD)
-    .switchMap(action =>
-      this.discogs.getListByType('collection', action.payload)
-        .map((releases: DiscogsCollection) => new collection.LoadSuccessAction(releases))
+    .withLatestFrom(this.store, (action, state) => {
+      return {
+        action,
+        collection: {
+          collection: state.collection.releases,
+          pagination: state.collection.pagination
+        }
+      };
+    })
+    .switchMap(state =>
+      this.discogs.getListByType('collection', state.action.payload, state.collection)
+        .map((result: {list: DiscogsCollection, cached: boolean}) => new collection.LoadSuccessAction(result))
         .catch(error => of(new collection.LoadFailAction(error)))
       );
 
@@ -45,5 +55,5 @@ export class CollectionEffects {
       return Observable.empty();
     });
 
-  constructor(private actions$: Actions, private discogs: DiscogsService) { }
+  constructor(private actions$: Actions, private store: Store<fromCollection.State>, private discogs: DiscogsService) { }
 }

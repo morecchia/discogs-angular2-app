@@ -57,7 +57,7 @@ export class LoadAction implements Action {
 export class LoadSuccessAction implements Action {
   type = ActionTypes.LOAD_SUCCESS;
 
-  constructor(public payload: DiscogsWants) { }
+  constructor(public payload: {list: DiscogsWants, cached: boolean}) { }
 }
 
 export class LoadFailAction implements Action {

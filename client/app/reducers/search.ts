@@ -53,7 +53,7 @@ export const getSearching = (state: State) => state.searching;
 
 export const getQuery = (state: State) => state.query;
 
-export const getPage = (state: State) => state.pagination.page;
+export const getPage = (state: State) => state.pagination && state.pagination.page;
 
 export const getSearchResults = (state: State) => {
   return {

@@ -25,8 +25,17 @@ export class WantlistEffects {
   @Effect()
   loadWantlist$: Observable<Action> = this.actions$
     .ofType(wantlist.ActionTypes.LOAD)
-    .switchMap(action => this.discogs.getListByType('wantlist', action.payload)
-        .map((wants: DiscogsWants) => new wantlist.LoadSuccessAction(wants))
+    .withLatestFrom(this.store, (action, state) => {
+      return {
+        action,
+        wantlist: {
+          wants: state.wantlist.wants,
+          pagination: state.wantlist.pagination
+        }
+      };
+    })
+    .switchMap(state => this.discogs.getListByType('wantlist', state.action.payload, state.wantlist)
+        .map((result: {list: DiscogsWants, cached: boolean}) => new wantlist.LoadSuccessAction(result))
         .catch(error => of(new wantlist.LoadFailAction(error))));
 
   @Effect()
@@ -83,7 +92,8 @@ export class WantlistEffects {
   @Effect()
   afterUpdate$ = this.actions$
     .ofType(wantlist.ActionTypes.UPDATE_IDS)
-    .withLatestFrom(this.store, (action, store) => store.wantlist.pagination.page)
+    .withLatestFrom(this.store, (action, store) =>
+      store.wantlist.pagination && store.wantlist.pagination.page)
     .map(page => new wantlist.LoadAction(page));
 
   constructor(private actions$: Actions, private store: Store<fromWantlist.State>,

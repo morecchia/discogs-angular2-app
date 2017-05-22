@@ -23,6 +23,11 @@ export const defaults = {
   pagination: { per_page: 10, items: 0, pages: 0, page: 1 }
 };
 
+export function getCachedItems(list: any): any[] {
+  const items = list && (list.wants || list.collection || list.sales);
+  return items || [];
+}
+
 export function goodKey(e) {
   return (
     // alpha numeric == OK

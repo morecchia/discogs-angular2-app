@@ -22,8 +22,8 @@ export class ReleasePreviewListComponent {
   @Input()
   currentPage = 1;
 
-  get itemsPerPage() { return this.collection.pagination.per_page || 0; };
-  get totalItems() { return this.collection.pagination.items || 0; };
+  get itemsPerPage() { return (this.collection.pagination && this.collection.pagination.per_page) || 0; };
+  get totalItems() { return (this.collection.pagination && this.collection.pagination.items) || 0; };
 
   getNextPage() {
     this.currentPage = this.currentPage + 1;

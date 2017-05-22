@@ -28,12 +28,12 @@ export function reducer(state = initialState, action: wantlist.Actions): State {
     }
 
     case wantlist.ActionTypes.LOAD_SUCCESS: {
-      const discogsWantlist = action.payload;
+      const discogsWantlist = action.payload.list;
       return Object.assign({}, state, {
         loaded: true,
         loading: false,
         pagination: discogsWantlist.pagination,
-        wants: [...state.wants, ...discogsWantlist.wants],
+        wants: action.payload.cached ? state.wants : [...state.wants, ...discogsWantlist.wants],
         lastAdded: Date.parse(discogsWantlist.wants && discogsWantlist.wants[0].date_added)
       });
     }
@@ -61,7 +61,7 @@ export const getLoaded = (state: State) => state.loaded;
 
 export const getLoading = (state: State) => state.loading;
 
-export const getPage = (state: State) => state.pagination.page;
+export const getPage = (state: State) => state.pagination && state.pagination.page;
 
 export const getWantlistIds = (state: State) => state.ids;
 

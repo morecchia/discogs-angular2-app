@@ -1,4 +1,4 @@
-<mdl-list-item lines="2">
+<mdl-list-item *ngIf="release" lines="2">
     <span class="mdl-list__item-primary-content release-link" [routerLink]="['/detail', release.id]">
         <a><img class="mdl-list__item-avatar" src="{{release.basic_information.thumb}}" /></a>
         <span>

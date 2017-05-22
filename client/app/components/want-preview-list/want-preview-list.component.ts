@@ -22,8 +22,8 @@ export class WantPreviewListComponent {
   @Input()
   loading: boolean;
 
-  get itemsPerPage() { return this.wantlist.pagination.per_page || 0; };
-  get totalItems() { return this.wantlist.pagination.items || 0; };
+  get itemsPerPage() { return (this.wantlist.pagination && this.wantlist.pagination.per_page) || 0; };
+  get totalItems() { return (this.wantlist.pagination && this.wantlist.pagination.items) || 0; };
 
   getNextPage() {
     this.currentPage = this.currentPage + 1;

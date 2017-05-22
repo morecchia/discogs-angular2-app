@@ -20,7 +20,7 @@ export class LoadAction implements Action {
 export class LoadSuccessAction implements Action {
   type = ActionTypes.LOAD_SUCCESS;
 
-  constructor(public payload: DiscogsSales) { }
+  constructor(public payload: {list: DiscogsSales, cached: boolean}) { }
 }
 
 export class LoadFailAction implements Action {

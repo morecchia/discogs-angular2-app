@@ -55,7 +55,6 @@ export class AppComponent {
       store.select(fromRoot.getLoggedIn)
         .subscribe(loggedIn => {
           this.loggedIn = loggedIn;
-          console.log(this.loggedIn);
           if (loggedIn) {
             this.router.navigate(['/wantlist']);
           }
