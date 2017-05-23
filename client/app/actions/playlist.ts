@@ -42,7 +42,7 @@ export class ViewAction implements Action {
 export class PlayAction implements Action {
   type = ActionTypes.PLAY;
 
-  constructor(public payload: SelectedVideo[]) { }
+  constructor(public payload: {id: string, name: string, videos: SelectedVideo[]}) { }
 }
 
 export class AddAction implements Action {

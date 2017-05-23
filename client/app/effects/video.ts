@@ -22,11 +22,15 @@ export class VideoEffects {
   selectVideo$: Observable<Action> = this.actions$
     .ofType(videos.ActionTypes.SELECTED)
     .withLatestFrom(this.store, (action, store) => {
-      return {store: store.videos, action};
+      return {videos: store.videos, playlist: store.playlist, action};
     })
     .mergeMap(state => [
       new player.PlayAction(state.action.payload),
-      new playlist.PlayAction(state.action.payload.videos || state.store.videos),
+      new playlist.PlayAction({
+        id: state.playlist.current.id,
+        name: state.playlist.current.name,
+        videos: state.action.payload.videos || state.videos
+      }),
       new player.SetTimeAction({
         duration: state.action.payload.selected.video
           && state.action.payload.selected.video.contentDetails.duration,

@@ -96,10 +96,10 @@ export function reducer(state = initialState, action: playlist.Actions): State {
 
     case playlist.ActionTypes.PLAY: {
       const playlist = {
-        id: null,
-        name: null,
-        count: action.payload && action.payload.length,
-        videos: action.payload
+        id: action.payload.id,
+        name: action.payload.name,
+        count: action.payload.videos && action.payload.length,
+        videos: action.payload.videos
       };
 
       return Object.assign({}, state, {
