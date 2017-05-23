@@ -41,7 +41,9 @@ export class WantlistEffects {
   @Effect()
   afterLoad$: Observable<Action> = this.actions$
     .ofType(wantlist.ActionTypes.LOAD_SUCCESS)
-    .map(action => new wantlist.LoadIdsAction(action.payload.pagination && action.payload.pagination.items));
+    .map(action =>
+      new wantlist.LoadIdsAction(action.payload.list.pagination
+        && action.payload.list.pagination.items));
 
   @Effect()
   addReleaseToWantlist$: Observable<Action> = this.actions$
@@ -79,15 +81,14 @@ export class WantlistEffects {
   allWantlistIds$ = this.actions$
     .ofType(wantlist.ActionTypes.LOAD_IDS)
     .withLatestFrom(this.store, (action, store) => {
-      return {count: action.payload, lastAdded: store.wantlist.lastAdded};
+      return {action, lastAdded: store.wantlist.lastAdded};
     })
-    .mergeMap(state => {
-      return this.discogs.getWantlistIds(state.count, state.lastAdded)
+    .mergeMap(state =>
+      this.discogs.getWantlistIds(state.action.payload, state.lastAdded)
         .map(response => {
           this.discogs.updateWantlistIds(response);
           return new wantlist.LoadIdsSuccessAction(response.ids);
-        });
-    });
+        }));
 
   @Effect()
   afterUpdate$ = this.actions$
