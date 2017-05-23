@@ -27,8 +27,8 @@ export class VideoEffects {
     .mergeMap(state => [
       new player.PlayAction(state.action.payload),
       new playlist.PlayAction({
-        id: state.playlist.current.id,
-        name: state.playlist.current.name,
+        id: state.playlist.current && state.playlist.current.id,
+        name: state.playlist.current && state.playlist.current.name,
         videos: state.action.payload.videos || state.videos
       }),
       new player.SetTimeAction({
