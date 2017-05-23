@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Compiler } from '@angular/core';
 import { Action, Store } from '@ngrx/store';
 import { Effect, Actions } from '@ngrx/effects';
 import { Observable } from 'rxjs/Observable';
@@ -40,9 +40,11 @@ export class UserEffects {
   logoutUser$ = this.actions$
     .ofType(user.ActionTypes.LOGOUT)
     .map(action => {
-      this.discogs.clearUsername();
+      this.compiler.clearCache();
+      this.discogs.clearStorage();
       return of({});
     });
 
-  constructor(private actions$: Actions, private discogs: DiscogsService, private store: Store<fromUser.State>) { }
+  constructor(private actions$: Actions, private discogs: DiscogsService,
+    private store: Store<fromUser.State>, private compiler: Compiler) { }
 }

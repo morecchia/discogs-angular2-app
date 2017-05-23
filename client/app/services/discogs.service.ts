@@ -26,8 +26,8 @@ export class DiscogsService {
     this.loggedInUser = login.username;
   }
 
-  clearUsername() {
-    this.localStorage.remove('discogs-user');
+  clearStorage() {
+    this.localStorage.clearAll();
   }
 
   updateWantlistIds(response: any) {

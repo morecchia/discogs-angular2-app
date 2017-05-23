@@ -2,6 +2,7 @@ import { createSelector } from 'reselect';
 import { ActionReducer } from '@ngrx/store';
 import * as fromRouter from '@ngrx/router-store';
 import { environment } from '../../environments/environment';
+import * as userActions from '../actions/user';
 
 /**
  * The compose function is one of our most handy tools. In basic terms, you give
@@ -88,7 +89,15 @@ const reducers = {
   // layout: fromLayout.reducer
 };
 
-const developmentReducer: ActionReducer<State> = compose(storeFreeze, combineReducers)(reducers);
+const developmentReducer: ActionReducer<State> = compose(storeFreeze, (reducer: Function) => {
+  return (state, action) => {
+    if (action.type === userActions.ActionTypes.LOGOUT) {
+      state = undefined;
+    }
+    return reducer(state, action);
+  };
+}, combineReducers)(reducers);
+
 const productionReducer: ActionReducer<State> = combineReducers(reducers);
 
 export function reducer(state: any, action: any) {
