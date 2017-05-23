@@ -98,7 +98,7 @@ export function reducer(state = initialState, action: playlist.Actions): State {
       const playlist = {
         id: action.payload.id,
         name: action.payload.name,
-        count: action.payload.videos && action.payload.length,
+        count: action.payload.videos && action.payload.videos.length,
         videos: action.payload.videos
       };
 
