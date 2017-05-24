@@ -17,6 +17,11 @@ body {
     background: $background-color;
 }
 
+::-webkit-scrollbar {
+    width: 0;  /* remove scrollbar space */
+    background: transparent;  /* optional: just make scrollbar invisible */
+}
+
 .progress {
     width: 100px;
 }
@@ -182,6 +187,14 @@ body {
     color: rgba(255, 255, 255, 0.3);
 }
 
+.mdl-layout__content {
+    overflow: scroll;
+}
+
+.mdl-layout__drawer-button {
+    display: none;
+}
+
 .mdl-list__item {
     font-size: 14px;
 
@@ -224,10 +237,6 @@ body {
     height: 30px;
     min-width: 30px;
     width: 30px;
-}
-
-.mdl-layout__drawer-button {
-    display: none;
 }
 
 .mdl-dialog__title {
