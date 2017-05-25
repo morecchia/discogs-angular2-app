@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
+import { Router } from '@angular/router';
 
 import { Observable } from 'rxjs/Observable';
 
@@ -24,6 +25,7 @@ export class LoginComponent {
     }
 
     this.store.dispatch(new user.LoginAction(login));
+    this.router.navigate(['/wantlist']);
   }
 
   private _showError(message: string) {
@@ -36,7 +38,7 @@ export class LoginComponent {
     });
   }
 
-  constructor(private store: Store<fromRoot.State>, private mdlSnackbarService: MdlSnackbarService) {
+  constructor(private store: Store<fromRoot.State>, private router: Router, private mdlSnackbarService: MdlSnackbarService) {
       this.user$ = store.select(fromRoot.getUser);
 
       store.select(fromRoot.getLoginFailed)

@@ -23,14 +23,23 @@ module.exports = {
             urls.push(`${apiBase}/users/${req.params.username}/wants?sort=added&sort_order=desc&page=${page}&per_page=100`);
         }
         handleMultiple(urls, response => {
-            // add the current timestamp to the response
-            const lastUpdated = Date.now();
+            if (response.error) {
+                res.status(500);
+                return res.send(error);
+                
+            }
+
             // transform the response to an array of ids
             const ids = response
                 .map(d => d.wants)
-                .reduce((a, b) => a.concat(b))
-                .map(w => w.id);
-            res.send({ lastUpdated, count: ids.length, ids });
+                .reduce((a, b) => a && a.concat(b))
+                .map(w => w && w.id);
+
+            res.send({
+                lastUpdated: Date.now(),
+                count: (ids && ids.length || 0),
+                ids: ids || []
+            });
         });
     },
 

@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Router } from '@angular/router';
 
 import { Observable } from 'rxjs/Observable';
 
@@ -46,19 +45,11 @@ export class AppComponent {
     }
   }
 
-  constructor(private router: Router, private store: Store<fromRoot.State>, private mdlSnackbarService: MdlSnackbarService) {
+  constructor(private store: Store<fromRoot.State>, private mdlSnackbarService: MdlSnackbarService) {
       this.user$ = store.select(fromRoot.getUser);
       this.playlists$ = store.select(fromRoot.getPlaylists);
       this.videoSelected$ = store.select(fromRoot.getPlayerCurrent)
         .map(video => video !== null);
-
-      store.select(fromRoot.getLoggedIn)
-        .subscribe(loggedIn => {
-          this.loggedIn = loggedIn;
-          if (loggedIn) {
-            this.router.navigate(['/wantlist']);
-          }
-        });
 
       store.select(fromRoot.getVideosLoadingFailed)
         .subscribe(message => {

@@ -14,6 +14,7 @@ import { UuidService } from 'angular2-uuid';
 
 // app
 import { routes, navigableContainers } from './routes';
+import { AuthGuard } from './guards/auth.guard';
 import { reducer } from './reducers';
 import * as effects from './effects';
 import { AppComponent } from './containers';
@@ -51,6 +52,7 @@ import * as services from './services';
     services.YoutubeService,
     services.PlaylistService,
     services.WindowRef,
+    AuthGuard,
     UuidService,
     Title
   ],

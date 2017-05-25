@@ -13,6 +13,10 @@ module.exports = {
             .take(urls.length)
             .map(i => urls[i])
             .mergeMap(url => get$({ url, headers }))
+            .catch(error => {
+                callback({error});
+                return Rx.Observable.throw(error);
+            })
             .subscribe(response => {
                 responses.push(response.body);
                 completed_requests++;

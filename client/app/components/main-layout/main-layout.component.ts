@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Router } from '@angular/router';
 
@@ -13,7 +13,7 @@ import { goodKey } from '../../util';
   selector: 'app-main-layout',
   templateUrl: './main-layout.component.html'
 })
-export class MainLayoutComponent implements OnInit {
+export class MainLayoutComponent {
     @Input()
     user: DiscogsUser;
 
@@ -28,12 +28,6 @@ export class MainLayoutComponent implements OnInit {
 
     @Output()
     onPlaylistAdd = new EventEmitter<Playlist>();
-
-    ngOnInit() {
-      if (!this.user) {
-        this.router.navigate(['/login']);
-      }
-    }
 
     search(e) {
       if (goodKey(e)) {
