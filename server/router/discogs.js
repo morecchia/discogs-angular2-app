@@ -30,10 +30,11 @@ module.exports = {
             }
 
             // transform the response to an array of ids
-            const ids = response
+            const flatResponse = response
                 .map(d => d.wants)
-                .reduce((a, b) => a && a.concat(b))
-                .map(w => w && w.id);
+                .reduce((a, b) => a && a.concat(b));
+                
+            const ids = flatResponse && flatResponse.map(w => w && w.id);
 
             res.send({
                 lastUpdated: Date.now(),

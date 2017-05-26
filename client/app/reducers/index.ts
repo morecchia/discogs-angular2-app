@@ -195,6 +195,7 @@ export const getWantlistState = (state: State) => state.wantlist;
 
 export const getWantlistLoaded = createSelector(getWantlistState, fromWantlist.getLoaded);
 export const getWantlistLoading = createSelector(getWantlistState, fromWantlist.getLoading);
+export const getWantlistFailed = createSelector(getWantlistState, fromWantlist.getFailed);
 export const getWantlistPage = createSelector(getWantlistState, fromWantlist.getPage);
 export const getWantlist = createSelector(getWantlistState, fromWantlist.getReleases);
 export const getWantlistIds = createSelector(getWantlistState, fromWantlist.getWantlistIds);

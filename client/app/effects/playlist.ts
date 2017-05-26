@@ -30,7 +30,7 @@ export class PlaylistEffects {
       return {action, playlists: state.playlist.playlists};
     })
     .map(state => {
-      const playlists = state.playlists.slice(0);
+      const playlists = [...state.playlists];
       playlists.push(state.action.payload);
       this.playlistService.setPlaylists(playlists);
       return new playlistMenu.AddCompleteAction(playlists);

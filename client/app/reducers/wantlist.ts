@@ -8,6 +8,7 @@ export interface State {
   wants: DiscogsItem[];
   lastAdded: Date;
   ids: number[];
+  failed: any;
 };
 
 const initialState: State = {
@@ -16,7 +17,8 @@ const initialState: State = {
   pagination: { per_page: 10, items: 0, pages: 0, page: 1 },
   wants: [],
   lastAdded: null,
-  ids: []
+  ids: [],
+  failed: null
 };
 
 export function reducer(state = initialState, action: wantlist.Actions): State {
@@ -35,6 +37,12 @@ export function reducer(state = initialState, action: wantlist.Actions): State {
         pagination: discogsWantlist.pagination,
         wants: action.payload.cached ? state.wants : [...state.wants, ...discogsWantlist.wants],
         lastAdded: Date.parse(discogsWantlist.wants && discogsWantlist.wants[0].date_added)
+      });
+    }
+
+    case wantlist.ActionTypes.LOAD_FAIL: {
+      return Object.assign({}, state, {
+        failed: action.payload
       });
     }
 
@@ -60,6 +68,8 @@ export function reducer(state = initialState, action: wantlist.Actions): State {
 export const getLoaded = (state: State) => state.loaded;
 
 export const getLoading = (state: State) => state.loading;
+
+export const getFailed = (state: State) => state.failed;
 
 export const getPage = (state: State) => state.pagination && state.pagination.page;
 
