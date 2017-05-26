@@ -70,7 +70,7 @@ export function reducer(state = initialState, action: playlist.Actions): State {
       const updatedPlaylists = state.playlists.map(playlist => {
         const newPlaylist =  Object.assign({}, playlist);
         if (playlist.id === state.current.id) {
-          const newVideos = newPlaylist.videos.slice(0);
+          const newVideos = [...newPlaylist.videos];
           newVideos.splice(videoIndex, 1);
           newPlaylist.videos = newVideos;
           newPlaylist.count = newPlaylist.videos.length;

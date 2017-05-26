@@ -50,7 +50,7 @@ export class PlaylistListComponent implements OnChanges {
       .filter((release, index, releases) =>
         releases.findIndex(rel => rel.id === release.id) === index)
       .reduce((arr: DiscogsImage[], release: DiscogsRelease) =>
-        arr.concat(release.images), []);
+        [...arr, ...release.images], []);
   }
 
   addPlaylist(playlist: Playlist) {

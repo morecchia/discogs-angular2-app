@@ -36,7 +36,7 @@ export class WantlistEffects {
     })
     .switchMap(state => this.discogs.getListByType('wantlist', state.action.payload, state.wantlist)
         .map((result: {list: DiscogsWants, cached: boolean}) => new wantlist.LoadSuccessAction(result))
-        .catch(error => of(new wantlist.LoadFailAction(error))));
+        .catch(error => of(new wantlist.LoadFailAction(error.json()))));
 
   @Effect()
   afterLoad$: Observable<Action> = this.actions$
