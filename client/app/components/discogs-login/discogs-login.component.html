@@ -8,7 +8,8 @@
 
     <div class="submit-wrapper">
       <span class="left"><input type="checkbox" [(ngModel)]="rememberMe">Remember Me</span>
-      <button mdl-button (click)="submit()" mdl-button-type="raised" mdl-ripple mdl-colored="primary">Log in</button>
+      <button mdl-button (click)="onSubmit.emit({username: username, rememberMe: rememberMe})"
+        mdl-button-type="raised" mdl-ripple mdl-colored="primary">Log in</button>
     </div>
   </div>
 </div>

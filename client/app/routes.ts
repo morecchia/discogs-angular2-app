@@ -6,7 +6,7 @@ import * as containers from './containers';
 export const routes: Routes = [
   { path: 'login', component: containers.LoginComponent },
   { path: '', canActivateChild: [AuthGuard], children: [
-    { path: '', component: containers.AppComponent },
+    { path: '', component: containers.WantlistComponent },
     { path: 'collection', component: containers.CollectionComponent },
     { path: 'wantlist', component: containers.WantlistComponent },
     { path: 'sales', component: containers.SalesComponent },

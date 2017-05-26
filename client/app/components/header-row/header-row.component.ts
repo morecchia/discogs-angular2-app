@@ -19,14 +19,6 @@ export class HeaderRowComponent {
   @Output()
   onSearch = new EventEmitter<string>();
 
-  goBack() {
-    this.location.back();
-  }
-
-  goForth() {
-    this.location.forward();
-  }
-
   search(term: string) {
     this.onSearch.emit(term);
   }
@@ -36,5 +28,5 @@ export class HeaderRowComponent {
     this.router.navigate(['/login']);
   }
 
-  constructor(private store: Store<fromRoot.State>, private location: Location, private router: Router) { }
+  constructor(private store: Store<fromRoot.State>, private router: Router) { }
 }

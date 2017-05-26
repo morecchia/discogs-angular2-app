@@ -25,7 +25,7 @@ export class LoginComponent {
     }
 
     this.store.dispatch(new user.LoginAction(login));
-    this.router.navigate(['/wantlist']);
+    this.router.navigate(['/']);
   }
 
   private _showError(message: string) {

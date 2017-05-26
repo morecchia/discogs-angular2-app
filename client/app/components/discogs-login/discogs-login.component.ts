@@ -18,8 +18,4 @@ export class DiscogsLoginComponent {
 
   @Output()
   onSubmit = new EventEmitter<UserLogin>();
-
-  submit() {
-    this.onSubmit.emit({username: this.username, rememberMe: this.rememberMe});
-  }
 }

@@ -3,14 +3,12 @@ import { Store } from '@ngrx/store';
 
 import { Observable } from 'rxjs/Observable';
 
-import { MdlSnackbarService } from 'angular2-mdl';
-
 import * as fromRoot from '../../reducers';
 import * as playlistMenu from '../../actions/playlist';
 import * as search from '../../actions/search';
 
 import { goodKey } from '../../util';
-
+import { SnackbarService } from '../../services';
 import { DiscogsUser, Playlist } from '../../models';
 
 @Component({
@@ -24,16 +22,6 @@ export class AppComponent {
 
   loggedIn: boolean;
 
-  private _showError(message: string) {
-    this.mdlSnackbarService.showSnackbar({
-      message: message,
-      action: {
-        handler: () => { },
-        text: 'OK'
-      }
-    });
-  }
-
   onPlaylistAdd(playlist: Playlist) {
     this.store.dispatch(new playlistMenu.AddAction(playlist));
   }
@@ -45,7 +33,7 @@ export class AppComponent {
     }
   }
 
-  constructor(private store: Store<fromRoot.State>, private mdlSnackbarService: MdlSnackbarService) {
+  constructor(private store: Store<fromRoot.State>, private snackbar: SnackbarService) {
       this.user$ = store.select(fromRoot.getUser);
       this.playlists$ = store.select(fromRoot.getPlaylists);
       this.videoSelected$ = store.select(fromRoot.getPlayerCurrent)
@@ -54,7 +42,7 @@ export class AppComponent {
       store.select(fromRoot.getVideosLoadingFailed)
         .subscribe(message => {
           if (message) {
-            this._showError(message);
+            this.snackbar.showError(message);
           }
         });
     }

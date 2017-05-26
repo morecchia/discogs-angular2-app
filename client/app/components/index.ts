@@ -5,6 +5,8 @@ import { FormsModule } from '@angular/forms';
 import { MdlModule } from 'angular2-mdl';
 import { Ng2PaginationModule } from 'ng2-pagination';
 
+import { SnackbarService } from '../services';
+
 import { SalesPreviewComponent } from './sales-preview/sales-preview.component';
 import { SalesPreviewListComponent } from './sales-preview-list/sales-preview-list.component';
 import { ReleasePreviewComponent } from './release-preview/release-preview.component';
@@ -63,7 +65,7 @@ export const COMPONENTS = [
     MdlModule,
     Ng2PaginationModule
   ],
-  providers: [],
+  providers: [SnackbarService],
   declarations: COMPONENTS,
   exports: COMPONENTS
 })
