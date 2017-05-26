@@ -7,7 +7,7 @@ import { Subscription }   from 'rxjs/Subscription';
 
 import * as fromRoot from '../../reducers';
 import * as search from '../../actions/search';
-import { DiscogsSearch } from '../../models';
+import { DiscogsSearch, Playlist } from '../../models';
 
 @Component({
   selector: 'app-search',
@@ -19,6 +19,7 @@ export class SearchComponent {
   searching$: Observable<boolean>;
   searchTerm$: Observable<string>;
   currentPage$: Observable<number>;
+  playlists$: Observable<Playlist[]>;
 
   routeParamSub: Subscription;
 
@@ -27,6 +28,7 @@ export class SearchComponent {
     this.searching$ = store.select(fromRoot.getSearchLoading);
     this.searchTerm$ = store.select(fromRoot.getSearchQuery);
     this.currentPage$ = store.select(fromRoot.getSearchPage);
+    this.playlists$ = store.select(fromRoot.getPlaylists);
 
     this.routeParamSub = activatedRoute.params
       .subscribe(params => {

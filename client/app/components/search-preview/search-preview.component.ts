@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 
-import { DiscogsSearchResult } from '../../models';
+import { DiscogsSearchResult, Playlist } from '../../models';
 
 @Component({
   selector: 'app-search-preview',
@@ -9,4 +9,7 @@ import { DiscogsSearchResult } from '../../models';
 export class SearchPreviewComponent {
   @Input()
   result: DiscogsSearchResult;
+
+  @Input()
+  playlists: Playlist;
 }

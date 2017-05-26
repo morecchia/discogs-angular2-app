@@ -4,7 +4,7 @@
     </div>
     
     <app-search-preview *ngFor="let result of searchResults.results | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage, totalItems: totalItems }"
-        [result]="result"></app-search-preview>
+        [playlists]="playlists" [result]="result"></app-search-preview>
 </mdl-list>
 
 <div *ngIf="totalPages > 1" class="pagination-wrapper">

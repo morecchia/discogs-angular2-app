@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store';
 import * as discogsSearch from '../../actions/search';
 import * as fromRoot from '../../reducers';
 
-import { DiscogsSearch } from '../../models';
+import { DiscogsSearch, Playlist } from '../../models';
 
 @Component({
   selector: 'app-search-preview-list',
@@ -22,6 +22,9 @@ export class SearchPreviewListComponent {
 
   @Input()
   currentPage;
+
+  @Input()
+  playlists: Playlist;
 
   get itemsPerPage() { return (this.searchResults.pagination && this.searchResults.pagination.per_page) || 0; };
   get totalItems() { return (this.searchResults.pagination && this.searchResults.pagination.items) || 0; };
