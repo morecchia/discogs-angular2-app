@@ -45,5 +45,13 @@ export class AppComponent {
             this.snackbar.showError(message);
           }
         });
+
+      store.select(fromRoot.getSearchFailed)
+        .subscribe(error => {
+          console.log(error);
+          if (error) {
+            this.snackbar.showError(error.message);
+          }
+        });
     }
 }

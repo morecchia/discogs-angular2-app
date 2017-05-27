@@ -26,8 +26,8 @@ export class WantlistComponent {
 
   actionsSubscription: Subscription;
 
-  constructor(private store: Store<fromRoot.State>, private router:  Router, private activatedRoute: ActivatedRoute,
-    private location: Location, private snackbar: SnackbarService) {
+  constructor(private store: Store<fromRoot.State>, private activatedRoute: ActivatedRoute,
+    private snackbar: SnackbarService) {
       this.wantlist$ = store.select(fromRoot.getWantlist);
       this.playlists$ = store.select(fromRoot.getPlaylists);
       this.currentPage$ = store.select(fromRoot.getWantlistPage);

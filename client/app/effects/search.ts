@@ -40,7 +40,8 @@ export class SearchEffects {
         .mergeMap((response: DiscogsSearch) => [
           new search.SearchCompleteAction(response),
           go([`/search/${searchTerm}`])
-        ]);
+        ])
+        .catch(err => of(new search.SearchFailAction(err.json())));
     });
 
   constructor(private actions$: Actions, private discogs: DiscogsService, private store: Store<fromSearch.State>) { }

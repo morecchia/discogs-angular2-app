@@ -30,15 +30,21 @@ function _obvservableCallback(observer, status = 200) {
             observer.error(error);
             return;
         }
-        
+
         const statusCode = response.statusCode;
+        
+        let responseBody = null;
+        try {
+            responseBody = JSON.parse(body);
+        } catch (ex) {
+            responseBody = { message: 'An unknown error occured' };
+        }
+
         if (statusCode !== status) {
-            observer.next({ statusCode, body: JSON.parse(body) });
+            observer.next({ statusCode, body: responseBody });
             observer.complete();
             return;
         }
-
-        const responseBody = body ? JSON.parse(body) : null;
 
         observer.next({ statusCode: status, body: responseBody });
         observer.complete();

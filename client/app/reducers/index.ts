@@ -181,6 +181,7 @@ export const getSearchResults = createSelector(getSearchState, fromSearch.getSea
 export const getSearchQuery = createSelector(getSearchState, fromSearch.getQuery);
 export const getSearchPage = createSelector(getSearchState, fromSearch.getPage);
 export const getSearchLoading = createSelector(getSearchState, fromSearch.getSearching);
+export const getSearchFailed = createSelector(getSearchState, fromSearch.getSearchFailed);
 
 // Discogs Collection
 export const getCollectionState = (state: State) => state.collection;

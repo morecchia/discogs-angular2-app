@@ -5,6 +5,7 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { Subscription }   from 'rxjs/Subscription';
 
+import { SnackbarService } from '../../services';
 import * as fromRoot from '../../reducers';
 import * as search from '../../actions/search';
 import { DiscogsSearch, Playlist } from '../../models';
@@ -23,17 +24,18 @@ export class SearchComponent {
 
   routeParamSub: Subscription;
 
-  constructor(private store: Store<fromRoot.State>, private activatedRoute: ActivatedRoute) {
-    this.searchResults$ = store.select(fromRoot.getSearchResults);
-    this.searching$ = store.select(fromRoot.getSearchLoading);
-    this.searchTerm$ = store.select(fromRoot.getSearchQuery);
-    this.currentPage$ = store.select(fromRoot.getSearchPage);
-    this.playlists$ = store.select(fromRoot.getPlaylists);
+  constructor(private store: Store<fromRoot.State>, private activatedRoute: ActivatedRoute,
+    private snackbar: SnackbarService) {
+      this.searchResults$ = store.select(fromRoot.getSearchResults);
+      this.searching$ = store.select(fromRoot.getSearchLoading);
+      this.searchTerm$ = store.select(fromRoot.getSearchQuery);
+      this.currentPage$ = store.select(fromRoot.getSearchPage);
+      this.playlists$ = store.select(fromRoot.getPlaylists);
 
-    this.routeParamSub = activatedRoute.params
-      .subscribe(params => {
-        const query = params['q'];
-        this.store.dispatch(new search.SearchReleasesAction({query, page: 1}));
-      });
-  }
+      this.routeParamSub = activatedRoute.params
+        .subscribe(params => {
+          const query = params['q'];
+          this.store.dispatch(new search.SearchReleasesAction({query, page: 1}));
+        });
+    }
 }

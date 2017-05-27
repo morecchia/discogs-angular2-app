@@ -9,6 +9,7 @@ export interface State {
   query: string;
   results: DiscogsSearchResult[];
   pagination: DiscogsPagination;
+  failure: any;
 };
 
 const initialState: State = {
@@ -16,6 +17,7 @@ const initialState: State = {
   query: null,
   results: [],
   pagination: defaults.pagination,
+  failure: null
 };
 
 export function reducer(state = initialState, action: search.Actions): State {
@@ -36,6 +38,13 @@ export function reducer(state = initialState, action: search.Actions): State {
       });
     }
 
+    case search.ActionTypes.SEARCH_FAIL: {
+      return Object.assign({}, state, {
+        searching: false,
+        failure: action.payload
+      });
+    }
+
     case search.ActionTypes.CLEAR: {
       return Object.assign({}, state, {
         results: []
@@ -50,6 +59,8 @@ export function reducer(state = initialState, action: search.Actions): State {
 
 
 export const getSearching = (state: State) => state.searching;
+
+export const getSearchFailed = (state: State) => state.failure;
 
 export const getQuery = (state: State) => state.query;
 
