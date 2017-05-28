@@ -22,6 +22,10 @@ body {
     background: transparent;  /* optional: just make scrollbar invisible */
 }
 
+.hidden {
+    display: none;
+}
+
 .progress {
     width: 100px;
 }
@@ -105,7 +109,6 @@ body {
 }
 
 .drawer-button {
-    display: none;
     position: fixed;
     top: 4px;
     left: 8px;
@@ -288,12 +291,6 @@ body {
     .mdl-list__item {
         .release-title {
             max-width: 400px;
-        }
-    }
-
-    .drawer-button {
-        &.visible {
-            display: block;
         }
     }
 

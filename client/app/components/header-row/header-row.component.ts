@@ -16,6 +16,9 @@ export class HeaderRowComponent {
   @Input()
   user: DiscogsUser;
 
+  @Input()
+  appLayout: any;
+
   @Output()
   onSearch = new EventEmitter<string>();
 

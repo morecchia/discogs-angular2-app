@@ -13,3 +13,6 @@
   </div>
 
 </section>
+
+<button [ngClass]="{'hidden': !user, 'drawer-button': true}" mdl-button mdl-button-type="icon"
+    (click)="appLayout.toggleDrawer()"><i class="material-icons">menu</i></button>

@@ -20,8 +20,6 @@ export class AppComponent {
   videoSelected$: Observable<boolean>;
   playlists$: Observable<Playlist[]>;
 
-  loggedIn: boolean;
-
   onPlaylistAdd(playlist: Playlist) {
     this.store.dispatch(new playlistMenu.AddAction(playlist));
   }
