@@ -46,7 +46,6 @@ export class AppComponent {
 
       store.select(fromRoot.getSearchFailed)
         .subscribe(error => {
-          console.log(error);
           if (error) {
             this.snackbar.showError(error.message);
           }
