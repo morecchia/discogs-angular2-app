@@ -19,6 +19,16 @@ export function type<T>(label: T | ''): T {
   return <T>label;
 }
 
+export function handleError(error) {
+  let errorMessage = null;
+  try {
+    errorMessage = error.json().message;
+  } catch (ex) {
+    errorMessage = 'An unknown error occured.';
+  }
+  return errorMessage;
+}
+
 export const defaults = {
   pagination: { per_page: 10, items: 0, pages: 0, page: 1 }
 };

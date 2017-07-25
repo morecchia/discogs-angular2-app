@@ -8,6 +8,7 @@ import { of } from 'rxjs/observable/of';
 import * as user from '../actions/user';
 import * as fromUser from '../reducers';
 
+import { handleError } from '../util';
 import { DiscogsService } from '../services';
 import { DiscogsUser } from '../models';
 
@@ -24,7 +25,7 @@ export class UserEffects {
       return this.discogs.getUser(this.discogs.loggedInUser)
         .map((identity: DiscogsUser) => new user.LoadSuccessAction(identity))
         .catch(error => of(new user.LoginFailedAction(
-          `Login failed for "${this.discogs.loggedInUser}" - ${error.json().message}`)
+          `Login failed for "${this.discogs.loggedInUser}" - ${handleError(error)}`)
         ));
     });
 
