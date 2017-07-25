@@ -2,7 +2,7 @@
 
 This is an example of a single-page-application written in Angular 2 (using ngrx-store).  You can browse your collection, wantlist, sales items, search, and listen to any youtube videos associated with the releases.
 
-The player should automatically advance to the next video once a track ends, continuously advancing until the end of the list.  I also plan on adding a feature to build custom playlists.  Please enjoy and feel free to submit feedback.
+The player should automatically advance to the next video once a track ends, continuously advancing until the end of the list.  You can also create playlists.
 
 
 ## Development server
