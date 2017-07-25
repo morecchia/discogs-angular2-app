@@ -23,8 +23,7 @@ Generated with [angular-cli](https://github.com/angular/angular-cli) version 1.0
        headers: {
            'Accept': 'application/vnd.discogs.v2.html+json',
            'User-Agent': 'MyDiscogsClient/1.0 +http://mydiscogsclient.org' // your User-Agent string here
-       },
-       username: 'discogsUser' // your discogs username here
+       }
    };
    ```
 2. Run `npm install` and `npm start` in both the root and `server` directories to run a dev server.
