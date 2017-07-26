@@ -4,21 +4,17 @@ import { Router, CanActivateChild, ActivatedRouteSnapshot, RouterStateSnapshot }
 import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';
 
-import { LocalStorageService } from 'angular-2-local-storage';
+import { DiscogsService } from '../services/discogs.service';
 
 @Injectable()
 export class AuthGuard implements CanActivateChild {
-  loggedInUser: string;
-
-  constructor( private localStorage: LocalStorageService, private router: Router ) {
-    this.loggedInUser = localStorage.get('discogs-user') as string;
-  }
+  constructor( private discogs: DiscogsService, private router: Router ) { }
 
   canActivateChild(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
-    if (this.loggedInUser) {
+    const loggedInUser = this.discogs.getLoggedInUser();
+    if (loggedInUser !== null) {
       return true;
     }
-
     this.router.navigate(['/login']);
   }
 }

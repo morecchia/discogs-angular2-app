@@ -14,8 +14,10 @@ export class DiscogsLoginComponent {
   rememberMe: boolean;
 
   @Input()
-  loggedIn: boolean;
+  discogsUser: string;
 
   @Output()
   onSubmit = new EventEmitter<UserLogin>();
+
+  get loggedIn(): boolean { return this.discogsUser !== null }
 }

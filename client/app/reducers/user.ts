@@ -10,7 +10,7 @@ export interface State {
 };
 
 const initialState: State = {
-  loading: true,
+  loading: false,
   loaded: false,
   user: null,
   loggedIn: false,
@@ -36,6 +36,7 @@ export function reducer(state = initialState, action: user.Actions): State {
 
     case user.ActionTypes.LOGIN: {
       return Object.assign({}, state, {
+        loading: true,
         failed: null
       });
     }

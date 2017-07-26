@@ -12,18 +12,18 @@ import * as models from '../models';
 
 @Injectable()
 export class DiscogsService {
-  loggedInUser: string;
-
-  constructor(private http: Http, private localStorage: LocalStorageService) {
-    this.loggedInUser = localStorage.get('discogs-user') as string;
-  }
+  constructor(private http: Http, private localStorage: LocalStorageService) {}
 
   storeUsername(login: models.UserLogin) {
-    if (login.rememberMe) {
-      this.localStorage.set('discogs-user', login.username);
-    }
+    this.localStorage.set('discogs-user', login.username);
 
-    this.loggedInUser = login.username;
+    if (login.rememberMe) {
+      // for OAuth implementation: store a token server-side
+    }
+  }
+
+  getLoggedInUser(): string {
+    return this.localStorage.get('discogs-user') as string;
   }
 
   clearStorage() {
@@ -41,7 +41,7 @@ export class DiscogsService {
     if (lastUpdated && lastUpdated >= lastAdded) {
       return of({ids, lastUpdated});
     }
-    return this.http.get(`/api/wantlistids/${this.loggedInUser}?want_count=${count}`)
+    return this.http.get(`/api/wantlistids/${this.getLoggedInUser()}?want_count=${count}`)
       .map(response => response.json());
   }
 
@@ -56,7 +56,7 @@ export class DiscogsService {
   }
 
   getListByType(type: string, page = 1, cachedList: any) {
-      if (!this.loggedInUser) {
+      if (!this.getLoggedInUser()) {
         return of({});
       }
 
@@ -64,7 +64,7 @@ export class DiscogsService {
 
       return cachedItems.length && page === 1
         ? of({list: cachedList, cached: true})
-        : this.http.get(`/api/${type}/${this.loggedInUser}/${page}`)
+        : this.http.get(`/api/${type}/${this.getLoggedInUser()}/${page}`)
           .map(response => {
             return {list: response.json(), cached: false};
           });
