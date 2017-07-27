@@ -31,6 +31,8 @@ export class MainNavigationComponent {
   @Output()
   onPlaylistAdd = new EventEmitter<Playlist>();
 
+  currentId: string;
+
   addPlaylist(dialog: any, playlistName: string) {
     if (playlistName) {
       dialog.close();

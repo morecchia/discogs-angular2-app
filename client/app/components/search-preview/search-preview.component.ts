@@ -12,4 +12,13 @@ export class SearchPreviewComponent {
 
   @Input()
   playlists: Playlist;
+
+  @Input()
+  addType: string;
+
+  addPlaylist(playlist: Playlist) {
+  }
+
+  queueAll(id: string) {
+  }
 }

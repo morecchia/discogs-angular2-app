@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { MdlSnackbarService } from 'angular2-mdl';
+import { MdlSnackbarService } from '@angular-mdl/core';
 
 @Injectable()
 export class SnackbarService {

@@ -3,11 +3,10 @@ import { Store } from '@ngrx/store';
 
 import { Observable } from 'rxjs/Observable';
 
-import { MdlSnackbarService } from 'angular2-mdl';
-
 import * as fromRoot from '../../reducers';
 import * as user from '../../actions/user';
 
+import { SnackbarService } from '../../services/snackbar.service';
 import { DiscogsUser, UserLogin } from '../../models';
 
 @Component({
@@ -26,23 +25,13 @@ export class LoginComponent {
     this.store.dispatch(new user.LoginAction(login));
   }
 
-  private _showError(message: string) {
-    this.mdlSnackbarService.showSnackbar({
-      message: message,
-      action: {
-        handler: () => { },
-        text: 'OK'
-      }
-    });
-  }
-
-  constructor(private store: Store<fromRoot.State>, private mdlSnackbarService: MdlSnackbarService) {
+  constructor(private store: Store<fromRoot.State>, private snackbar: SnackbarService) {
     this.user$ = store.select(fromRoot.getUser);
 
     store.select(fromRoot.getLoginFailed)
       .subscribe(error => {
         if (error) {
-          this._showError(error);
+          this.snackbar.showError(error);
         }
       });
   }

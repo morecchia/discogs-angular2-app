@@ -9,7 +9,7 @@ import { EffectsModule } from '@ngrx/effects';
 
 // external
 import { LocalStorageModule } from 'angular-2-local-storage';
-import { MdlModule } from 'angular2-mdl';
+import { MdlModule } from '@angular-mdl/core';
 import { UuidService } from 'angular2-uuid';
 
 // app
