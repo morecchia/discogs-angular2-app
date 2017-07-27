@@ -32,17 +32,21 @@ export class MainNavigationComponent {
   onPlaylistAdd = new EventEmitter<Playlist>();
 
   currentId: string;
+  playlistName: string;
 
-  addPlaylist(dialog: any, playlistName: string) {
-    if (playlistName) {
-      dialog.close();
-      this.onPlaylistAdd.emit({
-        name: playlistName,
-        count: 0,
-        id: this.uuid.generate(),
-        videos: []
-      });
+  addPlaylist(dialog: any) {
+    if (!this.playlistName) {
+      return;
     }
+
+    this.onPlaylistAdd.emit({
+      name: this.playlistName,
+      count: 0,
+      id: this.uuid.generate(),
+      videos: []
+    });
+
+    dialog.close();
   }
 
   removePlaylist(playlist: Playlist) {
@@ -55,6 +59,10 @@ export class MainNavigationComponent {
     }
     this.store.dispatch(new userActions.LogoutAction());
     this.router.navigate(['/login']);
+  }
+
+  onDialogHide() {
+    this.playlistName = '';
   }
 
   constructor(private store: Store<fromRoot.State>, private uuid: UuidService, private router: Router) { }

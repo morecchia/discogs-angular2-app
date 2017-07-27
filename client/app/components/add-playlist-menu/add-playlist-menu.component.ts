@@ -28,37 +28,43 @@ export class AddPlaylistMenuComponent {
   onPlaylistAdd = new EventEmitter<Playlist>();
 
   addingNew = false;
+  playlistName: string;
 
   queueVideos(id: string, dialog?: any) {
-      if (dialog) {
-        dialog.close();
-      }
+    if (dialog) {
+      dialog.close();
+    }
 
-      return this.type === 'video'
-        ? this.onVideoQueued.emit({videos: this.videos, id})
-        : this.onQueueAll.emit(id);
+    return this.type === 'video'
+      ? this.onVideoQueued.emit({ videos: this.videos, id })
+      : this.onQueueAll.emit(id);
   }
 
-  addPlaylist(dialog: any, playlistName: string) {
-      if (playlistName) {
-        dialog.close();
-
-        const id = this.uuid.generate();
-
-        this.onPlaylistAdd.emit({
-          name: playlistName,
-          count: 1,
-          id: id,
-          videos: []
-        });
-
-        this.queueVideos(id);
-      }
+  addPlaylist(dialog: any) {
+    if (!this.playlistName) {
+      return;
     }
 
-    toggleAddPlaylist() {
-      this.addingNew = !this.addingNew;
-    }
+    const id = this.uuid.generate();
 
-    constructor(private uuid: UuidService) { }
+    this.onPlaylistAdd.emit({
+      name: this.playlistName,
+      count: 1,
+      id: id,
+      videos: []
+    });
+
+    this.queueVideos(id);
+    dialog.close();
+  }
+
+  toggleAddPlaylist() {
+    this.addingNew = !this.addingNew;
+  }
+
+  onDialogHide() {
+    this.playlistName = '';
+  }
+
+  constructor(private uuid: UuidService) { }
 }
