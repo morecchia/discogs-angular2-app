@@ -50,6 +50,11 @@ export class DiscogsService {
       .map(response => response.json());
   }
 
+  getRequestToken() {
+    return this.http.get(`/api/oauth/request_token`)
+      .map(response => response.json());
+  }
+
   getUser(username: string): Observable<models.DiscogsUser> {
     return this.http.get(`/api/user/${username}`)
       .map(response => response.json());

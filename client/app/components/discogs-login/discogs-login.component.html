@@ -1,15 +1,11 @@
 <div *ngIf="!loggedIn" class="login-wrapper">
-  <h3>Discogs Player Login</h3>
+  <h3>Discogs Player</h3>
 
   <div class="login-container">
-    <div class="username-wrapper">
-      <mdl-textfield label="Discogs Username" [(ngModel)]="username" type="text" floating-label></mdl-textfield>
-    </div>
-
     <div class="submit-wrapper">
-      <span class="left"><input type="checkbox" [(ngModel)]="rememberMe">Remember Me</span>
-      <button mdl-button (click)="onSubmit.emit({username: username, rememberMe: rememberMe})"
+      <button mdl-button (click)="onSubmit.emit(rememberMe)"
         mdl-button-type="raised" mdl-ripple mdl-colored="primary">Log in</button>
+      <span class="left"><input type="checkbox" [(ngModel)]="rememberMe">Remember Me</span>
     </div>
   </div>
 </div>

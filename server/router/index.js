@@ -5,12 +5,21 @@ const request = require('request');
 const config = require('../config');
 const youtube = require('./youtube');
 const discogs = require('./discogs');
+const auth = require('./auth');
 
 var Router = function(app) {
     this.start = function() {
         app.route('/').get((req,res) => {
             res.render('index.html');
         });
+
+        // TEMP DO NOT PUBLISH
+        app.route('/api/auth').get(auth.authTest);
+        // // /// // // /// //
+
+        app.route('/api/oauth/request_token').get(auth.requestToken);
+
+        app.route('/api/oauth/access_token').get(auth.accessToken);
 
         app.route('/api/user/:username').get(discogs.getUser);
 

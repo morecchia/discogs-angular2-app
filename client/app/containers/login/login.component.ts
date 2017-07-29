@@ -16,13 +16,8 @@ import { DiscogsUser, UserLogin } from '../../models';
 export class LoginComponent {
   user$: Observable<DiscogsUser>;
 
-  login(login: UserLogin) {
-    if (!login.username) {
-      this.store.dispatch(new user.LoginFailedAction('You must enter a username'));
-      return;
-    }
-
-    this.store.dispatch(new user.LoginAction(login));
+  login(rememberMe: boolean) {
+    this.store.dispatch(new user.LoginAction(rememberMe));
   }
 
   constructor(private store: Store<fromRoot.State>, private snackbar: SnackbarService) {

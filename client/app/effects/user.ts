@@ -19,15 +19,11 @@ export class UserEffects {
   @Effect()
   loadUser$ = this.actions$
     .ofType(user.ActionTypes.LOAD)
-    .startWith(new user.LoadAction({username: this.discogs.getLoggedInUser(), rememberMe: false}))
+    // .startWith(new user.LoadAction('bedhed3000'))
     .mergeMap(action => {
-      if (!action.payload || !action.payload.username) {
-        return of({});
-      }
-      return this.discogs.getUser(action.payload.username)
-        .map((identity: DiscogsUser) => {
-          this.router.navigate(['/']);
-          return new user.LoadSuccessAction(identity)
+      return this.discogs.getUser(action.payload)
+        .map((userData: DiscogsUser) => {
+          return new user.LoadSuccessAction(userData)
         })
         .catch(error => of(new user.LoginFailedAction(
           `Login failed for "${action.payload.username}" - ${handleError(error)}`)
@@ -35,11 +31,23 @@ export class UserEffects {
     });
 
   @Effect()
-  loginUser$: Observable<Action> = this.actions$
+  loginUser$ = this.actions$
     .ofType(user.ActionTypes.LOGIN)
+    .mergeMap(action => {
+      return this.discogs.getRequestToken()
+        .map(({authorizeUrl}) => {
+          return new user.AuthorizeAction(authorizeUrl);
+        })
+        .catch(error => of(new user.LoginFailedAction(
+          `Authentication error: ${handleError(error)}`)
+        ));
+    });
+
+  @Effect()
+  authorizeUser$: Observable<void> = this.actions$
+    .ofType(user.ActionTypes.AUTHORIZE_USER)
     .map(action => {
-      this.discogs.storeUsername(action.payload);
-      return new user.LoadAction(action.payload);
+      window.location.href = action.payload;
     });
 
   @Effect()

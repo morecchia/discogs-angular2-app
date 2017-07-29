@@ -9,6 +9,7 @@
 /bower_components
 /server/node_modules
 /server/config.js
+/server/store/*
 
 # IDEs and editors
 /.idea

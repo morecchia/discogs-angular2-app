@@ -8,7 +8,8 @@ export const ActionTypes = {
   LOAD_FAIL:            type('[User] Load Fail'),
   LOGIN:                type('[User] Login'),
   LOGIN_FAILED:         type('[User] Login Failed'),
-  LOGOUT:               type('[User] Logout')
+  LOGOUT:               type('[User] Logout'),
+  AUTHORIZE_USER:       type('[User] Authorize')
 };
 
 /**
@@ -17,7 +18,7 @@ export const ActionTypes = {
 export class LoadAction implements Action {
   type = ActionTypes.LOAD;
 
-  constructor(public payload: UserLogin) { }
+  constructor(public payload: string) { }
 }
 
 export class LoadSuccessAction implements Action {
@@ -32,10 +33,16 @@ export class LoadFailAction implements Action {
   constructor(public payload: any) { }
 }
 
+export class AuthorizeAction implements Action {
+  type = ActionTypes.AUTHORIZE_USER;
+
+  constructor(public payload: string) { }
+}
+
 export class LoginAction implements Action {
   type = ActionTypes.LOGIN;
 
-  constructor(public payload: UserLogin) { }
+  constructor(public payload: boolean) { }
 }
 
 export class LoginFailedAction implements Action {
